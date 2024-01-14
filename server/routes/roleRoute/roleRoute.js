@@ -1,10 +1,10 @@
-const express = require('express')
-const {addRole, deleteRole} = require('.../controllers/role/role')
+// const express = require('express')
+// const {addRole, deleteRole} = require('.../controllers/role/role')
 
-const router = express.Router()
+// const router = express.Router()
 
-router.post('/add-role', addRole);
+// router.post('/add-role', addRole);
 
-router.post('/delete-role' , deleteRole);
+// router.post('/delete-role' , deleteRole);
 
-module.exports = router;
+// module.exports = router;
