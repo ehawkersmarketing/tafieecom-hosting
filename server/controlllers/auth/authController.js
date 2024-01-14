@@ -30,7 +30,7 @@ exports.signup = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "User Created Successfully ",
-            user,
+            data: user,
         });
     } catch (error) {
         console.log(error);
@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const { phone, token } = req.body;
+        const { phone, token, otp } = req.body;
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (decoded.otp == otp) {
@@ -56,20 +56,20 @@ exports.login = async (req, res) => {
                 })
             }
             res.json({
-                status: true,
-                user: user,
+                success: true,
+                data: user,
                 message: "User Login Successfully"
             })
         } else {
             return res.status(500).json({
-                status: false,
+                success: false,
                 message: "Invalid OTP"
             })
         }
     } catch (error) {
         console.log(error)
         return res.status(500).json({
-            status: false,
+            success: false,
             message: "error"
         })
     }

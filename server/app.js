@@ -27,9 +27,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/auth', authRoute);
-app.use('/api', productRoute);
-app.use('/api', userRoute);
+// app.use('/api', productRoute);
+// app.use('/api', userRoute);
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
     console.log(`server is running on PORT => ${PORT}`)
 })

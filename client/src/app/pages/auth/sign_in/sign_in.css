@@ -1,0 +1,20 @@
+.signinform {
+    width: 70%;
+    margin: auto;
+    padding: 25px;
+    background-color: aliceblue;
+    border-radius: 10px;
+}
+
+.signinform form div {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.signinform form div input {
+    border: 1px solid #cdcdcd;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
