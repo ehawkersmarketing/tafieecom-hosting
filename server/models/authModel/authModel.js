@@ -10,7 +10,7 @@ const AuthSchema = new mongoose.Schema({
     unique: true,
     trim: true
   },
-  phoneNumber: {
+  phone: {
     type: String,
     required: true
   },
@@ -27,11 +27,7 @@ const AuthSchema = new mongoose.Schema({
       },
     },
   ],
-  created_at: {
-    type: Date,
-    default: Date.now(),
-  }
 });
 
-const AuthModel = mongoose.model("user", AuthSchema);
+const AuthModel = mongoose.model("User", AuthSchema);
 module.exports = AuthModel;
