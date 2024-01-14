@@ -7,7 +7,7 @@ const authRoute = require('./routes/authRoute/authRoute')
 
 app.use(express.json())
 
-app.use('/api/v1' , authRoute);
+app.use('/api/v1', authRoute);
 
 
 app.listen(process.env.PORT, () => {

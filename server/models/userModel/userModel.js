@@ -10,12 +10,13 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
-  phoneNumber: {
+  phone: {
     type: String,
     required: true,
   },
   role: {
     type: mongoose.Types.ObjectId,
+    default: new mongoose.Types.ObjectId("65a1077e2d86e257edce492c"),
   },
   created_at: {
     type: Date,
