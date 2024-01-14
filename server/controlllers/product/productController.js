@@ -1,21 +1,18 @@
-const mongoose = require("mongoose");
-const express = require("express");
+const productModel = require('../../models/productModel/productModel.js');
 
-//GET ALL PRODUCTS
 exports.getAllProducts = async (req, res) => {
   try {
-    // const blogs = await productModel.find({});
-    // if (!products) {
-    //   return res.status(200).send({
-    //     success: false,
-    //     message: "No products found",
-    //   });
-    // }
+    const products = await productModel.find({});
+    if (!products) {
+      return res.status(200).send({
+        success: false,
+        message: "No products found",
+      });
+    }
     return res.status(200).send({
       success: true,
       message: "All blogs list",
-      //   productCount: products.length,
-      //   products,
+      data: products,
     });
   } catch (error) {
     console.log(error);
