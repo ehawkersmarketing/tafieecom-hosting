@@ -8,17 +8,18 @@ const AuthSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    trim:true
+    trim: true
   },
-  phoneNumber:{
-      type:String,
-      required:true
+  phoneNumber: {
+    type: String,
+    required: true
   },
   password: {
     type: String,
   },
-  role: { type:String,     
-},
+  role: {
+    type: mongoose.Types.ObjectId,
+  },
   token: [
     {
       token: {
@@ -33,4 +34,4 @@ const AuthSchema = new mongoose.Schema({
 });
 
 const AuthModel = mongoose.model("user", AuthSchema);
-module.exports =AuthModel;
+module.exports = AuthModel;
