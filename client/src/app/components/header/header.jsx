@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import './header.css';
-
+import { useSelector } from 'react-redux';
 const Header = () => {
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("auth_token");
     const viewCart = () => {
-        navigate("/viewPost");
+        navigate("/viewCart");
     }
 
     const onLogout = () => {
@@ -23,10 +23,10 @@ const Header = () => {
 
     return (
         <nav class="navbar fixed-top navbar-light bg-light">
-            <h1>Blog</h1>
+            <h1>TEFIE</h1>
             <div className='content'>
                 {token && <button className="button" onClick={() => toDashboard()}>Admin Panel</button>}
-                <button className="button" onClick={() => token ? viewCart() : navigate("/auth/login")}>{token ? "Create Post" : "Login"}</button>
+                <button className="button" onClick={() => token ? viewCart() : navigate("/auth/login")}>{token ? "View Cart" : "Login"}</button>
                 {token && <button className="button" onClick={() => onLogout()}>LOGOUT</button>}
             </div>
         </nav>
