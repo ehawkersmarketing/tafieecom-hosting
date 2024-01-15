@@ -1,8 +1,11 @@
-const express = require('express')
-const {getAllUsers} = require('../controller/userController/usersController')
+const express = require("express");
+const {
+  getAllProducts,
+} = require("../../controlllers/product/productController");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/all-products',getAllUsers);
+// GET || getting all blogs
+router.get("/allproducts", getAllProducts);
 
 module.exports = router;

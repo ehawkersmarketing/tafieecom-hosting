@@ -1,0 +1,30 @@
+.signUpform {
+    width: 70%;
+    margin: auto;
+    padding: 25px;
+    background-color: aliceblue;
+    border-radius: 10px;
+}
+
+.signUpform form div {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.signUpform form div input {
+    border: 1px solid #cdcdcd;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.signUpform form div p {
+    text-align: center;
+    margin: 25px auto;
+    text-decoration: underline;
+}
+
+.signUpform h4 {
+    text-align: center;
+}
