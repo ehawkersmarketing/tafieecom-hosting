@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  getAllProducts, createProduct , updateProduct , deleteProduct , CreateCategory
+  getAllProducts, createProduct, updateProduct, deleteProduct, searchProduct, searchProductByCategory, CreateCategory
 } = require("../../controlllers/product/productController");
 const router = express.Router();
 const multer = require('multer');
@@ -16,18 +16,15 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({
-  storage: storage,
+  storage: storage,
 });
-
 // GET || getting all blogs
-router.post("/createProduct",upload.single('image'),createProduct);
+router.post("/createProduct", upload.single('image'), createProduct);
 router.get("/allProducts", getAllProducts);
 router.patch("/updateProduct/:id", updateProduct);
 router.delete("/deleteProduct/:id", deleteProduct);
-
+router.post("/searchProduct", searchProduct);
+router.get("/searchProduct/:category", searchProductByCategory);
 router.post("/createCategory",CreateCategory);
-
-
-
 
 module.exports = router;

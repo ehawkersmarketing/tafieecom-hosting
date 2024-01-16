@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         // require: [true, "companyName is required"],
     },
-    category: [{ type: mongoose.Types.ObjectId ,ref:'category' }]
+    categoryType: { type: mongoose.Types.ObjectId ,ref:'category' }
 },
     { timestamps: true }
 );
