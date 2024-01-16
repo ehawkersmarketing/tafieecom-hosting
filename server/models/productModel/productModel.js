@@ -29,7 +29,9 @@ const productSchema = new mongoose.Schema({
         type: String,
         // require: [true, "companyName is required"],
     },
-    productType: [{ type: String }]
+    productType: {
+        type: mongoose.Types.ObjectId,
+    }
 },
     { timestamps: true }
 );

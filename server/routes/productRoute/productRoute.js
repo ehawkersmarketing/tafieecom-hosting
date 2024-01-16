@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  getAllProducts, createProduct, updateProduct, deleteProduct, searchProduct
+  getAllProducts, createProduct, updateProduct, deleteProduct, searchProduct, searchProductByCategory
 } = require("../../controlllers/product/productController");
 const router = express.Router();
 const multer = require('multer');
@@ -24,5 +24,6 @@ router.get("/allProducts", getAllProducts);
 router.patch("/updateProduct/:id", updateProduct);
 router.delete("/deleteProduct/:id", deleteProduct);
 router.post("/searchProduct", searchProduct);
+router.get("/searchProduct/:category", searchProductByCategory);
 
 module.exports = router;

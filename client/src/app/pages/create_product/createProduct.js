@@ -42,7 +42,7 @@ const CreateProduct = () => {
       formData.append("description", description);
       formData.append("price", price);
       formData.append("quantity", quantity);
-      formData.append("productType", productType);
+      // formData.append("productType", productType);
       formData.append("image", image);
       console.log(image);
       formData.append("fileName", image.name);

@@ -28,10 +28,10 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const { title, description, price, fileName, quantity, metric, companyName, productType } = req.body;
+    const { title, description, price, fileName, quantity, metric, companyName } = req.body;
 
     const product = await productModel.create({
-      title, description, image: fileName, price, quantity, metric, companyName, productType
+      title, description, image: `${process.env.SERVER_URL}/`, price, quantity, metric, companyName
     });
     if (product) {
       res.json({
@@ -116,9 +116,35 @@ exports.searchProduct = async (req, res) => {
       $or: [
         { title: search },
         { description: search },
-        { productType: { "$in": [search] } },
+        { productType: search },
       ]
+    }).populate('category');
+    console.log(products)
+    if (!products) {
+      return res.status(500).send({
+        success: false,
+        message: "No products found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "All blogs list",
+      data: products,
     });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error in getting all blogs",
+      error,
+    });
+  }
+};
+
+exports.searchProductByCategory = async (req, res) => {
+  try {
+    const search = req.query.category;
+    const products = await productModel.find({ productType: search }).populate('category');;
     console.log(products)
     if (!products) {
       return res.status(500).send({
