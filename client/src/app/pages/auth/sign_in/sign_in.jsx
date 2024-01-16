@@ -37,6 +37,8 @@ const SignIn = () => {
             });
             if (data.success) {
                 localStorage.setItem('auth_token', token);
+               
+                localStorage.setItem('user', JSON.stringify(data.data))
                 localStorage.setItem('user_id', data.data._id);
                 navigate("/");
             }

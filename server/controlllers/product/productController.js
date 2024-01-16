@@ -3,8 +3,9 @@ const productModel = require('../../models/productModel/productModel.js');
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await productModel.find({});
+    console.log(products)
     if (!products) {
-      return res.status(200).send({
+      return res.status(500).send({
         success: false,
         message: "No products found",
       });
@@ -23,3 +24,78 @@ exports.getAllProducts = async (req, res) => {
     });
   }
 };
+
+exports.createProduct = async(req,res) =>{
+  try {
+      const {title , description , image , price , quantity,metric , companyName , productType } = req.body;
+  
+      const response = await productModel.create({
+           title , description , image , price , quantity,metric , companyName , productType
+      });  
+      res.json({
+        status:200,
+          success:true,
+          data:response,
+          messsage:"Product Created successfully"
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({
+        success: false,
+        message: "Error while creating a product",
+      });
+    }
+};
+
+
+exports.updateProduct = async(req,res) =>{
+  try {
+      const {id} = req.params;
+      const {title , description , image , price , quantity,metric , companyName , productType
+        } = req.body;
+   
+        const updatedProduct = await productModel.findByIdAndUpdate(
+         { _id:id} , 
+          {title , description , image , price , quantity,metric , companyName , productType
+         })
+
+       console.log(updatedProduct)
+
+       res.status(200).json({
+          success:true,
+          data:updatedProduct,
+          message:"Product Updated Successfully"
+       })
+
+  } catch (error) {
+      console.log(error)
+      res.status(500).json({
+          success:false,
+          data:error,
+          message:"Error while updating the product"
+      })
+  }
+}
+
+
+exports.deleteProduct = async(req,res) =>{
+  try {
+      const {id} = req.params;
+      const {title , description , image , price , quantity,metric , companyName , productType 
+        } = req.body;
+        const deletedProduct = await productModel.findByIdAndDelete({ _id:id})
+
+       res.status(200).json({
+          success:true,
+          message:"Product Deleted Successfully" , 
+       })
+
+  } catch (error) {
+      console.log(error)
+      res.status(500).json({
+          success:false,
+          data:error,
+          message:"Error fetched while deleting the product"
+      })
+  }
+}

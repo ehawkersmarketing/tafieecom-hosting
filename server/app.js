@@ -12,13 +12,15 @@ const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
 const checkoutRoute = require("./routes/checkoutRoute/checkoutRoute");
+const multer = require('multer')
+
 
 app.use(express.json());
 
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
     credentials: true,
   })
 );
