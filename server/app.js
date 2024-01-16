@@ -11,8 +11,6 @@ const userRoute = require("./routes/userRoute/userRoute");
 const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
-const checkoutRoute = require("./routes/checkoutRoute/checkoutRoute");
-const multer = require('multer')
 
 
 app.use(express.json());
@@ -36,7 +34,6 @@ app.use(passport.session());
 
 app.use("/auth", authRoute);
 app.use("/api", productRoute);
-app.use("/api", checkoutRoute);
 // app.use("/api", userRoute);
 app.use("/api", blogRoute);
 app.use("/api", cartRoute);

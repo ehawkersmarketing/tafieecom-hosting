@@ -28,10 +28,10 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const { title, description, price, fileName, quantity, metric, companyName } = req.body;
+    const { title, description, price, image, quantity, metric, companyName } = req.body;
 
     const product = await productModel.create({
-      title, description, image: `${process.env.SERVER_URL}/`, price, quantity, metric, companyName
+      title, description, image: `${process.env.SERVER_URL}/${image}`, price, quantity, metric, companyName
     });
     if (product) {
       res.json({
