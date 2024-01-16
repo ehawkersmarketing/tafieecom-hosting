@@ -5,6 +5,7 @@ const {
   getBlogById,
   updateBlog,
   deleteBlog,
+  searchBlog,
 } = require("../../controlllers/blog/blogController");
 
 const router = express.Router();
@@ -12,16 +13,11 @@ const router = express.Router();
 // POST || creating new blog
 router.post("/composeBlog", composeBlog);
 
-// GET || getting all blogs
+
 router.get("/blogs", getAllBlogs);
-
-// GET || getting a blog by id
-router.get("/:blogID", getBlogById);
-
-// PUT || updating a blog by id
-router.put("/updateBlog/:blogId", updateBlog);
-
-// DELETE || deleting a blog by id
+router.get("blog/:blogId", getBlogById);
+router.patch("/updateBlog/:blogId", updateBlog);
 router.delete("/deleteBlog/:blogId", deleteBlog);
+router.get("/searchBlog/:blogId", searchBlog);
 
 module.exports = router;

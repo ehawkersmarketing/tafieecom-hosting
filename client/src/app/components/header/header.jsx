@@ -25,6 +25,12 @@ const Header = () => {
         <nav class="navbar fixed-top navbar-light bg-light">
             <h1>TEFIE</h1>
             <div className='content'>
+            <ul>
+        <li>home</li>
+        <li>about</li>
+        <li><a href='/resourceCenter'>ResourceCenter</a></li>
+       </ul>
+
                 {token && <button className="button" onClick={() => toDashboard()}>Admin Panel</button>}
                 <button className="button" onClick={() => token ? viewCart() : navigate("/auth/login")}>{token ? "View Cart" : "Login"}</button>
                 {token && <button className="button" onClick={() => onLogout()}>LOGOUT</button>}

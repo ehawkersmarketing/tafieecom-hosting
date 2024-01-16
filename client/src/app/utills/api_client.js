@@ -9,7 +9,7 @@ export const getRequestWithAuth = async (url) => {
         "Authorization": `Bearer ${token}`
     };
     const checkResponseStatus = (res) => {
-        if (res.status) {
+        if (res.success) {
             return true;
         } else {
             return false;
@@ -33,7 +33,7 @@ export const getRequestWithAuth = async (url) => {
 export const getRequest = async (url) => {
 
     const checkResponseStatus = (res) => {
-        if (res.status) {
+        if (res.success) {
             return true;
         } else {
             return false;
@@ -82,7 +82,7 @@ export const postRequestWithAuth = async (url, body) => {
 
 export const postRequest = async (url, body) => {
     const checkResponseStatus = (res) => {
-        if (res.status) {
+        if (res.success) {
             return true;
         } else {
             return false;

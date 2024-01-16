@@ -30,13 +30,15 @@ const SignIn = () => {
     const onLogin = async (event) => {
         event.preventDefault();
         if (token) {
-            const { data } = axios.post('http://localhost:8080/auth/login', {
+            const { data } = await axios.post('http://localhost:8080/auth/login', {
                 phone: formField.phone,
                 otp: formField.otp,
                 token: token
             });
             if (data.success) {
                 localStorage.setItem('auth_token', token);
+               
+                localStorage.setItem('user', JSON.stringify(data.data))
                 localStorage.setItem('user_id', data.data._id);
                 navigate("/");
             }

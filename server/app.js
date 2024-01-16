@@ -11,15 +11,15 @@ const userRoute = require("./routes/userRoute/userRoute");
 const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
-const checkoutRoute = require("./routes/checkoutRoute/checkoutRoute");
 const payRoute = require("./routes/payRoute/payRoute");
+const checkoutRoute = require("./routes/checkoutRoute/checkoutRoute");
 
 app.use(express.json());
 
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
     credentials: true,
   })
 );
@@ -35,7 +35,6 @@ app.use(passport.session());
 
 app.use("/auth", authRoute);
 app.use("/api", productRoute);
-app.use("/api", checkoutRoute);
 // app.use("/api", userRoute);
 app.use("/api", blogRoute);
 app.use("/api", cartRoute);
