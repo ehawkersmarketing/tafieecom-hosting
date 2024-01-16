@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './sign_in.css'
 import axios from "axios";
+import photo from "../../assets/photo.png";
+import google_icon from "../../assets/google.png";
+import Mask_group from "../../assets/Mask_group.png";
+import Tafi_logo_white from "../../assets/Tafi_logo_white.png";
+import { Link } from "react-router-dom";
 var token;
 
 const SignIn = () => {
@@ -104,7 +109,7 @@ const SignIn = () => {
                                     <span className="register-text">
                                         Haven’t registered yet?{" "}
                                     </span>
-                                    <Link to="/auth/signup" className="create-account-text">
+                                    <Link to="/auth/register" className="create-account-text">
                                         Create an account
                                     </Link>
                                 </div>
