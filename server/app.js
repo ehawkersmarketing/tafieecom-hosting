@@ -14,7 +14,6 @@ const blogRoute = require("./routes/blogRoute/blogRoute");
 const payRoute = require("./routes/payRoute/payRoute");
 
 app.use(express.json());
-
 app.use(
   cors({
     origin: "http://localhost:3000",
