@@ -20,6 +20,13 @@ const productSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         // require: [true, "quantity is required"],
+    },units:{
+        minQuantity: {
+            type:Number
+        },
+        maxQuantity:{
+            type:Number
+        }
     },
     metric: {
         type: String,
@@ -29,7 +36,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         // require: [true, "companyName is required"],
     },
-    productType: [{ type: String }]
+    category: [{ type: mongoose.Types.ObjectId ,ref:'category' }]
 },
     { timestamps: true }
 );

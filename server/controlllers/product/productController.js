@@ -1,5 +1,5 @@
 const productModel = require('../../models/productModel/productModel.js');
-
+const categoryModel = require('../../models/categoryModel/categoryModel.js')
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await productModel.find({});
@@ -27,15 +27,17 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async(req,res) =>{
   try {
-      const {title , description , image , price , quantity,metric , companyName , productType } = req.body;
+      const {title , description , fileName, price , quantity,metric , companyName , productType , units } = req.body;
   
       const response = await productModel.create({
-           title , description , image , price , quantity,metric , companyName , productType
+           title , description , image:fileName , price , quantity,units,metric , companyName , productType
       });  
+
+      const product=  await response.save()
       res.json({
         status:200,
           success:true,
-          data:response,
+          data:product,
           messsage:"Product Created successfully"
       })
     } catch (error) {
@@ -97,5 +99,29 @@ exports.deleteProduct = async(req,res) =>{
           data:error,
           message:"Error fetched while deleting the product"
       })
+  }
+}
+
+exports.CreateCategory = async(req,res) =>{
+  try {
+    const {category} = req.body;
+
+    const response = await categoryModel.create({
+         category
+    }); 
+    
+    const productType = await response.save()
+    res.json({
+      status:200,
+        success:true,
+        data:productType,
+        messsage:"Category Created successfully"
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      success: false,
+      message: "Error while creating a category",
+    });
   }
 }
