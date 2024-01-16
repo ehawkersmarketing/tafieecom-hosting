@@ -102,7 +102,7 @@ exports.updateBlog = async (req, res) => {
       success: true,
       message: "Blog updated.",
       updatedBlog
-      
+
     });
   } catch (error) {
     console.log(error);
@@ -134,6 +134,33 @@ exports.deleteBlog = async (req, res) => {
     return res.status(400).send({
       success: false,
       message: "Error while deleting blog",
+      error,
+    });
+  }
+};
+
+
+exports.searchBlog = async (req, res) => {
+  try {
+    const search = req.query.blogId;
+    const blog = await blogModel.find({ title: search });
+    console.log(blog)
+    if (!blog) {
+      return res.status(500).send({
+        success: false,
+        message: "No blog found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "All blogs list",
+      data: blog,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error in getting all blogs",
       error,
     });
   }
