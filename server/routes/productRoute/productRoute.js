@@ -1,12 +1,15 @@
 const express = require("express");
 const {
+
   getAllProducts,
   createProduct,
   updateProduct,
   deleteProduct,
   searchProduct,
   searchProductByCategory,
-  getProductsById
+  getProductsById,
+  CreateCategory
+
 } = require("../../controlllers/product/productController");
 
 const router = express.Router();
@@ -41,5 +44,6 @@ router.patch("/updateProduct/:id", updateProduct);
 router.delete("/deleteProduct/:id", deleteProduct);
 router.post("/searchProduct", searchProduct);
 router.get("/searchProduct/:category", searchProductByCategory);
+router.post("/createCategory",CreateCategory);
 
 module.exports = router;

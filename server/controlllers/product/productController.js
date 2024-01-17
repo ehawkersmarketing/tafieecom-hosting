@@ -1,5 +1,5 @@
 const productModel = require('../../models/productModel/productModel.js');
-
+const categoryModel = require('../../models/categoryModel/categoryModel.js')
 
 exports.getAllProducts = async (req, res) => {
   try {
@@ -58,11 +58,13 @@ exports.createProduct = async (req, res) => {
     const product = await productModel.create({
       title, description, image: `${process.env.SERVER_URL}/${image}`, price, quantity, metric, companyName
     });
+
+    await product.save();
     if (product) {
       res.json({
         status: 200,
         success: true,
-        data: {},
+        data: product,
         messsage: "Product Created successfully"
       })
     } else {
@@ -191,3 +193,27 @@ exports.searchProductByCategory = async (req, res) => {
     });
   }
 };
+
+exports.CreateCategory = async(req,res) =>{
+  try {
+    const {category} = req.body;
+
+    const response = await categoryModel.create({
+         category
+    }); 
+    
+    const productType = await response.save()
+    res.json({
+      status:200,
+        success:true,
+        data:productType,
+        messsage:"Category Created successfully"
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      success: false,
+      message: "Error while creating a category",
+    });
+  }
+}

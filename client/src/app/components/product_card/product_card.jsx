@@ -29,6 +29,7 @@ const ProductCard = () => {
       <div className="row">
         {data &&
           data?.map((product) => {
+            console.log(product)
             return (
               <div className="col-md-4 card-container" key={product._id}>
                 <div
@@ -39,6 +40,10 @@ const ProductCard = () => {
                   <img src={image} className="img" alt="no img" /> 
                     <h5 className="card-title ">{product.title}</h5>
                     <p className="card-text">{product.description}</p>
+                    <Link className="btn" to={`/updateProduct/${product._id}`}>
+                      Edit
+                    </Link>
+                    {/* <button>Delete</button> */}
                     <div className="btn-container">
                       {token && (
                    <button

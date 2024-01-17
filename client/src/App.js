@@ -8,6 +8,7 @@ import CreateProduct from './app/pages/create_product/createProduct.js'
 import ComposeBlog from './app/pages/blog_page/CreateBlog/createBlog.js'
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
 import ResourceCenter from "./app/pages/resourceCenter/resourceCenter.js";
+import UpdateProduct from "./app/pages/update_product/updateProduct.js";
 function App() {
 
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
           <Route path="/auth/register" exact element={<SignUp />} />
           <Route path="/" exact element={<DashBoard />} />
           <Route path="/createProduct" exact element={<CreateProduct />} />
+          <Route path="/updateProduct/:id" exact element={<UpdateProduct />} />
           <Route path="/blog/composeBlog" exact element={<ComposeBlog />} />
           <Route path="/updateBlog/:id" exact element={<UpdateBlog />} />
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
