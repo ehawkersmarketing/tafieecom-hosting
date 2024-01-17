@@ -52,7 +52,7 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="div signin">
+      <div className="div sign_in">
         <div className="div-8">
           <div className="div-9">
             <div className="column">
@@ -66,11 +66,8 @@ const SignIn = () => {
                       className="img-3"
                     />
                     <div className="div-12">
-                      <span className="welcome-text">Welcome</span>
-                      <br />
-                      <span className="back-text">Back!</span>
-
-                      <br />
+                        <div><span className="welcome-text">Welcome</span></div>
+                        <div><span className="back-text">Back!</span></div>
                     </div>
                   </span>
                   <img loading="lazy" src={photo} className="img-4" />
@@ -83,6 +80,7 @@ const SignIn = () => {
 
                 <span className="span-6">
                   <div className="div-14" />
+
                   <div className="div-15">
                     <input
                       type="tel"
@@ -91,14 +89,13 @@ const SignIn = () => {
                       placeholder="Enter your phone number"
                     />
                     <button className="button_otp" onClick={onSendOtp}>
-                      Send otp
+                      Generate otp
                     </button>
                   </div>
                 </span>
                 {/* <div className="input-phone">
                   <input type="tel" placeholder="Enter phone number" />
                 </div> */}
-
                 <span className="span-7">
                   <div className="div-16" />
                   <div className="div-17">
@@ -110,11 +107,10 @@ const SignIn = () => {
                     />
                   </div>
                 </span>
-
-                <label>
-                  <input type="checkbox" />
+                <div className="checkbox">
+                  <input type="checkbox" style={{ marginRight: "5px" }} />
                   Keep me signed in
-                </label>
+                </div>
                 <button className="span-9" onClick={onLogin}>
                   Login
                 </button>

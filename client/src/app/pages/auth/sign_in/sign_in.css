@@ -7,7 +7,7 @@
     color: rgba(25, 68, 63, 1);
 }
 
-.signin .div {
+.sign_in .div {
     background: linear-gradient(90deg,
             rgba(41, 100, 94, 0.1) -0.43%,
             rgba(68, 169, 139, 0.1) 99.93%),
@@ -17,7 +17,7 @@
     flex-direction: column;
 }
 
-.signin .div-2 {
+.sign_in .div-2 {
     background-color: var(--darkgreen-primary, #19443f);
     display: flex;
     width: 100%;
@@ -27,7 +27,7 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-2 {
+    .div-2 {
         max-width: 100%;
         flex-wrap: wrap;
         padding: 0 20px;
@@ -58,7 +58,7 @@
     }
 }
 
-.signin .div-3 {
+.div-3 {
     color: var(--yellow-primary, #c8a33d);
     white-space: nowrap;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
@@ -66,24 +66,24 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-3 {
+    .div-3 {
         white-space: initial;
     }
 }
 
-.signin .div-4 {
+.div-4 {
     color: #fff;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
 
-.signin .div-5 {
+.div-5 {
     color: #fff;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
 
-.signin .div-6 {
+.div-6 {
     color: #fff;
     flex-grow: 1;
     white-space: nowrap;
@@ -92,12 +92,12 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-6 {
+    .div-6 {
         white-space: initial;
     }
 }
 
-.signin .div-7 {
+.div-7 {
     align-self: center;
     display: flex;
     gap: 18px;
@@ -147,7 +147,7 @@
     }
 }
 
-.signin .div-8 {
+.div-8 {
     align-self: center;
     width: 100%;
     max-width: 925px;
@@ -155,18 +155,18 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-8 {
+    .div-8 {
         max-width: 100%;
         margin-top: 40px;
     }
 }
 
-.signin .div-9 {
+.div-9 {
     display: flex;
 }
 
 @media (max-width: 991px) {
-    .signin .div-9 {
+    .div-9 {
         flex-direction: column;
         align-items: stretch;
         gap: 0px;
@@ -187,7 +187,7 @@
     }
 }
 
-.signin .div-10 {
+.div-10 {
     border-radius: 19px 0px 0px 19px;
     border: 0px solid #fff;
     background: linear-gradient(34deg, #29645e 1.8%, #188479 105.45%);
@@ -200,12 +200,12 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-10 {
+    .div-10 {
         max-width: 100%;
     }
 }
 
-.signin .div-11 {
+.div-11 {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -217,7 +217,7 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-11 {
+    .div-11 {
         max-width: 100%;
         padding: 0 20px;
     }
@@ -249,7 +249,7 @@
     max-width: 100%;
 }
 
-.signin .div-12 {
+.div-12 {
     color: var(--light-base-green-2, #ebf6f5);
     text-align: right;
     margin-top: 19px;
@@ -260,10 +260,15 @@
 .welcome-text {
     background-color: #fff;
     color: #19443f;
+    display: block;
   }
   .back-text{
     background-color:#19443f;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
 }
+
 .img-4 {
     aspect-ratio: 0.97;
     object-fit: contain;
@@ -306,7 +311,7 @@
     }
 }
 
-.signin .div-13 {
+.div-13 {
     color: var(--darkgreen-primary, #19443f);
     align-self: center;
     margin-top: 83px;
@@ -316,17 +321,17 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-13 {
+    .div-13 {
         margin-top: 40px;
         white-space: initial;
     }
 }
 
-.span-6 {
+.sign_in .span-6 {
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
     margin-top: 32px;
-    padding-right: 80px;
+    /* padding-right: 80px; */
     justify-content: space-between;
 
 }
@@ -337,7 +342,7 @@
     }
 }
 
-.signin .div-14 {
+.div-14 {
     background-color: var(--bright-green-primary, #44a98b);
     display: flex;
     width: 7px;
@@ -345,7 +350,7 @@
     flex-direction: column;
 }
 
-.signin .div-15 {
+.div-15 {
     color: #29645e;
     align-self: center;
     flex-grow: 1;
@@ -354,17 +359,10 @@
     width: 100%;
     font: 400 14px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
-    display: flex;
-    flex-direction: row;
-}
-
-.signin .div-15 button {
-    background-color: #19443f;
-    color: #fff;
 }
 
 @media (max-width: 991px) {
-    .signin .div-15 {
+    .div-15 {
         white-space: initial;
     }
 }
@@ -373,7 +371,7 @@
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
     margin-top: 24px;
-    padding-right: 80px;
+    padding-right: 0px;
     justify-content: space-between;
     /* gap: 20px; */
 }
@@ -384,7 +382,7 @@
     }
 }
 
-.signin .div-16 {
+.div-16 {
     background-color: var(--bright-green-primary, #44a98b);
     display: flex;
     width: 7px;
@@ -392,7 +390,7 @@
     flex-direction: column;
 }
 
-.signin .div-17 {
+.div-17 {
     color: #29645e;
     align-self: center;
     flex-grow: 1;
@@ -403,7 +401,7 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-17 {
+    .div-17 {
         white-space: initial;
     }
 }
@@ -415,7 +413,7 @@
     gap: 11px;
 }
 
-.signin .div-18 {
+.div-18 {
     border: 1px solid var(--bright-green-primary, #44a98b);
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
@@ -424,7 +422,7 @@
     flex-direction: column;
 }
 
-.signin .div-19 {
+.div-19 {
     color: #000;
     align-self: start;
     flex-grow: 1;
@@ -433,7 +431,7 @@
         sans-serif;
 }
 
-.span-9 {
+.sign_in .span-9 {
     color: #fff;
     white-space: nowrap;
     justify-content: center;
@@ -441,18 +439,29 @@
     border-radius: 31px;
     box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.3),
         0px 3px 7px 0px rgba(21, 60, 56, 0.3);
-    background-color: var(--primary-gradient-light,
+    background-image:
             linear-gradient(79deg,
                 #36914b 0.36%,
                 #44a95c 58.15%,
-                #7bf197 117.12%));
+                #7bf197 117.12%);
     align-self: center;
     margin-top: 29px;
     width: 272px;
     max-width: 100%;
     padding: 10px 60px;
+    border: 0;
     font: 700 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
+}
+
+.sign_in button:hover {
+    background-image: 
+            linear-gradient(-79deg,
+                #36914b 0.36%,
+                #44a95c 58.15%,
+                #7bf197 117.12%);
+    cursor: pointer;
+    
 }
 
 @media (max-width: 991px) {
@@ -462,7 +471,7 @@
     }
 }
 
-.signin .div-20 {
+.div-20 {
     color: #19443f;
     align-self: center;
     margin-top: 31px;
@@ -471,19 +480,19 @@
 }
 
 @media (max-width: 991px) {
-    .signin .div-20 {
+    .div-20 {
         white-space: initial;
     }
 }
 
-.signin .div-21 {
+.div-21 {
     align-self: center;
     display: flex;
     gap: 14px;
     margin: 20px 0 8px;
 }
 
-.signin .div-22 {
+.div-22 {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #fff;
@@ -506,7 +515,7 @@
     overflow: hidden;
 }
 
-.signin .div-23 {
+.div-23 {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #fff;
@@ -550,4 +559,3 @@ input[type="tel"]:focus {
 .button_otp {
     width: 150px;
 }
-
