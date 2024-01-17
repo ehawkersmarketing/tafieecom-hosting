@@ -15,21 +15,30 @@ exports.putProductInCart = async (req, res) => {
       });
       if (product) {
         product = product.toObject();
-        for (var i = 0; i < product.products.length; i++) {
-          if (product.products[i].productId == productId) {
-            product.products[i].units = product.products[i].units + 1;
+        if (units == 0) {
+          cartModel.deleteOne({ "products.productId": productId });
+          res.status(200).send({
+            success: true,
+            message: "cart updated",
+            data: {},
+          });
+        } else {
+          for (var i = 0; i < product.products.length; i++) {
+            if (product.products[i].productId == productId) {
+              product.products[i].units = product.products[i].units + 1;
+            }
           }
+          const updatedCart = await cartModel.findOneAndUpdate(
+            { userId: userId },
+            { $set: { products: product.products } },
+            { new: true }
+          );
+          res.status(200).send({
+            success: true,
+            message: "cart updated",
+            data: updatedCart,
+          });
         }
-        const updatedCart = await cartModel.findOneAndUpdate(
-          { userId: userId },
-          { $set: { products: product.products } },
-          { new: true }
-        );
-        res.status(200).send({
-          success: true,
-          message: "cart updated",
-          data: updatedCart,
-        });
       } else {
         userCart = userCart.toObject();
         userCart.products.push({ productId, units });
