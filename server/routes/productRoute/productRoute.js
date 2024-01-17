@@ -1,11 +1,15 @@
 const express = require("express");
 const {
+
   getAllProducts,
   createProduct,
   updateProduct,
   deleteProduct,
   searchProduct,
-  searchProductByCategory
+  searchProductByCategory,
+  getProductsById,
+  CreateCategory
+
 } = require("../../controlllers/product/productController");
 
 const router = express.Router();
@@ -35,9 +39,11 @@ router.post("/uploadImage", upload.single('image'), (req, res) => {
 
 router.post("/createProduct", createProduct);
 router.get("/allProducts", getAllProducts);
+router.get("/getProduct/:id", getProductsById);
 router.patch("/updateProduct/:id", updateProduct);
 router.delete("/deleteProduct/:id", deleteProduct);
 router.post("/searchProduct", searchProduct);
 router.get("/searchProduct/:category", searchProductByCategory);
+router.post("/createCategory",CreateCategory);
 
 module.exports = router;

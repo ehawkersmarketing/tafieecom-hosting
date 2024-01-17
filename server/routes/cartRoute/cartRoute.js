@@ -2,6 +2,7 @@ const express = require("express");
 const {
   putProductInCart,
   deleteProductInCart,
+  getCartByUser,
 } = require("../../controlllers/cart/cartController");
 
 const router = express.Router();

@@ -22,6 +22,14 @@ const productSchema = new mongoose.Schema(
       type: Number,
       // require: [true, "quantity is required"],
     },
+    units: {
+      minQuantity: {
+        type: Number,
+      },
+      maxQuantity: {
+        type: Number,
+      },
+    },
     metric: {
       type: String,
       // required: true,
@@ -30,9 +38,8 @@ const productSchema = new mongoose.Schema(
       type: String,
       // require: [true, "companyName is required"],
     },
-    productType: {
-      type: mongoose.Types.ObjectId,
-    },
+
+    categoryType: { type: mongoose.Types.ObjectId, ref: "category" },
   },
   { timestamps: true }
 );
