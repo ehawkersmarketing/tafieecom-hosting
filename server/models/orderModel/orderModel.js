@@ -18,7 +18,10 @@ const orderSchema = new mongoose.Schema(
         orderStatus: {
             type: String,
             default: "Pending",
-        }
+        },
+        userAddress: {
+            type: mongoose.Types.ObjectId,
+        },
     },
     { timestamps: true }
 );

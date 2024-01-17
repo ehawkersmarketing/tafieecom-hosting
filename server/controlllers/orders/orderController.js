@@ -99,3 +99,22 @@ module.exports.getAllOrderCounts = async (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.cancelOrders = async (req, res, next) => {
+    const { orderId } = req.params.orderId;
+    let order = await orderModel.findOne({ _id: orderId });
+    if (order && (order.orderStatus === "PENDING" || order.orderStatus === "PLACED")) {
+        order = order.toObject();
+        order.orderStatus = "CANCELLED";
+        await orderModel.findOneAndUpdate({ _id: orderId }, order, { new: true });
+        res.status(200).json({
+            success: true,
+            data: order
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: "Order cannot be canceled"
+        });
+    }
+};
