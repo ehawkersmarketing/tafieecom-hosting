@@ -139,7 +139,6 @@ exports.deleteBlog = async (req, res) => {
 };
 
 exports.searchBlog = async (req, res) => {
-  //do not merge this
   try {
     const { search } = req.body;
     const blog = await blogModel.findById({ title: { $regrex: search } });
