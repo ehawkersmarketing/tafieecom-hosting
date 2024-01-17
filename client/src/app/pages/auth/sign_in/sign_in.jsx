@@ -52,7 +52,7 @@ const SignIn = () => {
 
     return (
         <>
-            <div className="div">
+            <div className="div signin">
                 <div className="div-8">
                     <div className="div-9">
                         <div className="column">

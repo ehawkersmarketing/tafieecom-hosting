@@ -7,7 +7,7 @@
     color: rgba(25, 68, 63, 1);
 }
 
-.div {
+.signin .div {
     background: linear-gradient(90deg,
             rgba(41, 100, 94, 0.1) -0.43%,
             rgba(68, 169, 139, 0.1) 99.93%),
@@ -17,7 +17,7 @@
     flex-direction: column;
 }
 
-.div-2 {
+.signin .div-2 {
     background-color: var(--darkgreen-primary, #19443f);
     display: flex;
     width: 100%;
@@ -27,7 +27,7 @@
 }
 
 @media (max-width: 991px) {
-    .div-2 {
+    .signin .div-2 {
         max-width: 100%;
         flex-wrap: wrap;
         padding: 0 20px;
@@ -58,7 +58,7 @@
     }
 }
 
-.div-3 {
+.signin .div-3 {
     color: var(--yellow-primary, #c8a33d);
     white-space: nowrap;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
@@ -66,24 +66,24 @@
 }
 
 @media (max-width: 991px) {
-    .div-3 {
+    .signin .div-3 {
         white-space: initial;
     }
 }
 
-.div-4 {
+.signin .div-4 {
     color: #fff;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
 
-.div-5 {
+.signin .div-5 {
     color: #fff;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
 
-.div-6 {
+.signin .div-6 {
     color: #fff;
     flex-grow: 1;
     white-space: nowrap;
@@ -92,12 +92,12 @@
 }
 
 @media (max-width: 991px) {
-    .div-6 {
+    .signin .div-6 {
         white-space: initial;
     }
 }
 
-.div-7 {
+.signin .div-7 {
     align-self: center;
     display: flex;
     gap: 18px;
@@ -147,7 +147,7 @@
     }
 }
 
-.div-8 {
+.signin .div-8 {
     align-self: center;
     width: 100%;
     max-width: 925px;
@@ -155,18 +155,18 @@
 }
 
 @media (max-width: 991px) {
-    .div-8 {
+    .signin .div-8 {
         max-width: 100%;
         margin-top: 40px;
     }
 }
 
-.div-9 {
+.signin .div-9 {
     display: flex;
 }
 
 @media (max-width: 991px) {
-    .div-9 {
+    .signin .div-9 {
         flex-direction: column;
         align-items: stretch;
         gap: 0px;
@@ -187,7 +187,7 @@
     }
 }
 
-.div-10 {
+.signin .div-10 {
     border-radius: 19px 0px 0px 19px;
     border: 0px solid #fff;
     background: linear-gradient(34deg, #29645e 1.8%, #188479 105.45%);
@@ -200,12 +200,12 @@
 }
 
 @media (max-width: 991px) {
-    .div-10 {
+    .signin .div-10 {
         max-width: 100%;
     }
 }
 
-.div-11 {
+.signin .div-11 {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -217,7 +217,7 @@
 }
 
 @media (max-width: 991px) {
-    .div-11 {
+    .signin .div-11 {
         max-width: 100%;
         padding: 0 20px;
     }
@@ -249,7 +249,7 @@
     max-width: 100%;
 }
 
-.div-12 {
+.signin .div-12 {
     color: var(--light-base-green-2, #ebf6f5);
     text-align: right;
     margin-top: 19px;
@@ -299,7 +299,7 @@
     }
 }
 
-.div-13 {
+.signin .div-13 {
     color: var(--darkgreen-primary, #19443f);
     align-self: center;
     margin-top: 83px;
@@ -309,7 +309,7 @@
 }
 
 @media (max-width: 991px) {
-    .div-13 {
+    .signin .div-13 {
         margin-top: 40px;
         white-space: initial;
     }
@@ -330,7 +330,7 @@
     }
 }
 
-.div-14 {
+.signin .div-14 {
     background-color: var(--bright-green-primary, #44a98b);
     display: flex;
     width: 7px;
@@ -338,7 +338,7 @@
     flex-direction: column;
 }
 
-.div-15 {
+.signin .div-15 {
     color: #29645e;
     align-self: center;
     flex-grow: 1;
@@ -350,7 +350,7 @@
 }
 
 @media (max-width: 991px) {
-    .div-15 {
+    .signin .div-15 {
         white-space: initial;
     }
 }
@@ -370,7 +370,7 @@
     }
 }
 
-.div-16 {
+.signin .div-16 {
     background-color: var(--bright-green-primary, #44a98b);
     display: flex;
     width: 7px;
@@ -378,7 +378,7 @@
     flex-direction: column;
 }
 
-.div-17 {
+.signin .div-17 {
     color: #29645e;
     align-self: center;
     flex-grow: 1;
@@ -389,7 +389,7 @@
 }
 
 @media (max-width: 991px) {
-    .div-17 {
+    .signin .div-17 {
         white-space: initial;
     }
 }
@@ -401,7 +401,7 @@
     gap: 11px;
 }
 
-.div-18 {
+.signin .div-18 {
     border: 1px solid var(--bright-green-primary, #44a98b);
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
@@ -410,7 +410,7 @@
     flex-direction: column;
 }
 
-.div-19 {
+.signin .div-19 {
     color: #000;
     align-self: start;
     flex-grow: 1;
@@ -448,7 +448,7 @@
     }
 }
 
-.div-20 {
+.signin .div-20 {
     color: #19443f;
     align-self: center;
     margin-top: 31px;
@@ -457,19 +457,19 @@
 }
 
 @media (max-width: 991px) {
-    .div-20 {
+    .signin .div-20 {
         white-space: initial;
     }
 }
 
-.div-21 {
+.signin .div-21 {
     align-self: center;
     display: flex;
     gap: 14px;
     margin: 20px 0 8px;
 }
 
-.div-22 {
+.signin .div-22 {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #fff;
@@ -492,7 +492,7 @@
     overflow: hidden;
 }
 
-.div-23 {
+.signin .div-23 {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #fff;
