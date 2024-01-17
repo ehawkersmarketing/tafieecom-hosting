@@ -139,8 +139,8 @@ exports.searchProduct = async (req, res) => {
     search = search.trim();
     const products = await productModel.find({
       $or: [
-        { title: search },
-        { description: search },
+        { title: { $regex: search } },
+        { description: { $regex: search } },
         // { productType: search },
       ]
     });
