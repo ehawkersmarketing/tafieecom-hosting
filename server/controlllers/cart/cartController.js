@@ -105,28 +105,3 @@ exports.deleteProductInCart = async (req, res) => {
     });
   }
 };
-
-exports.getCartByUser = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const cart = await cartModel.findOne({ userId: userId });
-    if (cart) {
-      res.status(200).json({
-        success: true,
-        data: cart,
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "Cart not found",
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Error in getting cart",
-      error,
-    });
-  }
-};
