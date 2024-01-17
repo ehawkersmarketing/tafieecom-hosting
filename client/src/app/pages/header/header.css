@@ -1,0 +1,34 @@
+.header {
+    background-color: var(--darkgreen-primary, #19443f);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* padding: 18px 77px 0; */
+}
+.header .logo-section {
+    width: 33%;
+    
+}
+.header .link-section {
+    display: flex;
+    flex-direction: row;
+    width: 33%;
+}
+.header .login-section{
+    width: 34%;
+    /* align-items: center; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    /* width: 34%; */
+}
+.header .link-section a {
+    padding: 4px;
+}
+.header .login-section {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    width: auto;
+}

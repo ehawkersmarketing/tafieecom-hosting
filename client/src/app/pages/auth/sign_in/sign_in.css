@@ -257,6 +257,13 @@
         sans-serif;
 }
 
+.welcome-text {
+    background-color: #fff;
+    color: #19443f;
+  }
+  .back-text{
+    background-color:#19443f;
+}
 .img-4 {
     aspect-ratio: 0.97;
     object-fit: contain;
@@ -347,6 +354,13 @@
     width: 100%;
     font: 400 14px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
+    display: flex;
+    flex-direction: row;
+}
+
+.signin .div-15 button {
+    background-color: #19443f;
+    color: #fff;
 }
 
 @media (max-width: 991px) {
@@ -536,3 +550,4 @@ input[type="tel"]:focus {
 .button_otp {
     width: 150px;
 }
+

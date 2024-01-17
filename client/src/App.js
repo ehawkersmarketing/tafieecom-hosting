@@ -9,6 +9,8 @@ import ComposeBlog from './app/pages/blog_page/CreateBlog/createBlog.js'
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
 import ResourceCenter from "./app/pages/resourceCenter/resourceCenter.js";
 import SingleBlog from "./app/pages/blog_page/SingleBlog/SingleBlog.jsx";
+import Header from "./app/pages/header/header.jsx";
+import Footer from "./app/pages/footer/footer.jsx";
 function App() {
 
   const dispatch = useDispatch();

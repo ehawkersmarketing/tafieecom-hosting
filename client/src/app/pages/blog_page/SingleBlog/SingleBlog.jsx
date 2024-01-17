@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "./SingleBlog.css";
+import Header from "../../header/header";
+import Footer from "../../footer/footer";
 
 const LoginSignup = () => {
   const [action, setAction] = useState("Sign Up");
 
   return (
+    <div>
+    <Header/>
     <div className="single-blog">
       <div className="header-tile m-3">
         <div className="blog-title">
@@ -128,6 +132,8 @@ const LoginSignup = () => {
         </div>
       </div>
     </div>
+    </div>
+    <Footer/>
     </div>
   );
 };
