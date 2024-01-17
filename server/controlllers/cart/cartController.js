@@ -96,3 +96,19 @@ exports.deleteProductInCart = async (req, res) => {
     });
   }
 };
+
+//for getting the details of the cart
+exports.getCart = async (req, res) => {
+  try {
+    res.status(200).send({
+      success: true,
+      message: "getting cart",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).send({
+      success: false,
+      message: "get cart failed",
+    });
+  }
+};

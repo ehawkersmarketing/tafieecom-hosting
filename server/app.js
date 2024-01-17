@@ -12,7 +12,6 @@ const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
 const payRoute = require("./routes/payRoute/payRoute");
-const checkoutRoute = require("./routes/checkoutRoute/checkoutRoute");
 
 app.use(express.json());
 
