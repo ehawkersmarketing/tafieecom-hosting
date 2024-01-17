@@ -5,7 +5,7 @@ const blogModel = require("../../models/blogModel/blogModel");
 
 exports.composeBlog = async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, image, readingTime } = req.body;
     const { id } = req.params;
     if (!title || !content) {
       return res.status(400).send({
@@ -20,10 +20,15 @@ exports.composeBlog = async (req, res) => {
     //     message: "Unable to find user",
     //   });
     // }
-    const newBlog = new blogModel({ title, content });
+    const newBlog = new blogModel({
+      title,
+      content,
+      readingTime,
+      image: `${process.env.SERVER_URL}/blog/${image}`,
+    });
     await newBlog.save();
-
-    return res.status(201).send({
+    console.log("image =>", image);
+    return res.status(200).send({
       success: true,
       message: "New blog uploaded",
       newBlog,
@@ -92,10 +97,10 @@ exports.getBlogById = async (req, res) => {
 exports.updateBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
-    const { title, content } = req.body;
+    const { title, content, readingTime } = req.body;
     const updatedBlog = await blogModel.findByIdAndUpdate(
       { _id: blogId },
-      { title: content }
+      { title, content, readingTime }
     );
     await updatedBlog.save();
     return res.status(200).send({
@@ -141,7 +146,7 @@ exports.deleteBlog = async (req, res) => {
 exports.searchBlog = async (req, res) => {
   try {
     const { search } = req.body;
-    const blog = await blogModel.findById({ title: { $regrex: search } });
+    const blog = await blogModel.find({ title: { $regrex: search } });
     console.log(blog);
     if (!blog) {
       return res.status(500).send({

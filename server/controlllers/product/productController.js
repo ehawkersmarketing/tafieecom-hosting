@@ -1,10 +1,10 @@
-const productModel = require('../../models/productModel/productModel.js');
-
+const productModel = require("../../models/productModel/productModel.js");
+const categoryModel = require("../../models/categoryModel/categoryModel.js");
 
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await productModel.find({});
-    console.log(products)
+    // console.log(products)
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -29,7 +29,7 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductsById = async (req, res) => {
   try {
     const products = await productModel.find({ _id: req.params.id });
-    console.log(products)
+    console.log(products);
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -53,26 +53,35 @@ exports.getProductsById = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const { title, description, price, image, quantity, metric, companyName } = req.body;
+    const { title, description, price, image, quantity, metric, companyName } =
+      req.body;
 
     const product = await productModel.create({
-      title, description, image: `${process.env.SERVER_URL}/${image}`, price, quantity, metric, companyName
+      title,
+      description,
+      image: `${process.env.SERVER_URL}/${image}`,
+      price,
+      quantity,
+      metric,
+      companyName,
     });
+
+    await product.save();
     if (product) {
       res.json({
         status: 200,
         success: true,
-        data: {},
-        messsage: "Product Created successfully"
-      })
+        data: product,
+        messsage: "Product Created successfully",
+      });
     } else {
       res.json({
         success: false,
-        messsage: "Product Creation failed"
-      })
+        messsage: "Product Creation failed",
+      });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "Error while creating a product",
@@ -80,58 +89,79 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, image, price, quantity, metric, companyName, productType
+    const {
+      title,
+      description,
+      image,
+      price,
+      quantity,
+      metric,
+      companyName,
+      productType,
     } = req.body;
 
     const updatedProduct = await productModel.findByIdAndUpdate(
       { _id: id },
       {
-        title, description, image, price, quantity, metric, companyName, productType
-      })
+        title,
+        description,
+        image,
+        price,
+        quantity,
+        metric,
+        companyName,
+        productType,
+      }
+    );
 
-    console.log(updatedProduct)
+    // console.log(updatedProduct)
 
     res.status(200).json({
       success: true,
       data: updatedProduct,
-      message: "Product Updated Successfully"
-    })
-
+      message: "Product Updated Successfully",
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({
       success: false,
       data: error,
-      message: "Error while updating the product"
-    })
+      message: "Error while updating the product",
+    });
   }
-}
+};
 
 exports.deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, image, price, quantity, metric, companyName, productType
+    const {
+      title,
+      description,
+      image,
+      price,
+      quantity,
+      metric,
+      companyName,
+      productType,
     } = req.body;
-    const deletedProduct = await productModel.findByIdAndDelete({ _id: id })
+    const deletedProduct = await productModel.findByIdAndDelete({ _id: id });
 
     res.status(200).json({
       success: true,
       message: "Product Deleted Successfully",
-    })
-
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({
       success: false,
       data: error,
-      message: "Error fetched while deleting the product"
-    })
+      message: "Error fetched while deleting the product",
+    });
   }
-}
+};
 
 exports.searchProduct = async (req, res) => {
   try {
@@ -142,9 +172,9 @@ exports.searchProduct = async (req, res) => {
         { title: { $regex: search } },
         { description: { $regex: search } },
         // { productType: search },
-      ]
+      ],
     });
-    console.log(products)
+    console.log(products);
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -170,7 +200,7 @@ exports.searchProductByCategory = async (req, res) => {
   try {
     const search = req.params.category;
     const products = await productModel.find({ productType: search });
-    console.log(products)
+    // console.log(products)
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -188,6 +218,30 @@ exports.searchProductByCategory = async (req, res) => {
       success: false,
       message: "Error in getting all blogs",
       error,
+    });
+  }
+};
+
+exports.CreateCategory = async (req, res) => {
+  try {
+    const { category } = req.body;
+
+    const response = await categoryModel.create({
+      category,
+    });
+
+    const productType = await response.save();
+    res.json({
+      status: 200,
+      success: true,
+      data: productType,
+      messsage: "Category Created successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error while creating a category",
     });
   }
 };

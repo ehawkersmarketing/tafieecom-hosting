@@ -38,9 +38,13 @@ app.use("/api", blogRoute);
 app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
 
-app.use(express.static('public'));
-app.get('/:file', (req, res) => {
+app.use(express.static("public"));
+app.get("/:file", (req, res) => {
   res.sendFile(__dirname + `/public/images/${req.params.file}`);
+});
+
+app.get("/blog/:file", (req, res) => {
+  res.sendFile(__dirname + `/public/blog/images/${req.params.file}`);
 });
 
 app.listen(process.env.PORT, () => {
