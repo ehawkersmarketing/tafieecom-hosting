@@ -11,12 +11,9 @@ const userRoute = require("./routes/userRoute/userRoute");
 const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
-const checkoutRoute = require("./routes/checkoutRoute/checkoutRoute");
-const multer = require('multer')
-
+const payRoute = require("./routes/payRoute/payRoute");
 
 app.use(express.json());
-
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -36,15 +33,10 @@ app.use(passport.session());
 
 app.use("/auth", authRoute);
 app.use("/api", productRoute);
-app.use("/api", checkoutRoute);
 // app.use("/api", userRoute);
 app.use("/api", blogRoute);
 app.use("/api", cartRoute);
-
-app.use(express.static('public'));
-app.get('/:file', (req, res) => {
-  res.sendFile(__dirname + `/public/images/${req.params.file}`);
-});
+app.use("/api/pay", payRoute);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running on PORT => ${PORT}`);

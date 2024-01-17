@@ -15,21 +15,30 @@ exports.putProductInCart = async (req, res) => {
       });
       if (product) {
         product = product.toObject();
-        for (var i = 0; i < product.products.length; i++) {
-          if (product.products[i].productId == productId) {
-            product.products[i].units = product.products[i].units + 1;
+        if (units == 0) {
+          cartModel.deleteOne({ "products.productId": productId });
+          res.status(200).send({
+            success: true,
+            message: "cart updated",
+            data: {},
+          });
+        } else {
+          for (var i = 0; i < product.products.length; i++) {
+            if (product.products[i].productId == productId) {
+              product.products[i].units = product.products[i].units + 1;
+            }
           }
+          const updatedCart = await cartModel.findOneAndUpdate(
+            { userId: userId },
+            { $set: { products: product.products } },
+            { new: true }
+          );
+          res.status(200).send({
+            success: true,
+            message: "cart updated",
+            data: updatedCart,
+          });
         }
-        const updatedCart = await cartModel.findOneAndUpdate(
-          { userId: userId },
-          { $set: { products: product.products } },
-          { new: true }
-        );
-        res.status(200).send({
-          success: true,
-          message: "cart updated",
-          data: updatedCart
-        })
       } else {
         userCart = userCart.toObject();
         userCart.products.push({ productId, units });
@@ -42,8 +51,8 @@ exports.putProductInCart = async (req, res) => {
           res.status(200).send({
             success: true,
             message: "cart updated",
-            data: updatedCart
-          })
+            data: updatedCart,
+          });
         } else {
           res.status(500).send({
             success: false,
@@ -51,7 +60,6 @@ exports.putProductInCart = async (req, res) => {
           });
         }
       }
-
     } else {
       const cart = new cartModel({
         userId: userId,
@@ -94,6 +102,31 @@ exports.deleteProductInCart = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "product deletion from cart failed",
+    });
+  }
+};
+
+exports.getCartByUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const cart = await cartModel.findOne({ userId: userId });
+    if (cart) {
+      res.status(200).json({
+        success: true,
+        data: cart,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Cart not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error in getting cart",
+      error,
     });
   }
 };

@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './sign_in.css'
 import axios from "axios";
+import photo from "../../assets/photo.png";
+import google_icon from "../../assets/google.png";
+import Mask_group from "../../assets/Mask_group.png";
+import Tafi_logo_white from "../../assets/Tafi_logo_white.png";
+import { Link } from "react-router-dom";
 var token;
 
 const SignIn = () => {
@@ -37,7 +42,7 @@ const SignIn = () => {
             });
             if (data.success) {
                 localStorage.setItem('auth_token', token);
-               
+
                 localStorage.setItem('user', JSON.stringify(data.data))
                 localStorage.setItem('user_id', data.data._id);
                 navigate("/");
@@ -46,36 +51,79 @@ const SignIn = () => {
     };
 
     return (
-        <div className="signin">
-            <div className="signinform">
-                <h2 className="signin-head">
-                    Signin
-                </h2>
-                <form>
-                    <div className="email-mob">
-                        <label>Email ID / Mobile number</label>
-                        <input type="text" name='phone' onChange={handleChangeFormField} />
-                        <button onClick={onSendOtp}>Send OTP</button>
+        <>
+            <div className="div">
+                <div className="div-8">
+                    <div className="div-9">
+                        <div className="column">
+                            <div className="div-10">
+                                <div className="div-11">
+                                    <img loading="lazy" src={Mask_group} className="img-2" />
+                                    <span className="span-4">
+                                        <img
+                                            loading="lazy"
+                                            src={Tafi_logo_white}
+                                            className="img-3"
+                                        />
+                                        <div className="div-12">
+                                            <span className="welcome-text">Welcome</span>
+                                            <br />
+                                        </div>
+                                    </span>
+                                    <img loading="lazy" src={photo} className="img-4" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="column-2">
+                            <span className="span-5">
+                                <div className="div-13">Login Account</div>
+
+                                <span className="span-6">
+                                    <div className="div-14" />
+                                    <div className="div-15">
+                                        <input type="tel" name='phone' onChange={handleChangeFormField} placeholder="Enter your phone number" />
+                                    </div>
+                                </span>
+                                {/* <div className="input-phone">
+                  <input type="tel" placeholder="Enter phone number" />
+                </div> */}
+                                <span className="span-7">
+                                    <div className="div-16" />
+                                    <div className="div-17">
+                                        <input type="tel" name='otp' onChange={handleChangeFormField} placeholder="Enter OTP" />
+                                    </div>
+                                </span>
+                                <button className="button_otp" onClick={onSendOtp}>Generate otp</button>
+                                <label>
+                                    <input type="checkbox" />
+                                    Keep me signed in
+                                </label>
+                                <button
+                                    className="span-9"
+                                    onClick={onLogin}
+                                >
+                                    Login
+                                </button>
+
+                                <div className="div-20">
+                                    <span className="register-text">
+                                        Haven’t registered yet?{" "}
+                                    </span>
+                                    <Link to="/auth/register" className="create-account-text">
+                                        Create an account
+                                    </Link>
+                                </div>
+                                <div className="div-21">
+                                    <div className="div-22">
+                                        <img loading="lazy" src={google_icon} className="img-5" />
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
                     </div>
-                    <div className="otp">
-                        <label>OTP</label>
-                        <input type="text" name='otp' onChange={handleChangeFormField} />
-
-                    </div>
-                    <div>
-                        <button onClick={onLogin}>LOGIN</button>
-                    </div>
-
-                </form>
-                <div className="divider"></div>
-                <div className="social-login">
-
-
                 </div>
-
             </div>
-
-        </div>
+        </>
     )
 
 };

@@ -39,7 +39,6 @@ function App() {
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
           <Route path="/auth/register" exact element={<SignUp />} />
-          {/* <Route path='/viewCart' element={<ViewCart />} /> */}
           <Route path="/" exact element={<DashBoard />} />
           <Route path="/createProduct" exact element={<CreateProduct />} />
           <Route path="/updateProduct/:id" exact element={<UpdateProduct />} />
