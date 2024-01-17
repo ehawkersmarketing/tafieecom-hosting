@@ -95,14 +95,13 @@ exports.updateBlog = async (req, res) => {
     const { title, content } = req.body;
     const updatedBlog = await blogModel.findByIdAndUpdate(
       { _id: blogId },
-      { title, content }
+      { title: content }
     );
     await updatedBlog.save();
     return res.status(200).send({
       success: true,
       message: "Blog updated.",
-      updatedBlog
-
+      updatedBlog,
     });
   } catch (error) {
     console.log(error);
@@ -139,29 +138,29 @@ exports.deleteBlog = async (req, res) => {
   }
 };
 
-
-exports.searchBlog = async (req, res) => {
-  try {
-    const search = req.query.blogId;
-    const blog = await blogModel.find({ title: search });
-    console.log(blog)
-    if (!blog) {
-      return res.status(500).send({
-        success: false,
-        message: "No blog found",
-      });
-    }
-    return res.status(200).send({
-      success: true,
-      message: "All blogs list",
-      data: blog,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Error in getting all blogs",
-      error,
-    });
-  }
-};
+// exports.searchBlog = async (req, res) => {
+//   //do not merge this
+//   try {
+//     const { search } = req.body;
+//     const blog = await blogModel.findById({ title: search });
+//     console.log(blog);
+//     if (!blog) {
+//       return res.status(500).send({
+//         success: false,
+//         message: "No blog found",
+//       });
+//     }
+//     return res.status(200).send({
+//       success: true,
+//       message: "All blogs list",
+//       data: blog,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Error in getting all blogs",
+//       error,
+//     });
+//   }
+// };
