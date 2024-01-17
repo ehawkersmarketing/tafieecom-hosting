@@ -1,5 +1,5 @@
 const orderModel = require("../../models/orderModel/orderModel.js");
-const orderCountModel = require("../../models/orderCountModel/orderCountModel.js");
+const orderCountModel = require("../../models/orderModel/orderCountModel.js");
 const cartModel = require("../../models/cartModel/cartModel.js");
 
 module.exports.getAllOrders = async (req, res, next) => {
@@ -14,21 +14,23 @@ module.exports.getAllOrders = async (req, res, next) => {
     }
 }
 
-module.exports.getAllOrderByUser = async (req, res, next) => {
+module.exports.getAllOrdersByStatus = async (req, res, next) => {
     try {
-        const orders = await orderModel.find({ userId: req.params.userId });
+        const { OrderStatus } = req.params.orderStatus;
+        const orders = await orderModel.find({ orderStatus: OrderStatus });
         res.status(200).json({
             success: true,
             data: orders
         });
     } catch (error) {
+        res.json({ success: false, error: error });
         next(error);
     }
-};
+}
 
-module.exports.getOrderCountOfProduct = async (req, res, next) => {
+module.exports.getAllOrderByUser = async (req, res, next) => {
     try {
-        const orders = await orderCountModel.find({});
+        const orders = await orderModel.find({ userId: req.params.userId });
         res.status(200).json({
             success: true,
             data: orders

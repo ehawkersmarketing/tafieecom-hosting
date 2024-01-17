@@ -26,6 +26,31 @@ exports.getAllProducts = async (req, res) => {
   }
 };
 
+exports.getProductsById = async (req, res) => {
+  try {
+    const products = await productModel.find({ _id: req.params.id });
+    console.log(products)
+    if (!products) {
+      return res.status(500).send({
+        success: false,
+        message: "No products found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "All blogs list",
+      data: products,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting all blogs",
+      error,
+    });
+  }
+};
+
 exports.createProduct = async (req, res) => {
   try {
     const { title, description, price, image, quantity, metric, companyName } = req.body;
@@ -86,7 +111,6 @@ exports.updateProduct = async (req, res) => {
   }
 }
 
-
 exports.deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -111,14 +135,15 @@ exports.deleteProduct = async (req, res) => {
 
 exports.searchProduct = async (req, res) => {
   try {
-    const { search } = req.body;
+    let { search } = req.body;
+    search = search.trim();
     const products = await productModel.find({
       $or: [
-        { title: search },
-        { description: search },
-        { productType: search },
+        { title: { $regex: search } },
+        { description: { $regex: search } },
+        // { productType: search },
       ]
-    }).populate('category');
+    });
     console.log(products)
     if (!products) {
       return res.status(500).send({
@@ -143,8 +168,8 @@ exports.searchProduct = async (req, res) => {
 
 exports.searchProductByCategory = async (req, res) => {
   try {
-    const search = req.query.category;
-    const products = await productModel.find({ productType: search }).populate('category');;
+    const search = req.params.category;
+    const products = await productModel.find({ productType: search });
     console.log(products)
     if (!products) {
       return res.status(500).send({

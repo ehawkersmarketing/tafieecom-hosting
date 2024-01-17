@@ -15,6 +15,10 @@ const orderSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: "User",
         },
+        orderStatus: {
+            type: String,
+            default: "Pending",
+        }
     },
     { timestamps: true }
 );
