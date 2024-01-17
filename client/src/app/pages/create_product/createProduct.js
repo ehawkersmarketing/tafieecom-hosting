@@ -32,7 +32,6 @@ const CreateProduct = () => {
     });
   };
 
-
   // console.log(inputHandler)
   function limitInputValue(e) {
     if (e.target.value > maxValue) {
@@ -66,20 +65,35 @@ const CreateProduct = () => {
       const formData = new FormData();
       formData.append("image", image);
 
-      const imageUrl = await axios.post('http://localhost:8080/api/uploadImage', formData);
+      const imageUrl = await axios.post(
+        "http://localhost:8080/api/uploadImage",
+        formData
+      );
       console.log(imageUrl);
       if (imageUrl?.data.success) {
-        const { data } = await axios.post('http://localhost:8080/api/createProduct', {
-          title: title,
-          description: description,
-          price: price,
-          quantity: quantity,
-          productType: productType,
-          image: imageUrl.data.url
-        });
+        const { data } = await axios.post(
+          "http://localhost:8080/api/createProduct",
+          {
+            title: title,
+            description: description,
+            price: price,
+            quantity: quantity,
+            productType: productType,
+            image: imageUrl.data.url,
+          }
+        );
         if (data.success) {
-          setInputHandler({ ...inputHandler, title: " ",maxQuantity:" " , minQuantity:" ", description: " ", price: '', quantity: '', productType: '' })
-          history('/')
+          setInputHandler({
+            ...inputHandler,
+            title: " ",
+            maxQuantity: " ",
+            minQuantity: " ",
+            description: " ",
+            price: "",
+            quantity: "",
+            productType: "",
+          });
+          history("/");
         }
       }
     }

@@ -15,7 +15,7 @@ const ResourceCenter = () => {
         setBlog(data.data);
       })
       .catch((error) => {
-        console.log("Error while fetching post");
+        console.log("Error while fetching Blog");
         console.log(error);
       });
   }, []);
@@ -27,9 +27,9 @@ const ResourceCenter = () => {
       axios
         .delete(`http://localhost:8080/api/deleteBlog/${id}`)
         .then((res) => {
-          console.log("post deleted successfully");
+          console.log("Blog deleted successfully");
           window.location.reload();
-          setBlog((prevPosts) => prevPosts.filter((post) => post.id === id));
+          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
         })
         .catch((err) => {
           console.log(err);
@@ -47,30 +47,40 @@ const ResourceCenter = () => {
     <div>
       <div className="mx-auto mt-4 ">
         <div className="row">
-          {blog?.map((post) => (
+          {blog?.map((blog) => (
             <div className="col-md-4 card-container">
               <div
                 className="card content "
-                style={{ width: "28rem", marginTop: "1rem" }}
+                style={{ width: "28rem", height: "8rem", marginTop: "1rem" }}
               >
-                <div className="card-body text-center " key={post._id}>
+                <div className="card-body text-center " key={blog._id}>
+                  {console.log(blog)}
+                  <img
+                    src={blog.image}
+                    style={{
+                      width: "2rem",
+                      height: "2rem",
+                    }}
+                    alt="img blog"
+                  />
                   <h5
                     className="card-title "
-                    onClick={(e) => navigateToBlog(e, post._id)}
+                    onClick={(e) => navigateToBlog(e, blog._id)}
                   >
-                    {post.title}
+                    {blog.title}
                   </h5>
-                  <p className="card-text">{post.content}</p>
+                  <p className="card-text">{blog.content}</p>
+                  <p className="card-text">{blog.readingTime}</p>
                   <div className="btn-container">
                     <button className="btn comment">Comment</button>
                     {/* {rights.indexOf('edit-post') !== -1 && */}
-                    <Link className="btn" to={`/updateBlog/${post._id}`}>
+                    <Link className="btn" to={`/updateBlog/${blog._id}`}>
                       Edit
                     </Link>
                     {/* }    {rights.indexOf('delete-post') !== -1 && */}
                     <button
                       className="btn"
-                      onClick={() => deleteHandler(post._id)}
+                      onClick={() => deleteHandler(blog._id)}
                     >
                       Delete
                     </button>
