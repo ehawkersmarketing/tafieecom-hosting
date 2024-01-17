@@ -138,29 +138,29 @@ exports.deleteBlog = async (req, res) => {
   }
 };
 
-// exports.searchBlog = async (req, res) => {
-//   //do not merge this
-//   try {
-//     const { search } = req.body;
-//     const blog = await blogModel.findById({ title: search });
-//     console.log(blog);
-//     if (!blog) {
-//       return res.status(500).send({
-//         success: false,
-//         message: "No blog found",
-//       });
-//     }
-//     return res.status(200).send({
-//       success: true,
-//       message: "All blogs list",
-//       data: blog,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Error in getting all blogs",
-//       error,
-//     });
-//   }
-// };
+exports.searchBlog = async (req, res) => {
+  //do not merge this
+  try {
+    const { search } = req.body;
+    const blog = await blogModel.findById({ title: { $regrex: search } });
+    console.log(blog);
+    if (!blog) {
+      return res.status(500).send({
+        success: false,
+        message: "No blog found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "All blogs list",
+      data: blog,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error in getting all blogs",
+      error,
+    });
+  }
+};
