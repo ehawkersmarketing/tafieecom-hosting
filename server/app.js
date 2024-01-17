@@ -38,6 +38,11 @@ app.use("/api", blogRoute);
 app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
 
+app.use(express.static('public'));
+app.get('/:file', (req, res) => {
+  res.sendFile(__dirname + `/public/images/${req.params.file}`);
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`server is running on PORT => ${PORT}`);
 });
