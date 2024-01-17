@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Routers, Route, Routes } from "react-router-dom";
-import DashBoard from './app/pages/home_page/dashboard.jsx';
+import DashBoard from "./app/pages/home_page/dashboard.jsx";
 import { useDispatch } from "react-redux";
-import SignIn from './app/pages/auth/sign_in/sign_in.jsx';
-import SignUp from './app/pages/auth/sign_up/sign_up.jsx';
-import CreateProduct from './app/pages/create_product/createProduct.js'
-import ComposeBlog from './app/pages/blog_page/CreateBlog/createBlog.js'
+import SignIn from "./app/pages/auth/sign_in/sign_in.jsx";
+import SignUp from "./app/pages/auth/sign_up/sign_up.jsx";
+import CreateProduct from "./app/pages/create_product/createProduct.js";
+import ComposeBlog from "./app/pages/blog_page/CreateBlog/createBlog.js";
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
 import ResourceCenter from "./app/pages/resourceCenter/resourceCenter.js";
 import UpdateProduct from "./app/pages/update_product/updateProduct.js";
 function App() {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,7 +30,7 @@ function App() {
     //   };
     //   dispatch(getUserDetails(user));
     // });
-  }
+  };
 
   return (
     <div className="App">

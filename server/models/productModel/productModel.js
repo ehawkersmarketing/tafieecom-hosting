@@ -19,17 +19,16 @@ const productSchema = new mongoose.Schema(
       // require: [true, "price is required"],
     },
     quantity: {
-
+      type: Number,
+      // require: [true, "quantity is required"],
+    },
+    units: {
+      minQuantity: {
         type: Number,
-        // require: [true, "quantity is required"],
-    },units:{
-        minQuantity: {
-            type:Number
-        },
-        maxQuantity:{
-            type:Number
-        }
-
+      },
+      maxQuantity: {
+        type: Number,
+      },
     },
     metric: {
       type: String,
@@ -40,9 +39,9 @@ const productSchema = new mongoose.Schema(
       // require: [true, "companyName is required"],
     },
 
-    categoryType: { type: mongoose.Types.ObjectId ,ref:'category' }
+    categoryType: { type: mongoose.Types.ObjectId, ref: "category" },
   },
-    { timestamps: true } 
+  { timestamps: true }
 );
 
 const productModel = mongoose.model("Product", productSchema);
