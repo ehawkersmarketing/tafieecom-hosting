@@ -8,6 +8,9 @@ import CreateProduct from "./app/pages/create_product/createProduct.js";
 import ComposeBlog from "./app/pages/blog_page/CreateBlog/createBlog.js";
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
 import ResourceCenter from "./app/pages/resourceCenter/resourceCenter.js";
+import SingleBlog from "./app/pages/blog_page/SingleBlog/SingleBlog.jsx";
+import Header from "./app/pages/header/header.jsx";
+import Footer from "./app/pages/footer/footer.jsx";
 import UpdateProduct from "./app/pages/update_product/updateProduct.js";
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +37,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* <Header/> */}
       <Routers>
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
@@ -44,6 +48,7 @@ function App() {
           <Route path="/blog/composeBlog" exact element={<ComposeBlog />} />
           <Route path="/updateBlog/:id" exact element={<UpdateBlog />} />
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
+          <Route path="/singleBlog" exact element={<SingleBlog />} />
         </Routes>
       </Routers>
     </div>
