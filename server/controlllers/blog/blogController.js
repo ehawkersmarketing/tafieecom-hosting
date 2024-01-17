@@ -145,8 +145,8 @@ exports.deleteBlog = async (req, res) => {
 
 exports.searchBlog = async (req, res) => {
   try {
-    const search = req.query.blogId;
-    const blog = await blogModel.find({ title: search });
+    const { search } = req.body;
+    const blog = await blogModel.find({ title: { $regrex: search } });
     console.log(blog);
     if (!blog) {
       return res.status(500).send({
