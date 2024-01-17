@@ -2,6 +2,7 @@ const express = require("express");
 const {
   putProductInCart,
   deleteProductInCart,
+  getCartByUser,
 } = require("../../controlllers/cart/cartController");
 
 const router = express.Router();
@@ -11,5 +12,6 @@ router.put("/addToCart", putProductInCart);
 
 //DELETE || delete product route
 router.delete("/dropFromCart", deleteProductInCart);
+router.get("/getCartByUser/:userId", getCartByUser);
 
 module.exports = router;
