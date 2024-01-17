@@ -42,7 +42,7 @@ module.exports.getAllOrderByUser = async (req, res, next) => {
 
 module.exports.placeOrder = async (req, res, next) => {
     try {
-        const { cartId } = req.body;
+        const { cartId, transactionId, merchantId, amount, transactionStatus } = req.body;
         const cart = await cartModel.findOne({ _id: cartId });
         if (cart) {
             const newOrder = new orderModel({
@@ -103,9 +103,9 @@ module.exports.getAllOrderCounts = async (req, res, next) => {
 module.exports.cancelOrders = async (req, res, next) => {
     const { orderId } = req.params.orderId;
     let order = await orderModel.findOne({ _id: orderId });
-    if (order && (order.orderStatus === "PENDING" || order.orderStatus === "PLACED")) {
+    if (order && (order.transactionStatus === "PENDING" || order.transactionStatus === "PLACED")) {
         order = order.toObject();
-        order.orderStatus = "CANCELLED";
+        order.transactionStatus = "CANCELLED";
         await orderModel.findOneAndUpdate({ _id: orderId }, order, { new: true });
         res.status(200).json({
             success: true,

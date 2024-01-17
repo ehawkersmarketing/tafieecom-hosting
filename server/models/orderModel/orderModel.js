@@ -15,9 +15,18 @@ const orderSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: "User",
         },
-        orderStatus: {
+        transactionId: {
+            type: String,
+        },
+        merchantId: {
+            type: String,
+        },
+        transactionStatus: {
             type: String,
             default: "Pending",
+        },
+        amount: {
+            type: Number,
         },
         userAddress: {
             type: mongoose.Types.ObjectId,
