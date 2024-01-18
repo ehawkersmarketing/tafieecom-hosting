@@ -1,8 +1,10 @@
 import React from "react";
 // import "../assets/";
-import logo from "../../assets/Tafi_logo_white.png";
+
+// import logo from "../assets/Tafi_logo_white.png";
+
 // import logo from "./../../../logo.svg";
-// import logo from "../Assets/Tafi_logo_white.png";
+ import logo from "../../assets/Tafi_logo_white.png";
 import "./footer.css";
 
 

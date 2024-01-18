@@ -1,0 +1,25 @@
+.pp {
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+
+.pp .pp-title {
+    font-family: Montserrat
+}
+
+.pp .pp-body {
+    padding: 10px 0px;
+}
+
+.pp .pp-body h3 {
+    margin-bottom: 0;
+}
+
+.pp .pp-body h4 {
+    margin: 0;
+}
+
+.pp .pp-body p {
+    margin: 0;
+}

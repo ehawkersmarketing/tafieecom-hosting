@@ -1,7 +1,9 @@
 import React from "react";
 import logo from "../../assets/Tafi_logo_white.png";
+
 import "./header.css";
 import { Link } from "react-router-dom";
+
 
 
 const Header = () => {

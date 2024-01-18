@@ -1,0 +1,22 @@
+.TnC {
+    width: 80%;
+    padding: 10px;
+    margin: auto;
+}
+
+.TnC .TnC-title {
+    font-family: Montserrat;
+}
+
+.TnC .TnCBody {
+    padding: 10px 0px;
+}
+
+.TnC .TnCBody h4 {
+    margin-bottom: 0;
+}
+
+.TnC .TnCBody p {
+    margin: 0;
+}
+
