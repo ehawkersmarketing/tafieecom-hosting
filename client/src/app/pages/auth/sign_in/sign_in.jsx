@@ -68,8 +68,8 @@ const SignIn = () => {
                       className="img-3"
                     />
                     <div className="div-12">
-                        <div><span className="welcome-text">Welcome</span></div>
-                        <div><span className="back-text">Back!</span></div>
+                      <div><span className="welcome-text">Welcome</span></div>
+                      <div><span className="back-text">Back!</span></div>
                     </div>
                   </span>
                   <img loading="lazy" src={photo} className="img-4" />
