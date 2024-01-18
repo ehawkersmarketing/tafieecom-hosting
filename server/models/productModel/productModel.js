@@ -18,6 +18,9 @@ const productSchema = new mongoose.Schema(
       type: Number,
       // require: [true, "price is required"],
     },
+    gstSlab: {
+      type: Number,
+    },
     quantity: {
       type: Number,
       // require: [true, "quantity is required"],
@@ -39,7 +42,7 @@ const productSchema = new mongoose.Schema(
       // require: [true, "companyName is required"],
     },
 
-    categoryType: { type: mongoose.Types.ObjectId, ref: "category" },
+    category: { type: mongoose.Types.ObjectId, ref: "category" },
   },
   { timestamps: true }
 );

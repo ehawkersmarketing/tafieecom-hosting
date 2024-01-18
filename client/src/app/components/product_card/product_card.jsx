@@ -29,12 +29,12 @@ const ProductCard = () => {
       <div className="row">
         {data &&
           data?.map((product) => {
-            console.log(product)
+            // console.log(product)
             return (
               <div className="col-md-4 card-container" key={product._id}>
                 <div
                   className="card content "
-                  style={{ width: "25rem", marginTop: "1rem" }}
+                  style={{ width: "25rem", height:"5rem", marginTop: "1rem" }}
                 >
                   <div className="card-body text-center ">
                   <img src={image} className="img" alt="no img" /> 

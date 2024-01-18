@@ -53,25 +53,39 @@ exports.getProductsById = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const { title, description, price, image, quantity, metric, companyName } =
-      req.body;
+    const {
+      title,
+      description,
+      price,
+      gstSlab,
+      image,
+      quantity,
+      units,
+      metric,
+      companyName,
+      category,
+    } = req.body;
 
     const product = await productModel.create({
       title,
       description,
       image: `${process.env.SERVER_URL}/${image}`,
       price,
+      gstSlab,
       quantity,
+      units,
       metric,
       companyName,
     });
+
+    const categoryData = await categoryModel.find({ category });
 
     await product.save();
     if (product) {
       res.json({
         status: 200,
         success: true,
-        data: product,
+        data: { product, category },
         messsage: "Product Created successfully",
       });
     } else {
@@ -242,6 +256,31 @@ exports.CreateCategory = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error while creating a category",
+    });
+  }
+};
+
+exports.getAllCategory = async (req, res) => {
+  try {
+    const category = await categoryModel.find({});
+    console.log(category);
+    if (!category) {
+      return res.status(500).send({
+        success: false,
+        message: "No category found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "All category list",
+      data: category,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting all category",
+      error,
     });
   }
 };
