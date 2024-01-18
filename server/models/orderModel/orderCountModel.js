@@ -14,4 +14,4 @@ const orderCountSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.model("Order", orderCountSchema);
+module.exports = mongoose.model("OrderCountModel", orderCountSchema);

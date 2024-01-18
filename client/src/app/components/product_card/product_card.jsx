@@ -33,12 +33,16 @@ const ProductCard = () => {
               <div className="col-md-4 card-container" key={product._id}>
                 <div
                   className="card content "
-                  style={{ width: "25rem", marginTop: "1rem" }}
+                  style={{ width: "25rem", height:"5rem", marginTop: "1rem" }}
                 >
                   <div className="card-body text-center ">
                   <img src={image} className="img" alt="no img" /> 
-                    <h5 className="card-title ">{product.title}</h5>
+                    <h5 className="card-title " onClick={(e) =>{ navigate(`/product/${product._id}`) }}>{product.title}</h5>
                     <p className="card-text">{product.description}</p>
+                    <Link className="btn" to={`/updateProduct/${product._id}`}>
+                      Edit
+                    </Link>
+                    {/* <button>Delete</button> */}
                     <div className="btn-container">
                       {token && (
                    <button

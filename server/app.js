@@ -12,6 +12,7 @@ const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
 const payRoute = require("./routes/payRoute/payRoute");
+const orderRoute = require("./routes/orderRoute/orderRoute");
 
 app.use(express.json());
 app.use(
@@ -37,6 +38,16 @@ app.use("/api", productRoute);
 app.use("/api", blogRoute);
 app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
+app.use("/api", orderRoute);
+
+app.use(express.static("public"));
+app.get("/:file", (req, res) => {
+  res.sendFile(__dirname + `/public/images/${req.params.file}`);
+});
+
+app.get("/blog/:file", (req, res) => {
+  res.sendFile(__dirname + `/public/blog/images/${req.params.file}`);
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running on PORT => ${PORT}`);
