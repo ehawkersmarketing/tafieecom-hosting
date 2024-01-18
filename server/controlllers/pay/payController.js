@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const axios = require("axios");
 const uniqid = require("uniqid");
+const { setTimeout } = require("timers");
 
 const giveUniqueId = (length) => {
   return "TAFI" + uniqid(length);
@@ -49,15 +50,15 @@ exports.payFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data.data.instrumentResponse.redirectInfo.url);//url to PhonePe page for payment
+        console.log(response.data.data.instrumentResponse.redirectInfo.url); //url to PhonePe page for payment
         res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
       })
       .catch(function (error) {
-        // console.error(error);
-        res.status(500).send({
-          message: "Error in connecting to PhonePe Try sometime later",
-          success: false,
-        });
+        console.error(error);
+        // res.status(500).send({
+        //   message: "Error in connecting to PhonePe Try sometime later in case of amount not being debitted",
+        //   success: false,
+        // });
       });
   } catch (error) {
     res
@@ -103,9 +104,7 @@ exports.checkStatusFunction = async (req, res) => {
           //     transactionStatus: response.data.data.transactionStatus,
           //   });
           //   newPayment.save();
-          console.log(
-            "making the new object in paymentModel after successfull status "
-          );
+          console.log(response);
         }
         res.redirect("http://localhost:8080/api/cart");
       })

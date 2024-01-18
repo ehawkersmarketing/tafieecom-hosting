@@ -12,6 +12,7 @@ const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
 const payRoute = require("./routes/payRoute/payRoute");
+const shipRoute = require("./routes/shipRoute/shipRoute");
 
 app.use(express.json());
 
@@ -38,6 +39,7 @@ app.use("/api", productRoute);
 app.use("/api", blogRoute);
 app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
+app.use("/api/ship", shipRoute);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running on PORT => ${PORT}`);
