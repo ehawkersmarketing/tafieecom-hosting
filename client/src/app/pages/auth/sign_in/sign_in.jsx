@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./sign_in.css";
 import axios from "axios";
-import photo from "../../assets/photo.png";
-import google_icon from "../../assets/google.png";
-import Mask_group from "../../assets/Mask_group.png";
-import Tafi_logo_white from "../../assets/Tafi_logo_white.png";
+import photo from "../../../assets/photo.png";
+import google_icon from "../../../assets/google.png";
+import Mask_group from "../../../assets/Mask_group.png";
+import Tafi_logo_white from "../../../assets/Tafi_logo_white.png";
 import { Link } from "react-router-dom";
 var token;
 

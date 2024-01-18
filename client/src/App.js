@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="App">
       {/* <Header/> */}
-      <Routers>
+      {/* <Routers>
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
           <Route path="/auth/register" exact element={<SignUp />} />
@@ -53,8 +53,10 @@ function App() {
           <Route path="/singleBlog" exact element={<SingleBlog />} />
 
         </Routes>
-      </Routers>
+      </Routers> */}
+      <Footer/>
     </div>
+    
   );
 }
 
