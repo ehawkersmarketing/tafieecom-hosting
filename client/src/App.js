@@ -13,7 +13,7 @@ import Header from "./app/pages/header/header.jsx";
 import Footer from "./app/pages/footer/footer.jsx";
 import UpdateProduct from "./app/pages/update_product/updateProduct.js";
 import Product from "./app/pages/product_page/product.jsx";
-import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition.jsx"
+import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition.jsx";
 import ReturnAndRefund from "./app/pages/return_refund_policy/ReturnAndRefund.jsx";
 import PrivacyPolicy from "./app/pages/privacy_policy/PrivacyPolicy.jsx";
 
@@ -42,8 +42,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Header/> */}
-      {/* <Routers>
+      <Header />
+      <Routers>
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
           <Route path="/auth/register" exact element={<SignUp />} />
@@ -55,14 +55,17 @@ function App() {
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
           <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog" exact element={<SingleBlog />} />
-          <Route path="/TermsAndCondition" exact element={<TermsAndCondition />} />
+          <Route
+            path="/TermsAndCondition"
+            exact
+            element={<TermsAndCondition />}
+          />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
-          <Route path="PrivacyPolicy" exact element={<PrivacyPolicy />} /> 
+          <Route path="PrivacyPolicy" exact element={<PrivacyPolicy />} />
         </Routes>
-      </Routers> */}
-      <Footer/>
+      </Routers>
+      {/* <Footer /> */}
     </div>
-    
   );
 }
 
