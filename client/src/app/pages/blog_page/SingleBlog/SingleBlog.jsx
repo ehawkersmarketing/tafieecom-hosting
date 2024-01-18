@@ -9,7 +9,24 @@ const LoginSignup = () => {
   return (
     <div>
     <Header/>
-    <div className="single-blog">
+    <div className="single_blog">
+      <div className="single_blog_tile">
+        <div className="title_tile">
+        
+        </div>
+        <div className="tile_image">
+
+        </div>
+      </div>
+      </div>
+    <Footer/>
+    </div>
+  );
+};
+
+export default LoginSignup;
+
+    {/* <div className="single-blog">
       <div className="header-tile m-3">
         <div className="blog-title">
           <div className="title-of-blog">
@@ -132,10 +149,4 @@ const LoginSignup = () => {
         </div>
       </div>
     </div>
-    </div>
-    <Footer/>
-    </div>
-  );
-};
-
-export default LoginSignup;
+    </div> */}
