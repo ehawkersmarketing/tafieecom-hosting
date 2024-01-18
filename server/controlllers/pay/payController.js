@@ -88,60 +88,64 @@ exports.checkStatusFunction = async (req, res) => {
       "X-MERCHANT-ID": `${process.env.MERCHANT_ID}`,
     },
   };
-  try {
-    axios
-      .request(options)
-      .then(function (response) {
-        // console.log(response); //STATUS OF THE PAYMENT TRANSACTION IS LOGGED
-        if (response.data.success === true) {
-          //CREATING A PAYMENT MODEL DOCUMENT AFTER SUCCESSFULL TRANSACTION IS COMPLETE
-          //   const newPayment = new paymentModel({
-          //     // in this model keep the payment success by default pending and update only after the check status give success response
-          //     transactionId: response.data.data.MerchantransactionId,
-          //     merchantId: response.data.data.merchantId,
-          //     amount: response.data.data.amount,
-          //     transactionStatus: response.data.data.transactionStatus,
-          //   });
-          //   newPayment.save();
-          console.log(
-            "making the new object in paymentModel after successfull status "
-          );
-        }
-        res.redirect("http://localhost:8080/api/cart");
-      })
-      .catch(function (error) {
-        if (error.response.status == 401) {
-          // console.log(error);
-          res.status(401).send({
-            success: false,
-            message:
-              "Authentication failed, authorization failed invalid value in header",
-          });
-        } else if (error.response.status == 400) {
-          // console.log(error);
-          res.status(400).send({
-            success: false,
-            message: "Status check failed, invalid API url",
-          });
-        } else if (error.response.status == 500) {
-          // console.log(error);
-          res.status(500).send({
-            success: false,
-            message: "Payment Failed",
-          });
-        } else {
-          // console.log(error);
-          res.status(500).send({
-            success: false,
-            message: "Payment Failed",
-          });
-          res.redirect("http://localhost:8080/api/cart"); //redirect to cart upon status success of the transaction is confirmed
-        }
-      });
-  } catch (err) {
-    console.log(err);
-  }
+  let n = 10;
+  let status = statusCall(n, options);
+  res.redirect("http://localhost:8080/api/cart");
+
 };
+
+async function statusCall(n, options) {
+  try {
+    let response = await axios.request(options);
+    if (response.data.success === true) {
+      //CREATING A PAYMENT MODEL DOCUMENT AFTER SUCCESSFULL TRANSACTION IS COMPLETE
+      //   const newPayment = new paymentModel({
+      //     // in this model keep the payment success by default pending and update only after the check status give success response
+      //     transactionId: response.data.data.MerchantransactionId,
+      //     merchantId: response.data.data.merchantId,
+      //     amount: response.data.data.amount,
+      //     transactionStatus: response.data.data.transactionStatus,
+      //   });
+      //   newPayment.save();
+      return true;
+    } else {
+      if (n === 0) {
+
+      } else {
+        await wait(3000);
+        return statusCall(--n, options);
+      }
+    }
+  } catch (error) {
+    if (error.response.status == 401) {
+      // console.log(error);
+      res.status(401).send({
+        success: false,
+        message:
+          "Authentication failed, authorization failed invalid value in header",
+      });
+    } else if (error.response.status == 400) {
+      // console.log(error);
+      res.status(400).send({
+        success: false,
+        message: "Status check failed, invalid API url",
+      });
+    } else if (error.response.status == 500) {
+      // console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Payment Failed",
+      });
+    } else {
+      // console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Payment Failed",
+      });
+      res.redirect("http://localhost:8080/api/cart"); //redirect to cart upon status success of the transaction is confirmed
+    }
+  }
+}
 
 exports.getOrderLogFunction = async (req, res) => {
   try {

@@ -38,6 +38,5 @@ router.get("/blog/:blogId", getBlogById);
 router.put("/updateBlog/:blogId", updateBlog);
 router.delete("/deleteBlog/:blogId", deleteBlog);
 router.post("/searchBlog", searchBlog);
-// router.get("/searchBlog", searchBlog);
 
 module.exports = router;
