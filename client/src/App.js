@@ -9,6 +9,7 @@ import ComposeBlog from "./app/pages/blog_page/CreateBlog/createBlog.js";
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
 import ResourceCenter from "./app/pages/resourceCenter/resourceCenter.js";
 import UpdateProduct from "./app/pages/update_product/updateProduct.js";
+import Product from "./app/pages/product_page/product.jsx";
 function App() {
   const dispatch = useDispatch();
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/blog/composeBlog" exact element={<ComposeBlog />} />
           <Route path="/updateBlog/:id" exact element={<UpdateBlog />} />
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
+          <Route path="/product/:id" exact element={<Product />} />
         </Routes>
       </Routers>
     </div>
