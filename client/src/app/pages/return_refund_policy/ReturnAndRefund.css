@@ -1,0 +1,21 @@
+.RnR {
+    width: 80%;
+    padding: 10px;
+    margin: auto;
+}
+
+.RnR .RnR-title {
+    font-family: Montserrat;
+}
+
+.RnR .RnRBody {
+    padding: 10px 0px;
+}
+
+.RnR .RnRBody h4 {
+    margin-bottom: 0px;
+}
+
+.RnR .RnRBody p {
+    margin: 0px;
+}

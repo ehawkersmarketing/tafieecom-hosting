@@ -11,14 +11,14 @@ const giveUniqueId = (length) => {
 exports.payFunction = async (req, res) => {
   try {
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
-    const { amount } = req.body;
+    const { amount, cartId } = req.body;
     const data = {
       //Required data structure for the pay API call
       merchantId: process.env.MERCHANT_ID,
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount,
-      redirectUrl: `http://localhost:8080/api/pay/checkStatus/${merchantTransactionId}`, //url to be redirected post complete transaction
+      redirectUrl: `http://localhost:8080/api/pay/checkStatus/${merchantTransactionId}/${cartId}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
@@ -50,15 +50,16 @@ exports.payFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data.instrumentResponse.redirectInfo.url); //url to PhonePe page for payment
+        console.log(response.data.data.instrumentResponse.redirectInfo.url);//url to PhonePe page for payment
         res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
       })
       .catch(function (error) {
         console.error(error);
-        // res.status(500).send({
-        //   message: "Error in connecting to PhonePe Try sometime later in case of amount not being debitted",
-        //   success: false,
-        // });
+
+        res.status(500).send({
+          message: "Error in connecting to PhonePe Try sometime later",
+          success: false,
+        });
       });
   } catch (error) {
     res
@@ -72,7 +73,7 @@ exports.payFunction = async (req, res) => {
 };
 
 exports.checkStatusFunction = async (req, res) => {
-  const { transactionId } = req.params; //sent as params withthe redirect from the pay API
+  const { transactionId, cartId } = req.params; //sent as params withthe redirect from the pay API
   const string =
     `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
     process.env.PHONEPE_API_SALT_KEY;
@@ -89,58 +90,44 @@ exports.checkStatusFunction = async (req, res) => {
       "X-MERCHANT-ID": `${process.env.MERCHANT_ID}`,
     },
   };
-  try {
-    axios
-      .request(options)
-      .then(function (response) {
-        // console.log(response); //STATUS OF THE PAYMENT TRANSACTION IS LOGGED
-        if (response.data.success === true) {
-          //CREATING A PAYMENT MODEL DOCUMENT AFTER SUCCESSFULL TRANSACTION IS COMPLETE
-          //   const newPayment = new paymentModel({
-          //     // in this model keep the payment success by default pending and update only after the check status give success response
-          //     transactionId: response.data.data.MerchantransactionId,
-          //     merchantId: response.data.data.merchantId,
-          //     amount: response.data.data.amount,
-          //     transactionStatus: response.data.data.transactionStatus,
-          //   });
-          //   newPayment.save();
-          console.log(response);
-        }
-        res.redirect("http://localhost:8080/api/cart");
-      })
-      .catch(function (error) {
-        if (error.response.status == 401) {
-          // console.log(error);
-          res.status(401).send({
-            success: false,
-            message:
-              "Authentication failed, authorization failed invalid value in header",
-          });
-        } else if (error.response.status == 400) {
-          // console.log(error);
-          res.status(400).send({
-            success: false,
-            message: "Status check failed, invalid API url",
-          });
-        } else if (error.response.status == 500) {
-          // console.log(error);
-          res.status(500).send({
-            success: false,
-            message: "Payment Failed",
-          });
-        } else {
-          // console.log(error);
-          res.status(500).send({
-            success: false,
-            message: "Payment Failed",
-          });
-          res.redirect("http://localhost:8080/api/cart"); //redirect to cart upon status success of the transaction is confirmed
-        }
-      });
-  } catch (err) {
-    console.log(err);
+  let n = 10;
+  let status = statusCall(n, options, cartId);
+  console.log(`This is the status ${status}`);
+  if (status) {
+    res.redirect("http://localhost:8080/api/cart");
   }
+
 };
+
+async function statusCall(n, options, cartId) {
+  try {
+    let response = await axios.request(options);
+    if (response.data.success === true) {
+      console.log("Taking data to place order");
+      let { data } = await axios.post("http://localhost:8080/api/placeOrder", {
+        transactionId: response.data.data.merchantTransactionId,
+        merchantId: response.data.data.merchantId,
+        cartId: cartId,
+        amount: response.data.data.amount,
+        transactionStatus: response.data.data.state
+      });
+      if (data.success) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      if (n === 0) {
+        return false;
+      } else {
+        return setTimeout(statusCall(--n, options, cartId), 3000);
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
 exports.getOrderLogFunction = async (req, res) => {
   try {

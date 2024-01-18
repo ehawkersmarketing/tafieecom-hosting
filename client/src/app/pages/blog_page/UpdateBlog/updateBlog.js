@@ -12,21 +12,24 @@ const UpdateBlog = () => {
     id: id,
     title: "",
     content: "",
+    readingTime: "",
   });
   useEffect(() => {
-    axios.patch("http://localhost:8080/api/updateBlog/" + id)
+    axios
+      .patch("http://localhost:8080/api/updateBlog/" + id)
       .then((res) => {
         setInputHandler({
           ...inputHandler,
-          title:res.data.updatedBlog.title,
-          content: res.data.data.content,
-          UpdateBlog
+          title: res.data.updatedBlog.title,
+          content: res.data.updatedBlog.content,
+          readingTime: res.data.updatedBlog.readingTime,
+          UpdateBlog,
         });
       })
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;
@@ -37,9 +40,12 @@ const UpdateBlog = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    axios.patch("http://localhost:8080/api/updateBlog/" + id, inputHandler)
-      .then((res) =>  {console.log(res.data)
-      history('/resourceCenter')})
+    axios
+      .patch("http://localhost:8080/api/updateBlog/" + id, inputHandler)
+      .then((res) => {
+        console.log(res.data);
+        history("/resourceCenter");
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -75,10 +81,20 @@ const UpdateBlog = () => {
               placeholder="Content"
             />
           </div>
-            <button className="btn" onClick={onSubmitHandler}>
+          <div className="form_input">
+            <label htmlFor="readingTime">Reading Time</label>
+            <input
+              type="readingTime"
+              onChange={onChangeInputHandler}
+              value={inputHandler.readingTime}
+              id="readingTime"
+              name="readingTime"
+              placeholder="readingTime"
+            />
+          </div>
+          <button className="btn" onClick={onSubmitHandler}>
             Edit Blog
           </button>
-          
         </form>
       </div>
     </section>

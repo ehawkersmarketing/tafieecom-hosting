@@ -15,6 +15,22 @@ const orderSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref: "User",
         },
+        transactionId: {
+            type: String,
+        },
+        merchantId: {
+            type: String,
+        },
+        transactionStatus: {
+            type: String,
+            default: "PROCESSING",
+        },
+        amount: {
+            type: Number,
+        },
+        userAddress: {
+            type: mongoose.Types.ObjectId,
+        },
     },
     { timestamps: true }
 );
