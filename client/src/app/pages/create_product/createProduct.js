@@ -1,9 +1,11 @@
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./createProduct.css";
+import { useFetch } from "../../hooks/api_hook";
 import axios from "axios";
 
 const CreateProduct = () => {
+  const { data } = useFetch("/api/allCategory");
   const user = JSON.parse(localStorage.getItem("user"));
   const [value, setValue] = useState(1);
   const [maxValue, setMaxValue] = useState(8);
@@ -13,11 +15,16 @@ const CreateProduct = () => {
   const [inputHandler, setInputHandler] = useState({
     title: "",
     description: "",
+    gstSlab: "",
     price: "",
     quantity: "",
     productType: "",
     maxQuantity: maxValue,
     minQuantity: value,
+  });
+  const [dropdown, setDropdown] = useState({
+    category: " ",
+    gstSlab: " ",
   });
 
   const history = useNavigate();
@@ -32,7 +39,11 @@ const CreateProduct = () => {
     });
   };
 
-  // console.log(inputHandler)
+  const onDropdownChangeInputHandler = (e) => {
+    const { name, value } = e.target;
+    setDropdown({ ...dropdown, [name]: value });
+  };
+
   function limitInputValue(e) {
     if (e.target.value > maxValue) {
       <p>The Minimum value should be less than maximum value</p>;
@@ -42,17 +53,11 @@ const CreateProduct = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const {
-      title,
-      description,
-      maxQuantity,
-      minQuantity,
-      price,
-      quantity,
-      productType,
-    } = inputHandler;
-    console.log(inputHandler);
-    //  console.log(image)
+    const { title, description, maxQuantity, minQuantity, price, quantity } =
+      inputHandler;
+    const { category, gstSlab } = dropdown;
+    // console.log(category);
+    // console.log(inputHandler);
     if (title === "") {
       alert("Add Title");
     } else if (description === "") {
@@ -69,6 +74,8 @@ const CreateProduct = () => {
         "http://localhost:8080/api/uploadImage",
         formData
       );
+      const gstNumber = parseInt(gstSlab.split("%")[0]);
+
       console.log(imageUrl);
       if (imageUrl?.data.success) {
         const { data } = await axios.post(
@@ -76,12 +83,18 @@ const CreateProduct = () => {
           {
             title: title,
             description: description,
+            units: {
+              minQuantity: minQuantity,
+              maxQuantity: maxQuantity,
+            },
+            gstSlab: gstNumber,
             price: price,
             quantity: quantity,
-            productType: productType,
+            category: category,
             image: imageUrl.data.url,
           }
         );
+        console.log(data);
         if (data.success) {
           setInputHandler({
             ...inputHandler,
@@ -91,8 +104,8 @@ const CreateProduct = () => {
             description: " ",
             price: "",
             quantity: "",
-            productType: "",
           });
+          setDropdown({ category: "", gstSlab: " " });
           history("/");
         }
       }
@@ -140,7 +153,6 @@ const CreateProduct = () => {
                 required
               />
             </div>
-
             <div className="form_input">
               <label htmlFor="price">Price</label>
               <input
@@ -152,6 +164,24 @@ const CreateProduct = () => {
                 placeholder="Price"
               />
             </div>
+
+            <div className="form_input">
+              <label htmlFor="gstSlab">GST SLAB</label>
+              <br></br>
+              <select
+                style={{ width: "20rem", height: "2rem", marginBottom: "1rem" }}
+                onChange={onDropdownChangeInputHandler}
+                value={dropdown.gstSlab}
+                name="gstSlab"
+              >
+                <option>select the GST</option>
+                <option> 5%</option>
+                <option>12%</option>
+                <option>28%</option>
+                <option>18%</option>
+              </select>
+            </div>
+
             <div className="form_input">
               <label htmlFor="minQuantity">Minimum Quantity</label>
               <input
@@ -166,7 +196,6 @@ const CreateProduct = () => {
               />
               {value == 1 && <span>(Default)</span>}
             </div>
-
             <div className="form_input">
               <label htmlFor="maxQuantity">Maximum Quantity</label>
               <input
@@ -189,17 +218,30 @@ const CreateProduct = () => {
                 placeholder="quantity"
               />
             </div>
+
             <div className="form_input">
-              <label htmlFor="productType">Product Type</label>
-              <input
-                type="text"
-                onChange={onChangeInputHandler}
-                value={inputHandler.productType}
-                id="productType"
-                name="productType"
-                placeholder="productType"
-              />
+              <label htmlFor="category">Category</label>
+              <br></br>
+              <select
+                onChange={onDropdownChangeInputHandler}
+                value={dropdown.category}
+                name="category"
+                style={{
+                  width: "20rem",
+                  height: "2rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                <option>select the Category</option>
+                {data?.map((item) => (
+                  <option key={item.id} name="category" value={item.category}>
+                    {item.category}
+                  </option>
+                ))}
+              </select>
+              ;
             </div>
+
             <button className="btn" onClick={onSubmitHandler}>
               Create Product
             </button>

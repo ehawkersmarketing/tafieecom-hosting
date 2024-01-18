@@ -1,6 +1,5 @@
 const express = require("express");
 const {
-
   getAllProducts,
   createProduct,
   updateProduct,
@@ -8,26 +7,26 @@ const {
   searchProduct,
   searchProductByCategory,
   getProductsById,
-  CreateCategory
-
+  CreateCategory,
+  getAllCategory,
 } = require("../../controlllers/product/productController");
 
 const router = express.Router();
-const multer = require('multer');
+const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/images');
+    cb(null, "public/images");
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + '_' + Date.now() + file.originalname);
+    cb(null, file.fieldname + "_" + Date.now() + file.originalname);
   },
 });
 const upload = multer({
   storage: storage,
 });
 
-router.post("/uploadImage", upload.single('image'), (req, res) => {
+router.post("/uploadImage", upload.single("image"), (req, res) => {
   console.log(req.file.filename);
   res.json({
     success: true,
@@ -36,7 +35,6 @@ router.post("/uploadImage", upload.single('image'), (req, res) => {
   });
 });
 
-
 router.post("/createProduct", createProduct);
 router.get("/allProducts", getAllProducts);
 router.get("/getProduct/:id", getProductsById);
@@ -44,6 +42,7 @@ router.patch("/updateProduct/:id", updateProduct);
 router.delete("/deleteProduct/:id", deleteProduct);
 router.post("/searchProduct", searchProduct);
 router.get("/searchProduct/:category", searchProductByCategory);
-router.post("/createCategory",CreateCategory);
+router.post("/createCategory", CreateCategory);
+router.get("/allCategory", getAllCategory);
 
 module.exports = router;
