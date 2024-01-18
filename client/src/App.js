@@ -12,6 +12,7 @@ import SingleBlog from "./app/pages/blog_page/SingleBlog/SingleBlog.jsx";
 import Header from "./app/pages/header/header.jsx";
 import Footer from "./app/pages/footer/footer.jsx";
 import UpdateProduct from "./app/pages/update_product/updateProduct.js";
+import Product from "./app/pages/product_page/product.jsx";
 function App() {
   const dispatch = useDispatch();
 
@@ -48,7 +49,9 @@ function App() {
           <Route path="/blog/composeBlog" exact element={<ComposeBlog />} />
           <Route path="/updateBlog/:id" exact element={<UpdateBlog />} />
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
+          <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog" exact element={<SingleBlog />} />
+
         </Routes>
       </Routers>
     </div>
