@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const axios = require("axios");
 const uniqid = require("uniqid");
+const { setTimeout } = require("timers");
 
 const giveUniqueId = (length) => {
   return "TAFI" + uniqid(length);
@@ -54,6 +55,7 @@ exports.payFunction = async (req, res) => {
       })
       .catch(function (error) {
         console.error(error);
+
         res.status(500).send({
           message: "Error in connecting to PhonePe Try sometime later",
           success: false,
@@ -107,7 +109,7 @@ async function statusCall(n, options, cartId) {
         merchantId: response.data.data.merchantId,
         cartId: cartId,
         amount: response.data.data.amount,
-        transactionStatus: response.data.data.state,
+        transactionStatus: response.data.data.state
       });
       if (data.success) {
         return true;

@@ -53,12 +53,12 @@ function App() {
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
           <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog" exact element={<SingleBlog />} />
-          <Route path="/shopPage" exact element={<ShopPage />} />
           <Route
             path="/TermsAndCondition"
             exact
             element={<TermsAndCondition />}
           />
+          <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
           <Route path="PrivacyPolicy" exact element={<PrivacyPolicy />} />
         </Routes>
