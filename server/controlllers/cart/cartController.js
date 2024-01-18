@@ -15,21 +15,30 @@ exports.putProductInCart = async (req, res) => {
       });
       if (product) {
         product = product.toObject();
-        for (var i = 0; i < product.products.length; i++) {
-          if (product.products[i].productId == productId) {
-            product.products[i].units = product.products[i].units + 1;
+        if (units == 0) {
+          cartModel.deleteOne({ "products.productId": productId });
+          res.status(200).send({
+            success: true,
+            message: "cart updated",
+            data: {},
+          });
+        } else {
+          for (var i = 0; i < product.products.length; i++) {
+            if (product.products[i].productId == productId) {
+              product.products[i].units = product.products[i].units + 1;
+            }
           }
+          const updatedCart = await cartModel.findOneAndUpdate(
+            { userId: userId },
+            { $set: { products: product.products } },
+            { new: true }
+          );
+          res.status(200).send({
+            success: true,
+            message: "cart updated",
+            data: updatedCart,
+          });
         }
-        const updatedCart = await cartModel.findOneAndUpdate(
-          { userId: userId },
-          { $set: { products: product.products } },
-          { new: true }
-        );
-        res.status(200).send({
-          success: true,
-          message: "cart updated",
-          data: updatedCart,
-        });
       } else {
         userCart = userCart.toObject();
         userCart.products.push({ productId, units });
@@ -97,18 +106,27 @@ exports.deleteProductInCart = async (req, res) => {
   }
 };
 
-//for getting the details of the cart
-exports.getCart = async (req, res) => {
+exports.getCartByUser = async (req, res, next) => {
   try {
-    res.status(200).send({
-      success: true,
-      message: "getting cart",
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(404).send({
+    const { userId } = req.params;
+    const cart = await cartModel.findOne({ userId: userId });
+    if (cart) {
+      res.status(200).json({
+        success: true,
+        data: cart,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Cart not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
       success: false,
-      message: "get cart failed",
+      message: "Error in getting cart",
+      error,
     });
   }
 };
