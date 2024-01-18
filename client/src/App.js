@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+
       <Routers>
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
@@ -55,6 +55,7 @@ function App() {
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
           <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog" exact element={<SingleBlog />} />
+
           <Route
             path="/TermsAndCondition"
             exact
