@@ -1,0 +1,7 @@
+.carousal {
+    width: 100%;
+
+    .carouselItems {
+        display: flex;
+    }
+}
