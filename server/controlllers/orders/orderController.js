@@ -3,10 +3,8 @@ const orderCountModel = require("../../models/orderModel/orderCountModel.js");
 const cartModel = require("../../models/cartModel/cartModel.js");
 
 module.exports.getAllOrders = async (req, res, next) => {
-    console.log("dvisuge");
     try {
         const orders = await orderModel.find({});
-        console.log(orders);
         res.status(200).json({
             success: true,
             data: orders
