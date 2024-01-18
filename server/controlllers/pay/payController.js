@@ -49,7 +49,7 @@ exports.payFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data.data.instrumentResponse.redirectInfo.url);//url to PhonePe page for payment
+        console.log(response.data.data.instrumentResponse.redirectInfo.url);//url to PhonePe page for payment
         res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
       })
       .catch(function (error) {
@@ -90,6 +90,7 @@ exports.checkStatusFunction = async (req, res) => {
   };
   let n = 10;
   let status = statusCall(n, options, cartId);
+  console.log(`This is the status ${status}`);
   if (status) {
     res.redirect("http://localhost:8080/api/cart");
   }
@@ -99,8 +100,10 @@ exports.checkStatusFunction = async (req, res) => {
 async function statusCall(n, options, cartId) {
   try {
     let response = await axios.request(options);
+    console.log(response.data.success);
     if (response.data.success === true) {
-      let { data } = await axios.post("/", {
+      console.log("Taking data to place order");
+      let { data } = await axios.post("http://localhost:8080/api/placeOrder", {
         transactionId: response.data.data.MerchantransactionId,
         merchantId: response.data.data.merchantId,
         cartId: cartId,
@@ -114,39 +117,14 @@ async function statusCall(n, options, cartId) {
       }
     } else {
       if (n === 0) {
-
+        return false;
       } else {
-        await wait(3000);
-        return statusCall(--n, options);
+        return setTimeout(statusCall(--n, options, cartId), 3000);
       }
     }
   } catch (error) {
-    if (error.response.status == 401) {
-      res.status(401).send({
-        success: false,
-        message:
-          "Authentication failed, authorization failed invalid value in header",
-      });
-    } else if (error.response.status == 400) {
-      // console.log(error);
-      res.status(400).send({
-        success: false,
-        message: "Status check failed, invalid API url",
-      });
-    } else if (error.response.status == 500) {
-      // console.log(error);
-      res.status(500).send({
-        success: false,
-        message: "Payment Failed",
-      });
-    } else {
-      // console.log(error);
-      res.status(500).send({
-        success: false,
-        message: "Payment Failed",
-      });
-      res.redirect("http://localhost:8080/api/cart"); //redirect to cart upon status success of the transaction is confirmed
-    }
+    console.log(error);
+    return false;
   }
 }
 
