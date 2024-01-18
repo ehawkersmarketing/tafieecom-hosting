@@ -10,6 +10,7 @@ module.exports.getAllOrders = async (req, res, next) => {
             data: orders
         });
     } catch (error) {
+        console.log(error);
         next(error);
     }
 }
@@ -47,17 +48,21 @@ module.exports.placeOrder = async (req, res, next) => {
         if (cart) {
             const newOrder = new orderModel({
                 products: cart.products,
-                userId: cart.userId
+                userId: cart.userId,
+                merchantId: merchantId,
+                amount: amount,
+                transactionId: transactionId,
+                transactionStatus: transactionStatus
             });
             await newOrder.save();
 
             for (var i = 0; i < cart.products.length; i++) {
 
-                const product = await orderCountModel.findOne({ productId: cart.products[i]._id });
+                const product = await orderCountModel.findOne({ productId: cart.products[i].productId });
                 if (product) {
                     await orderCountModel.findOneAndUpdate(
                         { productId: cart.products[i].productId },
-                        { $inc: { count: cart.products[i].units } },
+                        { $inc: { orderCount: cart.products[i].units } },
                         { new: true }
                     );
                 } else {

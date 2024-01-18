@@ -5,10 +5,10 @@ const router = express.Router();
 
 // GET || getting all blogs
 router.get("/getAllOrders", getAllOrders);
-router.get("/getAllOrderByUser/:uesrId", getAllOrderByUser);
+router.get("/getAllOrderByUser/:userId", getAllOrderByUser);
 router.get("/getOrderCount", getAllOrderCounts);
 router.post("/placeOrder", placeOrder);
-router.get("getOrderByStatus", getAllOrdersByStatus);
+router.get("/getOrderByStatus/:orderStatus", getAllOrdersByStatus);
 
 
 module.exports = router;
