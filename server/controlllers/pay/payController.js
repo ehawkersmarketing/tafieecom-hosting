@@ -53,7 +53,7 @@ exports.payFunction = async (req, res) => {
         res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
       })
       .catch(function (error) {
-        // console.error(error);
+        console.error(error);
         res.status(500).send({
           message: "Error in connecting to PhonePe Try sometime later",
           success: false,
@@ -100,15 +100,14 @@ exports.checkStatusFunction = async (req, res) => {
 async function statusCall(n, options, cartId) {
   try {
     let response = await axios.request(options);
-    console.log(response.data.success);
     if (response.data.success === true) {
       console.log("Taking data to place order");
       let { data } = await axios.post("http://localhost:8080/api/placeOrder", {
-        transactionId: response.data.data.MerchantransactionId,
+        transactionId: response.data.data.merchantTransactionId,
         merchantId: response.data.data.merchantId,
         cartId: cartId,
         amount: response.data.data.amount,
-        transactionStatus: response.data.data.transactionStatus,
+        transactionStatus: response.data.data.state,
       });
       if (data.success) {
         return true;
