@@ -7,7 +7,7 @@
     color: rgba(25, 68, 63, 1);
 }
 
-.div {
+.sign_in .div {
     background: linear-gradient(90deg,
             rgba(41, 100, 94, 0.1) -0.43%,
             rgba(68, 169, 139, 0.1) 99.93%),
@@ -17,7 +17,7 @@
     flex-direction: column;
 }
 
-.div-2 {
+.sign_in .div-2 {
     background-color: var(--darkgreen-primary, #19443f);
     display: flex;
     width: 100%;
@@ -257,6 +257,18 @@
         sans-serif;
 }
 
+.welcome-text {
+    background-color: #fff;
+    color: #19443f;
+    display: block;
+  }
+  .back-text{
+    background-color:#19443f;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+}
+
 .img-4 {
     aspect-ratio: 0.97;
     object-fit: contain;
@@ -315,11 +327,11 @@
     }
 }
 
-.span-6 {
+.sign_in .span-6 {
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
     margin-top: 32px;
-    padding-right: 80px;
+    /* padding-right: 80px; */
     justify-content: space-between;
 
 }
@@ -359,7 +371,7 @@
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
     margin-top: 24px;
-    padding-right: 80px;
+    padding-right: 0px;
     justify-content: space-between;
     /* gap: 20px; */
 }
@@ -419,7 +431,7 @@
         sans-serif;
 }
 
-.span-9 {
+.sign_in .span-9 {
     color: #fff;
     white-space: nowrap;
     justify-content: center;
@@ -427,18 +439,29 @@
     border-radius: 31px;
     box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.3),
         0px 3px 7px 0px rgba(21, 60, 56, 0.3);
-    background-color: var(--primary-gradient-light,
+    background-image:
             linear-gradient(79deg,
                 #36914b 0.36%,
                 #44a95c 58.15%,
-                #7bf197 117.12%));
+                #7bf197 117.12%);
     align-self: center;
     margin-top: 29px;
     width: 272px;
     max-width: 100%;
     padding: 10px 60px;
+    border: 0;
     font: 700 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
+}
+
+.sign_in button:hover {
+    background-image: 
+            linear-gradient(-79deg,
+                #36914b 0.36%,
+                #44a95c 58.15%,
+                #7bf197 117.12%);
+    cursor: pointer;
+    
 }
 
 @media (max-width: 991px) {

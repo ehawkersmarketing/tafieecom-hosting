@@ -24,7 +24,6 @@ const upload = multer({
 });
 
 // POST || creating new blog
-
 router.post("/uploadBlogImage", upload.single("image"), (req, res) => {
   console.log(req.file.filename);
   res.json({
@@ -33,12 +32,12 @@ router.post("/uploadBlogImage", upload.single("image"), (req, res) => {
     url: req.file.filename,
   });
 });
-
 router.post("/composeBlog", composeBlog);
 router.get("/blogs", getAllBlogs);
-router.get("blog/:blogId", getBlogById);
-router.patch("/updateBlog/:blogId", updateBlog);
+router.get("/blog/:blogId", getBlogById);
+router.put("/updateBlog/:blogId", updateBlog);
 router.delete("/deleteBlog/:blogId", deleteBlog);
-router.get("/searchBlog/:blogId", searchBlog);
+router.post("/searchBlog", searchBlog);
+// router.get("/searchBlog", searchBlog);
 
 module.exports = router;
