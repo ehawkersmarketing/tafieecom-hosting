@@ -64,7 +64,7 @@ left: 904px;
 }
 
 .footer .footer-contact{
-  background-image: url('./../assets/Footer_img.png');
+  background-image: url('./../../assets/Footer_img.png');
   padding: 20px 50px;
   min-height: 200px;
   width: 80%;
