@@ -78,7 +78,7 @@ exports.createProduct = async (req, res) => {
       companyName,
     });
 
-    const categoryData = await categoryModel.create({ category });
+    const categoryData = await categoryModel.find({ category });
 
     await product.save();
     if (product) {

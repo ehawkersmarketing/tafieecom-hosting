@@ -22,8 +22,10 @@ const CreateProduct = () => {
     maxQuantity: maxValue,
     minQuantity: value,
   });
-
-  const [categoryName, setCategory] = useState(" ");
+  const [dropdown, setDropdown] = useState({
+    category: " ",
+    gstSlab: " ",
+  });
 
   const history = useNavigate();
 
@@ -37,8 +39,9 @@ const CreateProduct = () => {
     });
   };
 
-  const onCategoryChangeInputHandler = (e) => {
-    setCategory(e.target.value);
+  const onDropdownChangeInputHandler = (e) => {
+    const { name, value } = e.target;
+    setDropdown({ ...dropdown, [name]: value });
   };
 
   function limitInputValue(e) {
@@ -46,23 +49,15 @@ const CreateProduct = () => {
       <p>The Minimum value should be less than maximum value</p>;
     }
   }
-  console.log(categoryName);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const {
-      title,
-      description,
-      maxQuantity,
-      minQuantity,
-      price,
-      gstSlab,
-      quantity,
-    } = inputHandler;
-    const category = categoryName;
-    console.log(category);
-    console.log(inputHandler);
+    const { title, description, maxQuantity, minQuantity, price, quantity } =
+      inputHandler;
+    const { category, gstSlab } = dropdown;
+    // console.log(category);
+    // console.log(inputHandler);
     if (title === "") {
       alert("Add Title");
     } else if (description === "") {
@@ -79,6 +74,7 @@ const CreateProduct = () => {
         "http://localhost:8080/api/uploadImage",
         formData
       );
+      const gstNumber = parseInt(gstSlab.split("%")[0]);
 
       console.log(imageUrl);
       if (imageUrl?.data.success) {
@@ -91,7 +87,7 @@ const CreateProduct = () => {
               minQuantity: minQuantity,
               maxQuantity: maxQuantity,
             },
-            gstSlab: gstSlab,
+            gstSlab: gstNumber,
             price: price,
             quantity: quantity,
             category: category,
@@ -108,8 +104,8 @@ const CreateProduct = () => {
             description: " ",
             price: "",
             quantity: "",
-            productType: "",
           });
+          setDropdown({ category: "", gstSlab: " " });
           history("/");
         }
       }
@@ -173,23 +169,16 @@ const CreateProduct = () => {
               <label htmlFor="gstSlab">GST SLAB</label>
               <br></br>
               <select
-                style={{ width: "20rem", height: "5rem", marginBottom: "1rem" }}
-                onChange={onChangeInputHandler}
-                value={inputHandler.gstSlab}
+                style={{ width: "20rem", height: "2rem", marginBottom: "1rem" }}
+                onChange={onDropdownChangeInputHandler}
+                value={dropdown.gstSlab}
+                name="gstSlab"
               >
                 <option>select the GST</option>
-                <option name="gstSlab" value={inputHandler.gstSlab}>
-                  5%
-                </option>
-                <option name="gstSlab" value={inputHandler.gstSlab}>
-                  12%
-                </option>
-                <option name="gstSlab" value={inputHandler.gstSlab}>
-                  18%
-                </option>
-                <option name="gstSlab" value={inputHandler.gstSlab}>
-                  28%
-                </option>
+                <option> 5%</option>
+                <option>12%</option>
+                <option>28%</option>
+                <option>18%</option>
               </select>
             </div>
 
@@ -234,8 +223,9 @@ const CreateProduct = () => {
               <label htmlFor="category">Category</label>
               <br></br>
               <select
-                onChange={onCategoryChangeInputHandler}
-                value={categoryName}
+                onChange={onDropdownChangeInputHandler}
+                value={dropdown.category}
+                name="category"
                 style={{
                   width: "20rem",
                   height: "2rem",
