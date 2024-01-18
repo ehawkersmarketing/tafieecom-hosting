@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema(
         },
         transactionStatus: {
             type: String,
-            default: "Pending",
+            default: "PROCESSING",
         },
         amount: {
             type: Number,
