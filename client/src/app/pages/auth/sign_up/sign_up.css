@@ -8,6 +8,7 @@
 }
 
 .div {
+    height: 100%;
     background: linear-gradient(90deg,
             rgba(41, 100, 94, 0.1) -0.43%,
             rgba(68, 169, 139, 0.1) 99.93%),
