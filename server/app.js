@@ -41,7 +41,6 @@ app.use("/api", productRoute);
 app.use("/api", blogRoute);
 app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
-
 app.use("/api", orderRoute);
 
 app.use(express.static("public"));
