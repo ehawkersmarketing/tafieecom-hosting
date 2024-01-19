@@ -3,9 +3,10 @@ import Header from "../../pages/header/header";
 // import Footer from "../../footer/footer";
 import { Link } from "react-router-dom";
 import resourcepage1 from "../../assets/resourcecenter1.png";
-import mask from "../../assets/mask.png";
+import mask from "../../assets/mask_top.png";
 
 const BlogPage = () => {
+  
   return (
     <div>
       <Header />
@@ -14,15 +15,15 @@ const BlogPage = () => {
           <div className="blog-grid-page row">
             <div className="tile-circle"></div>
             <div className="tile_title col-5">
-              <div className="title_text">
+              <div className="title-text">
                 <div>
                   <h3>Welcome to</h3>
                 </div>
-                <div>
-                  <h1>TAFI RESOURCE</h1>
+                <div className="tafi-resource">
+                  <h1><span>TAFI RESOURCE</span></h1>
                 </div>
-                <div>
-                  <h1>CENTER</h1>
+                <div className="center">
+                  <h1><span>CENTER</span></h1>
                 </div>
               </div>
             </div>
@@ -51,7 +52,7 @@ const BlogPage = () => {
         </div>
         <div className="blog-latest-post">
           <div>
-            <h5>Latest Posts</h5>
+            <h4>Latest Posts</h4>
           </div>
           <div className="below-line">
             <div className="below-post"></div>
@@ -117,9 +118,9 @@ const BlogPage = () => {
         <div className="blog-most-viewed">
           <div className="blog-most-viewed-text">
             <div className="most-viewed">
-              <h4>
+              <h2>
                 <span>Most Viewed</span> by the people
-              </h4>
+              </h2>
             </div>
           </div>
           <div className="most-viewed-cards">
@@ -183,7 +184,7 @@ const BlogPage = () => {
         </div>
         <div className="blog-all-post">
           <div>
-            <h5>All Posts</h5>
+            <h4>All Posts</h4>
           </div>
           <div className="below-line">
             <div className="below-post"></div>
