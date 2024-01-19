@@ -1,0 +1,167 @@
+.main {
+    width: 100%;
+    padding-top: 3%;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, rgba(41, 100, 94, 0.10) -0.43%, rgba(68, 169, 139, 0.10) 99.93%), var(--light-base-green-2, #EBF6F5);
+}
+
+.main .main-1 {
+    width: 90%;
+    background-color: #fff;
+    filter: drop-shadow((0px 10px 30px rgba(25, 68, 63, 0.20)));
+    margin: auto;
+    border-radius: 12px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    box-shadow: 0px 10px 30px rgba(25, 68, 63, 0.20);
+}
+
+.sub-main {
+    display: flex;
+}
+
+.details {
+    display: flex;
+}
+
+.OrderDetails {
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
+    width: 32%;
+    border-radius: 12px;
+    background: linear-gradient(34deg, rgba(25, 68, 63, 0.80) 1.8%, rgba(40, 182, 168, 0.80) 105.45%), #D9D9D9;
+}
+
+.ShippingDetails {
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
+    width: 32%;
+    border-radius: 12px;
+    background: linear-gradient(79deg, #9CCBA7 0.36%, #A1D3AD 58.15%, #B3EAC0 117.12%);
+}
+
+.BillingDetails {
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
+    width: 32%;
+    border-radius: 12px;
+    background:linear-gradient(79deg, #CEE5D3 0.36%, #D0E9D6 58.15%, #D8F4DF 117.12%);
+}
+
+.main h1 {
+    color: rgba(25, 68, 63, 1)
+}
+
+.main p {
+    color: rgba(68, 169, 139, 1)
+}
+
+.OrderDetails-text {
+    padding-right: 10px;
+    line-height: 1.4;
+}
+
+.OrderDetails-text h4 {
+    padding-bottom: 0.5rem;
+    color: rgba(235, 246, 245, 1)
+}
+
+.OrderDetails-text p {
+    color: rgba(235, 246, 245, 1);
+    opacity: 0.7;
+    padding-bottom: 0;
+    margin-bottom: 2px;
+}
+
+.ShippingDetails-text {
+    padding-right: 10px;
+    line-height: 1.4;
+}
+
+.ShippingDetails-text h4 {
+    padding-bottom: 0.5rem;
+    color: rgb(0, 0, 0)
+}
+
+.ShippingDetails-text p {
+    color:rgba(25, 53, 68, 1);
+    padding-bottom: 0;
+    margin-bottom: 2px;
+}
+
+.BillingDetails-text {
+    padding-right: 10px;
+    line-height: 1.4;
+}
+
+.BillingDetails-text h4 {
+    padding-bottom: 0.5rem;
+    color: rgba(0, 0, 0, 1)
+}
+
+.BillingDetails-text p {
+    color: rgba(25, 68, 63, 1);
+    padding-bottom: 0;
+    margin-bottom: 2px;
+}
+
+.status {
+    padding-left: 6rem   
+}
+
+.order-link button {
+    color: #fff;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 0.5;
+    padding-bottom: 0.5;
+    border-radius: 6px;
+    border: none;
+    margin-left: 45%;     
+    margin-top: 3%; 
+    background: var(--Dark-Green-Gradient, linear-gradient(34deg, #29645E 1.8%, #188479 105.45%));
+    box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.00), 0px 3px 7px 0px rgba(21, 60, 56, 0.30);
+}
+
+
+
+/* Carousel Part */
+
+.card-carousel-title{
+    display: flex;
+       align-items: center;
+           justify-content: center;
+           margin-top:3rem;
+}
+.recommended{
+   padding: 0.1rem;
+   padding-left: 1rem;
+   padding-right: 1rem;
+   color: white;
+   background-color:#19443F ;
+}
+.foryou{
+    padding: 0.1rem 1rem;
+   color: white;
+   background-color:#C8A33D ;
+}
+
+.invoice-download button {
+    color: #fff;
+    text-align: left;
+    padding: 5px 20px;
+    background: var(--Dark-Green-Gradient, linear-gradient(34deg, #29645E 1.8%, #188479 105.45%));
+    box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.00), 0px 3px 7px 0px rgba(21, 60, 56, 0.30);
+    border-radius: 6px;
+    width: fit-content;
+    border: none;
+    margin-left: auto;
+    display: block;
+}
+
+
