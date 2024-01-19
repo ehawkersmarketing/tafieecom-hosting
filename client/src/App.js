@@ -14,6 +14,7 @@ import Product from "./app/pages/product_page/product.jsx";
 import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition.jsx";
 import ReturnAndRefund from "./app/pages/return_refund_policy/ReturnAndRefund.jsx";
 import PrivacyPolicy from "./app/pages/privacy_policy/PrivacyPolicy.jsx";
+import OrderConformationPage from "./app/pages/order_conformation_page/OrderConformationPage.jsx"
 
 import BlogPage from "./app/pages/blog_grid_page/blog_grid_page.jsx";
 
@@ -67,7 +68,8 @@ function App() {
           />
           <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
-          <Route path="PrivacyPolicy" exact element={<PrivacyPolicy />} />
+          <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
+          <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
         </Routes>
       </Routers>
       {/* <Footer /> */}
