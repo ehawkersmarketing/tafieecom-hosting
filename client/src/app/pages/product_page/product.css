@@ -253,3 +253,14 @@ select {
         font-weight: bold;
         margin-left: 30rem;
 }
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    position: relative;
+    margin-bottom: 10px;
+}
