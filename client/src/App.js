@@ -69,11 +69,8 @@ function App() {
           />
           <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
-
-          <Route path="PrivacyPolicy" exact element={<PrivacyPolicy />} />
+          <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
           <Route path="/adminPage" exact element={<AdminPage />} />
-
- 
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
 
         </Routes>

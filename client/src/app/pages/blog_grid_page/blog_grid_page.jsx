@@ -4,6 +4,7 @@ import Header from "../../pages/header/header";
 import { Link } from "react-router-dom";
 import resourcepage1 from "../../assets/resourcecenter1.png";
 import mask from "../../assets/mask_top.png";
+import Footer from "../../pages/footer/footer";
 
 const BlogPage = () => {
   
@@ -343,6 +344,7 @@ const BlogPage = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
