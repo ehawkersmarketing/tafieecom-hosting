@@ -44,6 +44,7 @@ module.exports.getAllOrderByUser = async (req, res, next) => {
 module.exports.placeOrder = async (req, res, next) => {
     try {
         const { cartId, transactionId, merchantId, amount, transactionStatus } = req.body;
+        console.log(`${cartId} - ${transactionId} - ${amount} - ${transactionStatus} - ${merchantId}`);
         const cart = await cartModel.findOne({ _id: cartId });
         if (cart) {
             const newOrder = new orderModel({
