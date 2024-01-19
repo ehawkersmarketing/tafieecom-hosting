@@ -1,6 +1,7 @@
 import react from "react";
 import "./product.css";
 import ProductImage from "../../assets/fertilizers.png";
+import Carousal from '../../components/carousal/carousal'
 import $ from "jquery"
 const Product = () => {
 
@@ -108,6 +109,9 @@ const Product = () => {
               <span className="more-icon">
                 <i class="bi bi-arrow-right"></i>
               </span>
+            </div>
+            <div className="carousal">
+              <Carousal />
             </div>
           </div>
         </div>
