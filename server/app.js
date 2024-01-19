@@ -52,7 +52,6 @@ app.get("/blog/:file", (req, res) => {
   res.sendFile(__dirname + `/public/blog/images/${req.params.file}`);
 });
 
-
 app.listen(process.env.PORT, () => {
   console.log(`server is running on PORT => ${PORT}`);
 });
