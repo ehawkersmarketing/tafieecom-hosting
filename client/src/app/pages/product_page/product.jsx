@@ -2,6 +2,7 @@ import react from "react";
 import "./product.css";
 import ProductImage from "../../assets/fertilizers.png";
 import Carousal from '../../components/carousal/carousal'
+import Header from '../../pages/header/header'
 import $ from "jquery"
 const Product = () => {
 
@@ -32,6 +33,7 @@ const Product = () => {
     
   return (
     <div className="single-product bg">
+      <Header />
       <section className="product-bg">
         <div className="wrapper">
           <div className="container">
