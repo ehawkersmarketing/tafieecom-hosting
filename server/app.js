@@ -12,7 +12,7 @@ const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
 const payRoute = require("./routes/payRoute/payRoute");
-const shipRoute = require("./routes/shipRoute/shipRoute");
+// const shipRoute = require("./routes/shipRoute/shipRoute");
 
 const orderRoute = require("./routes/orderRoute/orderRoute");
 
@@ -41,7 +41,7 @@ app.use("/api", blogRoute);
 app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
 
-app.use("/api/ship", shipRoute);
+// app.use("/api/ship", shipRoute);
 
 app.use("/api", orderRoute);
 
