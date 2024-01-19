@@ -19,6 +19,7 @@ import OrderConformationPage from "./app/pages/order_conformation_page/OrderConf
 import BlogPage from "./app/pages/blog_grid_page/blog_grid_page.jsx";
 
 import ShopPage from "./app/pages/shop_page/shop_page.jsx";
+import AdminPage from "./app/pages/admin_page/adminPage.jsx";
 
 
 function App() {
@@ -69,7 +70,7 @@ function App() {
           <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
-
+          <Route path="/adminPage" exact element={<AdminPage />} />
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
 
         </Routes>

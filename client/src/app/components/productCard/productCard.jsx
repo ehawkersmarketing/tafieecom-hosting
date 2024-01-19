@@ -2,8 +2,9 @@ import React from 'react';
 import './productCard.css';
 
 const ProductCard = ({ item }) => {
+
     return (
-        <div key={item.id} className="carouselItem">
+        <div key={item.id} className="carouselItem" interval="500">
             <div className="textBlock">
                 <img className='product-image' src={item.image} alt="" />
                 <div className='text-fields'>
