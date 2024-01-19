@@ -1,0 +1,6 @@
+.categoryCarouselItems {
+    display: flex;
+    gap: 5rem;
+    overflow: hidden;
+    margin: 2rem 0;
+}
