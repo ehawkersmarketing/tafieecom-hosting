@@ -2,11 +2,11 @@ import React from 'react';
 
 import './OrderConformationPage.css'
 import tick_icon from '../../assets/tick_icon.png'
-import Header from '../../pages/header/header';
+import Carousal from '../../components/carousal/carousal'
 
 const OrderConformationPage = () => {
   return(
-    <div><Header/>
+    <div>
       <div className='main'>
         <div className='main-1 row align-items-end'>
           <div className="col-9">
@@ -97,6 +97,7 @@ const OrderConformationPage = () => {
                 <h2 className='foryou'>For You</h2>
           </div>
       </div>
+      <Carousal />
     </div>
   );
 }
