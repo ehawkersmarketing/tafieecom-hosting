@@ -25,6 +25,10 @@ const orderSchema = new mongoose.Schema(
             type: String,
             default: "PROCESSING",
         },
+        orderStatus: {
+            type: String,
+            default: "PROCESSING",
+        },
         amount: {
             type: Number,
         },
