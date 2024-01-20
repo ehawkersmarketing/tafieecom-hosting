@@ -13,6 +13,11 @@ const blogModel = new mongoose.Schema({
   readingTime: {
     type: Number,
   },
+  tags: [
+    {
+      type: String,
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),
