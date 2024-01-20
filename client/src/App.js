@@ -21,6 +21,7 @@ import ShopPage from "./app/pages/shop_page/shop_page.jsx";
 import AdminPage from "./app/pages/admin_page/adminPage.jsx";
 import Header from "./app/pages/header/header.jsx";
 import Footer from "./app/pages/footer/footer.jsx";
+import About from "./app/pages/about_page/about.jsx";
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <Route path="/adminPage" exact element={<AdminPage />} />
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
           <Route path="/Invoice" exact element={<Invoice />} />
+          <Route path="/about" exact element={<About />} />
         </Routes>
       </Routers>
     </div>
