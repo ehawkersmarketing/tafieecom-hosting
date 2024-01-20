@@ -151,6 +151,11 @@
    background-color:#C8A33D ;
 }
 
+.invoice-download {
+    display: flex;
+    flex-direction: row;
+}
+
 .invoice-download button {
     color: #fff;
     text-align: left;
@@ -161,7 +166,11 @@
     width: fit-content;
     border: none;
     margin-left: auto;
-    display: block;
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+    height: fit-content;
 }
+
 
 
