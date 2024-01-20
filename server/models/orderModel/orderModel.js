@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema(
                 units: Number,
             },
         ],
-        userId: {
+        user: {
             type: mongoose.Types.ObjectId,
             ref: "User",
         },
@@ -25,12 +25,21 @@ const orderSchema = new mongoose.Schema(
             type: String,
             default: "PROCESSING",
         },
+        orderStatus: {
+            type: String,
+            default: "PROCESSING",
+        },
         amount: {
             type: Number,
         },
         userAddress: {
             type: mongoose.Types.ObjectId,
+            ref: "UserAddress",
         },
+        timestamps: {
+            type: Date,
+            default: Date.now(),
+        }
     },
     { timestamps: true }
 );

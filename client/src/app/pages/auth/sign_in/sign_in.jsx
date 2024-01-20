@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./sign_in.css";
 import axios from "axios";
@@ -12,6 +12,13 @@ var token;
 
 const SignIn = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token") !== undefined) {
+      navigate('/');
+    }
+  }, []);
+
   const [formField, setFormField] = useState({
     phone: "",
     otp: "",
@@ -53,6 +60,7 @@ const SignIn = () => {
 
   return (
     <>
+      <Header />
       <div className="div sign_in">
         <div className="div-8">
           <div className="div-9">
@@ -94,6 +102,9 @@ const SignIn = () => {
                     </button>
                   </div>
                 </span>
+                {/* <div className="input-phone">
+                  <input type="tel" placeholder="Enter phone number" />
+                </div> */}
                 <span className="span-7">
                   <div className="div-16" />
                   <div className="div-17">
