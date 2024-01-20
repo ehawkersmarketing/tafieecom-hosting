@@ -21,6 +21,10 @@ import ShopPage from "./app/pages/shop_page/shop_page.jsx";
 import AdminPage from "./app/pages/admin_page/adminPage.jsx";
 import Header from "./app/pages/header/header.jsx";
 import Footer from "./app/pages/footer/footer.jsx";
+import About from "./app/pages/about_page/about.jsx";
+
+import Cart from "./app/pages/cart_page/Cart.jsx"
+
 
 
 function App() {
@@ -68,7 +72,11 @@ function App() {
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
           <Route path="/adminPage" exact element={<AdminPage />} />
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
-          <Route path="/Invoice" exact element={<Invoice />} />
+          <Route path="/about" exact element={<About />} />
+
+          <Route path="/Invoice" exact element={<Invoice/>} />
+          <Route path="/Cart" exact element={<Cart />} />
+
         </Routes>
       </Routers>
     </div>
