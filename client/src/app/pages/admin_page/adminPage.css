@@ -112,6 +112,7 @@ border-radius: 12px;
 .nav-rightContent{
     margin-top: 1rem;
     display: flex;
+    justify-content: space-between;
 }
 .plus-icon{
     color: white;
@@ -205,7 +206,7 @@ table .td-edit-icon {
     margin:1rem;
 }
 .admin-table-card{
-    margin:3rem;
+    margin-top:3rem;
 }
 .admin-wrapper .admin-input-dropdown{
         display: flex;
@@ -225,4 +226,11 @@ select[type=text] {
 }
 .admin-wrapper .admin-table-div{
     margin-top: 2rem;
+}
+
+.row-wrapper{
+    margin :0;
+}
+.admin-sub-wrapper{
+    padding: 0;
 }

@@ -4,7 +4,7 @@ import logoImage from "../../assets/Tafi_logo_white.png";
 const AdminPage = () => {
   return (
     <div className="admin-wrapper">
-      <div className="row">
+      <div className="row row-wrapper">
         <div className="col-3 admin-sub-wrapper">
           <div className="div-admin">
             <div>
@@ -15,7 +15,6 @@ const AdminPage = () => {
                 </div>
               </div>
             </div>
-
             <div className="sidebar">
               <div>
                 <div className="sidebar-title">
