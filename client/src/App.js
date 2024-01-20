@@ -3,7 +3,6 @@ import { BrowserRouter as Routers, Route, Routes } from "react-router-dom";
 import DashBoard from "./app/pages/home_page/dashboard.jsx";
 import { useDispatch } from "react-redux";
 import SignIn from "./app/pages/auth/sign_in/sign_in.jsx";
-import SignUp from "./app/pages/auth/sign_up/sign_up.jsx";
 import CreateProduct from "./app/pages/create_product/createProduct.js";
 import ComposeBlog from "./app/pages/blog_page/CreateBlog/createBlog.js";
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
@@ -51,8 +50,7 @@ function App() {
     <div className="App" >
       <Routers>
         <Routes>
-          <Route path="/auth/login" exact element={<SignIn />} />
-          <Route path="/auth/register" exact element={<SignUp />} />
+          <Route path="/auth" element={<SignIn />} />
           <Route path="/" exact element={<DashBoard />} />
           <Route path="/createProduct" exact element={<CreateProduct />} />
           <Route path="/updateProduct/:id" exact element={<UpdateProduct />} />
