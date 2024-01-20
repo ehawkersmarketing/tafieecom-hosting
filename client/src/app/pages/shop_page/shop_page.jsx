@@ -66,7 +66,7 @@ const ShopPage = () => {
                         <i class="bi bi-caret-down-fill"></i>
                     </div>
                     <div className="search-bar">
-                        <input type="text" name="search" />
+                        <input type="text" name="search" className="search_container" />
                         <div className="search-button">
                             <button className="search-icon">
                                 <i class="bi bi-search"></i>
