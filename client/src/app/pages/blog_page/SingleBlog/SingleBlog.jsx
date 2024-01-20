@@ -1,6 +1,4 @@
 import "./SingleBlog.css";
-import Header from "../../header/header";
-// import Footer from "../../footer/footer";
 import { Link } from "react-router-dom";
 import resourcepage1 from "../../../assets/resourcecenter1.png";
 import blogpage_img from "../../../assets/blogpage_head.jpeg";
@@ -8,7 +6,6 @@ import blogpage_img from "../../../assets/blogpage_head.jpeg";
 const SingleBlog = () => {
   return (
     <div>
-      <Header />
       <div className="single_blog">
         <div className="single_blog_tile row">
           <div className="tile-circle"></div>

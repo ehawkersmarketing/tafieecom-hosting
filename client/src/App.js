@@ -15,12 +15,11 @@ import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition
 import ReturnAndRefund from "./app/pages/return_refund_policy/ReturnAndRefund.jsx";
 import PrivacyPolicy from "./app/pages/privacy_policy/PrivacyPolicy.jsx";
 import OrderConformationPage from "./app/pages/order_conformation_page/OrderConformationPage.jsx"
-
 import BlogPage from "./app/pages/blog_grid_page/blog_grid_page.jsx";
-
 import ShopPage from "./app/pages/shop_page/shop_page.jsx";
 import AdminPage from "./app/pages/admin_page/adminPage.jsx";
-
+import Header from "./app/pages/header/header.jsx";
+import Footer from "./app/pages/footer/footer.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +47,7 @@ function App() {
   return (
     <div className="App">
       <Routers>
+        <Header/>
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
           <Route path="/auth/register" exact element={<SignUp />} />
@@ -59,9 +59,7 @@ function App() {
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
           <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog" exact element={<SingleBlog />} />
-
           <Route path="/blog" exact element={<BlogPage />} />
-
           <Route
             path="/TermsAndCondition"
             exact
@@ -72,10 +70,9 @@ function App() {
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
           <Route path="/adminPage" exact element={<AdminPage />} />
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
-
         </Routes>
+        <Footer/>
       </Routers>
-      {/* <Footer /> */}
     </div>
   );
 }
