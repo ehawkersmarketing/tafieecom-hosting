@@ -15,6 +15,19 @@ module.exports.getAllOrders = async (req, res, next) => {
     }
 }
 
+module.exports.getOrderById = async (req, res, next) => {
+    try {
+        const orders = await orderModel.findOne({ _id: req.params.id }).populate('user').populate('userAddress');
+        res.status(200).json({
+            success: true,
+            data: orders
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 module.exports.getAllOrdersByStatus = async (req, res, next) => {
     try {
         const { OrderStatus } = req.params.orderStatus;
@@ -43,17 +56,18 @@ module.exports.getAllOrderByUser = async (req, res, next) => {
 
 module.exports.placeOrder = async (req, res, next) => {
     try {
-        const { cartId, transactionId, merchantId, amount, transactionStatus } = req.body;
+        const { cartId, transactionId, merchantId, amount, transactionStatus, user, userAddress } = req.body;
         console.log(`${cartId} - ${transactionId} - ${amount} - ${transactionStatus} - ${merchantId}`);
         const cart = await cartModel.findOne({ _id: cartId });
         if (cart) {
             const newOrder = new orderModel({
                 products: cart.products,
-                userId: cart.userId,
+                user: user,
                 merchantId: merchantId,
                 amount: amount,
                 transactionId: transactionId,
-                transactionStatus: transactionStatus
+                transactionStatus: transactionStatus,
+                userAddress: userAddress,
             });
             await newOrder.save();
 
