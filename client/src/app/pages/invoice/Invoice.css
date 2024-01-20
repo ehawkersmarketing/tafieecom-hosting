@@ -77,3 +77,13 @@
     margin-bottom: 20px;
 }
 
+.section-bottom .circle {
+    width: 4px;
+    height: 4px;
+    background-color: #bbbbbb;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 5px;
+    
+}
+
