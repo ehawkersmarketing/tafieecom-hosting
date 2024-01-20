@@ -50,7 +50,6 @@ function App() {
   return (
     <div className="App" >
       <Routers>
-        <Header />
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
           <Route path="/auth/register" exact element={<SignUp />} />
@@ -73,7 +72,6 @@ function App() {
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
           <Route path="/Invoice" exact element={<Invoice />} />
         </Routes>
-        <Footer />
       </Routers>
     </div>
   );

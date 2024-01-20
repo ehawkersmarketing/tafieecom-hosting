@@ -1,11 +1,17 @@
 import React from "react";
+import ProductCard from '../../components/product_card/product_card.jsx';
+import Header from '../header/header.jsx';
+import Footer from "../footer/footer.jsx";
 import punchline from '../../assets/punchline.png';
+import { ReactSVG } from "react-svg";
+
 
 import './home_page.css';
 
 const Dashboard = () => {
   return (
     <>
+      <Header />
       <div>
         <div className="topDiv">
           <div className="headingDiv">
@@ -110,6 +116,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
