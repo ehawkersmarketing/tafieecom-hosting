@@ -1,39 +1,34 @@
 import react from "react";
 import "./product.css";
 import ProductImage from "../../assets/fertilizers.png";
-import Carousal from '../../components/carousal/carousal'
-import Header from '../../pages/header/header'
-import $ from "jquery"
+import Carousal from "../../components/carousal/carousal";
+import Header from "../../pages/header/header";
+import $ from "jquery";
 const Product = () => {
+  // const viewMoreHandler = ()=>{
+  $(document).ready(function () {
+    var list = $(".list li");
+    var numToShow = 3;
+    var button = $("#next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
 
-
-    // const viewMoreHandler = ()=>{
-        $(document).ready(function(){
-
-      var list = $(".list li");
-      var numToShow = 3;
-      var button = $("#next");
-      var numInList = list.length;
-      list.hide();
-      if (numInList > numToShow) {
-        button.show();
+    button.click(function () {
+      var showing = list.filter(":visible").length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(":visible").length;
+      if (nowShowing >= numInList) {
+        button.hide();
       }
-      list.slice(0, numToShow).show();
+    });
+  });
 
-      button.click(function(){
-          var showing = list.filter(':visible').length;
-          list.slice(showing - 1, showing + numToShow).fadeIn();
-          var nowShowing = list.filter(':visible').length;
-          if (nowShowing >= numInList) {
-            button.hide();
-          }
-      });
-
-});
-    
   return (
     <div className="single-product bg">
-      <Header />
       <section className="product-bg">
         <div className="wrapper">
           <div className="container">
