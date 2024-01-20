@@ -79,8 +79,8 @@ const AdminPage = () => {
             </div>
           </div>
         </div>
-        <div className="col-9 admin-sub-wrapper">
-          <nav className="nav">
+        <div className="col-9 admin-suber-wrapper">
+          <nav className="nav-admin-page">
             <div className="admin-navbar">
               <div className="nav-header">
                 <div className="tab">
@@ -90,10 +90,13 @@ const AdminPage = () => {
                 <div className="nav-title">Store</div>
                 <div className="nav-rightContent">
                   <div className="nav-btn">
-                    <span className="plus-icon">
-                      <i class="bi bi-plus-lg"></i>
-                    </span>
-                    <span>Create New</span>
+                    <div className="btn-text">
+                      <span className="plus-icon">
+                        <i class="bi bi-plus-lg"></i>
+                      </span>
+
+                      <span>Create New</span>
+                    </div>
                   </div>
                   <div className="admin-right">
                     <input
@@ -174,17 +177,17 @@ const AdminPage = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">1.</th>
+                      <th scope="row table-center">1.</th>
                       <td className="td">
                         <img src="/image.com" />
                       </td>
-                      <td className="td">Name of Order</td>
-                      <td className="td">199</td>
-                      <td className="td">Fertilizers</td>
-                      <td className="td">10</td>
-                      <td className="td">17/01/2024</td>
-                      <td className="td">
-                        <span className="td-edit-icon">
+                      <td className="td table-center">Name of Order</td>
+                      <td className="td table-center">199</td>
+                      <td className="td table-center">Fertilizers</td>
+                      <td className="td table-center">10</td>
+                      <td className="td table-center">17/01/2024</td>
+                      <td className="td table-center">
+                        <span className="td-edit-icon ">
                           <i class="bi bi-pencil-square"></i>
                         </span>
                         <span className="td-delete-icon">
@@ -193,16 +196,16 @@ const AdminPage = () => {
                       </td>
                     </tr>
                     <tr>
-                      <th scope="row">2.</th>
-                      <td className="td">
+                      <th scope="row table-center">2.</th>
+                      <td className="td table-center">
                         <img src="/image.com" />
                       </td>
-                      <td className="td">Name of Order</td>
-                      <td className="td">199</td>
-                      <td className="td">Fertilizers</td>
-                      <td className="td">10</td>
-                      <td className="td">17/01/2024</td>
-                      <td className="td">
+                      <td className="td table-center">Name of Order</td>
+                      <td className="td table-center">199</td>
+                      <td className="td table-center">Fertilizers</td>
+                      <td className="td table-center">10</td>
+                      <td className="td table-center">17/01/2024</td>
+                      <td className="td table-center">
                         <span className="td-edit-icon">
                           <i class="bi bi-pencil-square"></i>
                         </span>

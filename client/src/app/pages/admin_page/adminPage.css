@@ -4,8 +4,7 @@
 }
 .logo{
     background-color:#19443F;
-
-    height: 7rem;
+    height: 10rem;
 }
 .image{
     display: flex;
@@ -13,8 +12,8 @@
     /* margin-top: 2rem; */
 }
 .img-logo{
-    width: 5.6rem;
-    height:2.5rem;
+    width: 60%;
+    /* height:2.5rem; */
     margin-top: 2rem;
 }
 .sidebar-title{
@@ -23,7 +22,7 @@
     margin-top: 1rem;
     padding: 0.5rem;
 }
-.title{font-family: Montserrat;
+.title{
     font-size: 12px;
     font-weight: 700;
     line-height: 18px;
@@ -59,6 +58,9 @@
     border-radius: 15px
 }
 
+.table-center{
+    text-align: center;
+}
 .sidebar-title:hover  .icon{
     background-color: #44A98B;
    color: white;
@@ -75,30 +77,34 @@ background-color:#EBF6F5;
 }
 
 .tab1{
-    font-family: Montserrat;
-        font-size: 12px;
+    
+        font-size: 16px;
         font-weight: 400;
         line-height: 18px;
         letter-spacing: 0em;
         text-align: left;
 }
 .nav-title{
-    font-family: Montserrat;
+
         font-size: 14px;
         font-weight: 700;
         line-height: 20px;
         letter-spacing: 0em;
         text-align: left;
 }
+.btn-text{
+   margin-top: 11px;
+}
 .nav-btn{
-    border-radius: 12px;
-    padding: 6px 21px 6px 21px;
-    width: 10rem;
-        height: 2.5rem;
-        background-color: #29645E;
-        color: white;
-        font-weight: 400;
-        font-size: 1rem
+border-radius: 12px;
+    /* padding: 6px 21px 6px 21px; */
+    width: 12rem;
+    height: 3rem;
+    background-color: #29645E;
+    color: white;
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center
 }
 .tab{
     margin-top: 4rem;
@@ -128,15 +134,16 @@ border-radius: 10px;
         font-size: 15px;
         margin-top:5px
 }
-.admin-sub-wrapper{
+.admin-suber-wrapper{
     height: 100vh;
+    padding:2%;
 }
 table .th{
         font-size: 17px;
         font-weight: 500;
         line-height: 21px;
         letter-spacing: -0.01em;
-        text-align: left;
+        text-align: center;
         color: #44A98B;
 }
 
@@ -147,7 +154,7 @@ table .td{
         font-weight: 500;
         line-height: 21px;
         letter-spacing: -0.01em;
-        text-align: left;
+        text-align: center;
 }
 .div-admin{
     height: 100%;
@@ -169,7 +176,9 @@ table .td-edit-icon {
  box-shadow: 0px 10px 60px 0px #E2ECF980;
 
 }
+.nav-admin-page{
 
+}
 .admin-wrapper h1{
         margin-top: 3rem;
             font-size: 25px;
@@ -179,7 +188,6 @@ table .td-edit-icon {
 
 .admin-wrapper h3{
     margin-top: 0px;
-        font-family: Poppins;
         font-size: 18px;
         font-weight: 400;
         line-height: 21px;
