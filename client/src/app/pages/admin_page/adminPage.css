@@ -118,6 +118,7 @@ border-radius: 12px;
  .admin-wrapper .nav-rightContent{
     margin-top: 1rem;
     display: flex;
+    justify-content: space-between;
 }
  .admin-wrapper .plus-icon{
     color: white;
@@ -210,8 +211,8 @@ border-radius: 10px;
 .admin-wrapper .subHeading{
     margin:1rem;
 }
-.admin-table-card{
-    margin:3rem;
+.admin-wrapper .admin-table-card{
+    margin-top:3rem;
 }
 .admin-wrapper .admin-input-dropdown{
         display: flex;
@@ -233,47 +234,65 @@ border-radius: 10px;
     margin-top: 2rem;
 }
 
-/* dashboard */
- .admin-wrapper .order-analysis-title{
-    font-family: Montserrat;
-        margin-left: 5px;
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 25px;
-        letter-spacing: 0em;
-        text-align: left;
+
+
+.admin-dashboard-card{
+    margin-top:30%;
 }
- .admin-wrapper .order-color-analysis{
-    background: linear-gradient(33.73deg, #19443F 1.8%, #28B6A8 105.45%),
-            linear-gradient(0deg, #D9D9D9, #D9D9D9);
-    width: 38%;
-    padding: 21px;
-    border-radius:15px;
-    color: white;
-}
- .admin-wrapper .order-color-revenue{
-background: linear-gradient(79.4deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%);
-        width: 38%;
-        padding: 21px;
-        border-radius: 15px;
-        color: white;
+.row-wrapper {
+    margin: 0;
 }
 
- .admin-wrapper .admin-dashboard-card{
-display: flex;
+.admin-sub-wrapper {
+    padding: 0;
+}
+
+/* dashboard */
+.admin-wrapper .order-analysis-title {
+    font-family: Montserrat;
+    margin-left: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.admin-wrapper .order-color-analysis {
+    background: linear-gradient(33.73deg, #19443F 1.8%, #28B6A8 105.45%),
+        linear-gradient(0deg, #D9D9D9, #D9D9D9);
+    width: 38%;
+    padding: 21px;
+    border-radius: 15px;
+    color: white;
+}
+
+.admin-wrapper .order-color-revenue {
+    background: linear-gradient(79.4deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%);
+    width: 38%;
+    padding: 21px;
+    border-radius: 15px;
+    color: white;
+}
+
+.admin-wrapper .admin-dashboard-card {
+    display: flex;
     justify-content: space-between;
 }
- .admin-wrapper .admin-dash-order{
+
+.admin-wrapper .admin-dash-order {
     display: flex;
-        justify-content: space-between;
+    justify-content: space-between;
 }
- .admin-wrapper .orders-dash-card-format{
+
+.admin-wrapper .orders-dash-card-format {
     display: flex;
     justify-content: space-evenly;
 }
-.admin-dashboard-graph-cart{
-background: linear-gradient(33.73deg, #19443F 1.8%, #28B6A8 105.45%);
-        height: 13rem;
+
+.admin-dashboard-graph-cart {
+    background: linear-gradient(33.73deg, #19443F 1.8%, #28B6A8 105.45%);
+    height: 13rem;
 }
 
 
@@ -298,4 +317,5 @@ body {
 #column-example-3 .column {
     --aspect-ratio: 4 / 3;
 }
+
 /*  bar */

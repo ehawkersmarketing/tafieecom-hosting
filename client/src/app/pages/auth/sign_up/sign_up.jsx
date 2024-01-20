@@ -61,8 +61,7 @@ const SignUp = () => {
 
   return (
     <>
-    <Header/>
-      <div className="div sign_up">
+      <div className="sign_up">
         <div className="div-8">
           <div className="div-9">
             <div className="column-2">

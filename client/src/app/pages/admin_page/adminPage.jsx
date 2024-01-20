@@ -31,7 +31,6 @@ const AdminPage = () => {
                 </div>
               </div>
             </div>
-
             <div className="sidebar">
               <div>
                 <div className="sidebar-title">

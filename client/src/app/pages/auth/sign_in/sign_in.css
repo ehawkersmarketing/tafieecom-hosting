@@ -1,13 +1,13 @@
-.text-register {
+.sign_in .text-register {
     font-family: Montserrat, sans-serif;
 }
 
-.text-create-account {
+.sign_in .text-create-account {
     font-family: Montserrat, sans-serif;
     color: rgba(25, 68, 63, 1);
 }
 
-.sign_in .div {
+.sign_in {
     background: linear-gradient(90deg,
             rgba(41, 100, 94, 0.1) -0.43%,
             rgba(68, 169, 139, 0.1) 99.93%),
@@ -27,14 +27,14 @@
 }
 
 @media (max-width: 991px) {
-    .div-2 {
+    .sign_in .div-2 {
         max-width: 100%;
         flex-wrap: wrap;
         padding: 0 20px;
     }
 }
 
-.img {
+.sign_in .img {
     aspect-ratio: 2.63;
     object-fit: contain;
     object-position: center;
@@ -43,7 +43,7 @@
     max-width: 100%;
 }
 
-.span {
+.sign_in .span {
     align-self: center;
     display: flex;
     justify-content: space-between;
@@ -52,13 +52,13 @@
 }
 
 @media (max-width: 991px) {
-    .span {
+    .sign_in .span {
         max-width: 100%;
         flex-wrap: wrap;
     }
 }
 
-.div-3 {
+.sign_in .div-3 {
     color: var(--yellow-primary, #c8a33d);
     white-space: nowrap;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
@@ -66,24 +66,24 @@
 }
 
 @media (max-width: 991px) {
-    .div-3 {
+    .sign_in .div-3 {
         white-space: initial;
     }
 }
 
-.div-4 {
+.sign_in .div-4 {
     color: #fff;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
 
-.div-5 {
+.sign_in .div-5 {
     color: #fff;
     font: 400 18px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
 
-.div-6 {
+.sign_in .div-6 {
     color: #fff;
     flex-grow: 1;
     white-space: nowrap;
@@ -92,19 +92,19 @@
 }
 
 @media (max-width: 991px) {
-    .div-6 {
+    .sign_in .div-6 {
         white-space: initial;
     }
 }
 
-.div-7 {
+.sign_in .div-7 {
     align-self: center;
     display: flex;
     gap: 18px;
     margin: auto 0;
 }
 
-.span-2 {
+.sign_in .span-2 {
     color: #fff;
     white-space: nowrap;
     justify-content: center;
@@ -122,13 +122,13 @@
 }
 
 @media (max-width: 991px) {
-    .span-2 {
+    .sign_in .span-2 {
         white-space: initial;
         padding: 0 20px;
     }
 }
 
-.span-3 {
+.sign_in .span-3 {
     color: #fff;
     white-space: nowrap;
     justify-content: center;
@@ -141,13 +141,13 @@
 }
 
 @media (max-width: 991px) {
-    .span-3 {
+    .sign_in .span-3 {
         white-space: initial;
         padding: 0 20px;
     }
 }
 
-.div-8 {
+.sign_in .div-8 {
     align-self: center;
     width: 100%;
     max-width: 925px;
@@ -155,25 +155,25 @@
 }
 
 @media (max-width: 991px) {
-    .div-8 {
+    .sign_in .div-8 {
         max-width: 100%;
         margin-top: 40px;
     }
 }
 
-.div-9 {
+.sign_in .div-9 {
     display: flex;
 }
 
 @media (max-width: 991px) {
-    .div-9 {
+    .sign_in .div-9 {
         flex-direction: column;
         align-items: stretch;
         gap: 0px;
     }
 }
 
-.column {
+.sign_in .column {
     display: flex;
     flex-direction: column;
     line-height: normal;
@@ -182,12 +182,12 @@
 }
 
 @media (max-width: 991px) {
-    .column {
+    .sign_in .column {
         width: 100%;
     }
 }
 
-.div-10 {
+.sign_in .div-10 {
     border-radius: 19px 0px 0px 19px;
     border: 0px solid #fff;
     background: linear-gradient(34deg, #29645e 1.8%, #188479 105.45%);
@@ -200,12 +200,12 @@
 }
 
 @media (max-width: 991px) {
-    .div-10 {
+    .sign_in .sign_in .div-10 {
         max-width: 100%;
     }
 }
 
-.div-11 {
+.sign_in .div-11 {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -217,13 +217,13 @@
 }
 
 @media (max-width: 991px) {
-    .div-11 {
+    .sign_in .div-11 {
         max-width: 100%;
         padding: 0 20px;
     }
 }
 
-.img-2 {
+.sign_in .img-2 {
     position: absolute;
     inset: 0;
     height: 100%;
@@ -232,7 +232,7 @@
     object-position: center;
 }
 
-.span-4 {
+.sign_in .span-4 {
     position: relative;
     display: flex;
     align-items: start;
@@ -240,7 +240,7 @@
     gap: 20px;
 }
 
-.img-3 {
+.sign_in .img-3 {
     aspect-ratio: 2.59;
     object-fit: contain;
     object-position: center;
@@ -249,7 +249,7 @@
     max-width: 100%;
 }
 
-.div-12 {
+.sign_in .div-12 {
     color: var(--light-base-green-2, #ebf6f5);
     text-align: right;
     margin-top: 19px;
@@ -257,19 +257,19 @@
         sans-serif;
 }
 
-.welcome-text {
+.sign_in .welcome-text {
     background-color: #fff;
     color: #19443f;
     display: block;
   }
-  .back-text{
+  .sign_in   .back-text{
     background-color:#19443f;
     display: block;
     width: fit-content;
     margin-left: auto;
 }
 
-.img-4 {
+.sign_in .img-4 {
     aspect-ratio: 0.97;
     object-fit: contain;
     object-position: center;
@@ -278,7 +278,7 @@
     margin-top: 21px;
 }
 
-.column-2 {
+.sign_in  .column-2 {
     display: flex;
     flex-direction: column;
     line-height: normal;
@@ -292,7 +292,7 @@
     }
 }
 
-.span-5 {
+.sign_in .span-5 {
     border-radius: 0px 19px 19px 0px;
     border: 1px solid #19443f;
     box-shadow: 0px 16px 20px -10px rgba(7, 54, 49, 0.5);
@@ -305,13 +305,13 @@
 }
 
 @media (max-width: 991px) {
-    .span-5 {
+    .sign_in .span-5 {
         max-width: 100%;
         padding: 0 20px;
     }
 }
 
-.div-13 {
+.sign_in .div-13 {
     color: var(--darkgreen-primary, #19443f);
     align-self: center;
     margin-top: 83px;
@@ -321,7 +321,7 @@
 }
 
 @media (max-width: 991px) {
-    .div-13 {
+    .sign_in .div-13 {
         margin-top: 40px;
         white-space: initial;
     }
@@ -337,12 +337,12 @@
 }
 
 @media (max-width: 991px) {
-    .span-6 {
+    .sign_in .span-6 {
         padding-right: 20px;
     }
 }
 
-.div-14 {
+.sign_in .div-14 {
     background-color: var(--bright-green-primary, #44a98b);
     display: flex;
     width: 7px;
@@ -350,39 +350,40 @@
     flex-direction: column;
 }
 
-.div-15 {
+.sign_in .div-15 {
     color: #29645e;
     align-self: center;
     flex-grow: 1;
     white-space: nowrap;
     margin: auto 0;
     width: 100%;
+    display: flex;
+    flex-direction: row;
     font: 400 14px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
 
 @media (max-width: 991px) {
-    .div-15 {
+    .sign_in .div-15 {
         white-space: initial;
     }
 }
 
-.span-7 {
+.sign_in .span-7 {
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
     margin-top: 24px;
     padding-right: 0px;
     justify-content: space-between;
-    /* gap: 20px; */
 }
 
 @media (max-width: 991px) {
-    .span-7 {
+    .sign_in .span-7 {
         padding-right: 20px;
     }
 }
 
-.div-16 {
+.sign_in .div-16 {
     background-color: var(--bright-green-primary, #44a98b);
     display: flex;
     width: 7px;
@@ -390,7 +391,7 @@
     flex-direction: column;
 }
 
-.div-17 {
+.sign_in .div-17 {
     color: #29645e;
     align-self: center;
     flex-grow: 1;
@@ -401,19 +402,19 @@
 }
 
 @media (max-width: 991px) {
-    .div-17 {
+    .sign_in .div-17 {
         white-space: initial;
     }
 }
 
-.span-8 {
+.sign_in .span-8 {
     display: flex;
     margin-top: 37px;
     justify-content: space-between;
     gap: 11px;
 }
 
-.div-18 {
+.sign_in .div-18 {
     border: 1px solid var(--bright-green-primary, #44a98b);
     background-color: var(--light-base-green-2, #ebf6f5);
     display: flex;
@@ -422,7 +423,7 @@
     flex-direction: column;
 }
 
-.div-19 {
+.sign_in .div-19 {
     color: #000;
     align-self: start;
     flex-grow: 1;
@@ -465,13 +466,13 @@
 }
 
 @media (max-width: 991px) {
-    .span-9 {
+    .sign_in .span-9 {
         white-space: initial;
         padding: 0 20px;
     }
 }
 
-.div-20 {
+.sign_in .div-20 {
     color: #19443f;
     align-self: center;
     margin-top: 31px;
@@ -480,19 +481,19 @@
 }
 
 @media (max-width: 991px) {
-    .div-20 {
+    .sign_in .div-20 {
         white-space: initial;
     }
 }
 
-.div-21 {
+.sign_in .div-21 {
     align-self: center;
     display: flex;
     gap: 14px;
     margin: 20px 0 8px;
 }
 
-.div-22 {
+.sign_in .div-22 {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #fff;
@@ -507,7 +508,7 @@
     padding: 0 7px;
 }
 
-.img-5 {
+.sign_in .img-5 {
     aspect-ratio: 1;
     object-fit: contain;
     object-position: center;
@@ -515,7 +516,7 @@
     overflow: hidden;
 }
 
-.div-23 {
+.sign_in .sign_in .div-23 {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #fff;
@@ -530,7 +531,7 @@
     padding: 0 7px;
 }
 
-.img-6 {
+.sign_in .img-6 {
     aspect-ratio: 1;
     object-fit: contain;
     object-position: center;
@@ -538,8 +539,8 @@
     overflow: hidden;
 }
 
-input[type="tel"],
-input[type="tel"] {
+.sign_in input[type="tel"],
+.sign_in input[type="tel"] {
     border: none;
     padding: 10px;
     background: transparent;
@@ -547,15 +548,13 @@ input[type="tel"] {
     height: 100%;
 }
 
-input[type="tel"]:focus {
+.sign_in input[type="tel"]:focus {
     outline: 0;
 }
 
-/* .input-phone input{
-  width: 100%;
-  border-left: 7px solid green;
-  padding: 10px;
-} */
-.button_otp {
+.sign_in .button_otp {
     width: 150px;
+    background-color: #19443f;
+    color: #fff;
+    border: none;
 }

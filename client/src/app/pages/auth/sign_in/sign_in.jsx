@@ -53,7 +53,6 @@ const SignIn = () => {
 
   return (
     <>
-    <Header/>
       <div className="div sign_in">
         <div className="div-8">
           <div className="div-9">
@@ -95,9 +94,6 @@ const SignIn = () => {
                     </button>
                   </div>
                 </span>
-                {/* <div className="input-phone">
-                  <input type="tel" placeholder="Enter phone number" />
-                </div> */}
                 <span className="span-7">
                   <div className="div-16" />
                   <div className="div-17">

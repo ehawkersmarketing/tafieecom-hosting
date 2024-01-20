@@ -33,6 +33,7 @@
     padding: 4px;
     text-decoration: none;
     color: white;
+    font-size: 14px;
 }
 
 .login-section a{
@@ -50,6 +51,7 @@
     color: white;
     padding: 10px 23px 10px 23px;
     text-decoration: none;
+    font-size: 14px;
   }
 
  .login-section .register {
