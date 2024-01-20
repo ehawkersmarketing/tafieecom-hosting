@@ -7,6 +7,7 @@ import google_icon from "../../../assets/google.png";
 import Mask_group from "../../../assets/Mask_group.png";
 import Tafi_logo_white from "../../../assets/Tafi_logo_white.png";
 import { Link } from "react-router-dom";
+import Header from "../../header/header";
 var token;
 
 const SignIn = () => {
@@ -52,6 +53,7 @@ const SignIn = () => {
 
   return (
     <>
+    <Header/>
       <div className="div sign_in">
         <div className="div-8">
           <div className="div-9">
@@ -66,8 +68,8 @@ const SignIn = () => {
                       className="img-3"
                     />
                     <div className="div-12">
-                        <div><span className="welcome-text">Welcome</span></div>
-                        <div><span className="back-text">Back!</span></div>
+                      <div><span className="welcome-text">Welcome</span></div>
+                      <div><span className="back-text">Back!</span></div>
                     </div>
                   </span>
                   <img loading="lazy" src={photo} className="img-4" />

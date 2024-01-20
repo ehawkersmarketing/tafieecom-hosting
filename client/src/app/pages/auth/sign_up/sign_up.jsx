@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import "./sign_up.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Header from "../../header/header";
 
 let token = undefined;
 
@@ -60,6 +61,7 @@ const SignUp = () => {
 
   return (
     <>
+    <Header/>
       <div className="div sign_up">
         <div className="div-8">
           <div className="div-9">

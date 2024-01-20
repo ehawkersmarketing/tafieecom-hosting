@@ -1,0 +1,225 @@
+.blogpage {
+  background-color: #dbeeea;
+  padding-top: 70px;
+  padding-bottom: 60px;
+}
+
+.blogpage .blog-tile {
+  background-color: #ebf6f5;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0px 4px 104px 0px rgba(41, 100, 94, 0.4),
+    0px 4px 20px 0px rgba(41, 100, 94, 0.1);
+  margin-bottom: 70px;
+}
+
+.blogpage .blog-tile .tile_title {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 331px;
+  position: relative;
+}
+
+.blogpage .blog-tile .tile-circle {
+  width: 0;
+  height: 0;
+  border-radius: 0 500px 0 0;
+  border: 70px solid #44a98b;
+  bottom: 00px;
+  left: 0px;
+  padding: 0px;
+  position: absolute;
+}
+.blogpage .title-text .tafi-resource span{
+  background-color: #44a98b;
+  padding :5px;
+  color: white;
+  font-weight: 700;
+  display: inline-block;
+}
+.blogpage .title-text .center span{
+  background-color: #19443f;
+  padding: 5px;
+  color: white;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.blogpage .allcategory {
+  height: 68px;
+  background-color: #19443f;
+  color: white;
+  align-items: center;
+  justify-content: start;
+  /* margin: 0; */
+}
+
+.filter-region {
+  background-color: var(--darkgreen-primary, #19443f);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  padding: 1.2rem 3rem;
+  height: 10%;
+
+  .filter {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .bi {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .bi-funnel-fill {
+      font-size: 1.5rem;
+      margin: 0 1rem 0 1.4rem;
+    }
+
+    .bi-caret-down-fill {
+      font-size: 0.8rem;
+    }
+
+    .category-text {
+      margin: 0 1.6rem 0 1rem;
+    }
+
+    span {
+      font-size: 18px;
+      font-weight: 400;
+      color: white;
+    }
+
+    .filter-text {
+      margin: 0 0.6rem 0;
+    }
+  }
+
+  .search-bar {
+    width: 35%;
+    background-color: white;
+    align-items: end;
+    display: flex;
+    border-radius: 1.5rem;
+    position: relative;
+
+    .search-icon {
+      background-color: #04aa6d;
+      border: none;
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 4px 2px;
+      border-radius: 50%;
+    }
+
+    .search-button {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-21px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+.below-line{
+    display: flex;
+    align-items: center;
+}
+.below-post{
+    width: 100px;
+    height: 7px;
+    background-color: #C8A33D;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.below-post-1{
+    width: 100%;
+    height: 1.5px;
+    background-color: #44a98b;
+    margin-bottom: 30px;
+}
+.blogpage .blog-latest-post{
+  width: 90%;
+  margin: auto;
+  margin-top: 30px;
+}
+.blogpage .latest-post-card{
+  width: 97%;
+  margin: auto;
+  padding-bottom: 30px;
+}
+.blogpage .latest-post-card .card-main{
+  margin-bottom:30px ;
+}
+.blogpage .blog-date{
+  color: #C8A33D;
+  font-weight: bold;
+}
+.blogpage .btn-read{
+  background-image: linear-gradient(79deg, #36914b 0.36%, #44a95c 58.15%, #7bf197 117.12%);
+  color:white;
+  border: none;
+}
+.blogpage .blog-most-viewed{
+  background-color: #42A487;
+  padding-bottom: 60px;
+  background-image: url("../../assets/mask_top.png");
+  background-size: cover ;
+}
+
+.blogpage .blog-most-viewed-text{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding-top: 30px ;
+}
+.blogpage .most-viewed h2{
+  color: white;
+  padding-left: 5px;
+  font-weight: 400;
+}
+.blogpage .most-viewed span{
+  font-weight: 700;
+  background-color: #C8A33D;
+  color: white;
+  padding: 5px;
+}
+.blogpage .most-viewed-post-card{
+  width: 97%;
+  margin: auto;
+  margin-top: 30px;
+  width: 90%;
+}
+.blogpage .blog-all-post{
+width: 90%;
+margin: auto;
+margin-top: 30px;
+}
+.blogpage .all-post-card .card-main{
+  padding: 10px;
+}
+.blogpage .blog-all-post .view-more{
+  width: 100%;
+  padding: 50px ;
+}
+.blogpage .blog-all-post .view-more button{
+  width: fit-content;
+  padding: 15px 50px;
+  margin: auto;
+  display: block;
+}

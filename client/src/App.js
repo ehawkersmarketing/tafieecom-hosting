@@ -9,13 +9,20 @@ import ComposeBlog from "./app/pages/blog_page/CreateBlog/createBlog.js";
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
 import ResourceCenter from "./app/pages/resourceCenter/resourceCenter.js";
 import SingleBlog from "./app/pages/blog_page/SingleBlog/SingleBlog.jsx";
-import Header from "./app/pages/header/header.jsx";
-import Footer from "./app/pages/footer/footer.jsx";
 import UpdateProduct from "./app/pages/update_product/updateProduct.js";
 import Product from "./app/pages/product_page/product.jsx";
 import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition.jsx";
 import ReturnAndRefund from "./app/pages/return_refund_policy/ReturnAndRefund.jsx";
 import PrivacyPolicy from "./app/pages/privacy_policy/PrivacyPolicy.jsx";
+import OrderConformationPage from "./app/pages/order_conformation_page/OrderConformationPage.jsx"
+import Invoice from "./app/pages/invoice/Invoice.jsx";
+import "./App.css";
+import BlogPage from "./app/pages/blog_grid_page/blog_grid_page.jsx";
+import ShopPage from "./app/pages/shop_page/shop_page.jsx";
+import AdminPage from "./app/pages/admin_page/adminPage.jsx";
+import Header from "./app/pages/header/header.jsx";
+import Footer from "./app/pages/footer/footer.jsx";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -42,8 +49,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Routers>
+        <Header/>
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
           <Route path="/auth/register" exact element={<SignUp />} />
@@ -55,16 +62,19 @@ function App() {
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
           <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog" exact element={<SingleBlog />} />
-          <Route
-            path="/TermsAndCondition"
-            exact
-            element={<TermsAndCondition />}
-          />
+          <Route path="/blog" exact element={<BlogPage />} />
+
+          <Route path="/TermsAndCondition" exact element={<TermsAndCondition />} />
+
+          <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
-          <Route path="PrivacyPolicy" exact element={<PrivacyPolicy />} />
+          <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
+          <Route path="/adminPage" exact element={<AdminPage />} />
+          <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
+          <Route path="/Invoice" exact element={<Invoice/>} />
         </Routes>
+        <Footer/>
       </Routers>
-      {/* <Footer /> */}
     </div>
   );
 }

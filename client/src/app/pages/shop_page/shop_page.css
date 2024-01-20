@@ -1,0 +1,449 @@
+.main-container {
+    background-color: #c3dad7;
+    width: 100vw;
+}
+
+.shop-page-container {
+
+    .shop-page-card {
+        margin: 3rem 5rem;
+        width: 90%;
+        height: 30.5rem;
+        background-color: #EBF6F5;
+        border-radius: 1rem;
+        position: relative;
+
+        .poster-card {
+            position: absolute;
+            right: 1.5rem;
+            top: 0;
+        }
+
+        .poster-card-background {
+            position: absolute;
+            background-repeat: no-repeat;
+            top: 0;
+            height: 30.5rem;
+        }
+
+        .shop-page-card-content {
+            position: absolute;
+
+            .product-content {
+                border-radius: 0.5rem;
+                position: absolute;
+                top: 12rem;
+                display: flex;
+                right: -19rem;
+                padding: 0 0 0.5rem 0;
+                background-color: white;
+                width: 25rem;
+                margin: 1rem 0.5rem 1.5rem;
+                overflow: hidden;
+
+                .text-fields {
+                    padding: 0.5rem 1.2rem 0.5rem 1.2rem;
+                    width: 50%;
+
+                    .category-name {
+                        color: var(--bright-green-primary, #44A98B);
+                        width: 66.633px;
+                        height: 17.464px;
+                        font-size: 15px;
+                        line-height: normal;
+                    }
+
+                    .product-name {
+                        color: var(--darkgreen-primary, #19443F);
+                        width: 280px;
+                        font-weight: bold;
+                        font-size: 26.491px;
+                        line-height: 29.434px;
+                    }
+
+                    .review {
+                        color: var(--bright-green-primary, #44A98B);
+                        font-size: 15px;
+                        line-height: normal;
+                    }
+
+                    .price {
+                        color: var(--darkgreen-primary, #19443F);
+                        font-size: 20px;
+                        line-height: normal;
+                        margin-bottom: 0.6rem;
+                        font-weight: 700;
+                    }
+
+                    .cart-btn {
+                        border-radius: 7px;
+                        border: none;
+                        color: white;
+                        display: inline-flex;
+                        padding: 6.202px 24.81px;
+                        justify-content: center;
+                        align-items: center;
+                        background: var(--primary-gradient-light, linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%));
+                        box-shadow: 0px 8.683px 24.81px 0px rgba(21, 60, 56, 0.00), 0px 3.721px 8.683px 0px rgba(21, 60, 56, 0.30);
+                    }
+
+                    #review-icon {
+                        color: #C8A33D;
+                    }
+
+                    #wishlist-icon {
+                        margin-right: 5px;
+                        color: #44A98B
+                    }
+
+                    .wishlist {
+                        color: var(--bright-green-primary, #44A98B);
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        text-decoration-line: underline;
+                    }
+
+                    .ratingAndReview {
+                        display: flex;
+                        gap: 2rem;
+                        align-items: center;
+                        margin-left: -2rem;
+                    }
+
+                    .rating {
+                        list-style-type: none;
+                        display: flex;
+                        gap: 0.7rem;
+                    }
+                }
+            }
+
+            .view-more {
+                width: 50%;
+                height: 30rem;
+                display: flex;
+                margin: -2rem 0 0 8rem;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .poster-text {
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 11rem;
+                    /* position: absolute; */
+
+                    .fertilizer-text {
+                        font-size: 4.5rem;
+                        color: white;
+                        font-weight: 700;
+                    }
+
+                    .description-text {
+                        width: 25rem;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        color: white;
+                    }
+                }
+
+                .signin {
+                    border: 1px solid white;
+                    border-radius: 5px;
+                    margin-left: -8rem;
+                    margin-top: 2rem;
+                    cursor: pointer;
+                    background-color: transparent;
+                    color: white;
+                    padding: 10px 23px 10px 23px;
+                    text-decoration: none;
+                }
+            }
+
+        }
+    }
+
+    .filter-region {
+        background-color: var(--darkgreen-primary, #19443f);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+        padding: 1.2rem 3rem;
+        height: 10%;
+
+        .filter {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .bi {
+                color: white;
+                font-size: 1.5rem;
+            }
+
+            .bi-funnel-fill {
+                font-size: 1.5rem;
+                margin: 0 1rem 0 1.4rem;
+            }
+
+            .bi-caret-down-fill {
+                font-size: 0.8rem;
+            }
+
+            .category-text {
+                margin: 0 1.6rem 0 1rem;
+            }
+
+            span {
+                font-size: 18px;
+                font-weight: 400;
+                color: white;
+            }
+
+            .filter-text {
+                margin: 0 0.6rem 0;
+            }
+        }
+
+        .search-bar {
+            width: 35%;
+            background-color: white;
+            align-items: end;
+            display: flex;
+            border-radius: 1.5rem;
+            position: relative;
+
+            .search-icon {
+                background-color: #04AA6D;
+                border: none;
+                color: white;
+                text-align: center;
+                font-size: 1.2rem;
+                margin: 4px 2px;
+                border-radius: 50%;
+            }
+
+            .search-button {
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-21px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .category-region {
+        width: 100%;
+        margin: 0 5rem;
+    }
+
+    .product-region {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .best-seller-product {
+            width: 100%;
+        }
+
+        .best-seller-text {
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            flex-direction: row;
+
+            .tafi-product-text2 {
+                background-color: #C8A33D;
+                font-size: 1.5rem;
+                font-weight: 700;
+                padding: 0.1rem 0.7rem;
+                color: white;
+            }
+
+            .tafi-product-text1 {
+                background-color: #19443F;
+                font-size: 1.5rem;
+                padding: 0.1rem 0.7rem;
+                font-weight: 700;
+                color: white;
+            }
+        }
+
+        .side-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 4rem;
+
+            .previous-nav {
+
+                .bi-arrow-left {
+                    color: #19443F;
+                }
+
+                .previous-text {
+                    margin-left: 1rem;
+                    font-size: 1.2rem;
+                    color: #19443F;
+                    font-weight: 400;
+                }
+            }
+
+            .next-nav {
+                .bi-arrow-right {
+                    color: #19443F;
+                }
+
+                .next-text {
+                    margin-right: 1rem;
+                    font-size: 1.2rem;
+                    color: #19443F;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
+    .product-category {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        padding: 0 2rem;
+        justify-content: center;
+        align-items: center;
+        margin-top: 6.5rem;
+
+        .product-category-text {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .category-text {
+                margin: 2rem 0 1rem 0;
+                display: flex;
+                flex-direction: row;
+
+                .tafi-product-text2 {
+                    background-color: #44A98B;
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    padding: 0.1rem 0.7rem;
+                    color: white;
+                }
+
+                .tafi-product-text1 {
+                    background-color: #19443F;
+                    font-size: 1.5rem;
+                    padding: 0.1rem 0.7rem;
+                    font-weight: 700;
+                    color: white;
+                }
+            }
+        }
+
+        .category-region {
+            width: 100%;
+            margin: 0 5rem 0;
+            display: flex;
+            align-items: center;
+
+            .category-carousel {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                padding: 0 9rem;
+                width: 100%;
+
+                .bi-arrow-left {
+                    color: #44A98B;
+                    font-size: 2rem;
+                    margin-right: 2rem;
+                }
+
+                .bi-arrow-right {
+                    color: #44A98B;
+                    margin-left: 2rem;
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+
+    .all-products {
+        width: 100%;
+        padding: 2rem 1.5rem;
+
+        .all-product-text {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-all-text {
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            flex-direction: row;
+
+            .tafi-product-text2 {
+                background-color: #44A98B;
+                font-size: 1.5rem;
+                font-weight: 700;
+                padding: 0.1rem 0.7rem;
+                color: white;
+            }
+
+            .tafi-product-text1 {
+                background-color: #19443F;
+                font-size: 1.5rem;
+                padding: 0.1rem 0.7rem;
+                font-weight: 700;
+                color: white;
+            }
+        }
+
+        .side-nav {
+            width: 100%;
+            display: flex;
+            align-items: end;
+            justify-content: end;
+
+            .bi-arrow-right {
+                color: #19443F;
+            }
+
+            .next-text {
+                margin-right: 1rem;
+                font-size: 1.2rem;
+                color: #19443F;
+                font-weight: 400;
+            }
+        }
+
+        .all-products-card {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            margin: 0 0.5rem 0;
+
+
+            .productItem {
+                grid-column-start: 1;
+                grid-column-end: 2;
+                margin: 1rem 0.5rem 0;
+            }
+        }
+
+    }
+}
