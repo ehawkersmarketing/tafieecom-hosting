@@ -1,5 +1,3 @@
-
- 
 .header {
     background-color: var(--darkgreen-primary, #19443f);
     display: flex;
@@ -16,9 +14,10 @@
     display: flex;
     flex-direction: row;
     column-gap: 10px;
-    
+
 }
-.header .login-section{
+
+.header .login-section {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -26,9 +25,11 @@
     height: 40px;
     width: auto;
 }
-.header .logo-section img{
-    width: 100px;    
+
+.header .logo-section img {
+    width: 100px;
 }
+
 .header .link-section a {
     padding: 4px;
     text-decoration: none;
@@ -36,13 +37,16 @@
     font-size: 14px;
 }
 
-.login-section a{
+.login-section a {
     color: aliceblue;
- }
+}
+
 .logo-section a:active {
     color: yellow;
 }
-.login-section .register, .login-section .signin {
+
+.login-section .register,
+.login-section .signin {
     border: 1px solid white;
     border-radius: 5px;
     margin-left: 10px;
@@ -52,10 +56,8 @@
     padding: 10px 23px 10px 23px;
     text-decoration: none;
     font-size: 14px;
-  }
+}
 
- .login-section .register {
+.login-section .register {
     background-image: linear-gradient(79deg, #36914b 0.36%, #44a95c 58.15%, #7bf197 117.12%);
-   }
-   
-  
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import "./shop_page.css";
+import Footer from "../footer/footer.jsx";
 import Header from "./../header/header.jsx";
 import CategoryCarousel from "./component/categoryCarousel/categoryCarousel.jsx";
 import Carousal from "../../components/carousal/carousal.jsx";
@@ -178,6 +179,7 @@ const ShopPage = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

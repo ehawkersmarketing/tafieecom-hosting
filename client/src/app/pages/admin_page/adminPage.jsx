@@ -111,9 +111,9 @@ const AdminPage = () => {
               <div className="nav-header">
                 <div className="tab">
                   <span className="tab1">Pages</span>
-                  <span>/Store</span>
+                  <span>/Products</span>
                 </div>
-                <div className="nav-title">Store</div>
+                <div className="nav-title">Products</div>
                 <div className="nav-rightContent">
                   <div className="nav-btn">
                     <div className="btn-text">
@@ -190,7 +190,7 @@ const AdminPage = () => {
                           Price
                         </th>
                         <th scope="col" className="th">
-                          Category
+                          Status
                         </th>
                         <th scope="col" className="th">
                           No of Orders
@@ -211,16 +211,21 @@ const AdminPage = () => {
                         </td>
                         <td className="td table-center">Name of Order</td>
                         <td className="td table-center">199</td>
-                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">Rejected</td>
                         <td className="td table-center">10</td>
                         <td className="td table-center">17/01/2024</td>
                         <td className="td table-center">
-                          <span className="td-edit-icon ">
-                            <i class="bi bi-pencil-square"></i>
-                          </span>
-                          <span className="td-delete-icon">
-                            <i class="bi bi-trash3-fill"></i>
-                          </span>
+                          <div className="action-dropdown">
+                            <select
+                              type="text"
+                              name="input"
+                              id="input"
+                              placeholder="Short by:Newest "
+                            >
+                              <option>op1</option>
+                              <option>op2</option>
+                            </select>
+                          </div>
                         </td>
                       </tr>
                       <tr>
@@ -230,35 +235,45 @@ const AdminPage = () => {
                         </td>
                         <td className="td table-center">Name of Order</td>
                         <td className="td table-center">199</td>
-                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">Approved</td>
                         <td className="td table-center">10</td>
                         <td className="td table-center">17/01/2024</td>
                         <td className="td table-center">
-                          <span className="td-edit-icon">
-                            <i class="bi bi-pencil-square"></i>
-                          </span>
-                          <span className="td-delete-icon">
-                            <i class="bi bi-trash3-fill"></i>
-                          </span>
+                          <div className="action-dropdown">
+                            <select
+                              type="text"
+                              name="input"
+                              id="input"
+                              placeholder="Short by:Newest "
+                            >
+                              <option>op1</option>
+                              <option>op2</option>
+                            </select>
+                          </div>
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row">3.</th>
-                        <td className="td">
+                        <th scope="row table-center">3.</th>
+                        <td className="td table-center">
                           <img src="/image.com" />
                         </td>
-                        <td className="td">Name of Order</td>
-                        <td className="td">199</td>
-                        <td className="td">Fertilizers</td>
-                        <td className="td">10</td>
-                        <td className="td">17/01/2024</td>
-                        <td className="td">
-                          <span className="td-edit-icon">
-                            <i class="bi bi-pencil-square"></i>
-                          </span>
-                          <span className="td-delete-icon">
-                            <i class="bi bi-trash3-fill"></i>
-                          </span>
+                        <td className="td table-center">Name of Order</td>
+                        <td className="td table-center">199</td>
+                        <td className="td table-center">Approved</td>
+                        <td className="td table-center">10</td>
+                        <td className="td table-center">17/01/2024</td>
+                        <td className="td table-center">
+                          <div className="action-dropdown">
+                            <select
+                              type="text"
+                              name="input"
+                              id="input"
+                              placeholder="Short by:Newest "
+                            >
+                              <option>op1</option>
+                              <option>op2</option>
+                            </select>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -267,7 +282,6 @@ const AdminPage = () => {
               </div>
             </div>
           )}
-
           {value == 1 && (
             <div className=" card admin-table-card dashboardCard">
               <div className="admin-dashboard-card subHeading row">
@@ -396,21 +410,225 @@ const AdminPage = () => {
               </div>
             </div>
           )}
-
           {value == 3 && (
-            <div className="col-3  card productCard">
-              <div className="admin-product-card">
-                <div className="admin-product-card-header">
-                  <h1>Product-Page</h1>
+            <div className="card admin-product-card">
+              <div className="subHeading">
+                <div className="admin-card-heading">
+                  <h1 className="h1">All Products</h1>
+                  <div className="admin-card-header">
+                    <h3 className="h3">Products</h3>
+                    <div className="admin-input-dropdown">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        style={{ width: "15rem" }}
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="short">
+                        <select
+                          type="text"
+                          name="input"
+                          id="input"
+                          placeholder="Short by:Newest "
+                        >
+                          <option>Short by : Newest</option>
+                          <option>yes</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="admin-table-div">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col" className="th">
+                          Sr.No.
+                        </th>
+                        <th scope="col" className="th">
+                          Featured Image
+                        </th>
+                        <th scope="col" className="th">
+                          Product Name
+                        </th>
+                        <th scope="col" className="th">
+                          Price
+                        </th>
+                        <th scope="col" className="th">
+                          Category
+                        </th>
+                        <th scope="col" className="th">
+                          Tax slab
+                        </th>
+                        <th scope="col" className="th">
+                          Order count
+                        </th>
+                        <th scope="col" className="th">
+                          Last Order On
+                        </th>
+                        <th scope="col" className="th">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row table-center">1.</th>
+                        <td className="td">
+                          <img src="/image.com" />
+                        </td>
+                        <td className="td table-center">Name of Product</td>
+                        <td className="td table-center">199</td>
+                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">5%</td>
+                        <td className="td table-center">10</td>
+                        <td className="td table-center">17/01/2024</td>
+                        <td className="td table-center">
+                          <span className="td-edit-icon ">
+                            <i class="bi bi-pencil-square"></i>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row table-center">2.</th>
+                        <td className="td table-center">
+                          <img src="/image.com" />
+                        </td>
+                        <td className="td table-center">Name of Product</td>
+                        <td className="td table-center">199</td>
+                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">5%</td>
+                        <td className="td table-center">10</td>
+                        <td className="td table-center">17/01/2024</td>
+                        <td className="td table-center">
+                          <span className="td-edit-icon">
+                            <i class="bi bi-pencil-square"></i>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row table-center">3.</th>
+                        <td className="td table-center">
+                          <img src="/image.com" />
+                        </td>
+                        <td className="td table-center">Name of Product</td>
+                        <td className="td table-center">199</td>
+                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">5%</td>
+                        <td className="td table-center">10</td>
+                        <td className="td table-center">17/01/2024</td>
+                        <td className="td table-center">
+                          <span className="td-edit-icon">
+                            <i class="bi bi-pencil-square"></i>
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           )}
           {value == 4 && (
-            <div className="col-3  card dashboardCard">
-              <div className="admin-dashboard-card">
-                <div className="admin-dashboard-card-header">
-                  <h1>Blog page</h1>
+            <div className="card admin-blog-card">
+              <div className="subHeading">
+                <div className="admin-card-heading">
+                  <h1 className="h1">All Blogs</h1>
+                  <div className="admin-card-header">
+                    <h3 className="h3">Blogs</h3>
+                    <div className="admin-input-dropdown">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        style={{ width: "15rem" }}
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="short">
+                        <select
+                          type="text"
+                          name="input"
+                          id="input"
+                          placeholder="Short by:Newest "
+                        >
+                          <option>Short by : Newest</option>
+                          <option>yes</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="admin-table-div">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col" className="th">
+                          Sr.No.
+                        </th>
+                        <th scope="col" className="th">
+                          Featured Image
+                        </th>
+                        <th scope="col" className="th">
+                          Blog Title
+                        </th>
+                        <th scope="col" className="th">
+                          Category
+                        </th>
+                        <th scope="col" className="th">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row table-center">1.</th>
+                        <td className="td">
+                          <img src="/image.com" />
+                        </td>
+                        <td className="td table-center">Name of Blog</td>
+                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">
+                          <span className="td-edit-icon ">
+                            <i class="bi bi-pencil-square"></i>
+                          </span>
+                          <span className="td-delete-icon">
+                            <i class="bi bi-trash3-fill"></i>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row table-center">2.</th>
+                        <td className="td">
+                          <img src="/image.com" />
+                        </td>
+                        <td className="td table-center">Name of Blog</td>
+                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">
+                          <span className="td-edit-icon ">
+                            <i class="bi bi-pencil-square"></i>
+                          </span>
+                          <span className="td-delete-icon">
+                            <i class="bi bi-trash3-fill"></i>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row table-center">3.</th>
+                        <td className="td">
+                          <img src="/image.com" />
+                        </td>
+                        <td className="td table-center">Name of Blog</td>
+                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">
+                          <span className="td-edit-icon ">
+                            <i class="bi bi-pencil-square"></i>
+                          </span>
+                          <span className="td-delete-icon">
+                            <i class="bi bi-trash3-fill"></i>
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
