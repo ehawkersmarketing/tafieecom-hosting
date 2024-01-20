@@ -23,7 +23,8 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    /* width: 20%; */
+    height: 40px;
+    width: auto;
 }
 .header .logo-section img{
     width: 100px;    
@@ -32,27 +33,15 @@
     padding: 4px;
     text-decoration: none;
     color: white;
+    font-size: 14px;
 }
 
 .login-section a{
-    /* text-decoration: none; */
     color: aliceblue;
  }
 .logo-section a:active {
     color: yellow;
-   }
-
-   
- 
-.header .login-section {
-    display: flex;
-    flex-direction: row;
-    height: 40px;
-    width: auto;
 }
-
-
-
 .login-section .register, .login-section .signin {
     border: 1px solid white;
     border-radius: 5px;
@@ -62,10 +51,10 @@
     color: white;
     padding: 10px 23px 10px 23px;
     text-decoration: none;
+    font-size: 14px;
   }
 
  .login-section .register {
-    
     background-image: linear-gradient(79deg, #36914b 0.36%, #44a95c 58.15%, #7bf197 117.12%);
    }
    

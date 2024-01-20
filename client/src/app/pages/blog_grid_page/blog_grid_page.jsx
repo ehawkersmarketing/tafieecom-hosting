@@ -1,15 +1,11 @@
 import "./blog_grid_page.css";
-import Header from "../../pages/header/header";
-// import Footer from "../../footer/footer";
 import { Link } from "react-router-dom";
 import resourcepage1 from "../../assets/resourcecenter1.png";
-import mask from "../../assets/mask_top.png";
 
 const BlogPage = () => {
   
   return (
     <div>
-      <Header />
       <div className="blogpage">
         <div className="blog-tile">
           <div className="blog-grid-page row">
