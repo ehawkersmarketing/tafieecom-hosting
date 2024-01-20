@@ -7,22 +7,15 @@ const AdminPage = () => {
 
   const [value, setValue] = useState(0);
 
-  const dashboardHandler = () => {
-    setValue(1);
-  };
+  const dashboardHandler = () => setValue(1);
+  const storeHandler = () => setValue(0);
+  const productHandler = () => setValue(3);
+  const blogHandler = () => setValue(4);
+  const userHandler = () => setValue(2);
 
-  const storeHandler = () => {
-    setValue(0);
-  };
-  const productHandler = () => {
-    setValue(3);
-  };
-  const blogHandler = () => {
-    setValue(4);
-  };
-
-  const userHandler = () => {
-    setValue(2);
+  const inlineStyle = {
+    "--size": 0.4,
+    fontSize: "var(--size)rem",
   };
 
   return (
@@ -290,10 +283,129 @@ const AdminPage = () => {
             </div>
           )}
           {value == 1 && (
-            <div className="col-3  card dashboardCard">
-              <div className="admin-dashboard-card">
-                <div className="admin-dashboard-card-header">
-                  <h1>helo ji</h1>
+            <div className=" card admin-table-card dashboardCard">
+              <div className="admin-dashboard-card subHeading row">
+                <div className="admin-dashboard-graph-cart card col-6">
+                  <div id="column-example-3">
+                    <table class="charts-css column multiple hide-data data-spacing-3">
+                      <caption> Column Example #3 </caption>
+                      <tbody>
+                        <tr> </tr>
+                        <tr>
+                          <td style={inlineStyle}>
+                            <span class="data"> $ 20K </span>
+                          </td>
+                          <td style={inlineStyle}>
+                            <span class="data"> $ 40K </span>
+                          </td>
+                          <td style={inlineStyle}>
+                            <span class="data"> $ 60K </span>
+                          </td>
+                          <td style={inlineStyle}>
+                            <span class="data"> $ 80K </span>
+                          </td>
+                          <td style={inlineStyle}>
+                            <span class="data"> $ 100K </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div className="product-requirement col-6">
+                  <div className="product-dashboard-heading">
+                    <h4>Product requirement over the months</h4>
+                    <div className="product-bar-ccontent">
+                      <span>(+5) more</span>
+                      <span>in 2024</span>
+                    </div>
+                  </div>
+
+                  <div className="order-bar">
+                    <div className="order-dashboard-bar-heading">
+                      <h2>TOTAL ORDERS</h2>
+                      <div className="order-bar-ccontent">
+                        <span>(+23) </span>
+                        <span>than last week</span>
+                      </div>
+                    </div>
+                    <div className="dash-desc-content">
+                      <div className="no-of-order">
+                        <div className="order-dash-title">
+                          <span className="order-bar-icon"></span>
+                          <span className="dash-order-no">No. of Orders</span>
+                        </div>
+                        <div className="dash-number">150</div>
+                        <span className="progress-bar">-------</span>
+                      </div>
+                      <div className="no-of-order">
+                        <div className="order-dash-title">
+                          <span className="order-bar-icon"></span>
+                          <span className="dash-order-no">Processed</span>
+                        </div>
+                        <div className="dash-number">142</div>
+                        <span className="progress-bar">-------</span>
+                      </div>
+                      <div className="no-of-order">
+                        <div className="order-dash-title">
+                          <span className="order-bar-icon"></span>
+                          <span className="dash-order-no">Completed</span>
+                        </div>
+                        <div className="dash-number">132</div>
+                        <span className="progress-bar">-------</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="orders-dash-card-format">
+                <div className="order-analysis-card order-color-revenue">
+                  <div className="analysis">
+                    <h2 className="order-analysis-title">ORDERS Analysis</h2>
+
+                    <div className="dash-order-analysis">
+                      <div className="admin-dash-order">
+                        <span class>No. of Orders</span>
+                        <span>150</span>
+                      </div>
+                    </div>
+                    <div className="dash-order-analysis">
+                      <div className="admin-dash-order">
+                        <span>Orders Processed</span>
+                        <span>142</span>
+                      </div>
+                    </div>
+                    <div className="dash-order-analysis">
+                      <div className="admin-dash-order">
+                        <span>Orders Completed</span>
+                        <span>132</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="order-analysis-card order-color-analysis">
+                  <div className="analysis">
+                    <h2 className="order-analysis-title">Revenue Generated</h2>
+
+                    <div className="dash-order-analysis">
+                      <div className="admin-dash-order">
+                        <span class>This Month</span>
+                        <span>15,000</span>
+                      </div>
+                    </div>
+                    <div className="dash-order-analysis">
+                      <div className="admin-dash-order">
+                        <span>Previous Month</span>
+                        <span>11,000</span>
+                      </div>
+                    </div>
+                    <div className="dash-order-analysis">
+                      <div className="admin-dash-order">
+                        <span>Orders Completed</span>
+                        <span>132</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
