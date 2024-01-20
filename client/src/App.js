@@ -48,9 +48,9 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" >
       <Routers>
-        <Header/>
+        <Header />
         <Routes>
           <Route path="/auth/login" exact element={<SignIn />} />
           <Route path="/auth/register" exact element={<SignUp />} />
@@ -71,9 +71,9 @@ function App() {
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
           <Route path="/adminPage" exact element={<AdminPage />} />
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
-          <Route path="/Invoice" exact element={<Invoice/>} />
+          <Route path="/Invoice" exact element={<Invoice />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </Routers>
     </div>
   );

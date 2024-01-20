@@ -48,7 +48,6 @@ const ShopPage = () => {
     ]
     return (
         <div className="main-container">
-            <Header />
             <div className="shop-page-container">
                 <div className="shop-page-card">
                     <div className="poster-card-background">
