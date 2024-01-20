@@ -95,6 +95,12 @@ background-color:#EBF6F5;
 .btn-text{
    margin-top: 11px;
 }
+.row-wrapper{
+    margin:0;
+}
+.admin-sub-wrapper{
+    padding: 0;
+}
 .nav-btn{
 border-radius: 12px;
     /* padding: 6px 21px 6px 21px; */
@@ -225,4 +231,9 @@ select[type=text] {
 }
 .admin-wrapper .admin-table-div{
     margin-top: 2rem;
+}
+
+
+.admin-dashboard-card{
+    margin-top:30%;
 }
