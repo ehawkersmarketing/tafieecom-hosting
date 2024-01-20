@@ -380,17 +380,6 @@ border: none;
   margin-top: 23px;
     margin-bottom: 23px;
 }
-/* dashboard */
-  .admin-dashboard-graph-cart {
-    background: linear-gradient(33.73deg, #19443F 1.8%, #28B6A8 105.45%);
-    height: 13rem;
-  }
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
 
 .progress-bar{
   width: 3.2rem;
@@ -432,4 +421,3 @@ border: none;
     border: none;
   }
 
-}
