@@ -1,28 +1,28 @@
-.top-div{
+ .admin-wrapper .top-div{
     background-color:#44A98B ;
         height: 2rem;
 }
-.logo{
+ .admin-wrapper .logo{
     background-color:#19443F;
     height: 10rem;
 }
-.image{
+ .admin-wrapper .image{
     display: flex;
     justify-content: center;
     /* margin-top: 2rem; */
 }
-.img-logo{
+ .admin-wrapper .img-logo{
     width: 60%;
     /* height:2.5rem; */
     margin-top: 2rem;
 }
-.sidebar-title{
+ .admin-wrapper .sidebar-title{
     display: flex;
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding: 0.5rem;
 }
-.title{
+ .admin-wrapper .title{
     font-size: 12px;
     font-weight: 700;
     line-height: 18px;
@@ -35,7 +35,7 @@
         margin-top: 0.5rem;
         margin-left: 0.8rem;
 }
-.icon{
+ .admin-wrapper .icon{
     width: 2.5rem;
         text-align: center;
         padding: 0.3rem;
@@ -43,40 +43,40 @@
         color: #44A98B;
         border-radius: 15px
 }
-.sidebar{
+ .admin-wrapper .sidebar{
     margin:0px 1.5rem;
 }
 
-.sidebar-title:hover {
+ .admin-wrapper .sidebar-title:hover {
     background-color: white;
     border-radius: 1rem;
 }
-.icon:hover {
+ .admin-wrapper .icon:hover {
     width: 2.5rem;
     text-align: center;
     padding: 0.3rem;
     border-radius: 15px
 }
 
-.table-center{
+ .admin-wrapper .table-center{
     text-align: center;
 }
-.sidebar-title:hover  .icon{
+ .admin-wrapper .sidebar-title:hover  .icon{
     background-color: #44A98B;
    color: white;
 }
-.h3-title{
+ .admin-wrapper .h3-title{
         font-size: 20px;
         font-weight: 700;
         line-height: 18px;
         letter-spacing: 0em;
         text-align: left;
 }
-.h3-title:hover{
+ .admin-wrapper .h3-title:hover{
 background-color:#EBF6F5;
 }
 
-.tab1{
+ .admin-wrapper .tab1{
     
         font-size: 16px;
         font-weight: 400;
@@ -84,7 +84,7 @@ background-color:#EBF6F5;
         letter-spacing: 0em;
         text-align: left;
 }
-.nav-title{
+ .admin-wrapper .nav-title{
 
         font-size: 14px;
         font-weight: 700;
@@ -92,16 +92,16 @@ background-color:#EBF6F5;
         letter-spacing: 0em;
         text-align: left;
 }
-.btn-text{
+ .admin-wrapper .btn-text{
    margin-top: 11px;
 }
-.row-wrapper{
+ .admin-wrapper .row-wrapper{
     margin:0;
 }
-.admin-sub-wrapper{
+ .admin-wrapper .admin-sub-wrapper{
     padding: 0;
 }
-.nav-btn{
+ .admin-wrapper .nav-btn{
 border-radius: 12px;
     /* padding: 6px 21px 6px 21px; */
     width: 12rem;
@@ -112,39 +112,39 @@ border-radius: 12px;
     font-size: 1rem;
     text-align: center
 }
-.tab{
+ .admin-wrapper .tab{
     margin-top: 4rem;
 }
-.nav-rightContent{
+ .admin-wrapper .nav-rightContent{
     margin-top: 1rem;
     display: flex;
 }
-.plus-icon{
+ .admin-wrapper .plus-icon{
     color: white;
     margin-right: 6px;
 }
-input[type=text]{
+ .admin-wrapper input[type=text]{
 border-radius: 10px;
     background-color: #E2E8F0
 }
-.admin-right{
+ .admin-wrapper .admin-right{
     display: flex;
         margin-left: 38rem;
         width: 20rem;
         height: 2.4rem
 }
 
-.logout-button{
+ .admin-wrapper .logout-button{
     display: flex;
         font-weight: 700;
         font-size: 15px;
         margin-top:5px
 }
-.admin-suber-wrapper{
+.admin-wrapper .admin-suber-wrapper{
     height: 100vh;
     padding:2%;
 }
-table .th{
+ .admin-wrapper table .th{
         font-size: 17px;
         font-weight: 500;
         line-height: 21px;
@@ -153,7 +153,7 @@ table .th{
         color: #44A98B;
 }
 
-table .td{
+ .admin-wrapper table .td{
     color: #19443F;;
 
         font-size: 17px;
@@ -162,17 +162,17 @@ table .td{
         letter-spacing: -0.01em;
         text-align: center;
 }
-.div-admin{
+ .admin-wrapper .div-admin{
     height: 100%;
     background-color: #EBF6F5;
 }
 
-table .td-delete-icon{
+ .admin-wrapper table .td-delete-icon{
    color: red; 
    font-size:24px;
    margin-left:2rem;
 }
-table .td-edit-icon {
+ .admin-wrapper table .td-edit-icon {
     color: rgb(3, 3, 3);
     font-weight: bold;
     font-size: 24px;
@@ -182,7 +182,7 @@ table .td-edit-icon {
  box-shadow: 0px 10px 60px 0px #E2ECF980;
 
 }
-.nav-admin-page{
+ .admin-wrapper .nav-admin-page{
 
 }
 .admin-wrapper h1{
@@ -218,7 +218,7 @@ table .td-edit-icon {
             justify-content: space-between
 }
 
-select[type=text] {
+ .admin-wrapper select[type=text] {
     border-radius: 10px;
         background-color: #E2E8F0;
         padding: 0.7rem;
@@ -226,14 +226,76 @@ select[type=text] {
 
 }
 
-.short{
+ .admin-wrapper .short{
     margin-left:1rem;
 }
 .admin-wrapper .admin-table-div{
     margin-top: 2rem;
 }
 
-
-.admin-dashboard-card{
-    margin-top:30%;
+/* dashboard */
+ .admin-wrapper .order-analysis-title{
+    font-family: Montserrat;
+        margin-left: 5px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 25px;
+        letter-spacing: 0em;
+        text-align: left;
 }
+ .admin-wrapper .order-color-analysis{
+    background: linear-gradient(33.73deg, #19443F 1.8%, #28B6A8 105.45%),
+            linear-gradient(0deg, #D9D9D9, #D9D9D9);
+    width: 38%;
+    padding: 21px;
+    border-radius:15px;
+    color: white;
+}
+ .admin-wrapper .order-color-revenue{
+background: linear-gradient(79.4deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%);
+        width: 38%;
+        padding: 21px;
+        border-radius: 15px;
+        color: white;
+}
+
+ .admin-wrapper .admin-dashboard-card{
+display: flex;
+    justify-content: space-between;
+}
+ .admin-wrapper .admin-dash-order{
+    display: flex;
+        justify-content: space-between;
+}
+ .admin-wrapper .orders-dash-card-format{
+    display: flex;
+    justify-content: space-evenly;
+}
+.admin-dashboard-graph-cart{
+background: linear-gradient(33.73deg, #19443F 1.8%, #28B6A8 105.45%);
+        height: 13rem;
+}
+
+
+/* dashboard */
+
+
+/*  bar */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#column-example-3 {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+#column-example-3 .column {
+    --aspect-ratio: 4 / 3;
+}
+/*  bar */
