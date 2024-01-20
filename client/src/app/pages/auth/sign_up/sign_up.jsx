@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import photo from "../../../assets/photo.png";
 import google_icon from "../../../assets/google.png";
 import Mask_group from "../../../assets/Mask_group.png";
@@ -13,6 +13,13 @@ let token = undefined;
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token") !== undefined) {
+      navigate('/');
+    }
+  }, []);
+
   const [formField, setFormField] = useState({
     phone: "",
     name: "",
@@ -61,7 +68,7 @@ const SignUp = () => {
 
   return (
     <>
-    <Header/>
+      <Header />
       <div className="div sign_up">
         <div className="div-8">
           <div className="div-9">
@@ -75,7 +82,7 @@ const SignUp = () => {
                   <div className="div-15">
                     <input
                       type="text"
-                      name="username"
+                      name="name"
                       onChange={handleChangeFormField}
                       placeholder="Enter your username"
                     />
