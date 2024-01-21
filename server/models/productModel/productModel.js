@@ -4,26 +4,27 @@ const productSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      // require: [true, 'title is required'],
+      require: true,
     },
     description: {
       type: String,
-      // require: [true, "description is required"],
+      require: true,
     },
     image: {
       type: String,
-      // require: [true, "image is required"],
+      require: true,
     },
     price: {
       type: Number,
-      // require: [true, "price is required"],
+      require: true,
     },
     gstSlab: {
       type: Number,
+      require: true,
     },
     quantity: {
       type: Number,
-      // require: [true, "quantity is required"],
+      require: true,
     },
     units: {
       minQuantity: {
@@ -35,14 +36,21 @@ const productSchema = new mongoose.Schema(
     },
     metric: {
       type: String,
-      // required: true,
+      required: true,
     },
     companyName: {
       type: String,
-      // require: [true, "companyName is required"],
+      require: true,
+    },
+    reviews: {
+      type: Number,
+      default: 0
+    },
+    category: {
+      type: mongoose.Types.ObjectId,
+      ref: "category",
     },
 
-    category: { type: mongoose.Types.ObjectId, ref: "category" },
   },
   { timestamps: true }
 );

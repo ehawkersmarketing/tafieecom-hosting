@@ -1,25 +1,14 @@
-const mongoose = require("mongoose");
-const express = require("express");
-const userModel = require("../../models/userModel/userModel");
 const blogModel = require("../../models/blogModel/blogModel");
 
 exports.composeBlog = async (req, res) => {
   try {
     const { title, content, image, readingTime } = req.body;
-    const { id } = req.params;
     if (!title || !content) {
       return res.status(400).send({
         success: false,
         message: "Please provide all fields",
       });
     }
-    // const existingUser = await userModel.findById(id);
-    // if (!existingUser) {
-    //   return res.status(404).send({
-    //     success: false,
-    //     message: "Unable to find user",
-    //   });
-    // }
     const newBlog = new blogModel({
       title,
       content,
@@ -70,26 +59,24 @@ exports.getAllBlogs = async (req, res) => {
 
 exports.getBlogById = async (req, res) => {
   try {
-    const { blogID } = req.params;
-    const blog = await blogModel.findById(blogID);
+    const { blogId } = req.params;
+    const blog = await blogModel.findById(blogId);
     if (!blog) {
       return res.status(404).send({
         success: false,
         message: "No blog found for given ID",
-        error,
       });
     }
     return res.status(200).send({
       success: true,
       message: "Fetched single blog",
-      blog,
+      data: blog,
     });
   } catch (error) {
     console.log(error);
     return res.status(400).send({
       success: false,
       message: "Error in getting blog by ID",
-      error,
     });
   }
 };
@@ -146,7 +133,12 @@ exports.deleteBlog = async (req, res) => {
 exports.searchBlog = async (req, res) => {
   try {
     const { search } = req.body;
-    const blog = await blogModel.find({ title: { $regrex: search } });
+    const blog = await blogModel.find({
+      $or: [
+        { title: { $regex: search } },
+        { content: { $regex: search } },
+      ]
+    });
     console.log(blog);
     if (!blog) {
       return res.status(500).send({
