@@ -3,7 +3,6 @@ import ProductCard from "../../components/product_card/product_card.jsx";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
 import punchline from "../../assets/punchline.png";
-import { ReactSVG } from "react-svg";
 import "./home_page.css";
 import CategoryCarousel from "../../pages/shop_page/component/categoryCarousel/categoryCarousel.jsx";
 const Dashboard = () => {
