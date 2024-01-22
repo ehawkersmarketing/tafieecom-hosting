@@ -57,6 +57,31 @@ exports.getAllBlogs = async (req, res) => {
   }
 };
 
+exports.getRecentBlogs = async (req, res) => {
+  try {
+    const blogs = await blogModel.find({}, [], { $orderby: { 'createdAt': -1 } }).limit(3);
+    console.log(blogs);
+    if (!blogs) {
+      return res.status(200).send({
+        success: false,
+        message: "No blogs found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "All blogs list",
+      data: blogs,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting all blogs",
+      error,
+    });
+  }
+};
+
 exports.getBlogById = async (req, res) => {
   try {
     const { blogId } = req.params;

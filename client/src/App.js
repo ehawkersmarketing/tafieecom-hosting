@@ -62,7 +62,7 @@ function App() {
           <Route path="/updateBlog/:id" exact element={<UpdateBlog />} />
           <Route path="/resourceCenter" exact element={<ResourceCenter />} />
           <Route path="/product/:id" exact element={<Product />} />
-          <Route path="/singleBlog" exact element={<SingleBlog />} />
+          <Route path="/singleBlog/:blogId" exact element={<SingleBlog />} />
           <Route path="/blog" exact element={<BlogPage />} />
 
           <Route path="/TermsAndCondition" exact element={<TermsAndCondition />} />
@@ -74,7 +74,7 @@ function App() {
           <Route path="/OrderConformationPage" exact element={<OrderConformationPage />} />
           <Route path="/about" exact element={<About />} />
 
-          <Route path="/Invoice" exact element={<Invoice/>} />
+          <Route path="/Invoice" exact element={<Invoice />} />
           <Route path="/Cart" exact element={<Cart />} />
 
         </Routes>

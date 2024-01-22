@@ -2,20 +2,20 @@ import React from 'react';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import ProductCard from "../productCard/productCard";
+import FeaturedProductCard from '../feature_product';
 
-const CarouselCard = ({ items }) => {
+const FeatureCarouselCard = ({ items }) => {
     return (
         <div>
             <div class='container-fluid' >
-                <OwlCarousel items={4}
+                <OwlCarousel items={2.5}
                     className="owl-theme"
                     loop
                     margin={8}
                     autoplayTimeout={5000}
                     autoplayHoverPause={true}
                     autoplay={true} >{items?.map((item) => {
-                        return <ProductCard item={item} className='productItem' />
+                        return <FeaturedProductCard item={item} className='productItem' />
                     })}
                 </OwlCarousel>
             </div>
@@ -23,4 +23,4 @@ const CarouselCard = ({ items }) => {
     );
 }
 
-export default CarouselCard;
+export default FeatureCarouselCard;

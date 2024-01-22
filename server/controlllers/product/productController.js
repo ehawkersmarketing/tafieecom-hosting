@@ -60,6 +60,7 @@ exports.createProduct = async (req, res) => {
       gstSlab,
       image,
       quantity,
+      rating,
       units,
       metric,
       companyName,
@@ -74,6 +75,7 @@ exports.createProduct = async (req, res) => {
       gstSlab,
       quantity,
       units,
+      rating,
       metric,
       companyName,
       category

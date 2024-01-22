@@ -3,10 +3,17 @@ import ProductCard from "../../components/product_card/product_card.jsx";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
 import punchline from "../../assets/punchline.png";
-import { ReactSVG } from "react-svg";
 import "./home_page.css";
 import CategoryCarousel from "../../pages/shop_page/component/categoryCarousel/categoryCarousel.jsx";
+import { useFetch } from "../../hooks/api_hook.js";
+import FeaturedProductCard from "./components/feature_product.jsx";
+import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const { data: featuredProducts } = useFetch('/api/allProducts');
+  const { data: categories } = useFetch('/api/allCategory');
+
   return (
     <>
       <Header />
@@ -33,7 +40,7 @@ const Dashboard = () => {
               </a>
             </div>
             <div className="shopBTN">
-              <button>Shop Now</button>
+              <button onClick={(e) => navigate('/shopPage')}>Shop Now</button>
             </div>
           </div>
           <div className="headingimage col-7"></div>
@@ -78,8 +85,10 @@ const Dashboard = () => {
             <div className="category-carousel">
               <div className="left-arrow">
                 <i class="bi bi-arrow-left"></i>
+              </div >
+              <div className='feature-carousal'>
+                {featuredProducts && <FeatureCarouselCard items={featuredProducts} />}
               </div>
-              <CategoryCarousel />
               <div className="right-arrow">
                 <i class="bi bi-arrow-right"></i>
               </div>
@@ -151,7 +160,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <div className="registerSoilBTN">
-                <button>
+                <button onClick={(e) => navigate('/auth')}>
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>
@@ -174,7 +183,7 @@ const Dashboard = () => {
                 harvest the success tomorrow!
               </p>
               <div className="registerSoilBTN">
-                <button>Know More</button>
+                <button onClick={(e) => navigate('/')}>Know More</button>
               </div>
             </div>
           </div>
