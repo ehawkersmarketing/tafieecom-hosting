@@ -1,4 +1,5 @@
 const express = require("express");
+const AWS = require('aws-sdk');
 const {
   composeBlog,
   getAllBlogs,
@@ -9,10 +10,18 @@ const {
   getRecentBlogs,
 } = require("../../controlllers/blog/blogController");
 
-const router = express.Router();
 const multer = require("multer");
+const router = express.Router();
 
-const storage = multer.diskStorage({
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  region: process.env.AWS_REGION,
+});
+
+const S3_BUCKET_NAME = 'tafi-ecom-img';
+
+const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
     cb(null, "public/blog/images");
   },
@@ -20,17 +29,27 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + "_" + Date.now() + file.originalname);
   },
 });
-const upload = multer({
-  storage: storage,
-});
 
-// POST || creating new blog
-router.post("/uploadBlogImage", upload.single("image"), (req, res) => {
-  console.log(req.file.filename);
-  res.json({
-    success: true,
-    message: "Image Uploaded Successfully",
-    url: req.file.filename,
+const upload = multer({ storage: storage });
+
+router.post("/uploadBlogImage", upload.single("image"), async (req, res) => {
+  const params = {
+    Bucket: S3_BUCKET_NAME,
+    Key: `blogs/${req.file.originalname}`,
+    Body: req.file.buffer,
+    ContentType: "image/jpeg"
+  };
+
+  s3.upload(params, (error, data) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.json({
+        success: true,
+        message: "Image Uploaded Successfully",
+        url: data.Location,
+      });
+    }
   });
 });
 router.post("/composeBlog", composeBlog);

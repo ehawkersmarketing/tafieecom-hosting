@@ -13,7 +13,7 @@ exports.composeBlog = async (req, res) => {
       title,
       content,
       readingTime,
-      image: `${process.env.SERVER_URL}/blog/${image}`,
+      image: image,
     });
     await newBlog.save();
     console.log("image =>", image);

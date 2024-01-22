@@ -220,6 +220,8 @@
 
             .search_container {
                 border: none;
+                outline: none;
+                margin-left: 0.7rem;
                 border-radius: 1rem;
             }
 
