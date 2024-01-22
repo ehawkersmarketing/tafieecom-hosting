@@ -234,12 +234,11 @@ const CreateProduct = () => {
               >
                 <option>select the Category</option>
                 {data?.map((item) => (
-                  <option key={item.id} name="category" value={item.category}>
+                  <option key={item._id} name="category" value={item.category}>
                     {item.category}
                   </option>
                 ))}
               </select>
-              ;
             </div>
 
             <button className="btn" onClick={onSubmitHandler}>

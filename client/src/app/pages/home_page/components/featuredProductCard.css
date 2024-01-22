@@ -1,0 +1,96 @@
+.carouselItem {
+    border-radius: 0.7rem;
+    padding: 0 0 0.5rem 0;
+    background-color: white;
+    margin: 1rem 0.5rem 1.5rem;
+    overflow: hidden;
+
+    .feature-textBlock {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .feature-product-image {
+        height: 13.5rem;
+        width: 10rem;
+        background-size: cover;
+    }
+
+    .category-name {
+        color: var(--bright-green-primary, #44A98B);
+        width: 66.633px;
+        height: 17.464px;
+        font-size: 15px;
+        line-height: normal;
+    }
+
+    .product-name {
+        color: var(--darkgreen-primary, #19443F);
+        width: 342px;
+        font-weight: bold;
+        font-size: 26.491px;
+        line-height: 29.434px;
+    }
+
+    .review {
+        color: var(--bright-green-primary, #44A98B);
+        font-size: 15px;
+        line-height: normal;
+    }
+
+    .price {
+        color: var(--darkgreen-primary, #19443F);
+        font-size: 20px;
+        line-height: normal;
+        margin-bottom: 0.6rem;
+        font-weight: 700;
+    }
+
+    .cart-btn {
+        border-radius: 7px;
+        border: none;
+        color: white;
+        display: inline-flex;
+        padding: 6.202px 24.81px;
+        justify-content: center;
+        align-items: center;
+        background: var(--primary-gradient-light, linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%));
+        box-shadow: 0px 8.683px 24.81px 0px rgba(21, 60, 56, 0.00), 0px 3.721px 8.683px 0px rgba(21, 60, 56, 0.30);
+    }
+
+    #review-icon {
+        color: #C8A33D;
+    }
+
+    #wishlist-icon {
+        margin-right: 5px;
+        color: #44A98B
+    }
+
+    .wishlist {
+        color: var(--bright-green-primary, #44A98B);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration-line: underline;
+    }
+
+    .ratingAndReview {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        margin-left: -2rem;
+    }
+
+    .rating {
+        list-style-type: none;
+        display: flex;
+        gap: 0.7rem;
+    }
+}
+
+.feature-text-fields {
+    width: 16rem;
+    padding: 0.6rem 1.2rem 0.2rem;
+}

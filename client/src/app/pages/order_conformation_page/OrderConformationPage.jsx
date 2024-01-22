@@ -99,6 +99,7 @@ const OrderConformationPage = () => {
         <h2 className='recommended'>Recommended</h2>
         <h2 className='foryou'>For You</h2>
       </div>
+
     </div>
   );
 }

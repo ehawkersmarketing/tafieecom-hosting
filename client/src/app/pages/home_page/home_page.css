@@ -1,309 +1,497 @@
+.home-page {
+  padding-bottom: 150px;
+}
 
 .product-container {
-    margin-top: 5rem;
+  margin-top: 5rem;
 }
 
-.topDiv{
-    background-image: url("../../assets/Home_carousal_bg.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position:bottom;
-    width:100%;
-    padding-bottom: 8%;
+.topDiv {
+  background-image: url("../../assets/Home_carousal_bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 100%;
+  padding-bottom: 8%;
+  justify-content: space-between;
 }
 
-.topDiv .headingDiv{
-    margin-left: 9%;
-    padding-top: 3.7%;
-    width:fit-content;
-    text-align: center;
+.topDiv .headingimage {
+  background: url("../../assets//homepage-main.jpg");
+  background-size: cover;
 }
 
-.topDiv .headingDiv .headingMainText{
-    width:fit-content;
-    text-align: left;
-    padding-left: 0;
-    padding-right: 0;
+.topDiv .headingDiv {
+  margin-left: 9%;
+  padding-top: 3.7%;
+  width: fit-content;
+  text-align: center;
 }
 
-.topDiv .headingDiv .headingMainText .punchImg{
-    text-align: left;
-    width: 18.625rem;
+.topDiv .headingDiv .headingMainText {
+  width: fit-content;
+  text-align: left;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-
-
-.topDiv .headingDiv .iconDiv .socialsLink{
-    color: white;
-    opacity: 0.50;
+.topDiv .headingDiv .headingMainText .punchImg {
+  text-align: left;
+  width: 18.625rem;
 }
 
-.topDiv .headingDiv .iconDiv .socialsLink i{
-     font-size: larger;
+.topDiv .headingDiv .iconDiv .socialsLink {
+  color: white;
+  opacity: 0.5;
 }
 
-.topDiv .headingDiv .iconDiv{
-    margin-top: 5.25%;
-    width:fit-content;
-    display:flex;
-    justify-content: left;
-    gap: 40px;
-}
-.topDiv .headingDiv .shopBTN{
-    text-align: left;
-    margin-top: 7%;
-}
-.topDiv .headingDiv .shopBTN button{
-    background-image:  linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%);
-    border-radius: 6px;
-    border: none;
-    color: white;
-    font-weight: 500;
-    padding-top: 9px;
-    padding-bottom: 9px;
-    padding-left: 80px;
-    padding-right: 80px;
-
+.topDiv .headingDiv .iconDiv .socialsLink i {
+  font-size: larger;
 }
 
-
-.headingDiv h1{
-    font-weight:900;
-    background-clip: text;    
-    background-image: -webkit-linear-gradient(45deg, #E8CD82 10.01%, #C8A33D 55.34%, #887234 109.07%);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.topDiv .headingDiv .iconDiv {
+  margin-top: 5.25%;
+  width: fit-content;
+  display: flex;
+  justify-content: left;
+  gap: 40px;
 }
 
-.div3{
-    background-image: url("../../assets/EllipseBG.png");
-    align-items: center;
+.topDiv .headingDiv .shopBTN {
+  text-align: left;
+  margin-top: 7%;
 }
 
-.div3 .div3Heading{
-    margin:auto;
-    align-items: center;
-    padding-top: 12.5rem ;
-    width:fit-content;
+.topDiv .headingDiv .shopBTN button {
+  background-image: linear-gradient(79deg,
+      #36914b 0.36%,
+      #44a95c 58.15%,
+      #7bf197 117.12%);
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
-.div3 .div3SubHead{
-    position: relative;
-    display:flex;
-    justify-content:space-between;
-    width: fit-content;
-    margin:auto;
-    font-weight:6s00;
-    font-size:xx-large;
-    gap: 2.16rem;
+.headingDiv h1 {
+  font-weight: 900;
+  background-clip: text;
+  background-image: -webkit-linear-gradient(45deg,
+      #e8cd82 10.01%,
+      #c8a33d 55.34%,
+      #887234 109.07%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.5;
+  font-family: "Eczar", serif;
+  font-size: 60px;
+  margin-bottom: 0;
 }
 
-.div3 h1{
-    width: fit-content;
-    text-align: center;
-    font-weight:500;
-    font-size:6rem;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-image: -webkit-linear-gradient(20deg, #E8CD82 10.01%, #C8A33D 55.34%, #887234 109.07%);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.div3 {
+  background-image: url("../../assets/EllipseBG.png");
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
-.div3 .servicesDiv{
-    display: flex;
-    margin: auto;
-    padding-top: 5.2rem;
-    width:fit-content;
-    gap:3.8rem;
-    padding-bottom: 8.6rem;
+.div3 .div3Heading {
+  margin: auto;
+  align-items: center;
+  padding-top: 12.5rem;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 
-.div3 .servicesDiv .singleServiceDiv{
-    align-items: center;
-    font-size: medium;
-    text-align: center;
-    display: flex; 
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    width: 12rem;
+.div3 .div3SubHead {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  font-size: xx-large;
+  color: var(--light-base-green-2, #ebf6f5);
+  text-align: center;
+  text-shadow: 0px 4px 5px #19443f;
+  font-family: Montserrat;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  /* 109.091% */
+  letter-spacing: 3.46px;
+  text-transform: uppercase;
+}
+
+.div3 h1 {
+  width: fit-content;
+  text-align: center;
+  font-weight: 500;
+  font-size: 6rem;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  background-image: -webkit-linear-gradient(20deg,
+      #e8cd82 10.01%,
+      #c8a33d 55.34%,
+      #887234 109.07%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.div3 .servicesDiv {
+  display: flex;
+  margin: auto;
+  padding-top: 5.2rem;
+  width: fit-content;
+  gap: 3.8rem;
+  padding-bottom: 8.6rem;
 }
 
 .div3 .servicesDiv .singleServiceDiv {
-    top:0;
-    height: 2%;
-    color: white;
+  align-items: center;
+  font-size: medium;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 12rem;
+  color: white;
+  padding: 20px;
 }
 
-.div3 .servicesDiv .singleServiceDiv h5{
-    padding-top: 1.5rem;
+.div3 .servicesDiv .service100:hover {
+  background-color: #d7e8e6;
+  border-radius: 5px;
 }
 
-.div3 .servicesDiv .singleServiceDiv .serviceCircle{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.div3 .servicesDiv .service100:hover h5 {
+  color: #19443f;
 }
 
-.div3 .servicesDiv .singleServiceDiv .serviceCircle .serviceIcon{
+.div3 .servicesDiv .singleServiceDiv h5 {
+  padding-top: 1.5rem;
+}
+
+.div3 .servicesDiv .singleServiceDiv .serviceCircle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.div3 .servicesDiv .singleServiceDiv .serviceCircle .serviceIcon {
   font-size: 3.5rem;
 }
 
-.div3 .servicesDiv .serviceCircle{
-    align-items: center; 
-    top:50%;
-    text-align: center;
-     border-radius: 50%;
-     border-color: black;
-     background-color: #1E786F;
-     width:9.5rem;
-     height:9.5rem;
+.div3 .servicesDiv .serviceCircle {
+  align-items: center;
+  top: 50%;
+  text-align: center;
+  border-radius: 50%;
+  border-color: black;
+  background-color: #1e786f;
+  width: 9.5rem;
+  height: 9.5rem;
 }
 
-.div3 .servicesDiv .serviceCircle .serviceCircleIcon{  
-    color:white;
-    visibility: visible;
-    width:2rem;
+.div3 .servicesDiv .serviceCircle .serviceCircleIcon {
+  color: white;
+  visibility: visible;
+  width: 2rem;
 }
 
-.div4{
-    background-image: url("../../assets/franchiseBG.png");
-    width:100%;
-    display:flex;
+.div4 {
+  background-image: url("../../assets/franchiseBG.png");
+  width: 100%;
+  display: flex;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  --bs-gutter-x: 0;
 }
 
-.div4 .soilDiv{
-    width:48%;
-    height:116vh;
-
-}
-.div4 .soilDiv .soilTestInfo{
- padding-bottom: 3.1rem;
- padding-right: 2.5rem;
+.div4 .soilDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 35px;
 }
 
-.div4 .soilDiv .soilTestInfo .soilHeading h1{
-    width:fit-content;
-    color:white;
-    font-size:3.8rem;
-    font-weight: 700;
+.div4 .soilDiv .soilTestInfo .soilHeading h1 {
+  width: fit-content;
+  color: white;
+  font-size: 3.8rem;
+  font-weight: 700;
 }
 
-.div4 .soilDiv .soilTestInfo .soilHeading .soilSubHead1{
+.div4 .soilDiv .soilTestInfo .soilHeading .soilSubHead1 {
+  align-items: center;
+  color: white;
+  background-color: #19443f;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.div4 .soilDiv .soilTestInfo .soilHeading .soilSubHead2 {
+  align-items: center;
+  color: white;
+  background-color: #c8a33d;
+  padding-left: 8px;
+  padding-right: 8px;
+  width: fit-content;
+}
+
+.div4 .soilDiv .soilTestInfo button {
+  background-image: linear-gradient(79deg,
+      #36914b 0.36%,
+      #44a95c 58.15%,
+      #7bf197 117.12%);
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 62px;
+  padding-right: 62px;
+}
+
+.div4 .soilDiv .soilTestInfo p {
+  text-indent: 16px;
+  color: white;
+  font-weight: 300;
+  font-size: 1.2rem;
+  width: 23rem;
+}
+
+.div4 .soilDiv .soilTestInfo .rightIcon {
+  margin-left: 4rem;
+}
+
+.div4 .franDiv {
+  width: 52%;
+  height: 110vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div4 .franDiv .franchiseInfo {
+  width: 100%;
+}
+
+.div4 .franDiv .franchiseInfo .franchHeading {
+  transform: rotate(-2deg);
+  margin-top: 5.6rem;
+  text-align: center;
+  width: 100%;
+}
+
+.div4 .franDiv .franchiseInfo .franchHeading h1 {
+  margin: auto;
+  background-color: #c8a33d;
+  width: fit-content;
+  font-weight: 800;
+}
+
+.div4 .franDiv .franchiseInfo .franchHeading h3 {
+  margin: auto;
+  font-size: 1.5rem;
+  font-weight: 200;
+  margin-top: 0.5rem;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: #19443f;
+  width: fit-content;
+}
+
+.div4 .franDiv .franchiseInfo .franchHeading h6 {
+  color: #19443f;
+  font-weight: 400;
+}
+
+.div4 .franDiv .franchiseInfo .franchHeading .franchSubHead {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding-top: 1rem;
+}
+
+.div4 .franDiv .franchiseInfo .franchHeading .franchSubHead .franchSubHead3 {
+  background-color: #44a98b;
+  padding-left: 18px;
+  padding-right: 18px;
+  width: fit-content;
+}
+
+.div4 .franDiv .franInfoDiv2 {
+  color: #19443f;
+  font-size: 1rem;
+  width: 26rem;
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.div4 .franDiv .franInfoDiv2 button {
+  background-color: #29645e;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.home-page .product-category {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 2rem;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/homepage-below-main.png");
+  background-size: 100% 100%;
+  padding: 4%;
+
+  .product-category-text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .category-text {
+      margin: 2rem 0 1rem 0;
+      display: flex;
+      flex-direction: row;
+
+      .tafi-product-text2 {
+        background-color: #c8a33d;
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding: 0.1rem 0.7rem;
+        color: white;
+      }
+
+      .tafi-product-text1 {
+        background-color: #19443f;
+        font-size: 1.5rem;
+        padding: 0.1rem 0.7rem;
+        font-weight: 700;
+        color: white;
+      }
+    }
+  }
+
+  .category-region {
+    width: 100%;
+    margin: 0 5rem 0;
+    display: flex;
     align-items: center;
-    color: white;
-    background-color: #19443F;
-    padding-left: 8px;
-    padding-right: 8px;
-    font-weight: 700;
-    width: fit-content;
+
+    .category-carousel {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 0 9rem;
+      width: 100%;
+
+      .bi-arrow-left {
+        color: #44a98b;
+        font-size: 2rem;
+        margin-right: 2rem;
+      }
+
+      .bi-arrow-right {
+        color: #44a98b;
+        margin-left: 2rem;
+        font-size: 2rem;
+      }
+    }
+  }
 }
-.div4 .soilDiv .soilTestInfo .soilHeading .soilSubHead2{
+
+.home-page .featured-product {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -8%;
+
+
+  .product-category-text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .category-text {
+      margin: 2rem 0 1rem 0;
+      display: flex;
+      flex-direction: row;
+
+      .tafi-product-text2 {
+        background-color: #c8a33d;
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding: 0.1rem 0.7rem;
+        color: white;
+      }
+
+      .tafi-product-text1 {
+        background-color: #19443f;
+        font-size: 1.5rem;
+        padding: 0.1rem 0.7rem;
+        font-weight: 700;
+        color: white;
+      }
+    }
+  }
+
+  .category-region {
+    width: 100%;
+    margin: 0 5rem 0;
+    display: flex;
     align-items: center;
-    color: white;
-    background-color: #C8A33D;
-    padding-left: 8px;
-    padding-right: 8px;
-    width: fit-content;
+
+    .category-carousel {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 0 9rem;
+      width: 100%;
+
+      .bi-arrow-left {
+        color: #44a98b;
+        font-size: 2rem;
+        margin-right: 2rem;
+      }
+
+      .bi-arrow-right {
+        color: #44a98b;
+        margin-left: 2rem;
+        font-size: 2rem;
+      }
+
+      .feature-carousal {
+        width: 80rem;
+        height: 18rem;
+      }
+    }
+  }
 }
 
 
-.div4 .soilDiv .soilTestInfo button{
-    background-image:  linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%);
-    border-radius: 6px;
-    border: none;
-    color: white;
-    font-weight: 500;
-    padding-top: 9px;
-    padding-bottom: 9px;
-    padding-left: 62px;
-    padding-right: 62px;
-}
-
-.div4 .soilDiv .soilTestInfo p{
-    text-indent: 16px;
-    color:white;
-    font-weight: 300;
-    font-size: 1.2rem;
-    width:23rem;
-}
-
-.div4 .soilDiv .soilTestInfo .rightIcon{
- margin-left: 4rem;
-}
-
-.div4 .franDiv{
-    width:52%;
-    height:110vh;
-    color:white;
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.div4 .franDiv .franchiseInfo{
- width:100%;
-}
-.div4 .franDiv .franchiseInfo .franchHeading{
-    transform: rotate(-2deg);
-    margin-top: 5.6rem;
-   text-align: center;
-   width:98%;
-}
-
-.div4 .franDiv .franchiseInfo .franchHeading h1{
-margin: auto;
-background-color: #C8A33D;
-width:fit-content;
-font-weight: 800;
-}
-
-.div4 .franDiv .franchiseInfo .franchHeading h3{
-    margin: auto;
-    font-size: 1.5rem;
-    font-weight: 200;
-    margin-top: 0.5rem;;
-    padding-left: 8px;
-    padding-right: 8px;
-    background-color:#19443F ;
-    width:fit-content;
-}
-
-.div4 .franDiv .franchiseInfo .franchHeading h6{
-    color:#19443F;
-    font-weight: 400;
-}
-.div4 .franDiv .franchiseInfo .franchHeading .franchSubHead{
-    margin: auto;
-    display:flex;
-    justify-content:center;
-    gap:5px;
-    padding-top: 1rem;
-}
-
-.div4 .franDiv .franchiseInfo .franchHeading .franchSubHead .franchSubHead3{
-    background-color: #44A98B;
-    padding-left: 18px;
-    padding-right: 18px;
-    width: fit-content;
-}
-
-.div4 .franDiv .franInfoDiv2{
-    color:#19443F;
-    font-size: 1rem;
-    width: 26rem;
-    text-align: center;
-}
-
-.div4 .franDiv .franInfoDiv2 button{
-    background-color: #29645E;
-    border-radius: 6px;
-    border: none;
-    color: white;
-    font-weight: 500;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
+.home-page .service100 {
+  min-height: 280px;
 }
