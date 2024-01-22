@@ -74,7 +74,7 @@ const SignIn = () => {
   const onLogin = async (event) => {
     event.preventDefault();
     if (token) {
-      const { data } = await axios.post("http://localhost:8080/auth/login", {
+      const { data } = await axios.post("http://localhost:8080/auth", {
         phone: formField.phone,
         otp: formField.otp,
         token: token,
