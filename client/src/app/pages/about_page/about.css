@@ -1,0 +1,215 @@
+.about {
+  background-color: #d8e8e7;
+  /* padding-bottom: 5%; */
+}
+.about .about-hero {
+  background-image: url("../../assets/about-hero.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: bottom;
+  padding-bottom: 7%;
+  z-index: 1;
+  justify-content: space-between;
+}
+.about .about-hero .row {
+  width: 80%;
+  margin: auto;
+}
+.about .tile-circle {
+  width: 0;
+  height: 0;
+  border-radius: 0 0 0 500px;
+  border: 60px solid #44a98b;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
+  position: absolute;
+}
+.about .about-hero-head p {
+  color: #fff;
+  text-align: justify;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: lighter;
+  line-height: normal;
+  padding-top: 2.5%;
+}
+.about .about-hero-head h2 {
+  text-transform: uppercase;
+  font-size: 43px;
+}
+.about .about-logo-img img {
+  width: 100%;
+}
+.about .about-hero-text {
+  align-items: center;
+  display: flex;
+  padding: 2%;
+}
+.about .about-logo {
+  align-items: center;
+  padding: 2%;
+}
+.about-hero-head .about-text {
+  background-color: #42a487;
+  padding: 3px;
+  font-weight: 700;
+}
+.about-hero-head .tafi-text {
+  background-color: #c8a33d;
+  padding: 3px;
+  font-weight: 700;
+}
+.about-hero-text {
+  color: white;
+}
+.about .about-hero-head {
+  align-items: center;
+}
+.about .about-card-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  margin: auto;
+  margin-top: 40px;
+  color: white;
+  gap: 25%;
+}
+.about .mission-text,
+.about .vision-text {
+  background-color: #c8a33d;
+  padding: 3px;
+  font-weight: 700;
+}
+
+.about .our-text {
+  background-color: #42a487;
+  padding: 3px;
+  font-weight: 700;
+}
+.about .about-vision-mission {
+  width: 100%;
+  padding-bottom: 8%;
+  z-index: 0;
+  position: relative;
+  margin-top: -3%;
+}
+.about .card-vision,
+.about .card-mission {
+  background-color: #19443f;
+  padding: 4%;
+  border-radius: 15px;
+  padding-top: 50px;
+  position: relative;
+  overflow: hidden;
+}
+.about .vision-description p,
+.about .mission-description p {
+  padding-top: 6%;
+}
+.about .tech-head {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.about .tech-head .tech-text {
+  background-color: #19443f;
+  padding: 3px;
+  font-weight: 700;
+}
+.about .tech-img {
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  height: fit-content;
+}
+.about .about-tech-we-have {
+  background-image: url("../../assets/about-background-bottom.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 10%;
+  background-position: 0 500px;
+}
+.about .buttons .col {
+  color: white;
+  font-size: 15px;
+  padding: 0px 20px;
+  max-width: fit-content;
+}
+.about .buttons div p {
+  border-radius: 6px;
+  border: none;
+  padding: 7px;
+  background-color: #42a487;
+  width: fit-content;
+}
+.about .buttons {
+  width: 80%;
+  margin: auto;
+  padding-top: 2%;
+  justify-content: center;
+  border: white;
+}
+.about .tech-keywords .tech-back-img {
+  width: 80%;
+  margin: auto;
+  overflow: visible;
+}
+.about .buttons .col div {
+  min-width: max-content;
+  width: fit-content;
+}
+.about .numbers .num {
+  background-color: #19443f;
+  color: white;
+  padding: 7px;
+  border-radius: 50%;
+  font-weight: 700;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+.about .numbers .num:nth-child(1) {
+  top: 6%;
+  left: 50%;
+}
+.about .numbers .num:nth-child(2) {
+  left: 75%;
+  top: 95%;
+}
+.about .numbers .num:nth-child(3) {
+    left: 79%;
+    top: 9%;
+}
+.about .numbers .num:nth-child(4) {
+  left: 30%;
+  top: 47%;
+}
+.about .numbers .num:nth-child(5) {
+    left: 72%;
+    top: 45%;
+}
+.about .numbers .num:nth-child(6) {
+  left: 26%;
+  top: 9%;
+}
+.about .numbers .num:nth-child(7) {
+  left: 25%;
+  top: 95%;
+}
+.about .numbers .num:nth-child(8) {
+  left: 56%;
+  top: 47%;
+}
+.about .buttons .col:nth-child(1):hover .num:nth-child(8){
+    transform: scale(1.4);
+}
+
