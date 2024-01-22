@@ -114,6 +114,7 @@
 }
 .footer .input-columns .input-sec input{
   padding: 5px;
+  border-radius: 3px;
   
 }
 .footer .form{

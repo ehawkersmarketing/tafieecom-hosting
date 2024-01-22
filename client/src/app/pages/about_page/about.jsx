@@ -97,15 +97,55 @@ const About = () => {
             <div className="tech-keywords">
               <div className="tech-back-img">
                 <div className="buttons row">
-                  <div className="col"> <div><p>Smart Irrigation Systems</p></div></div>
-                  <div className="col"> <div><p>Drones and UAVs</p></div></div>
-                  <div className="col"> <div><p>Surveillance</p></div></div>
-                  <div className="col"> <div><p>Greenhouse</p></div></div>
-                  <div className="col"> <div><p>Climate Monitoring</p></div></div>
-                  <div className="col"> <div><p>High Tech Machinery</p></div></div>
-                  <div className="col"> <div><p>Precision Agriculture</p></div></div> 
-                  <div className="col"> <div><p>Biological Pest Control</p></div></div>                
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>Smart Irrigation Systems</p>
+                    </div>
                   </div>
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>Drones and UAVs</p>
+                    </div>
+                  </div>
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>Surveillance</p>
+                    </div>
+                  </div>
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>Greenhouse</p>
+                    </div>
+                  </div>
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>Climate Monitoring</p>
+                    </div>
+                  </div>
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>High Tech Machinery</p>
+                    </div>
+                  </div>
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>Precision Agriculture</p>
+                    </div>
+                  </div>
+                  <div className="col">
+                    {" "}
+                    <div>
+                      <p>Biological Pest Control</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
