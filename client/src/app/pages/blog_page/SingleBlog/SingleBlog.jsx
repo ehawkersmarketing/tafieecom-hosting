@@ -1,13 +1,13 @@
 import "./SingleBlog.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import resourcepage1 from "../../../assets/resourcecenter1.png";
 import blogpage_img from "../../../assets/blogpage_head.jpeg";
 import { useFetch } from "../../../hooks/api_hook";
 import dayjs from 'dayjs';
 
 const SingleBlog = () => {
-
-  const { data: blog } = useFetch(`/api/blog/65abb29dd5b5b10f492fecf9`);
+  const { blogId } = useParams();
+  const { data: blog } = useFetch(`/api/blog/${blogId}`);
   const { data: blogs } = useFetch('/api/blogs');
 
   return (

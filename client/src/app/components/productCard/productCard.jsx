@@ -12,11 +12,11 @@ const ProductCard = ({ item }) => {
                     <h1 className='product-name'>{item.title}</h1>
                     <div className="ratingAndReview">
                         <ul class="rating">
-                            <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                            <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                            <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                            <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                            <li><i class="bi bi-star-fill" id='review-icon'></i></li>
+                            {
+                                Array.apply(null, { length: item.rating }).map((e, i) => (
+                                    <li><i class="bi bi-star-fill" id='review-icon'></i></li>
+                                ))
+                            }
                         </ul>
                         <span className='review'>345 Reviews</span>
                     </div>

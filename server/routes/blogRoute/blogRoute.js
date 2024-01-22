@@ -6,6 +6,7 @@ const {
   updateBlog,
   deleteBlog,
   searchBlog,
+  getRecentBlogs,
 } = require("../../controlllers/blog/blogController");
 
 const router = express.Router();
@@ -34,6 +35,7 @@ router.post("/uploadBlogImage", upload.single("image"), (req, res) => {
 });
 router.post("/composeBlog", composeBlog);
 router.get("/blogs", getAllBlogs);
+router.get("/recentBlogs", getRecentBlogs);
 router.get("/blog/:blogId", getBlogById);
 router.put("/updateBlog/:blogId", updateBlog);
 router.delete("/deleteBlog/:blogId", deleteBlog);
