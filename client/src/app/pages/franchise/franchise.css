@@ -1,0 +1,284 @@
+.franchise-wrapper .franchise-main-content{
+    /* background-image: url('../../assets/Group\ 345.png');
+    background-size: 100% 65%;
+        background-repeat: no-repeat; */
+}
+
+.franchise-wrapper .franchise-img-card{
+    /* background-image: url('../../assets/image\ 2.png'); */
+}
+.franchise-wrapper .franchise-part{
+    width: 100%;
+    height: 100%;
+}
+
+.franchise-part{
+    background-color:#D9EAE7 ;
+}
+
+.franchise-wrapper .franchise-heading{
+   
+        font-size: 72px;
+        font-weight: 900;
+        line-height: 76px;
+        letter-spacing: 0em;
+    
+                font-weight: 900;
+                background-image: -webkit-linear-gradient(45deg, #E8CD82 10.01%, #C8A33D 55.34%, #887234 109.07%);
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+.franchise-wrapper .franchise-content-heading{
+    display: flex;
+}
+.franchise-wrapper .franchise-img-card{
+}
+.franchise-wrapper .card-type-img{
+    width: 80%;
+    /* box-shadow: 0px 4px 104px 0px #29645E66; */
+    
+        /* box-shadow: 0px 4px 20px 0px #29645E1A; */
+}
+
+.franchise-wrapper .subheading-franchise{
+    color: white;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29px;
+        letter-spacing: 0em;
+        text-align: center;
+    
+}
+.franchise-wrapper .franchise-wrapper-content{
+    display: flex;
+    justify-content: center;
+}
+.franchise-wrapper .franchise-content-para-bt{
+    background: linear-gradient(79.4deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%);
+        color: white;
+        border: none;
+        border-radius: 17px;
+        padding: 6px;
+width: 85%;
+    height: 17%;
+}
+
+.franchise-wrapper .main-content-page{
+    display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
+.franchise-wrapper .wrapper-row{
+    /* padding-top: 7%; */
+    background-image: url('../../assets/Group\ 345.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+}
+.franchise-wrapper .h5-btn{
+    margin: 0px;
+}
+
+
+.franchise-wrapper .franchise-sub-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.franchise-wrapper .krishak {
+
+    padding: 0.2rem 0.3rem;
+    color: white;
+    background-color: #19443F;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 36px;
+        letter-spacing: 0em;
+        text-align: center;
+       
+}
+
+.franchise-wrapper .vatika {
+padding: 0.2rem 0.3rem;
+
+    color: white;
+    background-color: #C8A33D;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 36px;
+        letter-spacing: 0em;
+        text-align: center;
+}
+
+.franchise-wrapper .franchise-para{
+        font-size: 16px;
+        /* font-weight: 700; */
+        line-height: 23px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #19443F;
+
+        width: 50rem;
+}
+.franchise-wrapper .franchise-tag{
+    margin-top: 1rem;
+    font-size: 19px;
+        font-weight: 700;
+        line-height: 23px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #19443F;
+}
+.franchise-wrapper .franchise-paragraph-content{
+    margin-top: 1rem;
+    margin-left: 14rem;
+    /* text-align: center; */
+}
+.franchise-wrapper .h3-franchise-tag{
+font-size: 19px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: center;
+    background: linear-gradient(140deg, #19443F 82%, white 106%);
+    color: white;
+    width: 15rem;
+    /* box-shadow: 0px 4px 8px 0px #29645E66; */
+    padding: 6px;
+    /* background: linear-gradient(0deg, #19443F, #19443F), linear-gradient(283.53deg, #96FFF4 -8.72%, rgba(0, 112, 100, 0) 21.44%); */
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden
+}
+.franchise-block-card{
+    padding:4rem ;
+    display: flex;
+        justify-content: space-evenly;
+}
+
+
+
+/* section 2 */
+
+.franchise-section2{
+    background-image: url('../../assets/franchise-section2-img.png');
+}
+.perk-section{
+background-color: #44A98B;
+    color: white;
+    width: 23%;
+    margin: 6rem 0px 0px 6rem;
+    padding: 2px;
+}
+.krishak-section{
+padding: 0.1rem 0.2rem;
+
+    color: white;
+    background-color: #C8A33D;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+.franchise-content-section-tag{
+    margin-left: 6rem;
+}
+
+.single-franchise-card{
+    box-shadow: 0px 2.788419246673584px 7.435784816741943px 0px #19443F40;
+     display: flex;
+     justify-content: end;
+}
+.sideimg-fran{
+        width: 76%;
+            padding-top: 1.047rem
+}
+
+.section-franchise-card-section{
+    width: 100%;
+        padding: 0.65rem;
+        border-radius: 0.6rem;
+        color: #19443F;
+        font-weight: 600;
+        background: linear-gradient(-50deg, #fff 80%, #44a98b 106%);
+        text-align: center;
+}
+.card-fran-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+.single-fanchise-card{
+    display: flex;
+    justify-content: end;
+    /* align-items: center; */
+}
+
+.right-div-section-part{
+display: flex;
+justify-content: space-between;
+
+}
+.lineImg{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14rem;
+        margin-top: 1rem;
+}
+.img-lining-section{
+    width: 60%;
+}
+
+.btn-knowing-more-fran{
+    background: linear-gradient(0deg, #29645E, #29645E);
+    color:white;
+    margin-top:1rem;
+    margin-left: 12rem;
+    border: 1px solid white;
+    border-radius: 2px;
+    padding: 4px;
+    font-weight: 600;
+
+}
+
+.section2-part2-img{
+    text-align: right;
+}
+
+.arrow-fran{
+    color: white;
+    font-size: 20px;
+}
+.arrow-btn{
+    text-align: center;
+}
+.fran-section2{
+    background-image: url('../../assets/section-img-franchise-bg.png');
+}
+
+
+/* map */
+.map-section{
+    background-color: #19443F;
+}
+
+.mapImg{
+    width: 100%;
+}
+.map-number-70{
+    font-weight: bold;
+    background-color:#C8A33D ;
+    width: 3rem;
+}
+.h3-content{
+   color: #19443F; 
+   background-color: #2c8374;
+}
+.para-unevil{
+    color: #19443F;
+}
