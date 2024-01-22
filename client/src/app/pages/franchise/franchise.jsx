@@ -5,6 +5,7 @@ import img from "../../assets/image 2.png";
 import sideImg from "../../assets/Group 358.png";
 import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
+import Footer from "../../pages/footer/footer";
 
 const Franchise = () => {
   return (
@@ -24,7 +25,7 @@ const Franchise = () => {
                   </div>
                   <button className="franchise-content-para-bt">
                     <h5 className="h5-btn">Unlock Your Potential</h5>
-                    <p>(with Krishak Vatika)</p>
+                    <p style={{ marginBottom: "0px" }}>(with Krishak Vatika)</p>
                   </button>
                 </div>
               </div>
@@ -116,11 +117,11 @@ const Franchise = () => {
                         </p>
                       </div>
 
-                      <div className="arrow-btn">
+                      {/* <div className="arrow-btn">
                         <span className="arrow-fran">
                           <i class="bi bi-caret-down-fill"></i>
                         </span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -138,12 +139,12 @@ const Franchise = () => {
           </div>
 
           <div className="map-section">
-            <div className="section-map-fran">
-              <div className="img-section-map-fran">
-                <img src={mapImg} className="mapImg" alt="" />
+            <div className="section-map-fran row">
+              <div className="img-section-map-fran col-6">
+                {/* <img src={mapImg} className="mapImg" alt="" /> */}
               </div>
 
-              <div className="map-section-card">
+              <div className="map-section-card col-6">
                 <div className="map-number">
                   <h2 className="map-number-70"> 70+</h2>
                 </div>
@@ -151,20 +152,39 @@ const Franchise = () => {
                   <h3 className="h3-content">FRENCHISE OVER INDIA</h3>
                 </div>
                 <div className="map-para">
-                  <i className="para-unevil">
-                    Unveil unique products & services not found
-                  </i>
-                  <span style={{ fontWeight: "700" }}>elseWhere</span>
+                  <span className="para-unevil">
+                    <i>Unveil unique products & services not found</i>
+                  </span>
                 </div>
                 <div className="content-map-fan">
-                  <p style={{ fontWeight: "700" }}>Find the stores near you!</p>
+                  <p
+                    style={{
+                      fontWeight: "700",
+                      marginTop: "2rem",
+                      color: "#19443F",
+                    }}
+                  >
+                    Find the stores near you!
+                  </p>
                 </div>
 
-                <div className="searchbar-map"></div>
+                <div className="search-bar">
+                  <input
+                    type="text"
+                    name="search"
+                    className="search-container"
+                  />
+                  <div className="search-button">
+                    <button className="search-icon">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );
