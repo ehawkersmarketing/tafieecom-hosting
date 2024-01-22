@@ -413,7 +413,7 @@ border: none;
     margin-top: 3rem;
   }
   /* Blogs */
-  .admin-wrapper.admin-blog-card {
+  .admin-wrapper .admin-blog-card {
     margin-top: 3rem;
   }
   /* Order */
