@@ -21,7 +21,7 @@ const ShopPage = () => {
             <div className="shop-page-container">
                 <div className="shop-page-card">
                     <div className="poster-card-background">
-                        <img src={PosterCardBackground} height={488} />
+                        <img src={PosterCardBackground} height={426} />
                     </div>
                     <div className="shop-page-card-content">
                         <div className="product-content">
