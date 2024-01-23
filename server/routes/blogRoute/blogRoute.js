@@ -1,5 +1,5 @@
 const express = require("express");
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 const {
   composeBlog,
   getAllBlogs,
@@ -12,19 +12,16 @@ const {
 
 const multer = require("multer");
 const router = express.Router();
-
 const {
   AdminRole,
   EditorRole,
   ViewerRole,
 } = require("../../middleware/role_check");
-
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_KEY,
   region: process.env.AWS_REGION,
 });
-
 const S3_BUCKET_NAME = "tafi-ecom-img";
 
 const storage = multer.memoryStorage({
@@ -43,7 +40,7 @@ router.post("/uploadBlogImage", upload.single("image"), async (req, res) => {
     Bucket: S3_BUCKET_NAME,
     Key: `blogs/${req.file.originalname}`,
     Body: req.file.buffer,
-    ContentType: "image/jpeg",
+    ContentType: "image/jpeg"
   };
 
   s3.upload(params, (error, data) => {

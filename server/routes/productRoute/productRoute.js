@@ -26,7 +26,6 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET_KEY,
   region: process.env.AWS_REGION,
 });
-
 const S3_BUCKET_NAME = "tafi-ecom-img";
 
 const storage = multer.memoryStorage({
@@ -45,7 +44,7 @@ router.post("/uploadImage", upload.single("image"), (req, res) => {
     Bucket: S3_BUCKET_NAME,
     Key: `products/${req.file.originalname}`,
     Body: req.file.buffer,
-    ContentType: "image/jpeg",
+    ContentType: "image/jpeg"
   };
 
   s3.upload(params, (error, data) => {
