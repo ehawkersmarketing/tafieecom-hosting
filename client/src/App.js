@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Routers, Route, Routes } from "react-router-dom";
 import DashBoard from "./app/pages/home_page/dashboard.jsx";
 import { useDispatch } from "react-redux";
@@ -71,7 +71,9 @@ function App() {
           <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
+
           <Route path="/adminPage" exact element={<AdminPage />} />
+
           <Route
             path="/OrderConformationPage"
             exact
