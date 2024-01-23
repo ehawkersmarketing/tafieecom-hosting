@@ -14,6 +14,25 @@ const UpdateBlog = () => {
     content: "",
     readingTime: "",
   });
+
+  const getOneBlog = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8080/api/blog/" + id);
+      console.log(data);
+      setInputHandler({
+        title: data.data.title,
+        content: data.data.content,
+        readingTime: data.data.readingTime,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getOneBlog();
+  }, []);
+
   useEffect(() => {
     axios
       .patch("http://localhost:8080/api/updateBlog/" + id)

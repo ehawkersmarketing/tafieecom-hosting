@@ -59,7 +59,9 @@ exports.getAllBlogs = async (req, res) => {
 
 exports.getRecentBlogs = async (req, res) => {
   try {
-    const blogs = await blogModel.find({}, [], { $orderby: { 'createdAt': -1 } }).limit(3);
+    const blogs = await blogModel
+      .find({}, [], { $orderby: { createdAt: -1 } })
+      .limit(3);
     console.log(blogs);
     if (!blogs) {
       return res.status(200).send({
@@ -159,10 +161,7 @@ exports.searchBlog = async (req, res) => {
   try {
     const { search } = req.body;
     const blog = await blogModel.find({
-      $or: [
-        { title: { $regex: search } },
-        { content: { $regex: search } },
-      ]
+      $or: [{ title: { $regex: search } }, { content: { $regex: search } }],
     });
     console.log(blog);
     if (!blog) {

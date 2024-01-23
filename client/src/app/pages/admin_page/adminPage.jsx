@@ -1,10 +1,12 @@
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 import "./adminPage.css";
 import logoImage from "../../assets/Tafi_logo_white.png";
 import { useNavigate } from "react-router-dom";
 import { Chart } from "react-google-charts";
+import axios from "axios";
 
 const AdminPage = () => {
+  // const [blogs, setBlogs] = useState([]);
   const data = [
     ["x", "dogs", "cats"],
     [0, 0, 0],
@@ -62,6 +64,78 @@ const AdminPage = () => {
   const CreateNewHandler = () => {
     navigate("/createProduct");
   };
+
+  const CreateNewBlogHandler = () => {
+    navigate("/blog/composeBlog");
+  };
+
+  const editBlogHandler = (BlogId) => {
+    navigate("/updateBlog/"+BlogId);
+  };
+
+
+
+  const [blog, setBlog] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8080/api/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        setBlog(data.data);
+      })
+      .catch((error) => {
+        console.log("Error while fetching Blog");
+        console.log(error);
+      });
+  }, []);
+
+  const deleteHandler = (id) => {
+    if (
+      window.confirm("Do you want to delete the resource permently?") == true
+    ) {
+      axios
+        .delete(`http://localhost:8080/api/deleteBlog/${id}`)
+        .then((res) => {
+          console.log("Blog deleted successfully");
+          window.location.reload();
+          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("Dont delete the Resource Center");
+    }
+  };
+
+
+
+
+  // sdfghjklkuytrerthghjhgfghjhgfghjk
+
+
+
+
+
+
+
+
+
+  // const getAllBlogsHandler = async () => {
+  //   try {
+  //     const { data } = await axios.get("/api/blogs");
+  //     console.log(data);
+  //     if (data && data.success) {
+  //       setBlogs(data?.blogs);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // useEffect(() => {
+  //   console.log("inside useEffect");
+  //   getAllBlogsHandler();
+  // }, []);
+  // console.log(blogs);
 
   const inlineStyle = {
     "--size": 0.4,
@@ -320,7 +394,7 @@ const AdminPage = () => {
                   <div className="nav-rightContent">
                     <button
                       className="admin-btn-nav"
-                      // onClick={CreateNewHandler}
+                      onClick={CreateNewBlogHandler}
                     >
                       <i class="bi bi-plus-lg"></i> Create New
                     </button>
@@ -345,7 +419,7 @@ const AdminPage = () => {
               </div>
             </nav>
           )}
-
+        {/* content */}
           {value == 0 && (
             <div className="card admin-table-card">
               <div className="subHeading">
@@ -804,54 +878,29 @@ const AdminPage = () => {
                       </tr>
                     </thead>
                     <tbody>
+                      
+                     {blog?.map((resource) =>(
+      
                       <tr>
                         <th scope="row table-center">1.</th>
                         <td className="td">
                           <img src="/image.com" />
                         </td>
-                        <td className="td table-center">Name of Blog</td>
-                        <td className="td table-center">Fertilizers</td>
+                        <td className="td table-center">{resource.title}</td>
+                        <td className="td table-center">{resource.title}</td> 
+                        {/* change this with tag once DB is updated */}
                         <td className="td table-center">
-                          <span className="td-edit-icon ">
+                          <span className="td-edit-icon" onClick={()=>{
+                            navigate("/updateBlog/"+resource._id);
+                          }}>
                             <i class="bi bi-pencil-square"></i>
                           </span>
-                          <span className="td-delete-icon">
+                          <span className="td-delete-icon" onClick={deleteHandler}>
                             <i class="bi bi-trash3-fill"></i>
                           </span>
                         </td>
-                      </tr>
-                      <tr>
-                        <th scope="row table-center">2.</th>
-                        <td className="td">
-                          <img src="/image.com" />
-                        </td>
-                        <td className="td table-center">Name of Blog</td>
-                        <td className="td table-center">Fertilizers</td>
-                        <td className="td table-center">
-                          <span className="td-edit-icon ">
-                            <i class="bi bi-pencil-square"></i>
-                          </span>
-                          <span className="td-delete-icon">
-                            <i class="bi bi-trash3-fill"></i>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row table-center">3.</th>
-                        <td className="td">
-                          <img src="/image.com" />
-                        </td>
-                        <td className="td table-center">Name of Blog</td>
-                        <td className="td table-center">Fertilizers</td>
-                        <td className="td table-center">
-                          <span className="td-edit-icon ">
-                            <i class="bi bi-pencil-square"></i>
-                          </span>
-                          <span className="td-delete-icon">
-                            <i class="bi bi-trash3-fill"></i>
-                          </span>
-                        </td>
-                      </tr>
+                      </tr>))}
+        
                     </tbody>
                   </table>
                 </div>
