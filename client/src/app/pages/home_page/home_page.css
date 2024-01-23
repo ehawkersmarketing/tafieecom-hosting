@@ -1,5 +1,5 @@
 .home-page {
-  padding-bottom: 150px;
+  padding-bottom: 8%;
 }
 
 .product-container {
@@ -52,15 +52,21 @@
 .topDiv .headingDiv .iconDiv .socialsLink {
   color: white;
   opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
+
 
 .topDiv .headingDiv .iconDiv .socialsLink i {
   font-size: larger;
+  color: white;
 }
 
 .topDiv .headingDiv .iconDiv {
   margin-top: 5.25%;
-  width: fit-content;
+  width: 50%;
   display: flex;
   justify-content: left;
   gap: 40px;
