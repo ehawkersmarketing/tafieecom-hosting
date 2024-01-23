@@ -9,17 +9,27 @@ import Mask_group from "../../../assets/Mask_group.png";
 import Tafi_logo_white from "../../../assets/Tafi_logo_white.png";
 import { Link } from "react-router-dom";
 import Header from "../../header/header";
+import { useParams } from "react-router-dom";
 var token;
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [index, setIndex] = useState(1);
+
+  const { id } = useParams();
+  console.log(id);
+  const [index, setIndex] = useState(id);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      navigate('/');
+      navigate("/");
     }
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      setIndex(id);
+    }
+  }, [id]);
 
   const [formField, setFormField] = useState({
     phone: "",
@@ -69,7 +79,7 @@ const SignIn = () => {
 
   const onTogglePage = (index) => {
     setIndex(index);
-  }
+  };
 
   const onLogin = async (event) => {
     event.preventDefault();
@@ -92,8 +102,8 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      {
-        index === 0 && <div className="div sign_in">
+      {index == 0 && (
+        <div className="div sign_in">
           <div className="div-8">
             <div className="div-9">
               <div className="column">
@@ -107,8 +117,12 @@ const SignIn = () => {
                         className="img-3"
                       />
                       <div className="div-12">
-                        <div><span className="welcome-text">Welcome</span></div>
-                        <div><span className="back-text">Back!</span></div>
+                        <div>
+                          <span className="welcome-text">Welcome</span>
+                        </div>
+                        <div>
+                          <span className="back-text">Back!</span>
+                        </div>
                       </div>
                     </span>
                     <img loading="lazy" src={photo} className="img-4" />
@@ -160,7 +174,10 @@ const SignIn = () => {
                     <span className="register-text">
                       Haven’t registered yet?{" "}
                     </span>
-                    <Link onClick={(e) => onTogglePage(1)} className="create-account-text">
+                    <Link
+                      onClick={(e) => onTogglePage(1)}
+                      className="create-account-text"
+                    >
                       Create an account
                     </Link>
                   </div>
@@ -174,9 +191,9 @@ const SignIn = () => {
             </div>
           </div>
         </div>
-      }
-      {
-        index === 1 && <div className="div sign_up">
+      )}
+      {index == 1 && (
+        <div className="div sign_up">
           <div className="div-8">
             <div className="div-9">
               <div className="column-2">
@@ -228,15 +245,17 @@ const SignIn = () => {
                     Keep me signed in
                   </div>
                   <div className="register">
-
-                    <button className="span-9" onClick={onSignUp} >
+                    <button className="span-9" onClick={onSignUp}>
                       Register
                     </button>
                   </div>
 
                   <div className="div-20">
                     <span className="register-text">Already a user? </span>
-                    <Link onClick={(e) => onTogglePage(0)} className="create-account-text">
+                    <Link
+                      onClick={(e) => onTogglePage(0)}
+                      className="create-account-text"
+                    >
                       Login
                     </Link>
                   </div>
@@ -269,8 +288,7 @@ const SignIn = () => {
             </div>
           </div>
         </div>
-      }
-
+      )}
     </>
   );
 };

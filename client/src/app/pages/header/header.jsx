@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/Tafi_logo_white.png";
+import { useNavigate } from "react-router-dom";
 
 import "./header.css";
-import { Link } from "react-router-dom";
-
-
+import { Link, useActionData } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -34,8 +33,12 @@ const Header = () => {
           </Link>
         </div>
         <div className="login-section col-3">
-          <Link className="register" to="/auth/register">Register</Link>
-          <Link className="signin" to="/auth/login">Sign In</Link>
+          <Link className="register" to={`/auth/${1}`}>
+            Register
+          </Link>
+          <Link className="signin" to={`/auth/${0}`}>
+            Sign In
+          </Link>
         </div>
       </div>
     </>

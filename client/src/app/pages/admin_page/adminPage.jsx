@@ -59,6 +59,10 @@ const AdminPage = () => {
   const blogHandler = () => setValue(4);
   const userHandler = () => setValue(2);
 
+  const CreateNewHandler = () => {
+    navigate("/createProduct");
+  };
+
   const inlineStyle = {
     "--size": 0.4,
     fontSize: "var(--size)rem",
@@ -152,38 +156,195 @@ const AdminPage = () => {
         </div>
 
         <div className="col-9 admin-suber-wrapper">
-          <nav className="nav-admin-page">
-            <div className="admin-navbar">
-              <div className="nav-header">
-                <div className="tab">
-                  <span className="tab1">Pages</span>
-                  <span>/Products</span>
-                </div>
-                <div className="nav-title">Products</div>
-                <div className="nav-rightContent">
-                  <button className="admin-btn-nav">
-                    <i class="bi bi-plus-lg"></i> Create New
-                  </button>
-                  <div className="admin-right">
-                    <input
-                      type="text"
-                      className="nav-input"
-                      placeholder="&#61442; Search"
-                    />
-                    <div className="logout-button">
-                      <span style={{ marginLeft: "15px" }}>
-                        <i class="bi bi-person"></i>
-                      </span>
-                      <span>Logout</span>
-                      <span style={{ marginLeft: "5px" }}>
-                        <i class="bi bi-gear-fill"></i>
-                      </span>
+          {value == 0 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/Store</span>
+                  </div>
+                  <div className="nav-title">Store</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      // onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </nav>
+            </nav>
+          )}
+
+          {value == 1 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/Dashboard</span>
+                  </div>
+                  <div className="nav-title">Dashboard</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      // onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          )}
+
+          {value == 2 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/User</span>
+                  </div>
+                  <div className="nav-title">User</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      // onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          )}
+
+          {value == 3 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/Products</span>
+                  </div>
+                  <div className="nav-title">Products</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          )}
+
+          {value == 4 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/Blogs</span>
+                  </div>
+                  <div className="nav-title">Blogs</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      // onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          )}
 
           {value == 0 && (
             <div className="card admin-table-card">

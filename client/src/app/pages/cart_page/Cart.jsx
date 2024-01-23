@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./Cart.css";
 
@@ -10,6 +10,17 @@ const plus = document.querySelector(".plus");
 // minus.addEventListener('click',() => document.getElementById("number").textContent--);
 
 const Cart = () => {
+  let [value, setValue] = useState(1);
+
+  const increaseValueHandler = () => {
+    setValue(value++);
+  };
+
+  const decreaseValueHandler = () => {
+    if (value < 1) {
+    }
+    setValue(value--);
+  };
   return (
     <div className="cart-page">
       <div className="cart-header">
@@ -25,26 +36,35 @@ const Cart = () => {
               <th>Total Amount</th>
             </tr>
           </thead>
-          <tbody className="table-body">
-            <tr className="table-row">
-              <td>Fertilizer</td>
-              <td>500.00</td>
-              <td>
-                <button class="minus">-</button>
-                <span id="number">1</span>
-                <button class="plus">+</button>
-              </td>
-              <td>500.00</td>
-            </tr>
-          </tbody>
-          <tfoot className="table-footer">
-            <tr className="table-row">
-              <td>Total Gross</td>
-              <td></td>
-              <td></td>
-              <td>500.00</td>
-            </tr>
-          </tfoot>
+
+          {value >= 1 && (
+            <tbody className="table-body">
+              <tr className="table-row">
+                <td>Fertilizer</td>
+                <td>500.00</td>
+                <td>
+                  <button class="minus" onClick={decreaseValueHandler}>
+                    -
+                  </button>
+                  <span id="number">{value}</span>
+                  <button class="plus" onClick={increaseValueHandler}>
+                    +
+                  </button>
+                </td>
+                <td>{value * 500}</td>
+              </tr>
+            </tbody>
+          )}
+          {value >= 1 && (
+            <tfoot className="table-footer">
+              <tr className="table-row">
+                <td>Total Gross</td>
+                <td></td>
+                <td></td>
+                <td>{value * 500}</td>
+              </tr>
+            </tfoot>
+          )}
         </table>
 
         <div className="checkout-subtotal">

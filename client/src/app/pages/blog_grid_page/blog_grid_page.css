@@ -102,6 +102,11 @@
       margin: 0 0.6rem 0;
     }
   }
+        .text-blog {
+          border: none;
+          border-radius: 30rem;
+          outline: none;
+        }
 
   .search-bar {
     width: 35%;
@@ -110,7 +115,14 @@
     display: flex;
     border-radius: 1.5rem;
     position: relative;
+    height: 2.5rem;
 
+      .search_container {
+          border: none;
+          border-radius: 1rem;
+          outline: none;
+          border-radius: 35rem;
+        }
     .search-icon {
       background-color: #04aa6d;
       border: none;
@@ -126,7 +138,7 @@
       height: 42px;
       border-radius: 50%;
       position: absolute;
-      right: 0;
+      right: -3px;
       top: 50%;
       transform: translateY(-21px);
       display: flex;

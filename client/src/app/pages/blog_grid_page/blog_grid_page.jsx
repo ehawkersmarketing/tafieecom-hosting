@@ -72,6 +72,7 @@ const BlogPage = () => {
             <div className="search-bar">
               <input
                 type="text"
+                id="text-blog"
                 name="search"
                 onChange={(e) => setSearchField(e.target.value)}
                 className="search_container"

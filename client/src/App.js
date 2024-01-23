@@ -52,7 +52,7 @@ function App() {
     <div className="App">
       <Routers>
         <Routes>
-          <Route path="/auth" element={<SignIn />} />
+          <Route path="/auth/:id" element={<SignIn />} />
           <Route path="/" exact element={<DashBoard />} />
           <Route path="/createProduct" exact element={<CreateProduct />} />
           <Route path="/updateProduct/:id" exact element={<UpdateProduct />} />
