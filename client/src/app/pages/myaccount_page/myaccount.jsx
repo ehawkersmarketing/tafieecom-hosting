@@ -1,5 +1,5 @@
 import "./myaccount.css";
-import react, { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
@@ -139,7 +139,7 @@ const Myaccount = () => {
               </div>
             )}
             {value == 1 && (
-              <div className="card admin-product-card">
+              <div className="card admin-product-card" id="order">
                 <div className="subHeading">
                   <div className="admin-card-heading">
                     <h1 className="h1">All Orders</h1>

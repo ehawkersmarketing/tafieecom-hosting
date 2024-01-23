@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
+    // unique: true,
     trim: true,
   },
   phone: {
@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: mongoose.Types.ObjectId,
+    ref: "role",
     default: new mongoose.Types.ObjectId("65a1077e2d86e257edce492c"),
   },
   created_at: {
