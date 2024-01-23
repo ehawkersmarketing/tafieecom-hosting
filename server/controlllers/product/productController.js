@@ -78,7 +78,7 @@ exports.createProduct = async (req, res) => {
       rating,
       metric,
       companyName,
-      category
+      category,
     });
 
     const categoryData = await categoryModel.find({ category });
@@ -185,10 +185,7 @@ exports.searchProduct = async (req, res) => {
     let { search } = req.body;
     search = search.trim();
     const products = await productModel.find({
-      $or: [
-        { title: { $regex: search } },
-        { description: { $regex: search } },
-      ],
+      $or: [{ title: { $regex: search } }, { description: { $regex: search } }],
     });
     console.log(products);
     if (!products) {
