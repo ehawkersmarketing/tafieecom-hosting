@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Chart } from "react-google-charts";
 
 const AdminPage = () => {
+  const user = localStorage.getItem("user");
+  console.log(user.role.role);
   const data = [
     ["x", "dogs", "cats"],
     [0, 0, 0],
@@ -635,6 +637,7 @@ const AdminPage = () => {
               </div>
             </div>
           )}
+
           {value == 3 && (
             <div className="card admin-product-card">
               <div className="subHeading">
@@ -754,6 +757,7 @@ const AdminPage = () => {
               </div>
             </div>
           )}
+
           {value == 4 && (
             <div className="card admin-blog-card">
               <div className="subHeading">
@@ -859,10 +863,69 @@ const AdminPage = () => {
             </div>
           )}
           {value == 2 && (
-            <div className="col-3  card dashboardCard">
-              <div className="admin-dashboard-card">
-                <div className="admin-dashboard-card-header">
-                  <h1>User page</h1>
+            <div className="card admin-blog-card">
+              <div className="subHeading">
+                <div className="admin-card-heading">
+                  <h1 className="h1">All Users</h1>
+                  <div className="admin-card-header">
+                    <h3 className="h3">Users</h3>
+                    <div className="admin-input-dropdown">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        style={{ width: "15rem" }}
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="short">
+                        <select
+                          type="text"
+                          name="input"
+                          id="input"
+                          placeholder="Short by:Newest "
+                        >
+                          <option>Short by : Newest</option>
+                          <option>yes</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="admin-table-div">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col" className="th">
+                          Sr.No.
+                        </th>
+                        <th scope="col" className="th">
+                          User Name
+                        </th>
+                        <th scope="col" className="th">
+                          Email
+                        </th>
+                        <th scope="col" className="th">
+                          Phone Number
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row table-center">1.</th>
+
+                        <td className="td table-center">Ayushi yadav</td>
+                        <td className="td table-center">
+                          ayushiyadav.bce@gmail.com
+                        </td>
+                        <td className="td table-center">6266894170</td>
+                      </tr>
+                      <tr>
+                        <th scope="row table-center">2.</th>
+                        <td className="td table-center">Udit </td>
+                        <td className="td table-center">udit@gmail.com</td>
+                        <td className="td table-center">982606789 </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 const express = require("express");
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const {
   getAllProducts,
   createProduct,
@@ -12,6 +12,12 @@ const {
   getAllCategory,
 } = require("../../controlllers/product/productController");
 
+const {
+  AdminRole,
+  EditorRole,
+  ViewerRole,
+} = require("../../middleware/role_check");
+
 const router = express.Router();
 const multer = require("multer");
 
@@ -21,7 +27,7 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
-const S3_BUCKET_NAME = 'tafi-ecom-img';
+const S3_BUCKET_NAME = "tafi-ecom-img";
 
 const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
@@ -39,7 +45,7 @@ router.post("/uploadImage", upload.single("image"), (req, res) => {
     Bucket: S3_BUCKET_NAME,
     Key: `products/${req.file.originalname}`,
     Body: req.file.buffer,
-    ContentType: "image/jpeg"
+    ContentType: "image/jpeg",
   };
 
   s3.upload(params, (error, data) => {
@@ -55,14 +61,14 @@ router.post("/uploadImage", upload.single("image"), (req, res) => {
   });
 });
 
-router.post("/createProduct", createProduct);
+router.post("/createProduct", AdminRole, EditorRole, createProduct);
 router.get("/allProducts", getAllProducts);
 router.get("/getProduct/:id", getProductsById);
-router.patch("/updateProduct/:id", updateProduct);
-router.delete("/deleteProduct/:id", deleteProduct);
+router.patch("/updateProduct/:id", AdminRole, EditorRole, updateProduct);
+router.delete("/deleteProduct/:id", AdminRole, EditorRole, deleteProduct);
 router.post("/searchProduct", searchProduct);
 router.get("/searchProduct/:category", searchProductByCategory);
-router.post("/createCategory", CreateCategory);
+router.post("/createCategory", AdminRole, EditorRole, CreateCategory);
 router.get("/allCategory", getAllCategory);
 
 module.exports = router;

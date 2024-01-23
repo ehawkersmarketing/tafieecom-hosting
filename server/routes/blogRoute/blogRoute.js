@@ -1,5 +1,5 @@
 const express = require("express");
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const {
   composeBlog,
   getAllBlogs,
@@ -13,13 +13,19 @@ const {
 const multer = require("multer");
 const router = express.Router();
 
+const {
+  AdminRole,
+  EditorRole,
+  ViewerRole,
+} = require("../../middleware/role_check");
+
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_KEY,
   region: process.env.AWS_REGION,
 });
 
-const S3_BUCKET_NAME = 'tafi-ecom-img';
+const S3_BUCKET_NAME = "tafi-ecom-img";
 
 const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
@@ -37,7 +43,7 @@ router.post("/uploadBlogImage", upload.single("image"), async (req, res) => {
     Bucket: S3_BUCKET_NAME,
     Key: `blogs/${req.file.originalname}`,
     Body: req.file.buffer,
-    ContentType: "image/jpeg"
+    ContentType: "image/jpeg",
   };
 
   s3.upload(params, (error, data) => {
@@ -52,12 +58,12 @@ router.post("/uploadBlogImage", upload.single("image"), async (req, res) => {
     }
   });
 });
-router.post("/composeBlog", composeBlog);
+router.post("/composeBlog", AdminRole, EditorRole, composeBlog);
 router.get("/blogs", getAllBlogs);
 router.get("/recentBlogs", getRecentBlogs);
 router.get("/blog/:blogId", getBlogById);
-router.put("/updateBlog/:blogId", updateBlog);
-router.delete("/deleteBlog/:blogId", deleteBlog);
+router.put("/updateBlog/:blogId", AdminRole, EditorRole, updateBlog);
+router.delete("/deleteBlog/:blogId", AdminRole, EditorRole, deleteBlog);
 router.post("/searchBlog", searchBlog);
 
 module.exports = router;
