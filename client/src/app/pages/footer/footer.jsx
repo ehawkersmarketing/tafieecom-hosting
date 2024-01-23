@@ -19,13 +19,11 @@ const Footer = () => {
                   <div className="form-img col-7">
                     <div className="aao-baat-kre">
                       <h1>
+                        <div>(AAO</div>
                         <div>
-                        (AAO 
+                          <span> BAAT </span>
                         </div>
-                        <div><span> BAAT </span>
-                        </div>
-                        <div> KARE)
-                        </div>
+                        <div> KARE)</div>
                       </h1>
                     </div>
                   </div>
@@ -70,17 +68,20 @@ const Footer = () => {
                       <h5>All Copyrights Reserver @ TAFI</h5>
                     </div>
                     <div className="website-icons">
-                      <Link>
+                      <Link to="https://www.instagram.com/twicks_agro/">
                         <i class="bi bi-instagram"></i>
                       </Link>
-                      <Link>
+                      <Link to="https://www.facebook.com/TwicksA">
                         <i class="bi bi-facebook"></i>
                       </Link>
-                      <Link>
+                      <Link to="https://www.linkedin.com/company/twicks-agro-farm-industries-pvt-ltd/">
                         <i class="bi bi-linkedin"></i>
                       </Link>
-                      <Link>
+                      <Link to="https://twitter.com/TwicksA">
                         <i class="bi bi-twitter"></i>
+                      </Link>
+                      <Link to="https://www.youtube.com/channel/UCFZ7_wK9cZUNZzMzteUSTTA">
+                        <i class="bi bi-youtube"></i>
                       </Link>
                     </div>
                   </div>
@@ -103,7 +104,7 @@ const Footer = () => {
                       <h5>PAGES</h5>
                       <div>
                         <div>
-                          <Link to="">Contact Us</Link>
+                          <Link to="/franchise">Franchise</Link>
                         </div>
                         <div>
                           <Link to="/blog">Blogs</Link>
@@ -114,10 +115,7 @@ const Footer = () => {
                       <h5>SHOPS</h5>
                       <div>
                         <div>
-                          <Link to="">Contact Us</Link>
-                        </div>
-                        <div>
-                          <Link to="">Blogs</Link>
+                          <Link to="/shopPage">Shop</Link>
                         </div>
                       </div>
                     </div>
