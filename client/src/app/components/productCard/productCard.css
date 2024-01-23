@@ -21,7 +21,7 @@
 
     .product-name {
         color: var(--darkgreen-primary, #19443F);
-        width: 342px;
+        /* width: 342px; */
         font-weight: bold;
         font-size: 26.491px;
         line-height: 29.434px;

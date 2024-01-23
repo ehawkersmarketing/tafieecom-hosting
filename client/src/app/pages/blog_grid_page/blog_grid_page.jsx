@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "../../pages/header/header";
 import Footer from "../../pages/footer/footer";
+import AllCategoryComponent from "../../components/allcategory/allcategory";
 
 const BlogPage = () => {
   const { data: blogs } = useFetch("/api/blogs");
@@ -31,7 +32,6 @@ const BlogPage = () => {
   useEffect(() => {
     search(searchField);
   }, [searchField]);
-
   return (
     <div>
       <Header />
@@ -62,14 +62,7 @@ const BlogPage = () => {
         </div>
         <div className="below-blog-tile-header">
           <div className="filter-region">
-            <div className="filter">
-              <i class="bi bi-grid"></i>
-              <span className="category-text">All Categories</span>
-              <span>|</span>
-              <i class="bi bi-funnel-fill"></i>
-              <span className="filter-text">Filters</span>
-              <i class="bi bi-caret-down-fill"></i>
-            </div>
+            <div></div>
             <div className="search-bar">
               <input
                 type="text"
@@ -246,7 +239,6 @@ const BlogPage = () => {
         </div>
       </div>
       <Footer />
-
     </div>
   );
 };

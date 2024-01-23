@@ -8,7 +8,7 @@ import footer_img from "../../assets/Footer_mask group.png";
 const Footer = () => {
   return (
     <>
-      <div className="footer">
+      <div className="footer" id="bottom">
         <div className="main-footer">
           <div className="extracontainer"></div>
           <div className="upper-container"></div>
@@ -19,11 +19,11 @@ const Footer = () => {
                   <div className="form-img col-7">
                     <div className="aao-baat-kre">
                       <h1>
-                        <div>(AAO</div>
+                        <div>आओ </div>
                         <div>
-                          <span> BAAT </span>
+                          <span> बात  </span>
                         </div>
-                        <div> KARE)</div>
+                        <div> करे</div>
                       </h1>
                     </div>
                   </div>

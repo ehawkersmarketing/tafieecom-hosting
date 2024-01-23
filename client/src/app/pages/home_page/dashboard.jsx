@@ -171,7 +171,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <div className="registerSoilBTN">
-                <button onClick={(e) => navigate("/auth")}>
+                <button onClick={(e) => navigate(`/auth/${1}`)}>
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>
