@@ -22,6 +22,7 @@ import AdminPage from "./app/pages/admin_page/adminPage.jsx";
 import Header from "./app/pages/header/header.jsx";
 import Footer from "./app/pages/footer/footer.jsx";
 import About from "./app/pages/about_page/about.jsx";
+import Myaccount from "./app/pages/myaccount_page/myaccount.jsx";
 import Franchise from "./app/pages/franchise/franchise.jsx";
 import Cart from "./app/pages/cart_page/Cart.jsx";
 
@@ -62,13 +63,11 @@ function App() {
           <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog/:blogId" exact element={<SingleBlog />} />
           <Route path="/blog" exact element={<BlogPage />} />
-
           <Route
             path="/TermsAndCondition"
             exact
             element={<TermsAndCondition />}
           />
-
           <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
@@ -79,10 +78,9 @@ function App() {
             element={<OrderConformationPage />}
           />
           <Route path="/about" exact element={<About />} />
-
           <Route path="/Invoice" exact element={<Invoice />} />
           <Route path="/Cart" exact element={<Cart />} />
-
+          <Route path="/myaccount" exact element={<Myaccount />} />
           <Route path="/franchise" exact element={<Franchise />} />
         </Routes>
       </Routers>

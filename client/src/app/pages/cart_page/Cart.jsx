@@ -2,12 +2,6 @@ import React from "react";
 
 import "./Cart.css";
 
-const minus = document.querySelector(".minus");
-const plus = document.querySelector(".plus");
-
-// plus.addEventListener('click',() => document.getElementById("number").textContent++);
-
-// minus.addEventListener('click',() => document.getElementById("number").textContent--);
 
 const Cart = () => {
   return (

@@ -209,7 +209,11 @@
   left: 56%;
   top: 47%;
 }
-.about .buttons .col:nth-child(1):hover .num:nth-child(8){
+/* .about .buttons .col:nth-child(1):hover .num:nth-child(8){
     transform: scale(1.4);
-}
+} */
 
+.num:nth-child(1):hover ~ .buttons .col:nth-child(1) {
+    transform: translateY(-20px);
+    transition: transform 0.2s ease;
+}
