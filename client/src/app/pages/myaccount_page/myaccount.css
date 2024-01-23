@@ -1,29 +1,41 @@
-.admin-wrapper .top-div {
+.account-dashboard {
+  background-color: #d8e8e7;
+  padding-bottom: 15%;
+  padding-right: 0;
+}
+
+.user-account .top-div {
   background-color: #44a98b;
   height: 2rem;
 }
-.admin-wrapper .logo {
+.user-account .name{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 8%;
+}
+.user-account .logo {
   background-color: #19443f;
   height: 10rem;
 }
 
-.admin-wrapper .image {
+.user-account .image {
   display: flex;
   justify-content: center;
   /* margin-top: 2rem; */
 }
-.admin-wrapper .img-logo {
+.user-account .img-logo {
   width: 60%;
   /* height:2.5rem; */
   margin-top: 2rem;
 }
-.admin-wrapper .sidebar-title {
+.user-account .sidebar-title {
   display: flex;
   margin-bottom: 1rem;
   margin-top: 1rem;
   padding: 0.5rem;
 }
-.admin-wrapper .title {
+.user-account .title {
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
@@ -36,7 +48,7 @@
   margin-top: 0.5rem;
   margin-left: 0.8rem;
 }
-.admin-wrapper .icon {
+.user-account .icon {
   width: 2.5rem;
   text-align: center;
   padding: 0.3rem;
@@ -44,19 +56,19 @@
   color: #44a98b;
   border-radius: 15px;
 }
-.admin-wrapper .sidebar-title:hover .icon {
+.user-account .sidebar-title:hover .icon {
   background-color: #44a98b;
   color: white;
 }
 
-.admin-wrapper .sidebar-title {
+.user-account .sidebar-title {
   display: flex;
   margin-bottom: 1rem;
   margin-top: 1rem;
   padding: 0.5rem;
 }
 
-.admin-wrapper .title {
+.user-account .title {
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
@@ -70,7 +82,7 @@
   margin-left: 0.8rem;
 }
 
-.admin-wrapper .icon {
+.user-account .icon {
   width: 2.5rem;
   text-align: center;
   padding: 0.3rem;
@@ -79,10 +91,10 @@
   border-radius: 15px;
 }
 
-.admin-wrapper .sidebar {
+.user-account .sidebar {
   margin: 0px 1.5rem;
 }
-.admin-wrapper .icon:hover {
+.user-account .icon:hover {
   width: 2.5rem;
   text-align: center;
   padding: 0.3rem;
@@ -91,16 +103,16 @@
   border-radius: 15px;
 }
 
-.admin-wrapper .table-center {
+.user-account .table-center {
   text-align: center;
 }
-.admin-wrapper .btn-text {
+.user-account .btn-text {
   margin-top: 11px;
 }
-.admin-wrapper .admin-sub-wrapper {
+.user-account .admin-sub-wrapper {
   padding: 0;
 }
-.admin-wrapper .nav-btn {
+.user-account .nav-btn {
   border-radius: 12px;
   /* padding: 6px 21px 6px 21px; */
   background-color: #29645e;
@@ -109,127 +121,54 @@
   font-size: 1rem;
   text-align: center;
 }
-.admin-wrapper .tab {
+.user-account .tab {
   margin-top: 4rem;
 }
-.admin-wrapper .nav-rightContent {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: space-between;
+.user-account .profile-detail{
+    padding-top: 3%;
 }
-.admin-wrapper .input[type="text"] {
-  border-radius: 10px;
-  background-color: #e2e8f0;
+.user-account .account-detail{
+    padding-top: 4%;
 }
-.admin-wrapper .row-wrapper {
-  margin: 0;
+.user-account .profile-detail-outer{
+    width: 90%;
+    border-radius: 10px;
+    background-color: #d8e8e7;
+    padding: 2%;
+    margin: auto;
 }
-.admin-wrapper .tab {
-  margin-top: 4rem;
+.user-account .edit-button button{
+    background-color: #19443f;
+    color: white;
+    border: none;
+    padding: 1%;
 }
-.admin-btn-nav {
-  background-color: #19443f;
-  border: none;
-  color: white;
-  padding: 8px;
-  border-radius: 12px;
+.user-account td{
+    border: none;
 }
-.admin-wrapper .plus-icon {
-  color: white;
-  margin-right: 6px;
+.user-account .profile-detail table{
+    min-width: 50%;
 }
-.admin-wrapper input[type="text"] {
-  border-radius: 10px;
-  border: none;
-  background-color: #e2e8f0;
+.user-account input{
+    border: none;
+    background-color: transparent;
 }
-
-.admin-wrapper .admin-right {
-  display: flex;
-
-  height: 2.4rem;
-}
-.nav-title {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 20px;
-  letter-spacing: 0em;
-  text-align: left;
-}
-.admin-wrapper .logout-button {
-  display: flex;
-  font-weight: 700;
-  font-size: 15px;
-  margin-top: 5px;
-}
-
-.admin-wrapper .admin-suber-wrapper {
-  height: 100vh;
-  padding: 2%;
-  overflow: scroll;
-}
-
-.admin-wrapper table .th {
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 21px;
-  letter-spacing: -0.01em;
-  text-align: center;
-  color: #44a98b;
-}
-
-.admin-wrapper table .td {
-  color: #19443f;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 21px;
-  letter-spacing: -0.01em;
-  text-align: center;
-}
-
-.admin-wrapper .div-admin {
-  height: 100%;
-  background-color: #ebf6f5;
-}
-
-.admin-wrapper table .td-delete-icon {
-  color: red;
-  font-size: 24px;
-  margin-left: 2rem;
-}
-
-.admin-wrapper table .td-edit-icon {
-  color: rgb(3, 3, 3);
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.admin-wrapper .admin-table-card {
-  box-shadow: 0px 10px 60px 0px #e2ecf980;
+.user-account .admin-product-card {
   margin-top: 3rem;
 }
 
-.admin-wrapper .admin-card-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.admin-wrapper .subHeading {
+.user-account .subHeading {
   margin: 1rem;
 }
-.admin-wrapper .admin-input-dropdown {
-  display: flex;
-  justify-content: space-between;
-}
 
-.admin-wrapper h1 {
+.user-account h1 {
   margin-top: 3rem;
   font-size: 25px;
   margin-left: 2rem;
   font-weight: 600;
 }
 
-.admin-wrapper h3 {
+.user-account h3 {
   margin-top: 0px;
   font-size: 18px;
   font-weight: 400;
@@ -240,20 +179,20 @@
   margin-left: 2rem;
 }
 
-.admin-wrapper .admin-card-header {
+.user-account .admin-card-header {
   display: flex;
   justify-content: space-between;
 }
 
-.admin-wrapper .subHeading {
+.user-account .subHeading {
   margin: 1rem;
 }
 
-.admin-wrapper .admin-table-card {
+.user-account .admin-table-card {
   margin-top: 3rem;
 }
 
-.admin-wrapper .admin-input-dropdown {
+.user-account .admin-input-dropdown {
   display: flex;
   justify-content: space-between;
 }
@@ -261,14 +200,14 @@
 .nav-admin-page {
 }
 
-.admin-wrapper h1 {
+.user-account h1 {
   margin-top: 3rem;
   font-size: 25px;
   margin-left: 2rem;
   font-weight: 600;
 }
 
-.admin-wrapper h3 {
+.user-account h3 {
   margin-top: 0px;
   font-size: 18px;
   font-weight: 400;
@@ -279,21 +218,21 @@
   margin-left: 2rem;
 }
 
-.admin-wrapper select[type="text"] {
+.user-account select[type="text"] {
   border-radius: 10px;
   background-color: #e2e8f0;
   padding: 0.7rem;
   border: none;
 }
-.admin-wrapper .short {
+.user-account .short {
   margin-left: 1rem;
 }
 
-.admin-wrapper .admin-table-div {
+.user-account .admin-table-div {
   margin-top: 2rem;
 }
 
-.admin-wrapper select[type="text"] {
+.user-account select[type="text"] {
   border-radius: 10px;
   background-color: #e2e8f0;
   padding: 0.7rem;
@@ -305,7 +244,7 @@
 }
 
 /* dashboard */
-.admin-wrapper .order-analysis-title {
+.user-account .order-analysis-title {
   font-family: Montserrat;
   margin-left: 5px;
   font-size: 20px;
@@ -315,7 +254,7 @@
   text-align: left;
 }
 
-.admin-wrapper .order-color-analysis {
+.user-account .order-color-analysis {
   background: linear-gradient(33.73deg, #19443f 1.8%, #28b6a8 105.45%),
     linear-gradient(0deg, #d9d9d9, #d9d9d9);
   width: 38%;
@@ -324,7 +263,7 @@
   color: white;
 }
 
-.admin-wrapper .order-color-revenue {
+.user-account .order-color-revenue {
   background: linear-gradient(
     79.4deg,
     #36914b 0.36%,
@@ -337,17 +276,17 @@
   color: white;
 }
 
-.admin-wrapper .admin-dashboard-card {
+.user-account .admin-dashboard-card {
   display: flex;
   justify-content: space-between;
 }
 
-.admin-wrapper .admin-dash-order {
+.user-account .admin-dash-order {
   display: flex;
   justify-content: space-between;
 }
 
-.admin-wrapper .orders-dash-card-format {
+.user-account .orders-dash-card-format {
   display: flex;
   justify-content: space-evenly;
   margin-top: 1.4rem;
@@ -395,21 +334,6 @@
   justify-content: center;
   align-items: center;
 }
-
-/*  bar */
-
-/* Product */
-.admin-product-card {
-  margin-top: 3rem;
-}
-/* Blogs */
-.admin-wrapper .admin-blog-card {
-  margin-top: 3rem;
-}
-/* Order */
-.admin-wrapper .action-dropdown select {
-  border-radius: 10px;
-  background-color: #e2e8f0;
-  padding: 0;
+ .user-account .admin-product-card table th{
   border: none;
 }

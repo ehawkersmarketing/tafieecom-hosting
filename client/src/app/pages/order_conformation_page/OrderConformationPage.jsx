@@ -1,20 +1,32 @@
 import React from 'react';
-
 import Header from '../header/header';
 import Footer from '../footer/footer';
+
 import './OrderConformationPage.css'
 import tick_icon from '../../assets/tick_icon.png'
 import { useFetch } from '../../hooks/api_hook';
 import dayjs from 'dayjs';
+
 import Carousal from '../../components/carousal/carousal'
+
+import {useNavigate} from 'react-router-dom';
 
 
 const OrderConformationPage = () => {
 
   const { data } = useFetch('/api/getOrderById/65ab5ec34850f337a543d66f');
+  const navigate = useNavigate();
+  const handleDownload= ()=>{
+    navigate('/invoice')
+  };
+  const orderHandler=()=>{
+    navigate('/myaccount')
+  }
 
   return (
     <>
+    <Header/>
+
     <div className='main'>
       <Header />
       <div className='main-1 row align-items-end'>
@@ -25,7 +37,7 @@ const OrderConformationPage = () => {
               <div className='sub-title'><p><strong>The order confirmation has been sent to your email address</strong></p></div>
             </div>
             <div className='invoice-download col-3'>
-              <button type="link"> <div><strong>Download<br />Invoice</strong></div><i class="bi bi-download"></i></button>
+              <button type="link" onClick={handleDownload}> <div><strong>Download<br />Invoice</strong></div><i class="bi bi-download"></i></button>
             </div>
           </div>
           <div className='details justify-content-between'>
@@ -86,9 +98,6 @@ const OrderConformationPage = () => {
             </div>
           </div>
         </div>
-
-
-
         <div className='status col-3'>
           <div>
             <img src={tick_icon} />
@@ -96,7 +105,7 @@ const OrderConformationPage = () => {
         </div>
         <div className='order-link'>
           <a href=''>
-            <button type="link"><strong>My Order</strong></button>
+            <button type="link" onClick={orderHandler}><strong>My Order</strong></button>
           </a>
         </div>
       </div>
@@ -108,6 +117,8 @@ const OrderConformationPage = () => {
       <Carousal />
       <Footer />
     </div>
+    <Footer/>
+
     </>
   );
 }

@@ -1,6 +1,6 @@
 .main-container {
     background-color: #c3dad7;
-    width: 100vw;
+    width: 100%;
 }
 
 .shop-page-container {
@@ -164,7 +164,10 @@
 
         }
     }
-
+    .blog-latest-latest{
+        width: 90%;
+        margin: auto;
+    }
     .filter-region {
         background-color: var(--darkgreen-primary, #19443f);
         display: flex;
@@ -213,14 +216,22 @@
         .search-bar {
             width: 35%;
             background-color: white;
-            align-items: end;
+            align-items: center;
             display: flex;
             border-radius: 1.5rem;
             position: relative;
+            height: 2.7rem;
 
             .search_container {
                 border: none;
+                outline: none;
+                margin-left: 0.7rem;
                 border-radius: 1rem;
+                outline: none;
+                    border-radius: 35rem;
+            }
+            .input{
+                width: 100%;
             }
 
             .search-icon {
@@ -228,7 +239,7 @@
                 border: none;
                 color: white;
                 text-align: center;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 margin: 4px 2cm;
                 border-radius: 50%;
             }
@@ -238,7 +249,7 @@
                 height: 42px;
                 border-radius: 50%;
                 position: absolute;
-                right: -0.4rem;
+                right: -0rem;
                 top: 50%;
                 transform: translateY(-21px);
                 display: flex;
@@ -247,12 +258,10 @@
             }
         }
     }
-
     .category-region {
         width: 100%;
         margin: 0 5rem;
     }
-
     .product-region {
         display: flex;
         align-items: center;
@@ -260,7 +269,8 @@
         flex-direction: column;
 
         .best-seller-product {
-            width: 100%;
+            width: 90%;
+            margin: auto;
         }
 
         .best-seller-text {
@@ -320,7 +330,6 @@
             }
         }
     }
-
     .product-category {
         display: flex;
         width: 100%;
@@ -386,7 +395,6 @@
             }
         }
     }
-
     .all-products {
         width: 100%;
         padding: 2rem 1.5rem;
@@ -452,4 +460,14 @@
         }
 
     }
+}
+.shop-page-container .filter-hover{
+    position: relative;
+  }
+
+.shop-page-container .filter-hover .component-outer{
+    display: none;
+}
+.shop-page-container .filter-hover:hover .component-outer{
+    display: block;
 }

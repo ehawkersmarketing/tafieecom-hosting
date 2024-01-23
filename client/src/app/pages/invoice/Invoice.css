@@ -1,11 +1,12 @@
 .invoice-main {
     background-color: #fff;
     border-radius: 1px;
-    box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+    /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0.5in;
     width: 8.5in;
+    padding-bottom: 8%;
 }
 
 .invoice-main .invoice-header h1 {
@@ -86,4 +87,9 @@
     margin: 0 5px;
     
 }
-
+.download-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 3%;
+}
