@@ -37,7 +37,7 @@ app.use(passport.session());
 
 app.use("/auth", authRoute);
 app.use("/api", productRoute);
-// app.use("/api", userRoute);
+app.use("/api", userRoute);
 app.use("/api", blogRoute);
 app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);

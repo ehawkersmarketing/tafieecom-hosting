@@ -1,11 +1,43 @@
 import "./blog_grid_page.css";
 import { Link } from "react-router-dom";
 import resourcepage1 from "../../assets/resourcecenter1.png";
+import { useFetch } from "../../hooks/api_hook";
+import dayjs from "dayjs";
+import axios from "axios";
+import Header from "../header/header";
+import Footer from "../footer/footer";
+import { useEffect, useState } from "react";
+import Header from "../../pages/header/header";
+import Footer from "../../pages/footer/footer";
 
 const BlogPage = () => {
-  
+  const { data: blogs } = useFetch("/api/blogs");
+  const [searchField, setSearchField] = useState("");
+  const { data: recentBlogs } = useFetch("/api/recentBlogs");
+  const [searchBlogs, setSearchBlog] = useState([]);
+
+  const search = async (text) => {
+    if (text !== "") {
+      const { data } = await axios.post(
+        `http://localhost:8080/api/searchBlog`,
+        {
+          search: text,
+        }
+      );
+      setSearchBlog(data.data);
+    } else {
+      setSearchBlog(undefined);
+    }
+  };
+
+  useEffect(() => {
+    search(searchField);
+  }, [searchField]);
+
   return (
     <div>
+      <Header />
+
       <div className="blogpage">
         <div className="blog-tile">
           <div className="blog-grid-page row">
@@ -16,10 +48,14 @@ const BlogPage = () => {
                   <h3>Welcome to</h3>
                 </div>
                 <div className="tafi-resource">
-                  <h1><span>TAFI RESOURCE</span></h1>
+                  <h1>
+                    <span>TAFI RESOURCE</span>
+                  </h1>
                 </div>
                 <div className="center">
-                  <h1><span>CENTER</span></h1>
+                  <h1>
+                    <span>CENTER</span>
+                  </h1>
                 </div>
               </div>
             </div>
@@ -37,7 +73,12 @@ const BlogPage = () => {
               <i class="bi bi-caret-down-fill"></i>
             </div>
             <div className="search-bar">
-              <input type="text" name="search" />
+              <input
+                type="text"
+                name="search"
+                onChange={(e) => setSearchField(e.target.value)}
+                className="search_container"
+              />
               <div className="search-button">
                 <button className="search-icon">
                   <i class="bi bi-search"></i>
@@ -46,6 +87,51 @@ const BlogPage = () => {
             </div>
           </div>
         </div>
+        {searchField !== "" && (
+          <div className="blog-latest-post">
+            <div>
+              <h4>Search Posts</h4>
+            </div>
+            <div className="below-line">
+              <div className="below-post"></div>
+              <div className="below-post-1"></div>
+            </div>
+            <div className="latest-post-card row">
+              {searchBlogs && searchBlogs.length !== 0 ? (
+                searchBlogs?.map((blog) => {
+                  return (
+                    <div className="card-main col-md-4">
+                      <div class="card">
+                        <img
+                          src={resourcepage1}
+                          class="card-img-top"
+                          alt="..."
+                        />
+                        <div class="card-body">
+                          <h5 class="card-title">{blog.title}</h5>
+                          <p class="card-text">{blog.content}</p>
+                          <p class="blog-date">{`${dayjs(blog.createdAt).format(
+                            "MMMM D, YYYY"
+                          )}`}</p>
+                          <Link
+                            to={`/singleBlog/${blog._id}`}
+                            class="btn btn-read"
+                          >
+                            Read More
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div>
+                  <h4>No Results Found</h4>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
         <div className="blog-latest-post">
           <div>
             <h4>Latest Posts</h4>
@@ -55,60 +141,29 @@ const BlogPage = () => {
             <div className="below-post-1"></div>
           </div>
           <div className="latest-post-card row">
-            <div className="card-main col-md-4">
-              <div class="card">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
+            {recentBlogs &&
+              recentBlogs?.map((blog) => {
+                return (
+                  <div className="card-main col-md-4">
+                    <div class="card">
+                      <img src={resourcepage1} class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">{blog.title}</h5>
+                        <p class="card-text">{blog.content}</p>
+                        <p class="blog-date">{`${dayjs(blog.createdAt).format(
+                          "MMMM D, YYYY"
+                        )}`}</p>
+                        <Link
+                          to={`/singleBlog/${blog._id}`}
+                          class="btn btn-read"
+                        >
+                          Read More
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
         <div className="blog-most-viewed">
@@ -121,60 +176,33 @@ const BlogPage = () => {
           </div>
           <div className="most-viewed-cards">
             <div className="most-viewed-post-card row">
-              <div className="card-main col-md-4">
-                <div class="card">
-                  <img src={resourcepage1} class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      Title can be one liner or consists of multiple lines!
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                    <a href="#" class="btn btn-read">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="card-main col-md-4">
-                <div class="card">
-                  <img src={resourcepage1} class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      Title can be one liner or consists of multiple lines!
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                    <a href="#" class="btn btn-read">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="card-main col-md-4">
-                <div class="card">
-                  <img src={resourcepage1} class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      Title can be one liner or consists of multiple lines!
-                    </h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                    <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                    <a href="#" class="btn btn-read">
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
+              {blogs &&
+                blogs.slice(0, 3)?.map((blog) => {
+                  return (
+                    <div className="card-main col-md-4">
+                      <div class="card">
+                        <img
+                          src={resourcepage1}
+                          class="card-img-top"
+                          alt="..."
+                        />
+                        <div class="card-body">
+                          <h5 class="card-title">{blog.title}</h5>
+                          <p class="card-text">{blog.content}</p>
+                          <p class="blog-date">{`${dayjs(blog.createdAt).format(
+                            "MMMM D, YYYY"
+                          )}`}</p>
+                          <Link
+                            to={`/singleBlog/${blog._id}`}
+                            class="btn btn-read"
+                          >
+                            Read More
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
@@ -187,158 +215,39 @@ const BlogPage = () => {
             <div className="below-post-1"></div>
           </div>
           <div className="all-post-card row ">
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card-main col-md-4">
-              <div class="card ">
-                <img src={resourcepage1} class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    Title can be one liner or consists of multiple lines!
-                  </h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <p class="blog-date">Jan 15, 2024 - 5 min read</p>
-                  <a href="#" class="btn btn-read">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
+            {blogs &&
+              blogs?.map((blog) => {
+                return (
+                  <div className="card-main col-md-4">
+                    <div class="card">
+                      <img src={resourcepage1} class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">{blog.title}</h5>
+                        <p class="card-text">{blog.content}</p>
+                        <p class="blog-date">{`${dayjs(blog.createdAt).format(
+                          "MMMM D, YYYY"
+                        )}`}</p>
+                        <Link
+                          to={`/singleBlog/${blog._id}`}
+                          class="btn btn-read"
+                        >
+                          Read More
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
-          <div className="view-more">
+          {/* <div className="view-more">
             <button class="btn btn-read " id="show-more">
               Show More
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
+      <Footer />
+
     </div>
   );
 };

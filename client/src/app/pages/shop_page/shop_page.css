@@ -15,7 +15,7 @@
 
         .poster-card {
             position: absolute;
-            right: 1.5rem;
+            right: 0rem;
             top: 0;
         }
 
@@ -218,13 +218,18 @@
             border-radius: 1.5rem;
             position: relative;
 
+            .search_container {
+                border: none;
+                border-radius: 1rem;
+            }
+
             .search-icon {
                 background-color: #04AA6D;
                 border: none;
                 color: white;
                 text-align: center;
                 font-size: 1.2rem;
-                margin: 4px 2px;
+                margin: 4px 2cm;
                 border-radius: 50%;
             }
 
@@ -233,7 +238,7 @@
                 height: 42px;
                 border-radius: 50%;
                 position: absolute;
-                right: 0;
+                right: -0.4rem;
                 top: 50%;
                 transform: translateY(-21px);
                 display: flex;
@@ -385,6 +390,7 @@
     .all-products {
         width: 100%;
         padding: 2rem 1.5rem;
+        margin-bottom: 8rem;
 
         .all-product-text {
             width: 100%;

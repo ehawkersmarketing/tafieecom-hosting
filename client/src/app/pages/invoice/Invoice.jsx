@@ -29,8 +29,8 @@ const Invoice = () => {
                     <div class="section-title">Billing To</div>
                     <div class="details row">
                         <p>Address: 456 Billing Street</p>
+                        <p>Pin:</p>
                         <p>City: Billing City</p>
-                        <p>Country: Billing Country</p>
                     </div>
                 </div>
                 <div class="section col-6">

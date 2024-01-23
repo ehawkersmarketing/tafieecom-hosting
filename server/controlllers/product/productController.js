@@ -60,6 +60,7 @@ exports.createProduct = async (req, res) => {
       gstSlab,
       image,
       quantity,
+      rating,
       units,
       metric,
       companyName,
@@ -74,8 +75,10 @@ exports.createProduct = async (req, res) => {
       gstSlab,
       quantity,
       units,
+      rating,
       metric,
       companyName,
+      category,
     });
 
     const categoryData = await categoryModel.find({ category });
@@ -182,11 +185,7 @@ exports.searchProduct = async (req, res) => {
     let { search } = req.body;
     search = search.trim();
     const products = await productModel.find({
-      $or: [
-        { title: { $regex: search } },
-        { description: { $regex: search } },
-        // { productType: search },
-      ],
+      $or: [{ title: { $regex: search } }, { description: { $regex: search } }],
     });
     console.log(products);
     if (!products) {
@@ -213,8 +212,7 @@ exports.searchProduct = async (req, res) => {
 exports.searchProductByCategory = async (req, res) => {
   try {
     const search = req.params.category;
-    const products = await productModel.find({ productType: search });
-    // console.log(products)
+    const products = await productModel.find({ category: search });
     if (!products) {
       return res.status(500).send({
         success: false,

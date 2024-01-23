@@ -112,6 +112,11 @@
   border-left:  5px solid #44a98b;
   
 }
+.footer .input-columns .input-sec input{
+  padding: 5px;
+  border-radius: 3px;
+  
+}
 .footer .form{
   padding: 50px;
   background-color: #0a3834bc;
@@ -132,4 +137,8 @@
 .footer .aao-baat-kre span{
   background-color: #c8a33d;
   margin-left: 50px;
+}
+.footer input{
+  border: none;
+  background-color: #D9EAE8;
 }
