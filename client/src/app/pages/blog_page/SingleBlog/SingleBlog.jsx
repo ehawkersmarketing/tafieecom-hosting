@@ -45,7 +45,7 @@ const SingleBlog = () => {
               </div>
             </div>
             <div className="single_blog_content_below_title row">
-              <div className="single_blog_content_keywords col-4 row">{
+              <div className="single_blog_content_keywords col-16 row">{
                 blog && blog.tags.map((tag, index) => {
                   return (
                     <span className="col" key={index}>

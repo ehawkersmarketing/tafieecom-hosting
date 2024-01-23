@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./shop_page.css";
 import Footer from "../footer/footer.jsx";
 import Header from "./../header/header.jsx";
@@ -9,10 +9,42 @@ import ProductCard from "../../components/productCard/productCard.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
 
 const ShopPage = () => {
-
+    const [open, setOpen] = useState(false);
+    const { data } = useFetch("/api/allCategory");
+    const [activeFilter, setActiveFilter] = useState({
+        filter: ""
+    });
+    const filter = ["Price: High To Low", "Price: Low To High"];
     const { data: products } = useFetch('/api/allProducts');
+    const [visibleProducts, setVisibleProducts] = useState();
+
+    useEffect(() => {
+        setVisibleProducts(products);
+    }, [products])
     const { data: categories } = useFetch('/api/allCategory');
 
+    const applyFilter = (e, index) => {
+        if (index == 2) {
+            setVisibleProducts(products.filter((item) => item.category.category === e.target.value))
+            setActiveFilter({ [e.target.name]: e.target.value });
+        } else {
+            if (index == 0) {
+                setVisibleProducts(products.sort(function (a, b) {
+                    return b.price - a.price;
+                }));
+                setOpen(!open);
+                setActiveFilter(index);
+                console.log(visibleProducts);
+            } else {
+                setVisibleProducts(products.sort(function (a, b) {
+                    return a.price - b.price;
+                }));
+                setOpen(!open);
+                setActiveFilter(index);
+                console.log(visibleProducts);
+            }
+        }
+    };
 
     return (
         <div className="main-container">
@@ -61,7 +93,7 @@ const ShopPage = () => {
                         <i class="bi bi-grid"></i>
                         <span className="category-text">All Categories</span>
                         <span>|</span>
-                        <i class="bi bi-funnel-fill"></i>
+                        <i class="bi bi-funnel-fill" onClick={(e) => setOpen(!open)}></i>
                         <span className="filter-text">Filters</span>
                         <i class="bi bi-caret-down-fill"></i>
                     </div>
@@ -74,6 +106,38 @@ const ShopPage = () => {
                         </div>
                     </div>
                 </div>
+                {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24">
+                    <ul>
+                        {
+                            filter.map((item, index) => {
+                                return (
+                                    <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100" key={index} onClick={(e) => applyFilter(e, index)}>
+                                        <span className="">{item}</span>
+                                    </li>
+                                )
+                            })
+                        }
+                        <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
+                            <select
+                                onChange={(e) => applyFilter(e, 2)}
+                                value={activeFilter.filter}
+                                name="filter"
+                                style={{
+                                    width: "20rem",
+                                    height: "2rem",
+                                    marginBottom: "1rem",
+                                }}
+                            >
+                                <option>select the Category</option>
+                                {data?.map((item) => (
+                                    <option key={item._id} name="category" value={item.category}>
+                                        {item.category}
+                                    </option>
+                                ))}
+                            </select>
+                        </li>
+                    </ul>
+                </div>}
                 <div className="product-region">
                     <div className="best-seller-text">
                         <div className="tafi-product-text1">
@@ -94,7 +158,7 @@ const ShopPage = () => {
                         </div>
                     </div>
                     <div className="best-seller-product">
-                        {products && <CarousalCard items={products} />}
+                        {visibleProducts && <CarousalCard items={visibleProducts} />}
                     </div>
                 </div>
                 <div className="product-category">
@@ -138,7 +202,7 @@ const ShopPage = () => {
                         </div>
                     </div>
                     <div className="all-products-card">
-                        {products && products?.map((item) => {
+                        {visibleProducts && visibleProducts?.map((item) => {
                             return (
                                 <ProductCard item={item} className='productItem' />
                             );
@@ -147,7 +211,7 @@ const ShopPage = () => {
                 </div>
             </div>
             <Footer />
-        </div>
+        </div >
     )
 }
 

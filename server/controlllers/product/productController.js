@@ -3,7 +3,7 @@ const categoryModel = require("../../models/categoryModel/categoryModel.js");
 
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await productModel.find({});
+    const products = await productModel.find({}).populate('category');
     // console.log(products)
     if (!products) {
       return res.status(500).send({
