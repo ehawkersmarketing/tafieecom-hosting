@@ -148,25 +148,25 @@ exports.createOrder = async (req, res) => {
     paramers += "&billing_customer_name=" + billing_customer_name; //billing customer name
     paramers += "&billing_last_name=" + billing_last_name; //billing customer last name
     paramers += "&billing_address=" + billing_address; //billing address 1
-    if (billing_address_2 != "") {
-      paramers += "&billing_address_2=" + billing_address_2; //billing address 2
-    }
+    // if (billing_address_2 != "") {
+    //   paramers += "&billing_address_2=" + billing_address_2; //billing address 2
+    // }
     paramers += "&billing_city=" + billing_city; //billing city mand.
     paramers += "&billing_pincode=" + billing_pincode; //billing pincode mand.
     paramers += "&billing_state=" + billing_state; //billing state mand.
     paramers += "&billing_country=" + billing_country; //billing country mand.
     paramers += "&billing_email=" + billing_email; //billing email mand.
     paramers += "&billing_phone=" + billing_phone; //billing phone mand.
-    if (billing_alternate_phone != "") {
-      paramers += "&billing_alternate_phone=" + billing_alternate_phone; //billing alternate phone mand.
-    }
+    // if (billing_alternate_phone != "") {
+    //   paramers += "&billing_alternate_phone=" + billing_alternate_phone; //billing alternate phone mand.
+    // }
     paramers += "&shipping_is_billing=" + 1;
     paramers += "&shipping_customer_name=" + shipping_customer_name;
     paramers += "&shipping_last_name=" + shipping_last_name;
     paramers += "&shipping_address=" + shipping_address; //billing shipping address mand. if shipping not billing
-    if (shipping_address_2 != "") {
-      paramers += "&shipping_address_2=" + shipping_address_2; //billing shipping address 2 mand. if shipping not billing
-    }
+    // if (shipping_address_2 != "") {
+    //   paramers += "&shipping_address_2=" + shipping_address_2; //billing shipping address 2 mand. if shipping not billing
+    // }
     paramers += "&shipping_city=" + shipping_city; //billing shipping city mand. if shipping not billing
     paramers += "&shipping_pincode=" + shipping_pincode; //billing shipping pincode mand. if shipping not billing
     paramers += "&shipping_country=" + shipping_country; //billing shipping country mand. if shipping not billing
@@ -202,6 +202,12 @@ exports.createOrder = async (req, res) => {
       await axios(options)
         .then(function (response) {
           console.log(response);
+          console.log(response.order_id);
+          console.log(response.shipment_id);
+          res.status(200).send({
+            success: true,
+            message: "Order created successfully",
+          });
         })
         .catch(function (error) {
           console.log("error in creating order error message as follows: ");
@@ -602,10 +608,10 @@ function srlogin() {
     };
     //REQUIRED DATA FOR AUTHENTICATION API
     var srlogindata = JSON.stringify({
-      email: "kotharibhavik2307@gmail.com",
-      password: "hellomam",
-      // email: "jb@bond.com",
-      // password: "thenameisbond",
+      // email: "kotharibhavik2307@gmail.com",
+      // password: "hellomam",
+      email: "tech@ehawkersmarketing.in",
+      password: "Marketing@1657",
     });
     try {
       //REQUIRED OPTIONS FOR AUTHENTICATION API

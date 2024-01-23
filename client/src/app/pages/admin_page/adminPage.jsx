@@ -1,8 +1,12 @@
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 import "./adminPage.css";
 import logoImage from "../../assets/Tafi_logo_white.png";
 import { useNavigate } from "react-router-dom";
 import { Chart } from "react-google-charts";
+import axios from "axios";
+
+const AdminPage = () => {
+  // const [blogs, setBlogs] = useState([]);
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
@@ -73,6 +77,55 @@ const AdminPage = () => {
   const productHandler = () => setValue(3);
   const blogHandler = () => setValue(4);
   const userHandler = () => setValue(2);
+
+  const CreateNewHandler = () => {
+    navigate("/createProduct");
+  };
+
+  const CreateNewBlogHandler = () => {
+    navigate("/blog/composeBlog");
+  };
+
+  const editBlogHandler = (BlogId) => {
+    navigate("/updateBlog/"+BlogId);
+  };
+
+
+
+  const [blog, setBlog] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8080/api/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        setBlog(data.data);
+      })
+      .catch((error) => {
+        console.log("Error while fetching Blog");
+        console.log(error);
+      });
+  }, []);
+
+  const deleteHandler = (id) => {
+    if (
+      window.confirm("Do you want to delete the resource permently?") == true
+    ) {
+      axios
+        .delete(`http://localhost:8080/api/deleteBlog/${id}`)
+        .then((res) => {
+          console.log("Blog deleted successfully");
+          window.location.reload();
+          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("Dont delete the Resource Center");
+    }
+  };
+
+
+  // sdfghjklkuytrerthghjhgfghjhgfghjk
 
   const inlineStyle = {
     "--size": 0.4,
@@ -174,31 +227,163 @@ const AdminPage = () => {
                   <span className="tab1">Pages</span>
                   <span>/Products</span>
                 </div>
-                <div className="nav-title">Products</div>
-                <div className="nav-rightContent">
-                  <button className="admin-btn-nav">
-                    <i class="bi bi-plus-lg"></i> Create New
-                  </button>
-                  <div className="admin-right">
-                    <input
-                      type="text"
-                      className="nav-input"
-                      placeholder="&#61442; Search"
-                    />
-                    <div className="logout-button">
-                      <span style={{ marginLeft: "15px" }}>
-                        <i class="bi bi-person"></i>
-                      </span>
-                      <span>Logout</span>
-                      <span style={{ marginLeft: "5px" }}>
-                        <i class="bi bi-gear-fill"></i>
-                      </span>
+              </div>
+            </nav>
+          )}
+
+          {value == 1 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/Dashboard</span>
+                  </div>
+                  <div className="nav-title">Dashboard</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      // onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </nav>
+            </nav>
+          )}
+
+          {value == 2 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/User</span>
+                  </div>
+                  <div className="nav-title">User</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      // onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          )}
+
+          {value == 3 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/Products</span>
+                  </div>
+                  <div className="nav-title">Products</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      onClick={CreateNewHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          )}
+
+          {value == 4 && (
+            <nav className="nav-admin-page">
+              <div className="admin-navbar">
+                <div className="nav-header">
+                  <div className="tab">
+                    <span className="tab1">Pages</span>
+                    <span>/Blogs</span>
+                  </div>
+                  <div className="nav-title">Blogs</div>
+                  <div className="nav-rightContent">
+                    <button
+                      className="admin-btn-nav"
+                      onClick={CreateNewBlogHandler}
+                    >
+                      <i class="bi bi-plus-lg"></i> Create New
+                    </button>
+                    <div className="admin-right">
+                      <input
+                        type="text"
+                        className="nav-input"
+                        placeholder="&#61442; Search"
+                      />
+                      <div className="logout-button">
+                        <span style={{ marginLeft: "15px" }}>
+                          <i class="bi bi-person"></i>
+                        </span>
+                        <span>Logout</span>
+                        <span style={{ marginLeft: "5px" }}>
+                          <i class="bi bi-gear-fill"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </nav>
+          )}
+       
 
           {value == 0 && (
             <div className="card admin-table-card">
@@ -579,25 +764,30 @@ const AdminPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {
-                        blogs && blogs?.map((blog, index) => {
-                          return <tr>
-                            <th scope="row table-center">{index + 1}</th>
-                            <td className="td">
-                              <img src={blog.image} />
-                            </td>
-                            <td className="td table-center">{blog.title}</td>
-                            <td className="td table-center">
-                              <span className="td-edit-icon ">
-                                <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateBlog/${blog._id}`)}></i>
-                              </span>
-                              <span className="td-delete-icon">
-                                <i class="bi bi-trash3-fill" onClick={(e) => onDelete(e, blog._id)}></i>
-                              </span>
-                            </td>
-                          </tr>
-                        })
-                      }
+
+                      
+                     {blog?.map((resource) =>(
+      
+                      <tr>
+                        <th scope="row table-center">1.</th>
+                        <td className="td">
+                          <img src="/image.com" />
+                        </td>
+                        <td className="td table-center">{resource.title}</td>
+                        <td className="td table-center">{resource.title}</td> 
+                        {/* change this with tag once DB is updated */}
+                        <td className="td table-center">
+                          <span className="td-edit-icon" onClick={()=>{
+                            navigate("/updateBlog/"+resource._id);
+                          }}>
+                            <i class="bi bi-pencil-square"></i>
+                          </span>
+                          <span className="td-delete-icon" onClick={deleteHandler}>
+                            <i class="bi bi-trash3-fill"></i>
+                          </span>
+                        </td>
+                      </tr>))}
+        
                     </tbody>
                   </table>
                 </div>
