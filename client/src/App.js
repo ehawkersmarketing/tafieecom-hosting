@@ -25,7 +25,10 @@ import About from "./app/pages/about_page/about.jsx";
 import Myaccount from "./app/pages/myaccount_page/myaccount.jsx";
 import Franchise from "./app/pages/franchise/franchise.jsx";
 import Cart from "./app/pages/cart_page/Cart.jsx";
+import Checkout from "./app/pages/checkout_page/Checkout.jsx";
+
 import Services from "./app/pages/service_page/service.jsx"
+
 
 function App() {
   const dispatch = useDispatch();
@@ -85,7 +88,10 @@ function App() {
           <Route path="/Cart" exact element={<Cart />} />
           <Route path="/myaccount" exact element={<Myaccount />} />
           <Route path="/franchise" exact element={<Franchise />} />
+            <Route path="/checkout" exact element={<Checkout />} />
+
           <Route path="/services" exact element={<Services/>}/>
+
         </Routes>
       </Routers>
     </div>
