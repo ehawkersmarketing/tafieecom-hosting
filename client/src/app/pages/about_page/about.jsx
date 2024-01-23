@@ -82,67 +82,58 @@ const About = () => {
               </h4>
             </div>
             <div className="tech-img tech-back-img">
-              <div className="numbers">
-                <div className="num">1</div>
-                <div className="num">2</div>
-                <div className="num">3</div>
-                <div className="num">4</div>
-                <div className="num">5</div>
-                <div className="num">6</div>
-                <div className="num">7</div>
-                <div className="num">8</div>
-              </div>
+              <div className="numbers"></div>
               <img src={tech} alt="" />
             </div>
             <div className="tech-keywords">
               <div className="tech-back-img">
                 <div className="buttons row">
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>Smart Irrigation Systems</p>
+                      <div className="num">1</div>
+                      <p className="block1">Smart Irrigation Systems</p>
                     </div>
                   </div>
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>Drones and UAVs</p>
+                      <div className="num">2</div>
+                      <p className="block2">Drones and UAVs</p>
                     </div>
                   </div>
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>Surveillance</p>
+                      <div className="num">3</div>
+                      <p className="block3">Surveillance</p>
                     </div>
                   </div>
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>Greenhouse</p>
+                      <div className="num">4</div>
+                      <p className="block4">Greenhouse</p>
                     </div>
                   </div>
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>Climate Monitoring</p>
+                      <div className="num">5</div>
+                      <p className="block5">Climate Monitoring</p>
                     </div>
                   </div>
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>High Tech Machinery</p>
+                      <div className="num">6</div>
+                      <p className="block6">High Tech Machinery</p>
                     </div>
                   </div>
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>Precision Agriculture</p>
+                      <div className="num">7</div>
+                      <p className="block7">Precision Agriculture</p>
                     </div>
                   </div>
                   <div className="col">
-                    {" "}
                     <div>
-                      <p>Biological Pest Control</p>
+                      <div className="num">8</div>
+                      <p className="block8">Biological Pest Control</p>
                     </div>
                   </div>
                 </div>

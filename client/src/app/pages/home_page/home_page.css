@@ -17,8 +17,17 @@
 }
 
 .topDiv .headingimage {
-  background: url("../../assets//homepage-main.jpg");
-  background-size: cover;
+  display: flex;
+  justify-content: end;
+  width: 60%;
+  text-align: center;
+  mask-image: radial-gradient(circle, white 40%, rgba(254, 254, 254, 0) 70%);
+}
+.topDiv .headingimage img{
+  /* width: 20%; */
+  max-width: 120%;
+  margin: auto;
+  /* max-height: 100%; */
 }
 
 .topDiv .headingDiv {

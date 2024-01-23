@@ -31,8 +31,8 @@ const Header = () => {
           </Link>
         </div>
         <div className="login-section col-3">
-          <Link className="register" to="/auth/register">Register</Link>
-          <Link className="signin" to="/auth/login">Sign In</Link>
+          <Link className="register" to="/auth">Register</Link>
+          <Link className="signin" to="/auth">Sign In</Link>
         </div>
       </div>
     </>

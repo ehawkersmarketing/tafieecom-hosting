@@ -9,6 +9,7 @@ import { useFetch } from "../../hooks/api_hook.js";
 import FeaturedProductCard from "./components/feature_product.jsx";
 import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
 import { useNavigate } from "react-router-dom";
+import homehero from "../../assets/homepage-main.png"
 const Dashboard = () => {
   const navigate = useNavigate();
   const { data: featuredProducts } = useFetch('/api/allProducts');
@@ -43,7 +44,9 @@ const Dashboard = () => {
               <button onClick={(e) => navigate('/shopPage')}>Shop Now</button>
             </div>
           </div>
-          <div className="headingimage col-7"></div>
+          <div className="headingimage col-7">
+            <img src={homehero} alt="" />
+          </div>
         </div>
         <div className="categoryDiv ">
           <div className="product-category">
