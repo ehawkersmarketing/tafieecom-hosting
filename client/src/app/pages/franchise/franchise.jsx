@@ -7,7 +7,12 @@ import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
 import Footer from "../../pages/footer/footer";
 
+
 const Franchise = () => {
+  const footerHandler = () => {
+    document.getElementById('bottom').scrollIntoView({ behavior: 'smooth' });
+   }
+   
   return (
     <div>
       <div className="franchise-wrapper">
@@ -23,7 +28,7 @@ const Franchise = () => {
                   <div className="franchise-content-para">
                     <h2 className="subheading-franchise">with TAFI Today!</h2>
                   </div>
-                  <button className="franchise-content-para-bt">
+                  <button className="franchise-content-para-bt" onClick={footerHandler}>
                     <h5 className="h5-btn">Unlock Your Potential</h5>
                     <p style={{ marginBottom: "0px" }}>(with Krishak Vatika)</p>
                   </button>

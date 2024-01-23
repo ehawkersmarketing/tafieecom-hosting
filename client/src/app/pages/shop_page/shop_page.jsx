@@ -8,6 +8,8 @@ import CarousalCard from "../../components/carousal/carousal.jsx";
 import PosterCardBackground from "../../assets/poster_card_background.svg";
 import ProductCard from "../../components/productCard/productCard.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
+import { Navigate ,Link} from "react-router-dom";
+import AllCategoryComponent from "../../components/allcategory/allcategory.jsx";
 
 const ShopPage = () => {
   const { data: products } = useFetch("/api/allProducts");
@@ -81,7 +83,7 @@ const ShopPage = () => {
                   and maximize yield.
                 </span>
               </div>
-              <div className="signin">View More</div>
+              <a className="signin" href="#viewmore" >View More</a>
             </div>
           </div>
           <div className="poster-card">
@@ -92,9 +94,10 @@ const ShopPage = () => {
           </div>
         </div>
         <div className="filter-region">
-          <div className="filter">
+          <div className="filter"><div className="filter-hover">
             <i class="bi bi-grid"></i>
             <span className="category-text">All Categories</span>
+            <AllCategoryComponent/></div>
             <span>|</span>
             <i class="bi bi-funnel-fill"></i>
             <span className="filter-text">Filters</span>
@@ -115,6 +118,7 @@ const ShopPage = () => {
           </div>
         </div>
         {searchField !== "" && (
+          <div className="blog-latest-latest">
           <div className="blog-latest-post">
             <div>
               <h4>Search Posts</h4>
@@ -139,6 +143,7 @@ const ShopPage = () => {
               )}
             </div>
           </div>
+          </div>
         )}
         <div className="product-region">
           <div className="best-seller-text">
@@ -149,7 +154,7 @@ const ShopPage = () => {
               <span>SELLERS</span>
             </div>
           </div>
-          <div className="side-nav">
+          {/* <div className="side-nav">
             <div className="previous-nav">
               <i class="bi bi-arrow-left"></i>
               <span className="previous-text">Previous</span>
@@ -158,7 +163,7 @@ const ShopPage = () => {
               <span className="next-text">Next</span>
               <i class="bi bi-arrow-right"></i>
             </div>
-          </div>
+          </div> */}
           <div className="best-seller-product">
             {products && <CarousalCard items={products} />}
           </div>
@@ -186,7 +191,7 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        <div className="all-products">
+        <div className="all-products" id="viewmore">
           <div className="all-product-text">
             <div className="product-all-text">
               <div className="tafi-product-text1">
@@ -197,12 +202,12 @@ const ShopPage = () => {
               </div>
             </div>
           </div>
-          <div className="side-nav">
+          {/* <div className="side-nav">
             <div className="next-nav">
               <span className="next-text">Next</span>
               <i class="bi bi-arrow-right"></i>
             </div>
-          </div>
+          </div> */}
           <div className="all-products-card">
             {products &&
               products?.map((item) => {
