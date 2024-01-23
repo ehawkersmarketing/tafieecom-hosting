@@ -13,19 +13,16 @@ const Header = () => {
           <img src={logo} alt="" />
         </div>
         <div className="link-section col-7 justify-content-around">
-          <Link to="">
+          <Link to="/">
             <span>Home </span>
           </Link>
           <Link to="/shopPage">
             <span>Shop</span>
           </Link>
-          <Link to="">
+          <Link to="/about">
             <span>About Us</span>
           </Link>
-          <Link to="">
-            <span>Contact Us</span>
-          </Link>
-          <Link to="">
+          <Link to="/franchise">
             <span>Franchise interest</span>
           </Link>
           <Link to="/blog">

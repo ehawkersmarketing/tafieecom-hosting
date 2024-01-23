@@ -4,6 +4,8 @@ import resourcepage1 from "../../assets/resourcecenter1.png";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
+import Header from "../header/header";
+import Footer from "../footer/footer";
 import { useEffect, useState } from "react";
 import Header from "../../pages/header/header";
 import Footer from "../../pages/footer/footer";
@@ -35,6 +37,7 @@ const BlogPage = () => {
   return (
     <div>
       <Header />
+
       <div className="blogpage">
         <div className="blog-tile">
           <div className="blog-grid-page row">
@@ -245,6 +248,7 @@ const BlogPage = () => {
         </div>
       </div>
       <Footer />
+
     </div>
   );
 };
