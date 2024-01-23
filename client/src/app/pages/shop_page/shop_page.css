@@ -217,10 +217,13 @@
             display: flex;
             border-radius: 1.5rem;
             position: relative;
+            height: 2.7rem;
 
             .search_container {
                 border: none;
                 border-radius: 1rem;
+                outline: none;
+                    border-radius: 35rem;
             }
 
             .search-icon {
@@ -228,7 +231,7 @@
                 border: none;
                 color: white;
                 text-align: center;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 margin: 4px 2cm;
                 border-radius: 50%;
             }
@@ -238,7 +241,7 @@
                 height: 42px;
                 border-radius: 50%;
                 position: absolute;
-                right: -0.4rem;
+                right: -0rem;
                 top: 50%;
                 transform: translateY(-21px);
                 display: flex;
