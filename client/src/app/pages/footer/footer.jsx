@@ -17,14 +17,9 @@ const Footer = () => {
               <div className="full-form">
                 <div className="in-image row">
                   <div className="form-img col-7">
-                    <div className="aao-baat-kre">
-                      <h1>
-                        <div>आओ </div>
-                        <div>
-                          <span> बात  </span>
-                        </div>
-                        <div> करे</div>
-                      </h1>
+                    <div className="headingMainText aao-baat-kre">
+                      <h1><span>आओ,</span> </h1>
+                      <h1>बात करें</h1>
                     </div>
                   </div>
                   <div className="form-content col-5">
