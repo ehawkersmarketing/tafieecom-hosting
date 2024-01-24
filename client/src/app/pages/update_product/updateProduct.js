@@ -18,6 +18,8 @@ const UpdateProduct = () => {
     description: "",
     price: "",
     quantity: "",
+    minQuantity:"",
+    maxQuantity:""
   });
 
   const [dropdown, setDropdown] = useState({
@@ -37,15 +39,17 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     axios
-      .patch("http://localhost:8080/api/updateProduct/" + id)
+      .get("http://localhost:8080/api/getProduct/" + id)
       .then((res) => {
-        console.log(res.data.data.title);
+        console.log(res.data.data.category.category);
         setInputHandler({
           ...inputHandler,
           title: res.data.data.title,
           description: res.data.data.description,
           price: res.data.data.price,
           quantity: res.data.data.quantity,
+          maxQuantity:res.data.data.units.maxQuantity,
+          minQuantity:res.data.data.units.minQuantity,
           UpdateProduct,
         });
       })
@@ -64,11 +68,21 @@ const UpdateProduct = () => {
   const onSubmitHandler = async (e) => {
     const { category } = dropdown;
     e.preventDefault();
+    let categoryList = data.filter((item) => item.category === category);
     axios
-      .patch("http://localhost:8080/api/updateProduct/" + id, inputHandler)
+      .patch("http://localhost:8080/api/updateProduct/" + id, {        
+          title: inputHandler.title,
+          description: inputHandler.description,
+          price: inputHandler.price,
+          quantity: inputHandler.quantity,
+          maxQuantity: inputHandler.maxQuantity,
+          minQuantity: inputHandler.minQuantity,
+          category: categoryList[0]._id
+        
+      })
       .then((res) => {
         console.log(res.data);
-        history("/");
+        history("/adminPage");
       })
       .catch((err) => {
         console.log(err);
