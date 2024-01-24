@@ -12,7 +12,7 @@ const cartRoute = require("./routes/cartRoute/cartRoute");
 const productRoute = require("./routes/productRoute/productRoute");
 const blogRoute = require("./routes/blogRoute/blogRoute");
 const payRoute = require("./routes/payRoute/payRoute");
-
+const serviceRoute = require('./routes/serviceRoute/serviceRoute')
 const shipRoute = require("./routes/shipRoute/shipRoute");
 
 const orderRoute = require("./routes/orderRoute/orderRoute");
@@ -43,6 +43,7 @@ app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
 app.use("/api", orderRoute);
 app.use("/api/ship", shipRoute);
+app.use("/api",serviceRoute)
 
 app.use(express.static("public"));
 app.get("/:file", (req, res) => {
@@ -51,6 +52,10 @@ app.get("/:file", (req, res) => {
 
 app.get("/blog/:file", (req, res) => {
   res.sendFile(__dirname + `/public/blog/images/${req.params.file}`);
+});
+
+app.get("/service/:file", (req, res) => {
+  res.sendFile(__dirname + `/public/${req.params.file}`);
 });
 
 app.listen(process.env.PORT, () => {
