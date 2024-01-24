@@ -60,14 +60,14 @@ router.post("/uploadImage", upload.single("image"), (req, res) => {
   });
 });
 
-router.post("/createProduct", AdminRole, EditorRole, createProduct);
+router.post("/createProduct", createProduct);
 router.get("/allProducts", getAllProducts);
 router.get("/getProduct/:id", getProductsById);
-router.patch("/updateProduct/:id", AdminRole, EditorRole, updateProduct);
-router.delete("/deleteProduct/:id", AdminRole, EditorRole, deleteProduct);
+router.patch("/updateProduct/:id", updateProduct);
+router.delete("/deleteProduct/:id", deleteProduct);
 router.post("/searchProduct", searchProduct);
 router.get("/searchProduct/:category", searchProductByCategory);
-router.post("/createCategory", AdminRole, EditorRole, CreateCategory);
+router.post("/createCategory", CreateCategory);
 router.get("/allCategory", getAllCategory);
 
 module.exports = router;

@@ -69,7 +69,7 @@ exports.createProduct = async (req, res) => {
     const product = await productModel.create({
       title,
       description,
-      image: `${process.env.SERVER_URL}/${image}`,
+      image: `${image}`,
       price,
       quantity,
       units,

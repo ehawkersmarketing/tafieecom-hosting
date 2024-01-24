@@ -1,10 +1,10 @@
 .carousal {
-    width: 100%;
+    width: 80rem;
 }
 
 .categoryCarouselItems {
     display: flex;
     gap: 5rem;
     overflow: hidden;
-    margin: 2rem 0;
+    margin: 5rem 0;
 }

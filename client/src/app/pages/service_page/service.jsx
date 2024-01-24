@@ -134,15 +134,15 @@ const OurServices = () => {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <Service_pop/>
+                    <Service_pop />
                   </div>
                   <div class="modal-footer">
-<div className='service-pop'>
-                    <button className="d-flex" type="button" data-bs-dismiss="modal"> <div><strong>Show Interest</strong></div><i class="bi bi-whatsapp"></i></button>
-                  </div>
+                    <div className='service-pop'>
+                      <button className="d-flex" type="button" data-bs-dismiss="modal"> <div><strong>Show Interest</strong></div><i class="bi bi-whatsapp"></i></button>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
