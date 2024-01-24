@@ -120,6 +120,7 @@
 .admin-wrapper .input[type="text"] {
   border-radius: 10px;
   background-color: #e2e8f0;
+  outline: none;
 }
 .admin-wrapper .row-wrapper {
   margin: 0;
@@ -142,6 +143,7 @@
   border-radius: 10px;
   border: none;
   background-color: #e2e8f0;
+  outline: none;
 }
 
 .admin-wrapper .admin-right {
@@ -160,7 +162,7 @@
   display: flex;
   font-weight: 700;
   font-size: 15px;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 
 .admin-wrapper .admin-suber-wrapper {
@@ -298,6 +300,7 @@
   background-color: #e2e8f0;
   padding: 0.7rem;
   border: none;
+  outline: none;
 }
 
 .admin-dashboard-card {
@@ -306,7 +309,7 @@
 
 /* dashboard */
 .admin-wrapper .order-analysis-title {
-  font-family: Montserrat;
+  /* font-family: Montserrat; */
   margin-left: 5px;
   font-size: 20px;
   font-weight: 700;
@@ -413,3 +416,38 @@
   padding: 0;
   border: none;
 }
+
+
+/*new changes */
+
+.admin-wrapper .admin-header-nav{
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-wrapper .lg-admin-button{
+  display: flex;
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 55px;
+}
+
+.admin-wrapper .sidebar-title:hover{
+  background-color: white;
+  border-radius: 12px;
+   color:#285a4b;
+  box-shadow: 0px 3.500000238418579px 5.500000476837158px 0px #00000014;
+
+}
+
+.admin-wrapper .featured-img-admin-blog{
+  width: 25px;
+  height: 25px;
+}
+.admin-wrapper .img-product-admin-data{
+  width: 25px;
+  height: 25px;
+}
+
+
+/* new changes */

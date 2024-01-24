@@ -28,7 +28,7 @@ exports.getAllProducts = async (req, res) => {
 
 exports.getProductsById = async (req, res) => {
   try {
-    const products = await productModel.find({ _id: req.params.id }).populate('category');
+    const products = await productModel.findOne({ _id: req.params.id }).populate('category');
     console.log(products);
     if (!products) {
       return res.status(500).send({
@@ -115,9 +115,8 @@ exports.updateProduct = async (req, res) => {
       quantity,
       metric,
       companyName,
-      productType,
+      category
     } = req.body;
-
     const updatedProduct = await productModel.findByIdAndUpdate(
       { _id: id },
       {
@@ -128,7 +127,7 @@ exports.updateProduct = async (req, res) => {
         quantity,
         metric,
         companyName,
-        productType,
+        category,
       }
     );
 

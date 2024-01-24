@@ -14,12 +14,31 @@ const AdminPage = () => {
   const { data: blogs } = useFetch('/api/blogs');
   const { data: products } = useFetch('/api/allProducts');
   const { data: orders } = useFetch('/api/getAllOrders');
+const [blog , setBlog] = useState('')
 
-  const onDelete = async (event, id) => {
-    event.preventDefault();
-    const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
-    if (data.success) {
-      window.location.reload();
+  // const onDelete = async (event, id) => {
+  //   event.preventDefault();
+  //   const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
+  //   if (data.success) {
+  //     window.location.reload();
+  //   }
+  // };
+
+
+  const onDelete = (id) => {
+    if (window.confirm("Do you want to delete the resource permently?") ==true) {
+      axios
+        .delete(`http://localhost:8080/api/deleteBlog/${id}`)
+        .then((res) => {
+          console.log("Blog deleted successfully");
+          window.location.reload();
+          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("Dont delete the Resource Center");
     }
   };
 
@@ -35,7 +54,7 @@ const AdminPage = () => {
     [7, 27, 19],
   ];
 
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   const options = {
     hAxis: {
@@ -92,6 +111,11 @@ const AdminPage = () => {
   const CreateNewHandler = () => {
     navigate("/createProduct");
   };
+
+  const CreateNewBlogHandler = () =>{
+    navigate("/blog/composeBlog")
+  }
+  
 
   const inlineStyle = {
     "--size": 0.4,
@@ -193,30 +217,34 @@ const AdminPage = () => {
           </div>
 
           <div className="col-9 admin-suber-wrapper">
-            {value == 0 && (
+          {value == 0 && (
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
-                    <div className="tab">
-                      <span className="tab1">Pages</span>
-                      <span>/All Orders</span>
-                    </div>
-                    <div className="nav-title">All Orders</div>
-                    <div className="nav-rightContent">
-                      
-                      <div className="admin-right">
-                        
-                        <div className="logout-button">
-                          <span style={{ marginLeft: "15px" }}>
-                            <i class="bi bi-person"></i>
-                          </span>
-                          <span>Logout</span>
-                          <span style={{ marginLeft: "5px" }}>
-                            <i class="bi bi-gear-fill"></i>
-                          </span>
+                    <div className="admin-header-nav"
+                    >
+
+                      <div className="tab">
+                        <span className="tab1">Pages</span>
+                        <span>/Orders</span>
+                        <div className="nav-title">All Orders</div>
+                      </div>
+
+                      <div className="nav-rightContent">
+                        <div className="admin-right">
+                          <div className="logout-button lg-admin-button">
+                            <span style={{ marginLeft: "15px" }}>
+                              <i class="bi bi-person"></i>
+                            </span>
+                            <span>Logout</span>
+                            <span style={{ marginLeft: "5px" }}>
+                              <i class="bi bi-gear-fill"></i>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </nav>
@@ -226,67 +254,69 @@ const AdminPage = () => {
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
-                    <div className="tab">
-                      <span className="tab1">Pages</span>
-                      <span>/Dashboard</span>
-                    </div>
-                    <div className="nav-title">Dashboard</div>
-                    <div className="nav-rightContent">
-                      
-                      <div className="admin-right">
-                        <div className="logout-button">
-                          <span style={{ marginLeft: "15px" }}>
-                            <i class="bi bi-person"></i>
-                          </span>
-                          <span>Logout</span>
-                          <span style={{ marginLeft: "5px" }}>
-                            <i class="bi bi-gear-fill"></i>
-                          </span>
+
+                    <div className="admin-header-nav"
+                    >
+
+                      <div className="tab">
+                        <span className="tab1">Pages</span>
+                        <span>/Dashboard</span>
+                        <div className="nav-title">Dashboard</div>
+                      </div>
+
+                      <div className="nav-rightContent">
+                        <div className="admin-right">
+                          <div className="logout-button lg-admin-button">
+                            <span style={{ marginLeft: "15px" }}>
+                              <i class="bi bi-person"></i>
+                            </span>
+                            <span>Logout</span>
+                            <span style={{ marginLeft: "5px" }}>
+                              <i class="bi bi-gear-fill"></i>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </nav>
             )}
 
-            {value == 2 && (
+{value == 2 && (
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
-                    <div className="tab">
-                      <span className="tab1">Pages</span>
-                      <span>/User</span>
-                    </div>
-                    <div className="nav-title">User</div>
-                    <div className="nav-rightContent">
-                      <button
-                        className="admin-btn-nav"
-                      // onClick={CreateNewHandler}
-                      >
-                        <i class="bi bi-plus-lg"></i> Create New
-                      </button>
-                      <div className="admin-right">
-                        <input
-                          type="text"
-                          className="nav-input"
-                          placeholder="&#61442; Search"
-                        />
-                        <div className="logout-button">
-                          <span style={{ marginLeft: "15px" }}>
-                            <i class="bi bi-person"></i>
-                          </span>
-                          <span>Logout</span>
-                          <span style={{ marginLeft: "5px" }}>
-                            <i class="bi bi-gear-fill"></i>
-                          </span>
+                    <div className="admin-header-nav"
+                    >
+
+                      <div className="tab">
+                        <span className="tab1">Pages</span>
+                        <span>/User</span>
+                        <div className="nav-title">Users</div>
+                      </div>
+
+                      <div className="nav-rightContent">
+                        <div className="admin-right">
+                          <div className="logout-button lg-admin-button">
+                            <span style={{ marginLeft: "15px" }}>
+                              <i class="bi bi-person"></i>
+                            </span>
+                            <span>Logout</span>
+                            <span style={{ marginLeft: "5px" }}>
+                              <i class="bi bi-gear-fill"></i>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </nav>
             )}
+
 
             {value == 3 && (
               <nav className="nav-admin-page">
@@ -305,7 +335,7 @@ const AdminPage = () => {
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-                        
+
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -334,12 +364,12 @@ const AdminPage = () => {
                     <div className="nav-rightContent">
                       <button
                         className="admin-btn-nav"
-                      // onClick={CreateNewHandler}
+                      onClick={CreateNewBlogHandler}
                       >
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-                        
+
                         <div className="logout-button" onClick={onLogOut}>
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -355,6 +385,9 @@ const AdminPage = () => {
                 </div>
               </nav>
             )}
+
+
+
 
             {value == 0 && (
               <div className="card admin-table-card">
@@ -648,9 +681,6 @@ const AdminPage = () => {
                             Category
                           </th>
                           <th scope="col" className="th">
-                            Tax slab
-                          </th>
-                          <th scope="col" className="th">
                             Order count
                           </th>
                           <th scope="col" className="th">
@@ -668,12 +698,12 @@ const AdminPage = () => {
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
                                 <td className="td">
-                                  <img src={product.image} />
+                                  <img src={product.image} className="img-product-admin-data" />
                                 </td>
                                 <td className="td table-center">{product.title}</td>
                                 <td className="td table-center">{product.price}</td>
                                 <td className="td table-center">{product?.category?.category}</td>
-                                <td className="td table-center">{product.gstSlab}%</td>
+                                {/* <td className="td table-center">{product.gstSlab}%</td> */}
                                 <td className="td table-center">{product.quantity}</td>
                                 <td className="td table-center">{product && `${dayjs(product.createdAt).format('MMMM D, YYYY')}`}</td>
                                 <td className="td table-center">
@@ -743,8 +773,8 @@ const AdminPage = () => {
                           blogs && blogs?.map((blog, index) => {
                             return <tr>
                               <th scope="row table-center">{index + 1}</th>
-                              <td className="td">
-                                <img src={blog.image} />
+                              <td className="td ">
+                                <img src={blog.image} className="featured-img-admin-blog" />
                               </td>
                               <td className="td table-center">{blog.title}</td>
                               <td className="td table-center">
