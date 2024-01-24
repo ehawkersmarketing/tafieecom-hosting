@@ -8,8 +8,19 @@ import dayjs from "dayjs";
 import axios from "axios";
 
 const AdminPage = () => {
+  const [value, setValue] = useState(0);
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user)
+
+  useEffect(() => {
+    if (user !== null) {
+      if (user.role.role === "User") {
+        navigate('/')
+      }
+    } else {
+      navigate("/auth/1");
+    }
+  }, [user]);
+
   const navigate = useNavigate();
   const { data: blogs } = useFetch('/api/blogs');
   const { data: products } = useFetch('/api/allProducts');
@@ -23,6 +34,71 @@ const AdminPage = () => {
     }
   };
 
+  const [searchField, setSearchField] = useState({
+    product: "",
+    order: "",
+    blogs: "",
+    users: ""
+  });
+
+  const [searchProducts, setSearchProducts] = useState([]);
+  const [searchOrders, setSearchOrders] = useState([]);
+  const [searchBlogs, setSearchBlog] = useState([]);
+  const [searchUsers, setSearchUser] = useState([]);
+
+  const search = async (text) => {
+    if (text !== '') {
+      if (value == 3) {
+        const { data } = await axios.post(`http://localhost:8080/api/searchProduct`, {
+          search: text
+        });
+        setSearchProducts(data.data);
+      } else if (value == 4) {
+        const { data } = await axios.post(`http://localhost:8080/api/searchBlog`, {
+          search: text
+        });
+        setSearchBlog(data.data);
+      } else if (value == 2) {
+        const { data } = await axios.post(`http://localhost:8080/auth/searchUser`, {
+          search: text
+        });
+        setSearchUser(data.data);
+      }
+    } else {
+      setSearchProducts(undefined);
+      setSearchOrders(undefined);
+      setSearchBlog(undefined);
+      setSearchUser(undefined);
+    }
+  };
+
+  useEffect(() => {
+    setSearchField({
+      product: "",
+      order: "",
+      blogs: "",
+      users: ""
+    });
+  }, [value]);
+
+  const handleSearchFields = (e) => {
+    e.preventDefault();
+    setSearchField({
+      ...searchField,
+      [e.target.name]: e.target.value
+    });
+  }
+
+  useEffect(() => {
+    if (value == 3) {
+      search(searchField.product);
+    } else if (value == 4) {
+      search(searchField.blogs);
+    } else if (value == 2) {
+      search(searchField.users);
+    }
+  }, [searchField]);
+
   const data = [
     ["x", "dogs", "cats"],
     [0, 0, 0],
@@ -34,8 +110,6 @@ const AdminPage = () => {
     [6, 11, 3],
     [7, 27, 19],
   ];
-
-  const [value, setValue] = useState(0);
 
   const options = {
     hAxis: {
@@ -69,14 +143,6 @@ const AdminPage = () => {
     old: dataOld,
     new: dataNew,
   };
-
-  useEffect(() => {
-    if (user) {
-      if (user.role.role === "User") {
-        navigate('/')
-      }
-    }
-  }, [user])
 
   const onLogOut = () => {
     localStorage.clear()
@@ -609,7 +675,9 @@ const AdminPage = () => {
                       <div className="admin-input-dropdown">
                         <input
                           type="text"
+                          name="product"
                           className="nav-input"
+                          onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
                           placeholder="&#61442; Search"
                         />
@@ -662,7 +730,27 @@ const AdminPage = () => {
                       </thead>
                       <tbody>
                         {
-                          products.map((product, index) => {
+                          searchField.product !== '' ? (searchProducts && searchProducts.length > 0) ? searchProducts.map((product, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td">
+                                  <img src={product.image} />
+                                </td>
+                                <td className="td table-center">{product.title}</td>
+                                <td className="td table-center">{product.price}</td>
+                                <td className="td table-center">{product?.category?.category}</td>
+                                <td className="td table-center">{product.gstSlab}%</td>
+                                <td className="td table-center">{product.quantity}</td>
+                                <td className="td table-center">{product && `${dayjs(product.createdAt).format('MMMM D, YYYY')}`}</td>
+                                <td className="td table-center">
+                                  <span className="td-edit-icon ">
+                                    <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateProduct/${product._id}`)}></i>
+                                  </span>
+                                </td>
+                              </tr>
+                            );
+                          }) : <div><h4>No Results Found</h4></div> : products.map((product, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
@@ -702,6 +790,8 @@ const AdminPage = () => {
                         <input
                           type="text"
                           className="nav-input"
+                          name="blogs"
+                          onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
                           placeholder="&#61442; Search"
                         />
@@ -739,7 +829,23 @@ const AdminPage = () => {
                       </thead>
                       <tbody>
                         {
-                          blogs && blogs?.map((blog, index) => {
+                          searchField.blogs !== '' ? (searchBlogs && searchBlogs.length > 0) ? searchBlogs?.map((blog, index) => {
+                            return <tr>
+                              <th scope="row table-center">{index + 1}</th>
+                              <td className="td">
+                                <img src={blog.image} />
+                              </td>
+                              <td className="td table-center">{blog.title}</td>
+                              <td className="td table-center">
+                                <span className="td-edit-icon ">
+                                  <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateBlog/${blog._id}`)}></i>
+                                </span>
+                                <span className="td-delete-icon">
+                                  <i class="bi bi-trash3-fill" onClick={(e) => onDelete(e, blog._id)}></i>
+                                </span>
+                              </td>
+                            </tr>
+                          }) : <div><h4>No Results Found</h4></div> : blogs && blogs?.map((blog, index) => {
                             return <tr>
                               <th scope="row table-center">{index + 1}</th>
                               <td className="td">
@@ -774,6 +880,8 @@ const AdminPage = () => {
                         <input
                           type="text"
                           className="nav-input"
+                          name="users"
+                          onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
                           placeholder="&#61442; Search"
                         />
@@ -802,7 +910,7 @@ const AdminPage = () => {
                             User Name
                           </th>
                           <th scope="col" className="th">
-                            Email
+                            Role
                           </th>
                           <th scope="col" className="th">
                             Phone Number
@@ -811,12 +919,21 @@ const AdminPage = () => {
                       </thead>
                       <tbody>
                         {
-                          users && users.map((user, index) => {
+                          searchField.users !== '' ? (searchUsers && searchUsers.length > 0) ? searchUsers.map((user, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
                                 <td className="td table-center">{user.userName}</td>
-                                <td className="td table-center">{user.email}</td>
+                                <td className="td table-center">{user.role.role}</td>
+                                <td className="td table-center">{user.phone}</td>
+                              </tr>
+                            );
+                          }) : <div><h4>No Results Found</h4></div> : users && users.map((user, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td table-center">{user.userName}</td>
+                                <td className="td table-center">{user.role.role}</td>
                                 <td className="td table-center">{user.phone}</td>
                               </tr>
                             );
