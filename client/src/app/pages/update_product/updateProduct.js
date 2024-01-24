@@ -22,7 +22,6 @@ const UpdateProduct = () => {
 
   const [dropdown, setDropdown] = useState({
     category: " ",
-    gstSlab: " ",
   });
 
   const onDropdownChangeInputHandler = (e) => {
@@ -63,8 +62,7 @@ const UpdateProduct = () => {
   };
 
   const onSubmitHandler = async (e) => {
-    const { category, gstSlab } = dropdown;
-    const gstNumber = parseInt(gstSlab.split("%")[0]);
+    const { category } = dropdown;
     e.preventDefault();
     axios
       .patch("http://localhost:8080/api/updateProduct/" + id, inputHandler)
@@ -118,22 +116,7 @@ const UpdateProduct = () => {
               placeholder="Price"
             />
           </div>
-          <div className="form_input">
-            <label htmlFor="gstSlab">GST SLAB</label>
-            <br></br>
-            <select
-              style={{ width: "20rem", height: "2rem", marginBottom: "1rem" }}
-              onChange={onDropdownChangeInputHandler}
-              value={dropdown.gstSlab}
-              name="gstSlab"
-            >
-              <option>select the GST</option>
-              <option> 5%</option>
-              <option>12%</option>
-              <option>28%</option>
-              <option>18%</option>
-            </select>
-          </div>
+          
           <div className="form_input">
             <label htmlFor="quantity">Quantity</label>
             <input
