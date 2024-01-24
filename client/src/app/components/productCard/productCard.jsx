@@ -4,7 +4,7 @@ import './productCard.css';
 const ProductCard = ({ item }) => {
 
     return (
-        <div key={item._id} className="carouselItem" interval="500">
+        <div key={item._id} className="carouselItem" interval="500" >
             <div className="textBlock">
                 <img className='product-image' src={item.image} alt="" />
                 <div className='text-fields'>

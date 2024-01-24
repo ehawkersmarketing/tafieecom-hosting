@@ -185,7 +185,7 @@ const BlogPage = () => {
                         {blog.title}
                       </h5>
                       <p class="card-text">
-                        {blog.content}
+                        {blog.content.substring(0, 400)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
                       <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
@@ -218,7 +218,7 @@ const BlogPage = () => {
                           {blog.title}
                         </h5>
                         <p class="card-text">
-                          {blog.content}
+                          {blog.content.substring(0, 400)}....
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
                         <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
@@ -251,7 +251,7 @@ const BlogPage = () => {
                         {blog.title}
                       </h5>
                       <p class="card-text">
-                        {blog.content}
+                        {blog.content.substring(0, 400)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
                       <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">

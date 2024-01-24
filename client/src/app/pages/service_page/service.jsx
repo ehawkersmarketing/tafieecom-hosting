@@ -8,23 +8,22 @@ import servicefront from "../../assets/ourservices-mask.png";
 const OurServices = () => {
   return (
     <>
-      <Header/>
+      <Header />
       <div className="service-hero">
         <div className="service-div row">
-          {/* <div className="blank col-7"></div>
-            <div className="service-full-img col-5 row">
-                <div className="service-content col-7">
-                    <div className="our-services-text"></div>
-                    <div className="our-services-desc"></div>
-                    <div className="show-interest-btn"></div>
-                </div>
-                <div className="col-5"></div>
-            </div> */}
+          <div className="blank col-7"></div>
+          <div className="service-full-img col-5 row">
+            <div className="service-content col-7">
+              <div className="our-services-text"></div>
+              <div className="our-services-desc"></div>
+              <div className="show-interest-btn"></div>
+            </div>
+            <div className="col-5"></div>
+          </div>
           <div className="service-front-image col-7">
-            <img src={servicefront} alt=""/>
+            <img src={servicefront} alt="" />
           </div>
           <div className="service-back-image col-5">
-        
           </div>
         </div>
       </div>
