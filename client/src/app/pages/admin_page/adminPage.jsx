@@ -14,7 +14,7 @@ const AdminPage = () => {
   const { data: blogs } = useFetch('/api/blogs');
   const { data: products } = useFetch('/api/allProducts');
   const { data: orders } = useFetch('/api/getAllOrders');
-
+  const { data: users } = useFetch('/auth/users');
   const onDelete = async (event, id) => {
     event.preventDefault();
     const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
@@ -203,9 +203,9 @@ const AdminPage = () => {
                     </div>
                     <div className="nav-title">Store</div>
                     <div className="nav-rightContent">
-                      
+
                       <div className="admin-right">
-                        
+
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -304,7 +304,7 @@ const AdminPage = () => {
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-                        
+
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -338,7 +338,7 @@ const AdminPage = () => {
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-                        
+
                         <div className="logout-button" onClick={onLogOut}>
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -810,21 +810,18 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row table-center">1.</th>
-
-                          <td className="td table-center">Ayushi yadav</td>
-                          <td className="td table-center">
-                            ayushiyadav.bce@gmail.com
-                          </td>
-                          <td className="td table-center">6266894170</td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">2.</th>
-                          <td className="td table-center">Udit </td>
-                          <td className="td table-center">udit@gmail.com</td>
-                          <td className="td table-center">982606789 </td>
-                        </tr>
+                        {
+                          users && users.map((user, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td table-center">{user.userName}</td>
+                                <td className="td table-center">{user.email}</td>
+                                <td className="td table-center">{user.phone}</td>
+                              </tr>
+                            );
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>
