@@ -8,39 +8,97 @@ import dayjs from "dayjs";
 import axios from "axios";
 
 const AdminPage = () => {
+  const [value, setValue] = useState(0);
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user)
+
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "User") {
+        navigate('/')
+      }
+    } else {
+      navigate("/auth/1");
+    }
+  }, [user]);
+
   const navigate = useNavigate();
   const { data: blogs } = useFetch('/api/blogs');
   const { data: products } = useFetch('/api/allProducts');
   const { data: orders } = useFetch('/api/getAllOrders');
-const [blog , setBlog] = useState('')
+  const { data: users } = useFetch('/auth/users');
 
-  // const onDelete = async (event, id) => {
-  //   event.preventDefault();
-  //   const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
-  //   if (data.success) {
-  //     window.location.reload();
-  //   }
-  // };
-
-
-  const onDelete = (id) => {
-    if (window.confirm("Do you want to delete the resource permently?") ==true) {
-      axios
-        .delete(`http://localhost:8080/api/deleteBlog/${id}`)
-        .then((res) => {
-          console.log("Blog deleted successfully");
-          window.location.reload();
-          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      console.log("Dont delete the Resource Center");
+  const onDelete = async (event, id) => {
+    event.preventDefault();
+    const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
+    if (data.success) {
+      window.location.reload();
     }
   };
+
+  const [searchField, setSearchField] = useState({
+    product: "",
+    order: "",
+    blogs: "",
+    users: ""
+  });
+
+  const [searchProducts, setSearchProducts] = useState([]);
+  const [searchOrders, setSearchOrders] = useState([]);
+  const [searchBlogs, setSearchBlog] = useState([]);
+  const [searchUsers, setSearchUser] = useState([]);
+
+  const search = async (text) => {
+    if (text !== '') {
+      if (value == 3) {
+        const { data } = await axios.post(`http://localhost:8080/api/searchProduct`, {
+          search: text
+        });
+        setSearchProducts(data.data);
+      } else if (value == 4) {
+        const { data } = await axios.post(`http://localhost:8080/api/searchBlog`, {
+          search: text
+        });
+        setSearchBlog(data.data);
+      } else if (value == 2) {
+        const { data } = await axios.post(`http://localhost:8080/auth/searchUser`, {
+          search: text
+        });
+        setSearchUser(data.data);
+      }
+    } else {
+      setSearchProducts(undefined);
+      setSearchOrders(undefined);
+      setSearchBlog(undefined);
+      setSearchUser(undefined);
+    }
+  };
+
+  useEffect(() => {
+    setSearchField({
+      product: "",
+      order: "",
+      blogs: "",
+      users: ""
+    });
+  }, [value]);
+
+  const handleSearchFields = (e) => {
+    e.preventDefault();
+    setSearchField({
+      ...searchField,
+      [e.target.name]: e.target.value
+    });
+  }
+
+  useEffect(() => {
+    if (value == 3) {
+      search(searchField.product);
+    } else if (value == 4) {
+      search(searchField.blogs);
+    } else if (value == 2) {
+      search(searchField.users);
+    }
+  }, [searchField]);
 
   const data = [
     ["x", "dogs", "cats"],
@@ -53,8 +111,6 @@ const [blog , setBlog] = useState('')
     [6, 11, 3],
     [7, 27, 19],
   ];
-
-  const [value, setValue] = useState(1);
 
   const options = {
     hAxis: {
@@ -89,14 +145,6 @@ const [blog , setBlog] = useState('')
     new: dataNew,
   };
 
-  useEffect(() => {
-    if (user) {
-      if (user.role.role === "User") {
-        navigate('/')
-      }
-    }
-  }, [user])
-
   const onLogOut = () => {
     localStorage.clear()
     navigate(`/auth/${1}`)
@@ -112,10 +160,10 @@ const [blog , setBlog] = useState('')
     navigate("/createProduct");
   };
 
-  const CreateNewBlogHandler = () =>{
+  const CreateNewBlogHandler = () => {
     navigate("/blog/composeBlog")
   }
-  
+
 
   const inlineStyle = {
     "--size": 0.4,
@@ -217,12 +265,11 @@ const [blog , setBlog] = useState('')
           </div>
 
           <div className="col-9 admin-suber-wrapper">
-          {value == 0 && (
+            {value == 0 && (
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
-                    <div className="admin-header-nav"
-                    >
+                    <div className="admin-header-nav">
 
                       <div className="tab">
                         <span className="tab1">Pages</span>
@@ -244,7 +291,6 @@ const [blog , setBlog] = useState('')
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </nav>
@@ -254,37 +300,30 @@ const [blog , setBlog] = useState('')
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
-
-                    <div className="admin-header-nav"
-                    >
-
-                      <div className="tab">
-                        <span className="tab1">Pages</span>
-                        <span>/Dashboard</span>
-                        <div className="nav-title">Dashboard</div>
-                      </div>
-
-                      <div className="nav-rightContent">
-                        <div className="admin-right">
-                          <div className="logout-button lg-admin-button">
-                            <span style={{ marginLeft: "15px" }}>
-                              <i class="bi bi-person"></i>
-                            </span>
-                            <span>Logout</span>
-                            <span style={{ marginLeft: "5px" }}>
-                              <i class="bi bi-gear-fill"></i>
-                            </span>
-                          </div>
+                    <div className="tab">
+                      <span className="tab1">Pages</span>
+                      <span>/Dashboard</span>
+                    </div>
+                    <div className="nav-title">Dashboard</div>
+                    <div className="nav-rightContent">
+                      <div className="admin-right">
+                        <div className="logout-button">
+                          <span style={{ marginLeft: "15px" }}>
+                            <i class="bi bi-person"></i>
+                          </span>
+                          <span>Logout</span>
+                          <span style={{ marginLeft: "5px" }}>
+                            <i class="bi bi-gear-fill"></i>
+                          </span>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </nav>
             )}
 
-{value == 2 && (
+            {value == 2 && (
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
@@ -364,7 +403,7 @@ const [blog , setBlog] = useState('')
                     <div className="nav-rightContent">
                       <button
                         className="admin-btn-nav"
-                      onClick={CreateNewBlogHandler}
+                        onClick={CreateNewBlogHandler}
                       >
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
@@ -643,7 +682,9 @@ const [blog , setBlog] = useState('')
                       <div className="admin-input-dropdown">
                         <input
                           type="text"
+                          name="product"
                           className="nav-input"
+                          onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
                           placeholder="&#61442; Search"
                         />
@@ -693,7 +734,27 @@ const [blog , setBlog] = useState('')
                       </thead>
                       <tbody>
                         {
-                          products.map((product, index) => {
+                          searchField.product !== '' ? (searchProducts && searchProducts.length > 0) ? searchProducts.map((product, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td">
+                                  <img src={product.image} />
+                                </td>
+                                <td className="td table-center">{product.title}</td>
+                                <td className="td table-center">{product.price}</td>
+                                <td className="td table-center">{product?.category?.category}</td>
+                                <td className="td table-center">{product.gstSlab}%</td>
+                                <td className="td table-center">{product.quantity}</td>
+                                <td className="td table-center">{product && `${dayjs(product.createdAt).format('MMMM D, YYYY')}`}</td>
+                                <td className="td table-center">
+                                  <span className="td-edit-icon ">
+                                    <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateProduct/${product._id}`)}></i>
+                                  </span>
+                                </td>
+                              </tr>
+                            );
+                          }) : <div><h4>No Results Found</h4></div> : products.map((product, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
@@ -733,6 +794,8 @@ const [blog , setBlog] = useState('')
                         <input
                           type="text"
                           className="nav-input"
+                          name="blogs"
+                          onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
                           placeholder="&#61442; Search"
                         />
@@ -770,7 +833,23 @@ const [blog , setBlog] = useState('')
                       </thead>
                       <tbody>
                         {
-                          blogs && blogs?.map((blog, index) => {
+                          searchField.blogs !== '' ? (searchBlogs && searchBlogs.length > 0) ? searchBlogs?.map((blog, index) => {
+                            return <tr>
+                              <th scope="row table-center">{index + 1}</th>
+                              <td className="td">
+                                <img src={blog.image} />
+                              </td>
+                              <td className="td table-center">{blog.title}</td>
+                              <td className="td table-center">
+                                <span className="td-edit-icon ">
+                                  <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateBlog/${blog._id}`)}></i>
+                                </span>
+                                <span className="td-delete-icon">
+                                  <i class="bi bi-trash3-fill" onClick={(e) => onDelete(e, blog._id)}></i>
+                                </span>
+                              </td>
+                            </tr>
+                          }) : <div><h4>No Results Found</h4></div> : blogs && blogs?.map((blog, index) => {
                             return <tr>
                               <th scope="row table-center">{index + 1}</th>
                               <td className="td ">
@@ -805,6 +884,8 @@ const [blog , setBlog] = useState('')
                         <input
                           type="text"
                           className="nav-input"
+                          name="users"
+                          onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
                           placeholder="&#61442; Search"
                         />
@@ -833,7 +914,7 @@ const [blog , setBlog] = useState('')
                             User Name
                           </th>
                           <th scope="col" className="th">
-                            Email
+                            Role
                           </th>
                           <th scope="col" className="th">
                             Phone Number
@@ -841,21 +922,27 @@ const [blog , setBlog] = useState('')
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row table-center">1.</th>
-
-                          <td className="td table-center">Ayushi yadav</td>
-                          <td className="td table-center">
-                            ayushiyadav.bce@gmail.com
-                          </td>
-                          <td className="td table-center">6266894170</td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">2.</th>
-                          <td className="td table-center">Udit </td>
-                          <td className="td table-center">udit@gmail.com</td>
-                          <td className="td table-center">982606789 </td>
-                        </tr>
+                        {
+                          searchField.users !== '' ? (searchUsers && searchUsers.length > 0) ? searchUsers.map((user, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td table-center">{user.userName}</td>
+                                <td className="td table-center">{user.role.role}</td>
+                                <td className="td table-center">{user.phone}</td>
+                              </tr>
+                            );
+                          }) : <div><h4>No Results Found</h4></div> : users && users.map((user, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td table-center">{user.userName}</td>
+                                <td className="td table-center">{user.role.role}</td>
+                                <td className="td table-center">{user.phone}</td>
+                              </tr>
+                            );
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>

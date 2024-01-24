@@ -5,7 +5,8 @@ const {
   getAllServices,
   getServicesById,
   updateService,
-  deleteService
+  deleteService,
+  searchServices
 } = require("../../controlllers/service/serviceController");
 
 const {
@@ -24,25 +25,25 @@ const s3 = new AWS.S3({
 });
 const S3_BUCKET_NAME = "tafi-ecom-img";
 const storage = multer.memoryStorage({
-    destination: (req, file, cb) => {
-      cb(null, "public/images");
-    },
-    filename: (req, file, cb) => {
-      cb(null, file.fieldname + "_" + Date.now() + file.originalname);
-    },
-  });
+  destination: (req, file, cb) => {
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "_" + Date.now() + file.originalname);
+  },
+});
 
 const upload = multer({ storage: storage });
 
 router.post("/uploadServiceImage", upload.single("image"), (req, res) => {
-    console.log(req.file);
+  console.log(req.file);
   const params = {
     Bucket: S3_BUCKET_NAME,
     Key: `services/${req.file.originalname}`,
     Body: req.file.buffer,
     ContentType: "image/jpeg"
   };
-  console.log("params" , params)
+  console.log("params", params)
 
   s3.upload(params, (error, data) => {
     if (error) {
@@ -59,9 +60,10 @@ router.post("/uploadServiceImage", upload.single("image"), (req, res) => {
 
 router.post("/createService", createService);
 router.get("/getAllService", getAllServices);
+router.post("/searchService", searchServices);
 router.get("/getService/:id", getServicesById);
-router.put("/updateService/:id" , updateService);
-router.delete("/deleteService/:id" , deleteService )
+router.put("/updateService/:id", updateService);
+router.delete("/deleteService/:id", deleteService)
 
 
 module.exports = router;
