@@ -59,8 +59,8 @@ router.post("/composeBlog", composeBlog);
 router.get("/blogs", getAllBlogs);
 router.get("/recentBlogs", getRecentBlogs);
 router.get("/blog/:blogId", getBlogById);
-router.put("/updateBlog/:blogId", AdminRole, EditorRole, updateBlog);
-router.delete("/deleteBlog/:blogId", AdminRole, EditorRole, deleteBlog);
+router.put("/updateBlog/:blogId", updateBlog);
+router.delete("/deleteBlog/:blogId", deleteBlog);
 router.post("/searchBlog", searchBlog);
 
 module.exports = router;
