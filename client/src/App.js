@@ -26,6 +26,7 @@ import Myaccount from "./app/pages/myaccount_page/myaccount.jsx";
 import Franchise from "./app/pages/franchise/franchise.jsx";
 import Cart from "./app/pages/cart_page/Cart.jsx";
 import Checkout from "./app/pages/checkout_page/Checkout.jsx";
+import Service_pop from "./app/components/service_pop/Service_pop.jsx";
 
 import Services from "./app/pages/service_page/service.jsx"
 
@@ -91,6 +92,7 @@ function App() {
             <Route path="/checkout" exact element={<Checkout />} />
 
           <Route path="/services" exact element={<Services/>}/>
+          <Route path="/service_pop" exact element={<Service_pop />} />
 
         </Routes>
       </Routers>
