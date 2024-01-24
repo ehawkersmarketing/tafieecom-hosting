@@ -18,10 +18,6 @@ const productSchema = new mongoose.Schema(
       type: Number,
       // require: true,
     },
-    gstSlab: {
-      type: Number,
-      require: true,
-    },
     quantity: {
       type: Number,
       // require: true,
