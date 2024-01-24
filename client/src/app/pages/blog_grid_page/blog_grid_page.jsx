@@ -5,6 +5,8 @@ import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Header from "../header/header";
+import Footer from "../footer/footer";
 
 const BlogPage = () => {
 
@@ -64,6 +66,7 @@ const BlogPage = () => {
 
   return (
     <div>
+      <Header/>
       <div className="blogpage">
         <div className="blog-tile">
           <div className="blog-grid-page row">
@@ -270,6 +273,7 @@ const BlogPage = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
