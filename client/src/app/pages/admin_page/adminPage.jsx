@@ -12,7 +12,7 @@ const AdminPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    if (user !== null) {
+    if (user) {
       if (user.role.role === "User") {
         navigate('/')
       }
@@ -298,7 +298,7 @@ const AdminPage = () => {
                     </div>
                     <div className="nav-title">Dashboard</div>
                     <div className="nav-rightContent">
-                      
+
                       <div className="admin-right">
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>
