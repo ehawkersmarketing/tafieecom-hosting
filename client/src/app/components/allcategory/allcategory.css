@@ -1,0 +1,43 @@
+.component-outer {
+    top: 3rem;
+    left: 2rem;
+    /* min-th: 100%; */
+    padding: 2%;
+    position: absolute;
+    display: block;
+}
+.component-outer .component-main{
+    background-color: #EBF6F5;
+    padding: 15%;
+    margin: auto;
+    width: max-content;
+    min-width: 350px;
+    z-index: 5;
+    position: relative;
+    border-radius: 10px;
+}
+.component-outer .products, .component-outer .services{
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+.component-main a{
+    text-decoration: none;
+    color: black;
+    line-height: 2;
+}
+
+.component-main .main-head h4{
+    margin-bottom: 5%;
+    color: black;
+}
+.component-main::before{
+    content: '';
+    width: 0px;
+    height: 0px;
+    border: 20px solid;
+    border-color: transparent transparent #EBF6F5 transparent;
+    position: absolute;
+    top: -2rem;
+
+}

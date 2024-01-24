@@ -9,10 +9,12 @@ import { useFetch } from "../../hooks/api_hook.js";
 import FeaturedProductCard from "./components/feature_product.jsx";
 import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
 import { useNavigate } from "react-router-dom";
+import homehero from "../../assets/homepage-main.png";
+import { Link } from "react-router-dom";
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { data: featuredProducts } = useFetch('/api/allProducts');
-  const { data: categories } = useFetch('/api/allCategory');
+  const { data: featuredProducts } = useFetch("/api/allProducts");
+  const { data: categories } = useFetch("/api/allCategory");
 
   return (
     <>
@@ -26,24 +28,31 @@ const Dashboard = () => {
               <img className="punchImg" src={punchline} />
             </div>
             <div className="iconDiv">
-              <a href="/" className="socialsLink">
-                <i className="bi bi-instagram"></i>
-              </a>
-              <a href="/" className="socialsLink">
-                <i className="bi bi-facebook"></i>
-              </a>
-              <a href="/" className="socialsLink">
-                <i className="bi bi-linkedin"></i>
-              </a>
-              <a href="/" className="socialsLink">
-                <i className="bi bi-twitter"></i>
-              </a>
+              <div className="socialsLink">
+                <Link to="https://www.instagram.com/twicks_agro/">
+                  <i class="bi bi-instagram"></i>
+                </Link>
+                <Link to="https://www.facebook.com/TwicksA">
+                  <i class="bi bi-facebook"></i>
+                </Link>
+                <Link to="https://www.linkedin.com/company/twicks-agro-farm-industries-pvt-ltd/">
+                  <i class="bi bi-linkedin"></i>
+                </Link>
+                <Link to="https://twitter.com/TwicksA">
+                  <i class="bi bi-twitter"></i>
+                </Link>
+                <Link to="https://www.youtube.com/channel/UCFZ7_wK9cZUNZzMzteUSTTA">
+                  <i class="bi bi-youtube"></i>
+                </Link>
+              </div>
             </div>
             <div className="shopBTN">
-              <button onClick={(e) => navigate('/shopPage')}>Shop Now</button>
+              <button onClick={(e) => navigate("/shopPage")}>Shop Now</button>
             </div>
           </div>
-          <div className="headingimage col-7"></div>
+          <div className="headingimage col-7">
+            <img src={homehero} alt="" />
+          </div>
         </div>
         <div className="categoryDiv ">
           <div className="product-category">
@@ -85,9 +94,11 @@ const Dashboard = () => {
             <div className="category-carousel">
               <div className="left-arrow">
                 <i class="bi bi-arrow-left"></i>
-              </div >
-              <div className='feature-carousal'>
-                {featuredProducts && <FeatureCarouselCard items={featuredProducts} />}
+              </div>
+              <div className="feature-carousal">
+                {featuredProducts && (
+                  <FeatureCarouselCard items={featuredProducts} />
+                )}
               </div>
               <div className="right-arrow">
                 <i class="bi bi-arrow-right"></i>
@@ -160,7 +171,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <div className="registerSoilBTN">
-                <button onClick={(e) => navigate('/auth')}>
+                <button onClick={(e) => navigate(`/auth/${1}`)}>
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>
@@ -183,7 +194,9 @@ const Dashboard = () => {
                 harvest the success tomorrow!
               </p>
               <div className="registerSoilBTN">
-                <button onClick={(e) => navigate('/')}>Know More</button>
+                <button onClick={(e) => navigate("/franchise")}>
+                  Know More
+                </button>
               </div>
             </div>
           </div>

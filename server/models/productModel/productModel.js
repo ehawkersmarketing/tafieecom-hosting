@@ -4,19 +4,19 @@ const productSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      require: true,
+      // require: true,
     },
     description: {
       type: String,
-      require: true,
+      // require: true,
     },
     image: {
       type: String,
-      require: true,
+      // require: true,
     },
     price: {
       type: Number,
-      require: true,
+      // require: true,
     },
     gstSlab: {
       type: Number,
@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema(
     },
     quantity: {
       type: Number,
-      require: true,
+      // require: true,
     },
     units: {
       minQuantity: {
@@ -39,21 +39,20 @@ const productSchema = new mongoose.Schema(
     },
     companyName: {
       type: String,
-      require: true,
+      // require: true,
     },
     rating: {
       type: Number,
-      require: true,
+      // require: true,
     },
     reviews: {
       type: Number,
-      default: 0
+      default: 0,
     },
     category: {
       type: mongoose.Types.ObjectId,
       ref: "category",
     },
-
   },
   { timestamps: true }
 );

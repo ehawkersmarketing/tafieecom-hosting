@@ -78,7 +78,7 @@ exports.createProduct = async (req, res) => {
       rating,
       metric,
       companyName,
-      category
+      category,
     });
 
     const categoryData = await categoryModel.find({ category });

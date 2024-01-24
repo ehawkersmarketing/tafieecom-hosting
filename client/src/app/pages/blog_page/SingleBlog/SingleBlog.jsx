@@ -4,7 +4,8 @@ import resourcepage1 from "../../../assets/resourcecenter1.png";
 import blogpage_img from "../../../assets/blogpage_head.jpeg";
 import { useFetch } from "../../../hooks/api_hook";
 import dayjs from 'dayjs';
-
+import Header from "../../header/header";
+import Footer from "../../footer/footer";
 const SingleBlog = () => {
   const { blogId } = useParams();
   const { data: blog } = useFetch(`/api/blog/${blogId}`);
@@ -12,6 +13,7 @@ const SingleBlog = () => {
 
   return (
     <div>
+      <Header/>
       <div className="single_blog">
         <div className="single_blog_tile row">
           <div className="tile-circle"></div>
@@ -96,6 +98,7 @@ const SingleBlog = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

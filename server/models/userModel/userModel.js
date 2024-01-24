@@ -5,17 +5,18 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  email: {
-    type: String,
-    unique: true,
-    trim: true,
-  },
+  // email: {
+  //   type: String,
+  //   // unique: true,
+  //   trim: true,
+  // },
   phone: {
     type: String,
     required: true,
   },
   role: {
     type: mongoose.Types.ObjectId,
+    ref: "role",
     default: new mongoose.Types.ObjectId("65a1077e2d86e257edce492c"),
   },
   created_at: {

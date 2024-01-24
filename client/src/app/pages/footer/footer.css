@@ -87,6 +87,9 @@
   display: flex;
   padding: 3px;
 }
+.footer .franchise-content-para-bt a{
+  text-decoration: none;
+}
 .footer .send-message-button {
   background-image: linear-gradient(
     79deg,
@@ -114,6 +117,7 @@
 }
 .footer .input-columns .input-sec input{
   padding: 5px;
+  border-radius: 3px;
   
 }
 .footer .form{

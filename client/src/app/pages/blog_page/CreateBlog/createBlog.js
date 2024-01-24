@@ -83,7 +83,9 @@ const CreateBlog = () => {
             </div>
             <div className="form_input">
               <label htmlFor="Content">Content</label>
-              <input
+              <textarea
+                style={{ width: "100%" }}
+                rows={10}
                 type="text"
                 onChange={onChangeInputHandler}
                 value={inputHandler.content}
@@ -114,7 +116,11 @@ const CreateBlog = () => {
               />
             </div>
 
-            <button className="btn" onClick={onSubmitHandler}>
+            <button
+              className="btn"
+              onClick={onSubmitHandler}
+              style={{ backgroundColor: "#005C4B" }}
+            >
               Create Blog
             </button>
           </form>

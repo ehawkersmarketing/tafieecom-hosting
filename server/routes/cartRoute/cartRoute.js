@@ -4,14 +4,18 @@ const {
   deleteProductInCart,
   getCartByUser,
 } = require("../../controlllers/cart/cartController");
-
+const {
+  AdminRole,
+  EditorRole,
+  ViewerRole,
+} = require("../../middleware/role_check");
 const router = express.Router();
 
 //PUT || add product route
-router.put("/addToCart", putProductInCart);
+router.put("/addToCart", AdminRole, EditorRole, putProductInCart);
 
 //DELETE || delete product route
-router.delete("/dropFromCart", deleteProductInCart);
+router.delete("/dropFromCart", AdminRole, EditorRole, deleteProductInCart);
 router.get("/getCartByUser/:userId", getCartByUser);
 
 module.exports = router;
