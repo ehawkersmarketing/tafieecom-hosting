@@ -1,18 +1,15 @@
 .service-pop-main {
     width: 100%;
 }
-
 .service-pop-submain {
     width: 100%;
     border-radius:  37px;
     background: var(--light-base-green-2, #EBF6F5);
+    margin: auto;
 }
-
 .service-pop-submain  .service-pop-text {
     margin-top: 2rem;
-
 }
-
 .service-pop-main .service-pop-heading-text {
     color: var(--light-base-green-2, #EBF6F5);
     font-size: 30px;
@@ -21,7 +18,7 @@
     line-height: normal;
     text-transform: uppercase;
     display: flex;
-    padding: 3px 10px;
+    /* padding: 3px 10px; */
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -29,7 +26,6 @@
     width: fit-content;
     margin-bottom: 1rem;
 }
-
 .service-pop-main .service-pop-subtext {
     color: #000;
     text-align: justify;
@@ -40,15 +36,6 @@
     line-height: normal;
 }
 
-.service-pop-main .service-pop-submain .service-pop button {
-    padding: 10px 30px 10px 23px;
-    color: white;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;  
-    border-radius: 6px;
-    border: none;
-    background: var(--primary-gradient-light, linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%));
-    box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.30), 0px 3px 7px 0px rgba(21, 60, 56, 0.30);
-    width: fit-content;
+.service-pop-main .service-pop-image{
+    padding: 0;
 }
