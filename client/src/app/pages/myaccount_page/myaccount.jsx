@@ -92,7 +92,7 @@ const Myaccount = () => {
                       <tr>
                         <td>Mobile Number :</td>
                         <td>
-                          <input type="number" placeholder="9993720620" />
+                          <input type="tel" placeholder="9993720620" />
                         </td>
                       </tr>
                       <tr>

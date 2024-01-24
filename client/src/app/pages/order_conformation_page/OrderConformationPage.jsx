@@ -28,7 +28,7 @@ const OrderConformationPage = () => {
     <Header/>
 
     <div className='main'>
-      <Header />
+      
       <div className='main-1 row align-items-end'>
         <div className="col-9">
           <div className='element row justify-content-between'>
@@ -115,7 +115,7 @@ const OrderConformationPage = () => {
         <h2 className='foryou'>For You</h2>
       </div>
       <Carousal />
-      <Footer />
+      
     </div>
     <Footer/>
 
