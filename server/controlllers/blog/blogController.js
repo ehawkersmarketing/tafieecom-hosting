@@ -2,7 +2,7 @@ const blogModel = require("../../models/blogModel/blogModel");
 
 exports.composeBlog = async (req, res) => {
   try {
-    const { title, content, image, readingTime } = req.body;
+    const { title, content, image, readingTime, tags } = req.body;
     if (!title || !content) {
       return res.status(400).send({
         success: false,
@@ -13,7 +13,8 @@ exports.composeBlog = async (req, res) => {
       title,
       content,
       readingTime,
-      image: `${process.env.SERVER_URL}/blog/${image}`,
+      image: image,
+      tags: tags,
     });
     await newBlog.save();
     console.log("image =>", image);

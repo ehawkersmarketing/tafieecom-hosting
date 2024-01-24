@@ -111,11 +111,15 @@
   .search-bar {
     width: 35%;
     background-color: white;
-    align-items: end;
+    align-items: center;
     display: flex;
     border-radius: 1.5rem;
     position: relative;
     height: 2.5rem;
+      
+      input{
+        width: 100%;
+      }
 
       .search_container {
           border: none;
@@ -236,4 +240,9 @@ margin-top: 30px;
   padding: 15px 50px;
   margin: auto;
   display: block;
+}
+
+.blogpage .filter-hover{
+  position: relative;
+
 }

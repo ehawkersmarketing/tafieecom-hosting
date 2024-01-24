@@ -59,7 +59,7 @@ padding-top: 5rem;
 }
 .product-name{
     color: var(--darkgreen-primary, #19443F);
-    width: 342px;
+    /* width: 342px; */
     font-weight: bold;
         height: 68px;
         font-size: 26.491px;

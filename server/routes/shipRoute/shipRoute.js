@@ -12,6 +12,8 @@ const {
   cancelShipmentFunction,
   createReturnOrderFunction,
   generateRetAWBFunction,
+  generateInvoiceFunction,
+  getOrderDetsFunction,
 } = require("../../controlllers/ship/shipController");
 const express = require("express");
 
@@ -34,5 +36,9 @@ router.post("/cancelShip", cancelShipmentFunction);
 router.post("/createRet", createReturnOrderFunction);
 
 router.post("/generateRetAWB", generateRetAWBFunction);
+
+router.post("/generateInvoice", generateInvoiceFunction);
+
+router.get("/orderDets", getOrderDetsFunction);
 
 module.exports = router;

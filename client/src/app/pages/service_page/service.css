@@ -1,0 +1,25 @@
+.service-hero{
+    padding-top: 5%;
+    background-color: #D9ECE9;
+    padding-bottom: 30%;
+}
+.service-hero .service-div{
+    background-color: white;
+    border-radius: 10px;
+}
+.service-full-img{
+    width: 100%;
+}
+.service-back-image{
+    background-image: url("../../assets//ourservices-main.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.service-div{
+    width: 90%;
+    margin: auto;
+}
+.service-hero .service-front-image img{
+    width: 100% 100%;
+    height: 400px;
+}

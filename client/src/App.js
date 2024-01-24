@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Routers, Route, Routes } from "react-router-dom";
 import DashBoard from "./app/pages/home_page/dashboard.jsx";
 import { useDispatch } from "react-redux";
@@ -25,6 +25,10 @@ import About from "./app/pages/about_page/about.jsx";
 import Myaccount from "./app/pages/myaccount_page/myaccount.jsx";
 import Franchise from "./app/pages/franchise/franchise.jsx";
 import Cart from "./app/pages/cart_page/Cart.jsx";
+import Checkout from "./app/pages/checkout_page/Checkout.jsx";
+
+import Services from "./app/pages/service_page/service.jsx"
+
 
 function App() {
   const dispatch = useDispatch();
@@ -71,7 +75,9 @@ function App() {
           <Route path="/shopPage" exact element={<ShopPage />} />
           <Route path="/ReturnAndRefund" exact element={<ReturnAndRefund />} />
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
+
           <Route path="/adminPage" exact element={<AdminPage />} />
+
           <Route
             path="/OrderConformationPage"
             exact
@@ -82,6 +88,10 @@ function App() {
           <Route path="/Cart" exact element={<Cart />} />
           <Route path="/myaccount" exact element={<Myaccount />} />
           <Route path="/franchise" exact element={<Franchise />} />
+            <Route path="/checkout" exact element={<Checkout />} />
+
+          <Route path="/services" exact element={<Services/>}/>
+
         </Routes>
       </Routers>
     </div>

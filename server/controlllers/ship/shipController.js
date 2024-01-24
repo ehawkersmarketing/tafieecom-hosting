@@ -7,11 +7,6 @@ const { setTimeout } = require("timers");
 exports.calcShipment = async (req, res) => {
   const { pickup_postcode, shipping_postcode, weight, shipping_value } =
     req.body;
-  res.status(200).send({
-    success: true,
-    message: "calculate shipment controller triggered",
-  });
-
   let rs_data = await srShippingRateCalculation(
     pickup_postcode,
     shipping_postcode,
@@ -100,6 +95,7 @@ exports.createOrder = async (req, res) => {
     pickup_location,
     order_id,
     order_date,
+    payment_method,
     channel_id,
     comment,
     reseller_name,
@@ -141,65 +137,69 @@ exports.createOrder = async (req, res) => {
     console.log("below is the api key token recieved");
     console.log(getToken);
 
-    let paramers = "order_id=" + order_id;
-    paramers += "&order_date=" + order_date; //mandatory
-    paramers += "&pickup_location=" + pickup_location; //mandatory
-    // paramers += "&comment=" + comment;
-    paramers += "&billing_customer_name=" + billing_customer_name; //billing customer name
-    paramers += "&billing_last_name=" + billing_last_name; //billing customer last name
-    paramers += "&billing_address=" + billing_address; //billing address 1
-    // if (billing_address_2 != "") {
-    //   paramers += "&billing_address_2=" + billing_address_2; //billing address 2
-    // }
-    paramers += "&billing_city=" + billing_city; //billing city mand.
-    paramers += "&billing_pincode=" + billing_pincode; //billing pincode mand.
-    paramers += "&billing_state=" + billing_state; //billing state mand.
-    paramers += "&billing_country=" + billing_country; //billing country mand.
-    paramers += "&billing_email=" + billing_email; //billing email mand.
-    paramers += "&billing_phone=" + billing_phone; //billing phone mand.
-    // if (billing_alternate_phone != "") {
-    //   paramers += "&billing_alternate_phone=" + billing_alternate_phone; //billing alternate phone mand.
-    // }
-    paramers += "&shipping_is_billing=" + 1;
-    paramers += "&shipping_customer_name=" + shipping_customer_name;
-    paramers += "&shipping_last_name=" + shipping_last_name;
-    paramers += "&shipping_address=" + shipping_address; //billing shipping address mand. if shipping not billing
-    // if (shipping_address_2 != "") {
-    //   paramers += "&shipping_address_2=" + shipping_address_2; //billing shipping address 2 mand. if shipping not billing
-    // }
-    paramers += "&shipping_city=" + shipping_city; //billing shipping city mand. if shipping not billing
-    paramers += "&shipping_pincode=" + shipping_pincode; //billing shipping pincode mand. if shipping not billing
-    paramers += "&shipping_country=" + shipping_country; //billing shipping country mand. if shipping not billing
-    paramers += "&shipping_state=" + shipping_state; //billing shipping state mand. if shipping not billing
-    paramers += "&shipping_email=" + shipping_email; //(ASK)    billing shipping email  if shipping not billing
-    paramers += "&shipping_phone=" + shipping_phone; //(ASK)    billing shipping phone mand. if shipping not billing
-    paramers += "&order_items=" + order_items; //order items mand.
-    paramers += "&payment_method=" + "Prepaid";
-    paramers += "&sub_total=" + sub_total;
-    paramers += "&total_discount=" + total_discount;
-    paramers += "&length=" + length; //order items mand.
-    paramers += "&breadth=" + breadth; //order items mand.
-    paramers += "&height=" + height; //order items mand.
-    paramers += "&weight=" + weight;
-
     // console.log("following is the url we are pinging for createOrder:");
     // console.log(
     //   "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc?" + paramers
     // );
 
     if (getToken.status) {
-      let options = {
-        method: "post",
-        maxBodyLength: Infinity,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getToken.mainToken}`,
-        },
-        url:
-          "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc?" +
-          paramers,
-      };
-      await axios(options)
+      // let options = {
+      //   method: "post",
+      //   maxBodyLength: Infinity,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${getToken.mainToken}`,
+      //   },
+      //   url:
+      //     "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc?" +
+      //     paramers,
+      // };
+      await axios
+        .post(
+          "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc",
+          {
+            order_id: order_id,
+            order_date: order_date,
+            payment_method: payment_method,
+            pickup_location: pickup_location,
+            billing_customer_name: billing_customer_name,
+            billing_last_name: billing_last_name,
+            billing_address: billing_address,
+            billing_address_2: billing_address_2,
+            billing_city: billing_city,
+            billing_pincode: billing_pincode,
+            billing_state: billing_state,
+            billing_country: billing_country,
+            billing_email: billing_email,
+            billing_phone: billing_phone,
+            billing_alternate_phone: billing_alternate_phone,
+            shipping_is_billing: 1,
+            shipping_customer_name: shipping_customer_name,
+            shipping_last_name: shipping_last_name,
+            shipping_address: shipping_address,
+            shipping_address_2: shipping_address_2,
+            shipping_city: shipping_city,
+            shipping_pincode: shipping_pincode,
+            shipping_country: shipping_country,
+            shipping_state: shipping_state,
+            shipping_email: shipping_email,
+            shipping_phone: shipping_phone,
+            order_items: order_items,
+            payment_method: payment_method,
+            sub_total: sub_total,
+            total_discount: total_discount,
+            length: length,
+            breadth: breadth,
+            height: height,
+            weight: weight,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getToken.mainToken}`,
+            },
+          }
+        )
         .then(function (response) {
           console.log(response);
           console.log(response.order_id);
@@ -216,6 +216,47 @@ exports.createOrder = async (req, res) => {
     } else {
       console.log("token recieval failed from the srlogin function");
     }
+  }
+};
+
+//GET || getting details of an order using order_id
+exports.getOrderDetsFunction = async (req, res) => {
+  let { order_id } = req.body;
+
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved");
+  console.log(getToken);
+
+  if (getToken) {
+    let options = {
+      method: "get",
+      maxBodyLength: Infinity,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken.mainToken}`,
+      },
+      url: "https://apiv2.shiprocket.in/v1/external/orders/show/" + order_id,
+    };
+
+    await axios(options)
+      .then(function (response) {
+        if (response == {}) {
+          res.send({
+            success: failure,
+            message: "No order found",
+          });
+        }
+        let orderDets = response.data.data;
+        console.log(orderDets);
+        res.status(200).send({
+          success: true,
+          message: "Order details are as follows: ",
+          orderDets,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 };
 
@@ -242,7 +283,7 @@ exports.generateAWBFunction = async (req, res) => {
     };
     await axios(options)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
       })
       .catch(function (error) {
         if (
@@ -289,32 +330,106 @@ exports.generateAWBFunction = async (req, res) => {
   }
 };
 
-//POST || requesting pickup of a shipment
-exports.setPickupFunction = async (req, res) => {
-  let { shipment_id, pickup_date } = req.body;
-  let paramers = "shipment_id=" + shipment_id;
-  paramers += "&pickup_date=" + pickup_date;
+//POST || response is download url for invoice orders passed as array of ORDER_ids
+exports.generateInvoiceFunction = async (req, res) => {
+  // https://apiv2.shiprocket.in/v1/external/orders/print/invoice
+
+  let { order_ids } = req.body;
 
   let getToken = await srlogin();
   console.log("below is the api key token recieved: ");
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup?" +
-        paramers,
-    };
+    // let options = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${getToken.mainToken}`,
+    //   },
+    //   url:
+    //     "https://apiv2.shiprocket.in/v1/external/orders/print/invoice?" +
+    //     paramers,
+    // };
 
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/orders/print/invoice",
+        {
+          ids: order_ids,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
-        console.log(response);
+        let invoice_url = response.data.invoice_url;
+        res.status(200).send({
+          success: true,
+          message: "Order invoice generated check here: ",
+          invoice_url,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.status(error.response.data.status).send({
+          success: false,
+          message: error.response.data.message,
+        });
+      });
+  }
+};
+
+//POST || requesting pickup of a shipment
+exports.setPickupFunction = async (req, res) => {
+  let { shipment_id, pickup_date } = req.body;
+  // let paramers = "shipment_id=" + shipment_id + "&pickup_date=" + pickup_date;
+
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved: ");
+  console.log(getToken);
+
+  if (getToken) {
+    // let options = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${getToken.mainToken}`,
+    //   },
+    //   url:
+    //     "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup?" +
+    //     paramers,
+    // };
+
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup",
+        {
+          shipment_id: shipment_id,
+          pickup_date: pickup_date,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
+      .then(function (response) {
+        let Booked_date = response.data.Booked_date;
+        if (response.data.Status == true) {
+          res.status(200).send({
+            success: true,
+            message:
+              "Shipment pickup successfully set, following is the date: ",
+            Booked_date,
+          });
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -329,30 +444,58 @@ exports.setPickupFunction = async (req, res) => {
 //POST || generating manifest for shipment
 exports.generateManifestFunction = async (req, res) => {
   let { shipment_id } = req.body;
-  let paramers = "shipment_id=" + shipment_id;
+  // let paramers = "shipment_id=" + shipment_id;
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/manifests/generate?" +
-        paramers,
-    };
+    // let options = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${getToken.mainToken}`,
+    //   },
+    //   url:
+    //     "https://apiv2.shiprocket.in/v1/external/manifests/generate?" +
+    //     paramers,
+    // };
 
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/manifests/generate",
+        {
+          shipment_id: shipment_id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
-        console.log(response);
+        let manifest_url = response.data.manifest_url;
+        if (manifest_url === "") {
+          res.send({
+            success: false,
+            message: "Missing fields or invalid data",
+          });
+        }
+        res.status(200).send({
+          success: true,
+          message: "Manifest generated check here: ",
+          manifest_url,
+        });
       })
       .catch(function (error) {
-        console.log(error);
+        if (error.response.data.status_code === 400) {
+          res.status(400).send({
+            success: false,
+            message: "Manifest for the shipment already generated",
+          });
+        }
       });
   }
 };
@@ -360,7 +503,6 @@ exports.generateManifestFunction = async (req, res) => {
 //GET || getting shipment details by shipment id
 exports.shipmentDetsFunction = async (req, res) => {
   let { shipment_id } = req.body;
-  let paramers = "shipment_id=" + shipment_id;
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
@@ -373,12 +515,23 @@ exports.shipmentDetsFunction = async (req, res) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken.mainToken}`,
       },
-      url: "https://apiv2.shiprocket.in/v1/external/shipments?" + paramers,
+      url: "https://apiv2.shiprocket.in/v1/external/shipments/" + shipment_id,
     };
 
     await axios(options)
       .then(function (response) {
-        console.log(response);
+        if (response == {}) {
+          res.send({
+            success: failure,
+            message: "No shipment found",
+          });
+        }
+        let shipDets = response.data;
+        res.status(200).send({
+          success: true,
+          message: "Shipment details as follows: ",
+          shipDets,
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -389,9 +542,7 @@ exports.shipmentDetsFunction = async (req, res) => {
 //POST || cancelling shipment by shipment id
 exports.cancelShipmentFunction = async (req, res) => {
   let { awbs } = req.body; //array of awbs
-  if (awbs != []) {
-    let paramers = "awbs=" + awbs;
-  } else {
+  if (awbs == []) {
     res.status(404).send({
       success: false,
       message: "No AWBs were sent",
@@ -402,21 +553,23 @@ exports.cancelShipmentFunction = async (req, res) => {
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/orders/cancel/shipment/awbs?" +
-        paramers,
-    };
-
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/orders/cancel/shipment/awbs",
+        { awbs: awbs },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
         console.log(response);
+        res.status(200).send({
+          success: true,
+          message: response.data.message,
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -426,14 +579,14 @@ exports.cancelShipmentFunction = async (req, res) => {
 
 //POST || creating a return order
 exports.createReturnOrderFunction = async (req, res) => {
+  // const{ channel_id } =await axios.get("/ship/orderDets",{"order_id":order_id});
+
   const {
     // pickup_location,
     order_id,
     order_date,
+    payment_method,
     channel_id,
-    // comment,
-    // reseller_name,
-    // company_name,
     pickup_customer_name,
     pickup_last_name,
     pickup_address,
@@ -464,61 +617,120 @@ exports.createReturnOrderFunction = async (req, res) => {
     weight,
   } = req.body;
 
-  let paramers = "order_id=" + order_id;
-  paramers += "&order_date=" + order_date;
-  paramers += "&channel_id=" + channel_id;
-  paramers += "&pickup_customer_name=" + pickup_customer_name;
-  paramers += "&pickup_last_name=" + pickup_last_name;
-  paramers += "&pickup_address=" + pickup_address;
-  paramers += "&pickup_address_2=" + pickup_address_2;
-  paramers += "&pickup_city=" + pickup_city;
-  paramers += "&pickup_state=" + pickup_state;
-  paramers += "&pickup_country=" + pickup_country;
-  paramers += "&pickup_pincode=" + pickup_pincode;
-  paramers += "&pickup_email=" + pickup_email;
-  paramers += "&pickup_phone=" + pickup_phone;
-  paramers += "&shipping_customer_name=" + shipping_customer_name;
-  paramers += "&shipping_last_name=" + shipping_last_name;
-  paramers += "&shipping_address=" + shipping_address;
-  paramers += "&shipping_address_2=" + shipping_address_2;
-  paramers += "&shipping_city=" + shipping_city;
-  paramers += "&shipping_country=" + shipping_country;
-  paramers += "&shipping_pincode=" + shipping_pincode;
-  paramers += "&shipping_state=" + shipping_state;
-  paramers += "&shipping_email=" + shipping_email;
-  paramers += "&shipping_phone=" + shipping_phone;
-  paramers += "&order_items=" + order_items;
-  paramers += "&payment_method=" + "Prepaid";
-  paramers += "&total_discount=" + total_discount;
-  paramers += "&sub_total=" + sub_total;
-  paramers += "&length=" + length;
-  paramers += "&breadth=" + breadth;
-  paramers += "&height=" + height;
-  paramers += "&weight=" + weight;
+  // let paramers = "order_id=" + order_id;
+  // paramers += "&order_date=" + order_date;
+  // paramers += "&channel_id=" + channel_id;
+  // paramers += "&pickup_customer_name=" + pickup_customer_name;
+  // paramers += "&pickup_last_name=" + pickup_last_name;
+  // paramers += "&pickup_address=" + pickup_address;
+  // paramers += "&pickup_address_2=" + pickup_address_2;
+  // paramers += "&pickup_city=" + pickup_city;
+  // paramers += "&pickup_state=" + pickup_state;
+  // paramers += "&pickup_country=" + pickup_country;
+  // paramers += "&pickup_pincode=" + pickup_pincode;
+  // paramers += "&pickup_email=" + pickup_email;
+  // paramers += "&pickup_phone=" + pickup_phone;
+  // paramers += "&shipping_customer_name=" + shipping_customer_name;
+  // paramers += "&shipping_last_name=" + shipping_last_name;
+  // paramers += "&shipping_address=" + shipping_address;
+  // paramers += "&shipping_address_2=" + shipping_address_2;
+  // paramers += "&shipping_city=" + shipping_city;
+  // paramers += "&shipping_country=" + shipping_country;
+  // paramers += "&shipping_pincode=" + shipping_pincode;
+  // paramers += "&shipping_state=" + shipping_state;
+  // paramers += "&shipping_email=" + shipping_email;
+  // paramers += "&shipping_phone=" + shipping_phone;
+  // paramers += "&order_items=" + order_items;
+  // paramers += "&payment_method=" + "Prepaid";
+  // paramers += "&total_discount=" + total_discount;
+  // paramers += "&sub_total=" + sub_total;
+  // paramers += "&length=" + length;
+  // paramers += "&breadth=" + breadth;
+  // paramers += "&height=" + height;
+  // paramers += "&weight=" + weight;
 
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/orders/create/return?" +
-        paramers,
-    };
+    // let options = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${getToken.mainToken}`,
+    //   },
+    //   url:
+    //     "https://apiv2.shiprocket.in/v1/external/orders/create/return?" +
+    //     paramers,
+    // };
 
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/orders/create/return",
+        {
+          order_id: order_id,
+          order_date: order_date,
+          channel_id: channel_id,
+          pickup_customer_name: pickup_customer_name,
+          pickup_last_name: pickup_last_name,
+          pickup_address: pickup_address,
+          pickup_address_2: pickup_address_2,
+          pickup_city: pickup_city,
+          pickup_state: pickup_state,
+          pickup_country: pickup_country,
+          pickup_pincode: pickup_pincode,
+          pickup_email: pickup_email,
+          pickup_phone: pickup_phone,
+          shipping_customer_name: shipping_customer_name,
+          shipping_last_name: shipping_last_name,
+          shipping_address: shipping_address,
+          shipping_address_2: shipping_address_2,
+          shipping_city: shipping_city,
+          shipping_country: shipping_country,
+          shipping_pincode: shipping_pincode,
+          shipping_state: shipping_state,
+          shipping_email: shipping_email,
+          shipping_phone: shipping_phone,
+          order_items: order_items,
+          payment_method: payment_method,
+          total_discount: total_discount,
+          sub_total: sub_total,
+          length: length,
+          breadth: breadth,
+          height: height,
+          weight: weight,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
         console.log(response);
+        if (response.status_code == 422) {
+          res.status(422).send({
+            success: false,
+            message: response.data.message,
+          });
+        }
+        res.status(200).send({
+          success: true,
+          message: response.data.status,
+        });
       })
       .catch(function (error) {
-        console.log(error);
+        if (error.data.status_code == 400) {
+          res.status(400).send({
+            success: false,
+            message: error.response.data.message,
+          });
+        } else {
+          console.log(error);
+        }
       });
   }
 };
