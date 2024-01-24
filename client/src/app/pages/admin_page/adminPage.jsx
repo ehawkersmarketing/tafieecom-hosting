@@ -1,40 +1,16 @@
-import react, { useState, useEffect } from "react";
+import react, { useEffect, useState } from "react";
 import "./adminPage.css";
 import logoImage from "../../assets/Tafi_logo_white.png";
 import { useNavigate } from "react-router-dom";
 import { Chart } from "react-google-charts";
-import axios from "axios";
 
 const AdminPage = () => {
-  // const [blogs, setBlogs] = useState([]);
-import { useFetch } from "../../hooks/api_hook";
-import dayjs from "dayjs";
-import axios from "axios";
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user)
+  const navigate = useNavigate();
 
-const AdminPage = () => {
+  const [value, setValue] = useState(0);
 
-  const { data: blogs } = useFetch('/api/blogs');
-  const { data: products } = useFetch('/api/allProducts');
-  const { data: orders } = useFetch('/api/getAllOrders');
-
-  const onDelete = async (event, id) => {
-    event.preventDefault();
-    const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
-    if (data.success) {
-      window.location.reload();
-    }
-  };
-  const data = [
-    ["x", "dogs", "cats"],
-    [0, 0, 0],
-    [1, 10, 5],
-    [2, 23, 15],
-    [3, 17, 9],
-    [4, 18, 10],
-    [5, 9, 5],
-    [6, 11, 3],
-    [7, 27, 19],
-  ];
   const options = {
     hAxis: {
       title: "Time",
@@ -63,15 +39,37 @@ const AdminPage = () => {
     ["Eric", 1500],
   ];
 
+  
+  const data = [
+    ["x", "dogs", "cats"],
+    [0, 0, 0],
+    [1, 10, 5],
+    [2, 23, 15],
+    [3, 17, 9],
+    [4, 18, 10],
+    [5, 9, 5],
+    [6, 11, 3],
+    [7, 27, 19],
+  ];
+
+
   const diffdata = {
     old: dataOld,
     new: dataNew,
   };
 
-  const navigate = useNavigate();
-
-  const [value, setValue] = useState(0);
-
+  useEffect(()=>{
+      if(user){
+           if(user.role.role==="User"){
+                    navigate('/')
+           }
+      }
+  },[user])
+  
+  const onLogOut = () =>{
+    localStorage.clear()
+    navigate(`/auth/${1}`)
+  }
   const dashboardHandler = () => setValue(1);
   const storeHandler = () => setValue(0);
   const productHandler = () => setValue(3);
@@ -82,51 +80,6 @@ const AdminPage = () => {
     navigate("/createProduct");
   };
 
-  const CreateNewBlogHandler = () => {
-    navigate("/blog/composeBlog");
-  };
-
-  const editBlogHandler = (BlogId) => {
-    navigate("/updateBlog/"+BlogId);
-  };
-
-
-
-  const [blog, setBlog] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:8080/api/blogs")
-      .then((res) => res.json())
-      .then((data) => {
-        setBlog(data.data);
-      })
-      .catch((error) => {
-        console.log("Error while fetching Blog");
-        console.log(error);
-      });
-  }, []);
-
-  const deleteHandler = (id) => {
-    if (
-      window.confirm("Do you want to delete the resource permently?") == true
-    ) {
-      axios
-        .delete(`http://localhost:8080/api/deleteBlog/${id}`)
-        .then((res) => {
-          console.log("Blog deleted successfully");
-          window.location.reload();
-          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      console.log("Dont delete the Resource Center");
-    }
-  };
-
-
-  // sdfghjklkuytrerthghjhgfghjhgfghjk
-
   const inlineStyle = {
     "--size": 0.4,
     fontSize: "var(--size)rem",
@@ -134,677 +87,876 @@ const AdminPage = () => {
 
   return (
     <div className="admin-wrapper">
-      <div className="row row-wrapper">
-        <div className="col-3 admin-sub-wrapper">
-          <div className="div-admin">
-            <div>
-              <div className="top-div"></div>
-              <div className="logo">
-                <div className="image">
-                  <img src={logoImage} className="img-logo" alt="tafi-logo" />
-                </div>
-              </div>
-            </div>
-            <div className="sidebar">
+      {(
+        <div className="row row-wrapper">
+          <div className="col-3 admin-sub-wrapper">
+            <div className="div-admin">
               <div>
-                <div className="sidebar-title">
-                  <div className="icon">
-                    <i class="bi bi-bar-chart-fill"></i>
-                  </div>
-                  <div className="title" onClick={dashboardHandler}>
-                    Dashboard
+                <div className="top-div"></div>
+                <div className="logo">
+                  <div className="image">
+                    <img src={logoImage} className="img-logo" alt="tafi-logo" />
                   </div>
                 </div>
               </div>
+              <div className="sidebar">
+                {user.role.role === "Admin" && (
+                  <div>
+                    <div className="sidebar-title">
+                      <div className="icon">
+                        <i class="bi bi-bar-chart-fill"></i>
+                      </div>
+                      <div className="title" onClick={dashboardHandler}>
+                        Dashboard
+                      </div>
+                    </div>
+                  </div>
+                )}
 
-              <div>
-                <div className="sidebar-title">
-                  <div className="icon">
-                    <i class="bi bi-shop"></i>
+                {user.role.role === "Admin" && (
+                  <div>
+                    <div className="sidebar-title">
+                      <div className="icon">
+                        <i class="bi bi-shop"></i>
+                      </div>
+                      <div className="title" onClick={storeHandler}>
+                        Store
+                      </div>
+                    </div>
                   </div>
-                  <div className="title" onClick={storeHandler}>
-                    Store
-                  </div>
-                </div>
-              </div>
+                )}
 
-              <div>
-                <div className="sidebar-title">
-                  <div className="icon">
-                    <i class="bi bi-layout-text-window-reverse"></i>
-                  </div>
-                  <div className="title" onClick={blogHandler}>
-                    Blogs
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div className="sidebar-title">
-                  <div className="icon">
-                    <i class="bi bi-box"></i>
-                  </div>
-                  <div className="title" onClick={productHandler}>
-                    Products
-                  </div>
-                </div>
-              </div>
-
-              <div>
                 <div>
-                  <div className="h3-title">ACCOUNT PAGES</div>
-                </div>
-              </div>
-
-              <div>
-                <div className="sidebar-title">
-                  <div className="icon">
-                    <i class="bi bi-person-circle"></i>
-                  </div>
-                  <div className="title" onClick={userHandler}>
-                    User
+                  <div className="sidebar-title">
+                    <div className="icon">
+                      <i class="bi bi-layout-text-window-reverse"></i>
+                    </div>
+                    <div className="title" onClick={blogHandler}>
+                      Blogs
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div>
-                <div className="sidebar-title">
-                  <div className="icon">
-                    <i class="bi bi-person"></i>
+                <div>
+                  <div className="sidebar-title">
+                    <div className="icon">
+                      <i class="bi bi-box"></i>
+                    </div>
+                    <div className="title" onClick={productHandler}>
+                      Products
+                    </div>
                   </div>
-                  <div className="title">Logout</div>
+                </div>
+
+                <div>
+                  <div>
+                    <div className="h3-title">ACCOUNT PAGES</div>
+                  </div>
+                </div>
+
+                {user.role.role === "Admin" && (
+                  <div>
+                    <div className="sidebar-title">
+                      <div className="icon">
+                        <i class="bi bi-person-circle"></i>
+                      </div>
+                      <div className="title" onClick={userHandler}>
+                        User
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <div className="sidebar-title" onClick={onLogOut}>
+                    <div className="icon">
+                      <i class="bi bi-person"></i>
+                    </div>
+                    <div className="title">Logout</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="col-9 admin-suber-wrapper">
-          <nav className="nav-admin-page">
-            <div className="admin-navbar">
-              <div className="nav-header">
-                <div className="tab">
-                  <span className="tab1">Pages</span>
-                  <span>/Products</span>
-                </div>
-              </div>
-            </nav>
-          )}
-
-          {value == 1 && (
-            <nav className="nav-admin-page">
-              <div className="admin-navbar">
-                <div className="nav-header">
-                  <div className="tab">
-                    <span className="tab1">Pages</span>
-                    <span>/Dashboard</span>
-                  </div>
-                  <div className="nav-title">Dashboard</div>
-                  <div className="nav-rightContent">
-                    <button
-                      className="admin-btn-nav"
-                      // onClick={CreateNewHandler}
-                    >
-                      <i class="bi bi-plus-lg"></i> Create New
-                    </button>
-                    <div className="admin-right">
-                      <input
-                        type="text"
-                        className="nav-input"
-                        placeholder="&#61442; Search"
-                      />
-                      <div className="logout-button">
-                        <span style={{ marginLeft: "15px" }}>
-                          <i class="bi bi-person"></i>
-                        </span>
-                        <span>Logout</span>
-                        <span style={{ marginLeft: "5px" }}>
-                          <i class="bi bi-gear-fill"></i>
-                        </span>
-                      </div>
+          <div className="col-9 admin-suber-wrapper">
+            {value == 0 && (
+              <nav className="nav-admin-page">
+                <div className="admin-navbar">
+                  <div className="nav-header">
+                    <div className="tab">
+                      <span className="tab1">Pages</span>
+                      <span>/Store</span>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          )}
-
-          {value == 2 && (
-            <nav className="nav-admin-page">
-              <div className="admin-navbar">
-                <div className="nav-header">
-                  <div className="tab">
-                    <span className="tab1">Pages</span>
-                    <span>/User</span>
-                  </div>
-                  <div className="nav-title">User</div>
-                  <div className="nav-rightContent">
-                    <button
-                      className="admin-btn-nav"
-                      // onClick={CreateNewHandler}
-                    >
-                      <i class="bi bi-plus-lg"></i> Create New
-                    </button>
-                    <div className="admin-right">
-                      <input
-                        type="text"
-                        className="nav-input"
-                        placeholder="&#61442; Search"
-                      />
-                      <div className="logout-button">
-                        <span style={{ marginLeft: "15px" }}>
-                          <i class="bi bi-person"></i>
-                        </span>
-                        <span>Logout</span>
-                        <span style={{ marginLeft: "5px" }}>
-                          <i class="bi bi-gear-fill"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          )}
-
-          {value == 3 && (
-            <nav className="nav-admin-page">
-              <div className="admin-navbar">
-                <div className="nav-header">
-                  <div className="tab">
-                    <span className="tab1">Pages</span>
-                    <span>/Products</span>
-                  </div>
-                  <div className="nav-title">Products</div>
-                  <div className="nav-rightContent">
-                    <button
-                      className="admin-btn-nav"
-                      onClick={CreateNewHandler}
-                    >
-                      <i class="bi bi-plus-lg"></i> Create New
-                    </button>
-                    <div className="admin-right">
-                      <input
-                        type="text"
-                        className="nav-input"
-                        placeholder="&#61442; Search"
-                      />
-                      <div className="logout-button">
-                        <span style={{ marginLeft: "15px" }}>
-                          <i class="bi bi-person"></i>
-                        </span>
-                        <span>Logout</span>
-                        <span style={{ marginLeft: "5px" }}>
-                          <i class="bi bi-gear-fill"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          )}
-
-          {value == 4 && (
-            <nav className="nav-admin-page">
-              <div className="admin-navbar">
-                <div className="nav-header">
-                  <div className="tab">
-                    <span className="tab1">Pages</span>
-                    <span>/Blogs</span>
-                  </div>
-                  <div className="nav-title">Blogs</div>
-                  <div className="nav-rightContent">
-                    <button
-                      className="admin-btn-nav"
-                      onClick={CreateNewBlogHandler}
-                    >
-                      <i class="bi bi-plus-lg"></i> Create New
-                    </button>
-                    <div className="admin-right">
-                      <input
-                        type="text"
-                        className="nav-input"
-                        placeholder="&#61442; Search"
-                      />
-                      <div className="logout-button">
-                        <span style={{ marginLeft: "15px" }}>
-                          <i class="bi bi-person"></i>
-                        </span>
-                        <span>Logout</span>
-                        <span style={{ marginLeft: "5px" }}>
-                          <i class="bi bi-gear-fill"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </nav>
-          )}
-       
-
-          {value == 0 && (
-            <div className="card admin-table-card">
-              <div className="subHeading">
-                <div className="admin-card-heading">
-                  <h1 className="h1">All Orders</h1>
-                  <div className="admin-card-header">
-                    <h3 className="h3">Active Orders</h3>
-                    <div className="admin-input-dropdown">
-                      <input
-                        type="text"
-                        className="nav-input"
-                        style={{ width: "15rem" }}
-                        placeholder="&#61442; Search"
-                      />
-                      <div className="short">
-                        <select
-                          type="text"
-                          name="input"
-                          id="input"
-                          placeholder="Short by:Newest "
-                        >
-                          <option>Short by : Newest</option>
-                          <option>yes</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="admin-table-div">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col" className="th">
-                          Sr.No.
-                        </th>
-                        <th scope="col" className="th">
-                          Name
-                        </th>
-                        <th scope="col" className="th">
-                          Price
-                        </th>
-                        <th scope="col" className="th">
-                          Status
-                        </th>
-                        <th scope="col" className="th">
-                          No of Orders
-                        </th>
-                        <th scope="col" className="th">
-                          Last Order On
-                        </th>
-                        <th scope="col" className="th">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        orders && orders.map((order, index) => {
-                          return (
-                            <tr>
-                              <th scope="row table-center">{index + 1}</th>
-                              <td className="td table-center">{order._id}</td>
-                              <td className="td table-center">{order.amount}</td>
-                              <td className="td table-center">{order.orderStatus}</td>
-                              <td className="td table-center">10</td>
-                              <td className="td table-center">{order.createdAt}</td>
-                              <td className="td table-center">
-                                <div className="action-dropdown">
-                                  <select
-                                    type="text"
-                                    name="input"
-                                    id="input"
-                                    placeholder="Short by:Newest "
-                                  >
-                                    <option>op1</option>
-                                    <option>op2</option>
-                                  </select>
-                                </div>
-                              </td>
-                            </tr>
-                          )
-                        })
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          )}
-          {value == 1 && (
-            <div className=" card admin-table-card dashboardCard">
-              <div className="admin-dashboard-card subHeading row">
-                <div className="admin-dashboard-graph-cart card col-6">
-                  <Chart
-                    chartType="ColumnChart"
-                    width="100%"
-                    height="180px"
-                    diffdata={diffdata}
-                  />
-                  <div className="order-bar">
-                    <div className="order-dashboard-bar-heading">
-                      <h4
-                        style={{
-                          color: "#2D3748",
-                          fontSize: "13px",
-                          marginBottom: "0px",
-                          marginTop: "15px",
-                          fontWeight: "700",
-                        }}
+                    <div className="nav-title">Store</div>
+                    <div className="nav-rightContent">
+                      <button
+                        className="admin-btn-nav"
+                        // onClick={CreateNewHandler}
                       >
-                        TOTAL ORDERS
-                      </h4>
-                      <div className="order-bar-ccontent">
-                        <span
+                        <i class="bi bi-plus-lg"></i> Create New
+                      </button>
+                      <div className="admin-right">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="logout-button">
+                          <span style={{ marginLeft: "15px" }}>
+                            <i class="bi bi-person"></i>
+                          </span>
+                          <span>Logout</span>
+                          <span style={{ marginLeft: "5px" }}>
+                            <i class="bi bi-gear-fill"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            )}
+
+            {value == 1 && (
+              <nav className="nav-admin-page">
+                <div className="admin-navbar">
+                  <div className="nav-header">
+                    <div className="tab">
+                      <span className="tab1">Pages</span>
+                      <span>/Dashboard</span>
+                    </div>
+                    <div className="nav-title">Dashboard</div>
+                    <div className="nav-rightContent">
+                      <button
+                        className="admin-btn-nav"
+                        // onClick={CreateNewHandler}
+                      >
+                        <i class="bi bi-plus-lg"></i> Create New
+                      </button>
+                      <div className="admin-right">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="logout-button">
+                          <span style={{ marginLeft: "15px" }}>
+                            <i class="bi bi-person"></i>
+                          </span>
+                          <span>Logout</span>
+                          <span style={{ marginLeft: "5px" }}>
+                            <i class="bi bi-gear-fill"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            )}
+
+            {value == 2 && (
+              <nav className="nav-admin-page">
+                <div className="admin-navbar">
+                  <div className="nav-header">
+                    <div className="tab">
+                      <span className="tab1">Pages</span>
+                      <span>/User</span>
+                    </div>
+                    <div className="nav-title">User</div>
+                    <div className="nav-rightContent">
+                      <button
+                        className="admin-btn-nav"
+                        // onClick={CreateNewHandler}
+                      >
+                        <i class="bi bi-plus-lg"></i> Create New
+                      </button>
+                      <div className="admin-right">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="logout-button">
+                          <span style={{ marginLeft: "15px" }}>
+                            <i class="bi bi-person"></i>
+                          </span>
+                          <span>Logout</span>
+                          <span style={{ marginLeft: "5px" }}>
+                            <i class="bi bi-gear-fill"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            )}
+
+            {value == 3 && (
+              <nav className="nav-admin-page">
+                <div className="admin-navbar">
+                  <div className="nav-header">
+                    <div className="tab">
+                      <span className="tab1">Pages</span>
+                      <span>/Products</span>
+                    </div>
+                    <div className="nav-title">Products</div>
+                    <div className="nav-rightContent">
+                      <button
+                        className="admin-btn-nav"
+                        onClick={CreateNewHandler}
+                      >
+                        <i class="bi bi-plus-lg"></i> Create New
+                      </button>
+                      <div className="admin-right">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="logout-button">
+                          <span style={{ marginLeft: "15px" }}>
+                            <i class="bi bi-person"></i>
+                          </span>
+                          <span>Logout</span>
+                          <span style={{ marginLeft: "5px" }}>
+                            <i class="bi bi-gear-fill"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            )}
+
+            {value == 4 && (
+              <nav className="nav-admin-page">
+                <div className="admin-navbar">
+                  <div className="nav-header">
+                    <div className="tab">
+                      <span className="tab1">Pages</span>
+                      <span>/Blogs</span>
+                    </div>
+                    <div className="nav-title">Blogs</div>
+                    <div className="nav-rightContent">
+                      <button
+                        className="admin-btn-nav"
+                        // onClick={CreateNewHandler}
+                      >
+                        <i class="bi bi-plus-lg"></i> Create New
+                      </button>
+                      <div className="admin-right">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="logout-button" onClick={onLogOut}>
+                          <span style={{ marginLeft: "15px" }}>
+                            <i class="bi bi-person"></i>
+                          </span>
+                          <span>Logout</span>
+                          <span style={{ marginLeft: "5px" }}>
+                            <i class="bi bi-gear-fill"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            )}
+
+            {value == 0 && (
+              <div className="card admin-table-card">
+                <div className="subHeading">
+                  <div className="admin-card-heading">
+                    <h1 className="h1">All Orders</h1>
+                    <div className="admin-card-header">
+                      <h3 className="h3">Active Orders</h3>
+                      <div className="admin-input-dropdown">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          style={{ width: "15rem" }}
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="short">
+                          <select
+                            type="text"
+                            name="input"
+                            id="input"
+                            placeholder="Short by:Newest "
+                          >
+                            <option>Short by : Newest</option>
+                            <option>yes</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="admin-table-div">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="th">
+                            Sr.No.
+                          </th>
+                          <th scope="col" className="th">
+                            Featured Image
+                          </th>
+                          <th scope="col" className="th">
+                            Name
+                          </th>
+                          <th scope="col" className="th">
+                            Price
+                          </th>
+                          <th scope="col" className="th">
+                            Status
+                          </th>
+                          <th scope="col" className="th">
+                            No of Orders
+                          </th>
+                          <th scope="col" className="th">
+                            Last Order On
+                          </th>
+                          <th scope="col" className="th">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row table-center">1.</th>
+                          <td className="td">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Order</td>
+                          <td className="td table-center">199</td>
+                          <td className="td table-center">Rejected</td>
+                          <td className="td table-center">10</td>
+                          <td className="td table-center">17/01/2024</td>
+                          <td className="td table-center">
+                            <div className="action-dropdown">
+                              <select
+                                type="text"
+                                name="input"
+                                id="input"
+                                placeholder="Short by:Newest "
+                              >
+                                <option>op1</option>
+                                <option>op2</option>
+                              </select>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row table-center">2.</th>
+                          <td className="td table-center">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Order</td>
+                          <td className="td table-center">199</td>
+                          <td className="td table-center">Approved</td>
+                          <td className="td table-center">10</td>
+                          <td className="td table-center">17/01/2024</td>
+                          <td className="td table-center">
+                            <div className="action-dropdown">
+                              <select
+                                type="text"
+                                name="input"
+                                id="input"
+                                placeholder="Short by:Newest "
+                              >
+                                <option>op1</option>
+                                <option>op2</option>
+                              </select>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row table-center">3.</th>
+                          <td className="td table-center">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Order</td>
+                          <td className="td table-center">199</td>
+                          <td className="td table-center">Approved</td>
+                          <td className="td table-center">10</td>
+                          <td className="td table-center">17/01/2024</td>
+                          <td className="td table-center">
+                            <div className="action-dropdown">
+                              <select
+                                type="text"
+                                name="input"
+                                id="input"
+                                placeholder="Short by:Newest "
+                              >
+                                <option>op1</option>
+                                <option>op2</option>
+                              </select>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+            {value == 1 && (
+              <div className=" card admin-table-card dashboardCard">
+                <div className="admin-dashboard-card subHeading row">
+                  <div className="admin-dashboard-graph-cart card col-6">
+                    <Chart
+                      chartType="ColumnChart"
+                      width="100%"
+                      height="180px"
+                      diffdata={diffdata}
+                    />
+                    <div className="order-bar">
+                      <div className="order-dashboard-bar-heading">
+                        <h4
                           style={{
-                            color: "#48BB78",
-                            fontSize: "14px",
+                            color: "#2D3748",
+                            fontSize: "13px",
+                            marginBottom: "0px",
+                            marginTop: "15px",
                             fontWeight: "700",
                           }}
                         >
-                          (+23)
+                          TOTAL ORDERS
+                        </h4>
+                        <div className="order-bar-ccontent">
+                          <span
+                            style={{
+                              color: "#48BB78",
+                              fontSize: "14px",
+                              fontWeight: "700",
+                            }}
+                          >
+                            (+23)
+                          </span>
+                          <span>than last week</span>
+                        </div>
+                      </div>
+                      <div className="dash-desc-content">
+                        <div className="no-of-order">
+                          <div className="order-dash-title">
+                            <span className="order-bar-icon">
+                              <i class="bi bi-cart"></i>
+                            </span>
+                            <span className="dash-order-no">No. of Orders</span>
+                          </div>
+                          <div className="dash-number">150</div>
+                          <span className="progress-bar"></span>
+                        </div>
+                        <div className="no-of-order">
+                          <div className="order-dash-title">
+                            <span className="order-bar-icon">
+                              <i class="bi bi-rocket-takeoff-fill"></i>
+                            </span>
+                            <span className="dash-order-no">Processed</span>
+                          </div>
+                          <div className="dash-number">142</div>
+                          <span className="progress-bar"></span>
+                        </div>
+                        <div className="no-of-order">
+                          <div className="order-dash-title">
+                            <span className="order-bar-icon">
+                              <i class="bi bi-check"></i>
+                            </span>
+                            <span className="dash-order-no">Completed</span>
+                          </div>
+                          <div className="dash-number">132</div>
+                          <span className="progress-bar"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="product-requirement col-6">
+                    <div className="product-dashboard-heading">
+                      <h4
+                        style={{
+                          color: "#2D3748",
+                          fontSize: "20px",
+                          marginBottom: "0px",
+                        }}
+                      >
+                        Product requirement over the months
+                      </h4>
+                      <div className="product-bar-ccontent">
+                        <span style={{ color: "#48BB78", fontSize: "18px" }}>
+                          (+5) more
                         </span>
-                        <span>than last week</span>
+                        <span> in 2024</span>
                       </div>
                     </div>
-                    <div className="dash-desc-content">
-                      <div className="no-of-order">
-                        <div className="order-dash-title">
-                          <span className="order-bar-icon">
-                            <i class="bi bi-cart"></i>
-                          </span>
-                          <span className="dash-order-no">No. of Orders</span>
-                        </div>
-                        <div className="dash-number">150</div>
-                        <span className="progress-bar"></span>
-                      </div>
-                      <div className="no-of-order">
-                        <div className="order-dash-title">
-                          <span className="order-bar-icon">
-                            <i class="bi bi-rocket-takeoff-fill"></i>
-                          </span>
-                          <span className="dash-order-no">Processed</span>
-                        </div>
-                        <div className="dash-number">142</div>
-                        <span className="progress-bar"></span>
-                      </div>
-                      <div className="no-of-order">
-                        <div className="order-dash-title">
-                          <span className="order-bar-icon">
-                            <i class="bi bi-check"></i>
-                          </span>
-                          <span className="dash-order-no">Completed</span>
-                        </div>
-                        <div className="dash-number">132</div>
-                        <span className="progress-bar"></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="product-requirement col-6">
-                  <div className="product-dashboard-heading">
-                    <h4
-                      style={{
-                        color: "#2D3748",
-                        fontSize: "20px",
-                        marginBottom: "0px",
-                      }}
-                    >
-                      Product requirement over the months
-                    </h4>
-                    <div className="product-bar-ccontent">
-                      <span style={{ color: "#48BB78", fontSize: "18px" }}>
-                        (+5) more
-                      </span>
-                      <span> in 2024</span>
-                    </div>
-                  </div>
-                  <div style={{ marginTop: "0px" }}>
-                    <Chart
-                      chartType="LineChart"
-                      width="100%"
-                      height="200px"
-                      data={data}
-                      options={options}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="orders-dash-card-format">
-                <div className="order-analysis-card order-color-revenue">
-                  <div className="analysis">
-                    <h2 className="order-analysis-title">ORDERS Analysis</h2>
-
-                    <div className="dash-order-analysis">
-                      <div className="admin-dash-order">
-                        <span class>No. of Orders</span>
-                        <span>150</span>
-                      </div>
-                    </div>
-                    <div className="dash-order-analysis">
-                      <div className="admin-dash-order">
-                        <span>Orders Processed</span>
-                        <span>142</span>
-                      </div>
-                    </div>
-                    <div className="dash-order-analysis">
-                      <div className="admin-dash-order">
-                        <span>Orders Completed</span>
-                        <span>132</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="order-analysis-card order-color-analysis">
-                  <div className="analysis">
-                    <h2 className="order-analysis-title">Revenue Generated</h2>
-
-                    <div className="dash-order-analysis">
-                      <div className="admin-dash-order">
-                        <span class>This Month</span>
-                        <span>15,000</span>
-                      </div>
-                    </div>
-                    <div className="dash-order-analysis">
-                      <div className="admin-dash-order">
-                        <span>Previous Month</span>
-                        <span>11,000</span>
-                      </div>
-                    </div>
-                    <div className="dash-order-analysis">
-                      <div className="admin-dash-order">
-                        <span>Orders Completed</span>
-                        <span>132</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-          {value == 3 && (
-            <div className="card admin-product-card">
-              <div className="subHeading">
-                <div className="admin-card-heading">
-                  <h1 className="h1">All Products</h1>
-                  <div className="admin-card-header">
-                    <h3 className="h3">Products</h3>
-                    <div className="admin-input-dropdown">
-                      <input
-                        type="text"
-                        className="nav-input"
-                        style={{ width: "15rem" }}
-                        placeholder="&#61442; Search"
+                    <div style={{ marginTop: "0px" }}>
+                      <Chart
+                        chartType="LineChart"
+                        width="100%"
+                        height="200px"
+                        data={data}
+                        options={options}
                       />
-                      <div className="short">
-                        <select
-                          type="text"
-                          name="input"
-                          id="input"
-                          placeholder="Short by:Newest "
-                        >
-                          <option>Short by : Newest</option>
-                          <option>yes</option>
-                        </select>
-                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="admin-table-div">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col" className="th">
-                          Sr.No.
-                        </th>
-                        <th scope="col" className="th">
-                          Featured Image
-                        </th>
-                        <th scope="col" className="th">
-                          Product Name
-                        </th>
-                        <th scope="col" className="th">
-                          Price
-                        </th>
-                        <th scope="col" className="th">
-                          Category
-                        </th>
-                        <th scope="col" className="th">
-                          Tax slab
-                        </th>
-                        <th scope="col" className="th">
-                          Order count
-                        </th>
-                        <th scope="col" className="th">
-                          Last Order On
-                        </th>
-                        <th scope="col" className="th">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        products.map((product, index) => {
-                          return (
-                            <tr>
-                              <th scope="row table-center">{index + 1}</th>
-                              <td className="td">
-                                <img src={product.image} />
-                              </td>
-                              <td className="td table-center">{product.title}</td>
-                              <td className="td table-center">{product.price}</td>
-                              <td className="td table-center">{product?.category?.category}</td>
-                              <td className="td table-center">{product.gstSlab}%</td>
-                              <td className="td table-center">{product.quantity}</td>
-                              <td className="td table-center">{product && `${dayjs(product.createdAt).format('MMMM D, YYYY')}`}</td>
-                              <td className="td table-center">
-                                <span className="td-edit-icon ">
-                                  <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateProduct/${product._id}`)}></i>
-                                </span>
-                              </td>
-                            </tr>
-                          );
-                        })
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          )}
-          {value == 4 && (
-            <div className="card admin-blog-card">
-              <div className="subHeading">
-                <div className="admin-card-heading">
-                  <h1 className="h1">All Blogs</h1>
-                  <div className="admin-card-header">
-                    <h3 className="h3">Blogs</h3>
-                    <div className="admin-input-dropdown">
-                      <input
-                        type="text"
-                        className="nav-input"
-                        style={{ width: "15rem" }}
-                        placeholder="&#61442; Search"
-                      />
-                      <div className="short">
-                        <select
-                          type="text"
-                          name="input"
-                          id="input"
-                          placeholder="Short by:Newest "
-                        >
-                          <option>Short by : Newest</option>
-                          <option>yes</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="admin-table-div">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col" className="th">
-                          Sr.No.
-                        </th>
-                        <th scope="col" className="th">
-                          Featured Image
-                        </th>
-                        <th scope="col" className="th">
-                          Blog Title
-                        </th>
-                        <th scope="col" className="th">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                <div className="orders-dash-card-format">
+                  <div className="order-analysis-card order-color-revenue">
+                    <div className="analysis">
+                      <h2 className="order-analysis-title">ORDERS Analysis</h2>
 
-                      
-                     {blog?.map((resource) =>(
-      
-                      <tr>
-                        <th scope="row table-center">1.</th>
-                        <td className="td">
-                          <img src="/image.com" />
-                        </td>
-                        <td className="td table-center">{resource.title}</td>
-                        <td className="td table-center">{resource.title}</td> 
-                        {/* change this with tag once DB is updated */}
-                        <td className="td table-center">
-                          <span className="td-edit-icon" onClick={()=>{
-                            navigate("/updateBlog/"+resource._id);
-                          }}>
-                            <i class="bi bi-pencil-square"></i>
-                          </span>
-                          <span className="td-delete-icon" onClick={deleteHandler}>
-                            <i class="bi bi-trash3-fill"></i>
-                          </span>
-                        </td>
-                      </tr>))}
-        
-                    </tbody>
-                  </table>
+                      <div className="dash-order-analysis">
+                        <div className="admin-dash-order">
+                          <span class>No. of Orders</span>
+                          <span>150</span>
+                        </div>
+                      </div>
+                      <div className="dash-order-analysis">
+                        <div className="admin-dash-order">
+                          <span>Orders Processed</span>
+                          <span>142</span>
+                        </div>
+                      </div>
+                      <div className="dash-order-analysis">
+                        <div className="admin-dash-order">
+                          <span>Orders Completed</span>
+                          <span>132</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="order-analysis-card order-color-analysis">
+                    <div className="analysis">
+                      <h2 className="order-analysis-title">
+                        Revenue Generated
+                      </h2>
+
+                      <div className="dash-order-analysis">
+                        <div className="admin-dash-order">
+                          <span class>This Month</span>
+                          <span>15,000</span>
+                        </div>
+                      </div>
+                      <div className="dash-order-analysis">
+                        <div className="admin-dash-order">
+                          <span>Previous Month</span>
+                          <span>11,000</span>
+                        </div>
+                      </div>
+                      <div className="dash-order-analysis">
+                        <div className="admin-dash-order">
+                          <span>Orders Completed</span>
+                          <span>132</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-          {value == 2 && (
-            <div className="col-3  card dashboardCard">
-              <div className="admin-dashboard-card">
-                <div className="admin-dashboard-card-header">
-                  <h1>User page</h1>
+            )}
+
+            {value == 3 && (
+              <div className="card admin-product-card">
+                <div className="subHeading">
+                  <div className="admin-card-heading">
+                    <h1 className="h1">All Products</h1>
+                    <div className="admin-card-header">
+                      <h3 className="h3">Products</h3>
+                      <div className="admin-input-dropdown">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          style={{ width: "15rem" }}
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="short">
+                          <select
+                            type="text"
+                            name="input"
+                            id="input"
+                            placeholder="Short by:Newest "
+                          >
+                            <option>Short by : Newest</option>
+                            <option>yes</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="admin-table-div">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="th">
+                            Sr.No.
+                          </th>
+                          <th scope="col" className="th">
+                            Featured Image
+                          </th>
+                          <th scope="col" className="th">
+                            Product Name
+                          </th>
+                          <th scope="col" className="th">
+                            Price
+                          </th>
+                          <th scope="col" className="th">
+                            Category
+                          </th>
+                          <th scope="col" className="th">
+                            Tax slab
+                          </th>
+                          <th scope="col" className="th">
+                            Order count
+                          </th>
+                          <th scope="col" className="th">
+                            Last Order On
+                          </th>
+                          <th scope="col" className="th">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row table-center">1.</th>
+                          <td className="td">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Product</td>
+                          <td className="td table-center">199</td>
+                          <td className="td table-center">Fertilizers</td>
+                          <td className="td table-center">5%</td>
+                          <td className="td table-center">10</td>
+                          <td className="td table-center">17/01/2024</td>
+                          <td className="td table-center">
+                            <span className="td-edit-icon ">
+                              <i class="bi bi-pencil-square"></i>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row table-center">2.</th>
+                          <td className="td table-center">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Product</td>
+                          <td className="td table-center">199</td>
+                          <td className="td table-center">Fertilizers</td>
+                          <td className="td table-center">5%</td>
+                          <td className="td table-center">10</td>
+                          <td className="td table-center">17/01/2024</td>
+                          <td className="td table-center">
+                            <span className="td-edit-icon">
+                              <i class="bi bi-pencil-square"></i>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row table-center">3.</th>
+                          <td className="td table-center">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Product</td>
+                          <td className="td table-center">199</td>
+                          <td className="td table-center">Fertilizers</td>
+                          <td className="td table-center">5%</td>
+                          <td className="td table-center">10</td>
+                          <td className="td table-center">17/01/2024</td>
+                          <td className="td table-center">
+                            <span className="td-edit-icon">
+                              <i class="bi bi-pencil-square"></i>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+
+            {value == 4 && (
+              <div className="card admin-blog-card">
+                <div className="subHeading">
+                  <div className="admin-card-heading">
+                    <h1 className="h1">All Blogs</h1>
+                    <div className="admin-card-header">
+                      <h3 className="h3">Blogs</h3>
+                      <div className="admin-input-dropdown">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          style={{ width: "15rem" }}
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="short">
+                          <select
+                            type="text"
+                            name="input"
+                            id="input"
+                            placeholder="Short by:Newest "
+                          >
+                            <option>Short by : Newest</option>
+                            <option>yes</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="admin-table-div">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="th">
+                            Sr.No.
+                          </th>
+                          <th scope="col" className="th">
+                            Featured Image
+                          </th>
+                          <th scope="col" className="th">
+                            Blog Title
+                          </th>
+                          <th scope="col" className="th">
+                            Category
+                          </th>
+                          <th scope="col" className="th">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row table-center">1.</th>
+                          <td className="td">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Blog</td>
+                          <td className="td table-center">Fertilizers</td>
+                          <td className="td table-center">
+                            <span className="td-edit-icon ">
+                              <i class="bi bi-pencil-square"></i>
+                            </span>
+                            <span className="td-delete-icon">
+                              <i class="bi bi-trash3-fill"></i>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row table-center">2.</th>
+                          <td className="td">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Blog</td>
+                          <td className="td table-center">Fertilizers</td>
+                          <td className="td table-center">
+                            <span className="td-edit-icon ">
+                              <i class="bi bi-pencil-square"></i>
+                            </span>
+                            <span className="td-delete-icon">
+                              <i class="bi bi-trash3-fill"></i>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row table-center">3.</th>
+                          <td className="td">
+                            <img src="/image.com" />
+                          </td>
+                          <td className="td table-center">Name of Blog</td>
+                          <td className="td table-center">Fertilizers</td>
+                          <td className="td table-center">
+                            <span className="td-edit-icon ">
+                              <i class="bi bi-pencil-square"></i>
+                            </span>
+                            <span className="td-delete-icon">
+                              <i class="bi bi-trash3-fill"></i>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+            {value == 2 && (
+              <div className="card admin-blog-card">
+                <div className="subHeading">
+                  <div className="admin-card-heading">
+                    <h1 className="h1">All Users</h1>
+                    <div className="admin-card-header">
+                      <h3 className="h3">Users</h3>
+                      <div className="admin-input-dropdown">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          style={{ width: "15rem" }}
+                          placeholder="&#61442; Search"
+                        />
+                        <div className="short">
+                          <select
+                            type="text"
+                            name="input"
+                            id="input"
+                            placeholder="Short by:Newest "
+                          >
+                            <option>Short by : Newest</option>
+                            <option>yes</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="admin-table-div">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="th">
+                            Sr.No.
+                          </th>
+                          <th scope="col" className="th">
+                            User Name
+                          </th>
+                          <th scope="col" className="th">
+                            Email
+                          </th>
+                          <th scope="col" className="th">
+                            Phone Number
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row table-center">1.</th>
+
+                          <td className="td table-center">Ayushi yadav</td>
+                          <td className="td table-center">
+                            ayushiyadav.bce@gmail.com
+                          </td>
+                          <td className="td table-center">6266894170</td>
+                        </tr>
+                        <tr>
+                          <th scope="row table-center">2.</th>
+                          <td className="td table-center">Udit </td>
+                          <td className="td table-center">udit@gmail.com</td>
+                          <td className="td table-center">982606789 </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

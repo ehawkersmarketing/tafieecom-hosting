@@ -4,7 +4,7 @@ const roleModel = require("../../models/roleModel/roleModel.js");
 
 exports.signup = async (req, res) => {
   try {
-    const { userName, email, phone, role } = req.body;
+    const { userName, phone, role } = req.body;
     const phoneAlreadtExist = await userModel.findOne({ phone });
     if (phoneAlreadtExist) {
       return res.status(400).json({
@@ -15,16 +15,14 @@ exports.signup = async (req, res) => {
     let newUser;
     if (role) {
       newUser = new userModel({
-        userName,
-        email,
-        phone,
-        role,
+        userName:userName,
+        phone:phone,
+        role:role,
       });
     } else {
       newUser = new userModel({
-        userName,
-        email,
-        phone,
+        userName:userName,
+        phone:phone,
       });
     }
     const user = await newUser.save();
