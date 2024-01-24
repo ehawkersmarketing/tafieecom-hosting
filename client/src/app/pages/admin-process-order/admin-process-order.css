@@ -1,0 +1,131 @@
+.admin-process-main {
+    background-color: #fff;
+    border-radius: 1px;
+    /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0.5in;
+    width: 8.5in;
+    padding-bottom: 3%;
+}
+
+.admin-process-main .admin-process-header h1 {
+    background-color: black;
+    border-radius: 0.25rem;
+    margin: 0 0 1rem;
+    padding: 0.5em 0;
+    color: white;
+    letter-spacing: 0.5em; 
+    text-align: center; 
+}
+
+
+.table-details {
+    margin-top: 3rem;
+}
+
+.table-details .thead tr{
+    padding: 10;
+}
+
+.table-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-details th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.table-details table th  p{
+    font-size: 15px;
+    font-weight: lighter;
+    margin-bottom: 0px;
+}
+.table-details  table th {
+    background-color: #f2f2f2;
+    display: table-cell;
+    vertical-align:text-top;
+}
+
+.table-details tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-details tfoot {
+    font-weight: bold;
+}
+
+.table-details tfoot td {
+    border-top: 2px solid #ddd;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.details {
+    font-size: 16px;
+    line-height: 0.5;
+}
+
+.section-bottom {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 5rem;
+    margin-bottom: 20px;
+}
+
+.section-bottom .circle {
+    width: 4px;
+    height: 4px;
+    background-color: #bbbbbb;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 5px;
+    
+}
+.download-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 3%;
+}
+.accept-reject-button{
+   padding-bottom: 10%;
+   display: flex;
+   width: 53%;
+   margin: auto;
+   justify-content: start;
+}
+.input-table{
+    margin-bottom: 13%;
+    padding: 4%;
+    border-radius: 15px;
+}
+.table-for-input{
+    width: 47%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.table-for-input input{
+    border: none;
+    border-bottom: 1px solid;
+    background-color: transparent;
+}
+.shipment-buttons{
+    padding-top: 3%;
+}
+.shipment-buttons button{
+    margin: 2%;
+}
