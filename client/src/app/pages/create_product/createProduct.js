@@ -63,9 +63,13 @@ const CreateProduct = () => {
       alert(" Add Description");
     } else if (quantity === "") {
       alert("Add Quantity");
-    } else if (price === "") {
-      alert("Price");
-    } else {
+    } else if (!image) {
+      alert("Add image");
+    }else if (price === "") {
+      alert("Add Price");
+    } else if(!category){
+       alert("Select category")
+    }else {
       const formData = new FormData();
       formData.append("image", image);
 
@@ -105,7 +109,7 @@ const CreateProduct = () => {
             quantity: "",
           });
           setDropdown({ category: "" });
-          history("/");
+          history("/adminPage");
         }
       }
     }

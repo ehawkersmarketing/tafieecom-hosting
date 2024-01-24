@@ -26,7 +26,7 @@ const S3_BUCKET_NAME = "tafi-ecom-img";
 
 const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/blog/images");
+    cb(null, "public/images");
   },
   filename: (req, file, cb) => {
     cb(null, file.fieldname + "_" + Date.now() + file.originalname);
