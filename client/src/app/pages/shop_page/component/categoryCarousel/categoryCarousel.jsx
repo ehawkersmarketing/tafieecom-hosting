@@ -8,7 +8,7 @@ const CategoryCarousel = ({ items }) => {
             <div className="categoryCarouselItems">
                 {items?.map((item) => {
                     return (
-                        <CategoryCard products={item} />
+                        <CategoryCard item={item} />
                     );
                 })}
             </div>

@@ -28,7 +28,7 @@ exports.getAllProducts = async (req, res) => {
 
 exports.getProductsById = async (req, res) => {
   try {
-    const products = await productModel.find({ _id: req.params.id });
+    const products = await productModel.find({ _id: req.params.id }).populate('category');
     console.log(products);
     if (!products) {
       return res.status(500).send({
@@ -189,7 +189,7 @@ exports.searchProduct = async (req, res) => {
         { title: { $regex: search } },
         { description: { $regex: search } },
       ],
-    });
+    }).populate('category');
     console.log(products);
     if (!products) {
       return res.status(500).send({
@@ -215,7 +215,7 @@ exports.searchProduct = async (req, res) => {
 exports.searchProductByCategory = async (req, res) => {
   try {
     const search = req.params.category;
-    const products = await productModel.find({ category: search });
+    const products = await productModel.find({ category: search }).populate('category');
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -239,10 +239,11 @@ exports.searchProductByCategory = async (req, res) => {
 
 exports.CreateCategory = async (req, res) => {
   try {
-    const { category } = req.body;
+    const { category, categoryImg } = req.body;
 
     const response = await categoryModel.create({
       category,
+      categoryImg
     });
 
     const productType = await response.save();
