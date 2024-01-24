@@ -36,17 +36,9 @@
     color: white;
     font-size: 14px;
 }
-
-.login-section a {
-    color: aliceblue;
-}
-
-.logo-section a:active {
-    color: yellow;
-}
-
 .login-section .register,
-.login-section .signin {
+.login-section .signin 
+ {
     border: 1px solid white;
     border-radius: 5px;
     margin-left: 10px;
@@ -57,7 +49,6 @@
     text-decoration: none;
     font-size: 14px;
 }
-
 .login-section .register {
     background-image: linear-gradient(79deg, #36914b 0.36%, #44a95c 58.15%, #7bf197 117.12%);
 }

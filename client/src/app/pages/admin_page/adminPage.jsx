@@ -133,7 +133,7 @@ const AdminPage = () => {
                         <i class="bi bi-shop"></i>
                       </div>
                       <div className="title" onClick={storeHandler}>
-                        Store
+                        All Orders
                       </div>
                     </div>
                   </div>
@@ -203,18 +203,9 @@ const AdminPage = () => {
                     </div>
                     <div className="nav-title">Store</div>
                     <div className="nav-rightContent">
-                      <button
-                        className="admin-btn-nav"
-                      // onClick={CreateNewHandler}
-                      >
-                        <i class="bi bi-plus-lg"></i> Create New
-                      </button>
+                      
                       <div className="admin-right">
-                        <input
-                          type="text"
-                          className="nav-input"
-                          placeholder="&#61442; Search"
-                        />
+                        
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -241,18 +232,7 @@ const AdminPage = () => {
                     </div>
                     <div className="nav-title">Dashboard</div>
                     <div className="nav-rightContent">
-                      <button
-                        className="admin-btn-nav"
-                      // onClick={CreateNewHandler}
-                      >
-                        <i class="bi bi-plus-lg"></i> Create New
-                      </button>
                       <div className="admin-right">
-                        <input
-                          type="text"
-                          className="nav-input"
-                          placeholder="&#61442; Search"
-                        />
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -324,11 +304,7 @@ const AdminPage = () => {
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-                        <input
-                          type="text"
-                          className="nav-input"
-                          placeholder="&#61442; Search"
-                        />
+                        
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -362,11 +338,7 @@ const AdminPage = () => {
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-                        <input
-                          type="text"
-                          className="nav-input"
-                          placeholder="&#61442; Search"
-                        />
+                        
                         <div className="logout-button" onClick={onLogOut}>
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
