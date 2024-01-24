@@ -1,25 +1,275 @@
-.service-hero{
-    padding-top: 5%;
-    background-color: #D9ECE9;
-    padding-bottom: 30%;
+.services {
+  padding-top: 5%;
+  background-color: #d9ece9;
+  padding-bottom: 10%;
 }
-.service-hero .service-div{
+.service-hero .service-div {
+  background-image: url("../../assets/ourservices-main.png");
+  width: 90%;
+  margin: auto;
+  border-radius: 14px;
+  margin-bottom: 5%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.service-hero .service-image {
+  background-image: url("../../assets/ourservices-mask.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 14px;
+}
+.services .service-text span:nth-child(1) {
+  color: white;
+}
+.services .service-text span:nth-child(2) {
+  color: #c8a33d;
+}
+.services .service-text {
+  padding: 10%;
+  align-items: center;
+  justify-content: space-between;
+}
+.services .service-text h1 {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 66px;
+}
+.services .service-text p {
+  font-size: 17px;
+  color: white;
+  font-weight: 400;
+  margin-bottom: 2%;
+}
+.services .service-text a {
+  border: 2px white solid;
+  padding: 8px;
+  text-decoration: none;
+  color: white;
+  border-radius: 8px;
+  background-color: #29645e;
+}
+.filter-region {
+  background-color: var(--darkgreen-primary, #19443f);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  padding: 1.2rem 3rem;
+  height: 10%;
+
+  .filter {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .bi {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .bi-funnel-fill {
+      font-size: 1.5rem;
+      margin: 0 1rem 0 1.4rem;
+    }
+
+    .bi-caret-down-fill {
+      font-size: 0.8rem;
+    }
+
+    .category-text {
+      margin: 0 1.6rem 0 1rem;
+    }
+
+    span {
+      font-size: 18px;
+      font-weight: 400;
+      color: white;
+    }
+
+    .filter-text {
+      margin: 0 0.6rem 0;
+    }
+  }
+  .text-blog {
+    border: none;
+    border-radius: 30rem;
+    outline: none;
+  }
+
+  .search-bar {
+    width: 35%;
     background-color: white;
-    border-radius: 10px;
+    align-items: center;
+    display: flex;
+    border-radius: 1.5rem;
+    position: relative;
+    height: 2.5rem;
+
+    input {
+      width: 100%;
+    }
+
+    .search_container {
+      border: none;
+      border-radius: 1rem;
+      outline: none;
+      border-radius: 35rem;
+    }
+    .search-icon {
+      background-color: #04aa6d;
+      border: none;
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 4px 2px;
+      border-radius: 50%;
+    }
+
+    .search-button {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      position: absolute;
+      right: -3px;
+
+      top: 50%;
+      transform: translateY(-21px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
-.service-full-img{
-    width: 100%;
+.services .all-services{
+align-items: center;
 }
-.service-back-image{
-    background-image: url("../../assets//ourservices-main.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+
+.services .all-services span:nth-child(1) {
+  background-color: #d9ece9;
+  color: #19443f;
+  padding: 2%;
+  text-transform: uppercase;
+ 
 }
-.service-div{
-    width: 90%;
-    margin: auto;
+.services .all-services span:nth-child(2) {
+  background-color: #44a98b;
+  color: white;
+  padding: 2%;
 }
-.service-hero .service-front-image img{
-    width: 100% 100%;
-    height: 400px;
+.services .block-text {
+  display: flex;
+  flex-direction: column;
+  padding: 7%;
+  justify-content: center;
+}
+.services .block-text h5{
+  font-weight: 700;
+  font-size: 20px;
+}
+.services .block-text p{
+font-size: 14px;
+font-weight: 400;
+line-height: 15px;
+}
+.services .services-card-outer .services-card {
+  width: 90%;
+  margin: auto;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  padding-top: 3%;
+}
+.services .services-card .service-block {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 0%;
+  height: 170px;
+  box-shadow: 0px 14px 34px 0px rgba(68, 169, 139, 0.40), 0px 4px 10px 0px rgba(68, 169, 139, 0.40), 0px 4px 24px 0px rgba(25, 68, 63, 0.50);
+
+  
+}
+.services .services-card .service-block:nth-child(7n) {
+  background-image: linear-gradient(
+    288.55deg,
+    #1c4541 0%,
+    #1c4541 73.69%,
+    #46b5ab 98.23%
+  );
+}
+.services .services-card .service-block:nth-child(7n + 1) {
+  background-image: linear-gradient(
+    109.77deg,
+    #539f7a 3.03%,
+    #19442f 26.79%,
+    #19442f 100%
+  );
+}
+.services .services-card .service-block:nth-child(7n + 2) {
+  background-image: linear-gradient(
+    109.32deg,
+    #c19679 5.07%,
+    #714f32 24.98%,
+    #4c3b2c 100%
+  );
+}
+.services .services-card .service-block:nth-child(7n + 3) {
+  background-image: linear-gradient(
+    109.58deg,
+    #0e8bb1 -7.21%,
+    #0d3e7a 22.45%,
+    #0a8fb7 100%
+  );
+}
+.services .services-card .service-block:nth-child(7n + 4) {
+  background-image: linear-gradient(
+    107.12deg,
+    #cbdcc2 3.06%,
+    #0a3c1f 23.4%,
+    #0b4a27 100%
+  );
+}
+.services .services-card .service-block:nth-child(7n + 5) {
+  background-image: linear-gradient(
+    109.32deg,
+    #608093 5.07%,
+    #193544 24.98%,
+    #193544 100%
+  );
+}
+
+.services .services-card .service-block:nth-child(7n + 6) {
+  background-image: linear-gradient(
+    109.32deg,
+    #99ad50 5.07%,
+    #4a5a1c 26.09%,
+    #8e9f50 100%
+  );
+}
+.services .service-block .block-img{
+  max-width: fit-content;
+  mask-image: linear-gradient(-90deg, black, transparent);
+}
+.services .service-block .block-text{
+  
+}
+.services .block-text-missing h5{
+  font-weight: 700;
+  font-size: 20px;}
+.services .block-text-missing{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+}
+.services .service-block .block-img img{
+  width: 100%;
+  min-height: 100%;
+  border-radius: 14px;
 }
