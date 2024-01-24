@@ -6,9 +6,9 @@ const CategoryCarousel = ({ items }) => {
     return (
         <div className='carousal'>
             <div className="categoryCarouselItems">
-                {items?.map((item) => {
+                {items?.map((item, index) => {
                     return (
-                        <CategoryCard products={item} />
+                        <CategoryCard item={item} key={index} />
                     );
                 })}
             </div>

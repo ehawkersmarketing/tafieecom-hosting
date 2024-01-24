@@ -56,6 +56,7 @@ const CreateProduct = () => {
     const { title, description, maxQuantity, minQuantity, price, quantity } =
       inputHandler;
     const { category, gstSlab } = dropdown;
+    const categoryList = data.filter((item) => item.category === category);
     // console.log(category);
     // console.log(inputHandler);
     if (title === "") {
@@ -75,7 +76,7 @@ const CreateProduct = () => {
         formData
       );
       const gstNumber = parseInt(gstSlab.split("%")[0]);
-
+      console.log(categoryList[0]._id);
       console.log(imageUrl);
       if (imageUrl?.data.success) {
         const { data } = await axios.post(
@@ -90,7 +91,7 @@ const CreateProduct = () => {
             gstSlab: gstNumber,
             price: price,
             quantity: quantity,
-            category: category,
+            category: categoryList[0]._id,
             image: imageUrl.data.url,
           }
         );

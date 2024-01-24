@@ -71,7 +71,7 @@ const Dashboard = () => {
                 <div className="left-arrow">
                   <i class="bi bi-arrow-left"></i>
                 </div>
-                <CategoryCarousel />
+                {categories && <CategoryCarousel items={categories} />}
                 <div className="right-arrow">
                   <i class="bi bi-arrow-right"></i>
                 </div>

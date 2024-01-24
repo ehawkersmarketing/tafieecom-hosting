@@ -7,7 +7,7 @@ const FeaturedProductCard = ({ item }) => {
         <div key={item._id} className="carouselItem" interval="500" >
             <div className="feature-textBlock">
                 <div className='feature-text-fields'>
-                    <h3 className='category-name'>{item.category}</h3>
+                    <h3 className='category-name'>{item.category.category}</h3>
                     <h1 className='product-name'>{item.title}</h1>
                     <div className="ratingAndReview">
                         <ul class="rating">

@@ -1,13 +1,39 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./adminPage.css";
 import logoImage from "../../assets/Tafi_logo_white.png";
 import { useNavigate } from "react-router-dom";
 import { Chart } from "react-google-charts";
+import { useFetch } from "../../hooks/api_hook";
+import dayjs from "dayjs";
+import axios from "axios";
 
 const AdminPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   console.log(user)
   const navigate = useNavigate();
+  const { data: blogs } = useFetch('/api/blogs');
+  const { data: products } = useFetch('/api/allProducts');
+  const { data: orders } = useFetch('/api/getAllOrders');
+
+  const onDelete = async (event, id) => {
+    event.preventDefault();
+    const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
+    if (data.success) {
+      window.location.reload();
+    }
+  };
+
+  const data = [
+    ["x", "dogs", "cats"],
+    [0, 0, 0],
+    [1, 10, 5],
+    [2, 23, 15],
+    [3, 17, 9],
+    [4, 18, 10],
+    [5, 9, 5],
+    [6, 11, 3],
+    [7, 27, 19],
+  ];
 
   const [value, setValue] = useState(0);
 
@@ -39,37 +65,24 @@ const AdminPage = () => {
     ["Eric", 1500],
   ];
 
-  
-  const data = [
-    ["x", "dogs", "cats"],
-    [0, 0, 0],
-    [1, 10, 5],
-    [2, 23, 15],
-    [3, 17, 9],
-    [4, 18, 10],
-    [5, 9, 5],
-    [6, 11, 3],
-    [7, 27, 19],
-  ];
-
-
   const diffdata = {
     old: dataOld,
     new: dataNew,
   };
 
-  useEffect(()=>{
-      if(user){
-           if(user.role.role==="User"){
-                    navigate('/')
-           }
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "User") {
+        navigate('/')
       }
-  },[user])
-  
-  const onLogOut = () =>{
+    }
+  }, [user])
+
+  const onLogOut = () => {
     localStorage.clear()
     navigate(`/auth/${1}`)
   }
+
   const dashboardHandler = () => setValue(1);
   const storeHandler = () => setValue(0);
   const productHandler = () => setValue(3);
@@ -192,7 +205,7 @@ const AdminPage = () => {
                     <div className="nav-rightContent">
                       <button
                         className="admin-btn-nav"
-                        // onClick={CreateNewHandler}
+                      // onClick={CreateNewHandler}
                       >
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
@@ -230,7 +243,7 @@ const AdminPage = () => {
                     <div className="nav-rightContent">
                       <button
                         className="admin-btn-nav"
-                        // onClick={CreateNewHandler}
+                      // onClick={CreateNewHandler}
                       >
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
@@ -268,7 +281,7 @@ const AdminPage = () => {
                     <div className="nav-rightContent">
                       <button
                         className="admin-btn-nav"
-                        // onClick={CreateNewHandler}
+                      // onClick={CreateNewHandler}
                       >
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
@@ -344,7 +357,7 @@ const AdminPage = () => {
                     <div className="nav-rightContent">
                       <button
                         className="admin-btn-nav"
-                        // onClick={CreateNewHandler}
+                      // onClick={CreateNewHandler}
                       >
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
@@ -406,9 +419,6 @@ const AdminPage = () => {
                             Sr.No.
                           </th>
                           <th scope="col" className="th">
-                            Featured Image
-                          </th>
-                          <th scope="col" className="th">
                             Name
                           </th>
                           <th scope="col" className="th">
@@ -429,78 +439,33 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row table-center">1.</th>
-                          <td className="td">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Order</td>
-                          <td className="td table-center">199</td>
-                          <td className="td table-center">Rejected</td>
-                          <td className="td table-center">10</td>
-                          <td className="td table-center">17/01/2024</td>
-                          <td className="td table-center">
-                            <div className="action-dropdown">
-                              <select
-                                type="text"
-                                name="input"
-                                id="input"
-                                placeholder="Short by:Newest "
-                              >
-                                <option>op1</option>
-                                <option>op2</option>
-                              </select>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">2.</th>
-                          <td className="td table-center">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Order</td>
-                          <td className="td table-center">199</td>
-                          <td className="td table-center">Approved</td>
-                          <td className="td table-center">10</td>
-                          <td className="td table-center">17/01/2024</td>
-                          <td className="td table-center">
-                            <div className="action-dropdown">
-                              <select
-                                type="text"
-                                name="input"
-                                id="input"
-                                placeholder="Short by:Newest "
-                              >
-                                <option>op1</option>
-                                <option>op2</option>
-                              </select>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">3.</th>
-                          <td className="td table-center">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Order</td>
-                          <td className="td table-center">199</td>
-                          <td className="td table-center">Approved</td>
-                          <td className="td table-center">10</td>
-                          <td className="td table-center">17/01/2024</td>
-                          <td className="td table-center">
-                            <div className="action-dropdown">
-                              <select
-                                type="text"
-                                name="input"
-                                id="input"
-                                placeholder="Short by:Newest "
-                              >
-                                <option>op1</option>
-                                <option>op2</option>
-                              </select>
-                            </div>
-                          </td>
-                        </tr>
+                        {
+                          orders && orders.map((order, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td table-center">{order._id}</td>
+                                <td className="td table-center">{order.amount}</td>
+                                <td className="td table-center">{order.orderStatus}</td>
+                                <td className="td table-center">10</td>
+                                <td className="td table-center">{order.createdAt}</td>
+                                <td className="td table-center">
+                                  <div className="action-dropdown">
+                                    <select
+                                      type="text"
+                                      name="input"
+                                      id="input"
+                                      placeholder="Short by:Newest "
+                                    >
+                                      <option>op1</option>
+                                      <option>op2</option>
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
+                            )
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>
@@ -724,57 +689,29 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row table-center">1.</th>
-                          <td className="td">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Product</td>
-                          <td className="td table-center">199</td>
-                          <td className="td table-center">Fertilizers</td>
-                          <td className="td table-center">5%</td>
-                          <td className="td table-center">10</td>
-                          <td className="td table-center">17/01/2024</td>
-                          <td className="td table-center">
-                            <span className="td-edit-icon ">
-                              <i class="bi bi-pencil-square"></i>
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">2.</th>
-                          <td className="td table-center">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Product</td>
-                          <td className="td table-center">199</td>
-                          <td className="td table-center">Fertilizers</td>
-                          <td className="td table-center">5%</td>
-                          <td className="td table-center">10</td>
-                          <td className="td table-center">17/01/2024</td>
-                          <td className="td table-center">
-                            <span className="td-edit-icon">
-                              <i class="bi bi-pencil-square"></i>
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">3.</th>
-                          <td className="td table-center">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Product</td>
-                          <td className="td table-center">199</td>
-                          <td className="td table-center">Fertilizers</td>
-                          <td className="td table-center">5%</td>
-                          <td className="td table-center">10</td>
-                          <td className="td table-center">17/01/2024</td>
-                          <td className="td table-center">
-                            <span className="td-edit-icon">
-                              <i class="bi bi-pencil-square"></i>
-                            </span>
-                          </td>
-                        </tr>
+                        {
+                          products.map((product, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td">
+                                  <img src={product.image} />
+                                </td>
+                                <td className="td table-center">{product.title}</td>
+                                <td className="td table-center">{product.price}</td>
+                                <td className="td table-center">{product?.category?.category}</td>
+                                <td className="td table-center">{product.gstSlab}%</td>
+                                <td className="td table-center">{product.quantity}</td>
+                                <td className="td table-center">{product && `${dayjs(product.createdAt).format('MMMM D, YYYY')}`}</td>
+                                <td className="td table-center">
+                                  <span className="td-edit-icon ">
+                                    <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateProduct/${product._id}`)}></i>
+                                  </span>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>
@@ -824,62 +761,30 @@ const AdminPage = () => {
                             Blog Title
                           </th>
                           <th scope="col" className="th">
-                            Category
-                          </th>
-                          <th scope="col" className="th">
                             Action
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row table-center">1.</th>
-                          <td className="td">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Blog</td>
-                          <td className="td table-center">Fertilizers</td>
-                          <td className="td table-center">
-                            <span className="td-edit-icon ">
-                              <i class="bi bi-pencil-square"></i>
-                            </span>
-                            <span className="td-delete-icon">
-                              <i class="bi bi-trash3-fill"></i>
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">2.</th>
-                          <td className="td">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Blog</td>
-                          <td className="td table-center">Fertilizers</td>
-                          <td className="td table-center">
-                            <span className="td-edit-icon ">
-                              <i class="bi bi-pencil-square"></i>
-                            </span>
-                            <span className="td-delete-icon">
-                              <i class="bi bi-trash3-fill"></i>
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">3.</th>
-                          <td className="td">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td table-center">Name of Blog</td>
-                          <td className="td table-center">Fertilizers</td>
-                          <td className="td table-center">
-                            <span className="td-edit-icon ">
-                              <i class="bi bi-pencil-square"></i>
-                            </span>
-                            <span className="td-delete-icon">
-                              <i class="bi bi-trash3-fill"></i>
-                            </span>
-                          </td>
-                        </tr>
+                        {
+                          blogs && blogs?.map((blog, index) => {
+                            return <tr>
+                              <th scope="row table-center">{index + 1}</th>
+                              <td className="td">
+                                <img src={blog.image} />
+                              </td>
+                              <td className="td table-center">{blog.title}</td>
+                              <td className="td table-center">
+                                <span className="td-edit-icon ">
+                                  <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateBlog/${blog._id}`)}></i>
+                                </span>
+                                <span className="td-delete-icon">
+                                  <i class="bi bi-trash3-fill" onClick={(e) => onDelete(e, blog._id)}></i>
+                                </span>
+                              </td>
+                            </tr>
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>

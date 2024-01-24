@@ -8,7 +8,7 @@ const ProductCard = ({ item }) => {
             <div className="textBlock">
                 <img className='product-image' src={item.image} alt="" />
                 <div className='text-fields'>
-                    <h3 className='category-name'>{item.category}</h3>
+                    <h3 className='category-name'>{item.category.category}</h3>
                     <h1 className='product-name'>{item.title}</h1>
                     <div className="ratingAndReview">
                         <ul class="rating">
