@@ -39,7 +39,7 @@ exports.EditorRole = async (req, res, next) => {
       let phone = decoded.phone;
       let user = await userModel.findOne({ phone });
       if (user) {
-        if (user.role.role === "Editor") {
+        if (user.role.role === "Editor" || user.role.role === "Admin") {
           next();
         } else {
           res.json({
@@ -67,7 +67,7 @@ exports.ViewerRole = async (req, res, next) => {
       let phone = decoded.phone;
       let user = await userModel.findOne({ phone });
       if (user) {
-        if (user.role.role === "Viewer") {
+        if (user.role.role === "Viewer" || user.role.role === "Admin" || user.role.role === "Editor") {
           next();
         } else {
           res.json({
