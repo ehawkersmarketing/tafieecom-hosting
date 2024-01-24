@@ -199,9 +199,9 @@ const AdminPage = () => {
                   <div className="nav-header">
                     <div className="tab">
                       <span className="tab1">Pages</span>
-                      <span>/Store</span>
+                      <span>/All Orders</span>
                     </div>
-                    <div className="nav-title">Store</div>
+                    <div className="nav-title">All Orders</div>
                     <div className="nav-rightContent">
                       
                       <div className="admin-right">
@@ -232,6 +232,7 @@ const AdminPage = () => {
                     </div>
                     <div className="nav-title">Dashboard</div>
                     <div className="nav-rightContent">
+                      
                       <div className="admin-right">
                         <div className="logout-button">
                           <span style={{ marginLeft: "15px" }}>

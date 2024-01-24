@@ -27,8 +27,8 @@ import Franchise from "./app/pages/franchise/franchise.jsx";
 import Cart from "./app/pages/cart_page/Cart.jsx";
 import Checkout from "./app/pages/checkout_page/Checkout.jsx";
 import Service_pop from "./app/components/service_pop/Service_pop.jsx";
-
-import Services from "./app/pages/service_page/service.jsx"
+import Services from "./app/pages/service_page/service.jsx";
+import AdminProcessOrder from "./app/pages/admin-process-order/admin-process-order.jsx";
 
 
 function App() {
@@ -93,7 +93,7 @@ function App() {
 
           <Route path="/services" exact element={<Services/>}/>
           <Route path="/service_pop" exact element={<Service_pop />} />
-
+          <Route path="/adminprocessorder" exact element={<AdminProcessOrder/>} />
         </Routes>
       </Routers>
     </div>
