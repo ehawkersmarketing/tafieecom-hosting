@@ -10,7 +10,6 @@ import { useFetch } from "../../hooks/api_hook.js";
 
 const ShopPage = () => {
     const [open, setOpen] = useState(false);
-    const { data } = useFetch("/api/allCategory");
     const [activeFilter, setActiveFilter] = useState({
         filter: ""
     });
@@ -20,9 +19,9 @@ const ShopPage = () => {
 
     useEffect(() => {
         setVisibleProducts(products);
-    }, [products])
-    const { data: categories } = useFetch('/api/allCategory');
+    }, [products]);
 
+    const { data: categories } = useFetch('/api/allCategory');
     const applyFilter = (e, index) => {
         if (index == 2) {
             setVisibleProducts(products.filter((item) => item.category.category === e.target.value))
@@ -112,7 +111,7 @@ const ShopPage = () => {
                             filter.map((item, index) => {
                                 return (
                                     <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100" key={index} onClick={(e) => applyFilter(e, index)}>
-                                        <span className="">{item}</span>
+                                        <span className="">{item.title}</span>
                                     </li>
                                 )
                             })
@@ -129,7 +128,8 @@ const ShopPage = () => {
                                 }}
                             >
                                 <option>select the Category</option>
-                                {data?.map((item) => (
+
+                                {categories?.map((item) => (
                                     <option key={item._id} name="category" value={item.category}>
                                         {item.category}
                                     </option>
@@ -202,9 +202,9 @@ const ShopPage = () => {
                         </div>
                     </div>
                     <div className="all-products-card">
-                        {visibleProducts && visibleProducts?.map((item) => {
+                        {visibleProducts && visibleProducts?.map((item, index) => {
                             return (
-                                <ProductCard item={item} className='productItem' />
+                                <ProductCard item={item} key={index} className='productItem' />
                             );
                         })}
                     </div>

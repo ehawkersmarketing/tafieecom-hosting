@@ -55,7 +55,7 @@ router.post("/uploadBlogImage", upload.single("image"), async (req, res) => {
     }
   });
 });
-router.post("/composeBlog", AdminRole, EditorRole, composeBlog);
+router.post("/composeBlog", composeBlog);
 router.get("/blogs", getAllBlogs);
 router.get("/recentBlogs", getRecentBlogs);
 router.get("/blog/:blogId", getBlogById);
