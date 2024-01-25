@@ -3,6 +3,7 @@ import "./product.css";
 import ProductImage from "../../assets/fertilizers.png";
 import Carousal from "../../components/carousal/carousal";
 import Header from "../../pages/header/header";
+import Footer from "../footer/footer";
 import $ from "jquery";
 const Product = () => {
   // const viewMoreHandler = ()=>{
@@ -28,6 +29,7 @@ const Product = () => {
   });
 
   return (
+    <><Header/>
     <div className="single-product bg">
       <section className="product-bg">
         <div className="wrapper">
@@ -255,6 +257,8 @@ const Product = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

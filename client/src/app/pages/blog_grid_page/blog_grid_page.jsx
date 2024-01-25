@@ -90,12 +90,6 @@ const BlogPage = () => {
         <div className="below-blog-tile-header">
           <div className="filter-region">
             <div className="filter">
-              <i class="bi bi-grid"></i>
-              <span className="category-text">All Categories</span>
-              <span>|</span>
-              <i class="bi bi-funnel-fill" onClick={(e) => setOpen(!open)}></i>
-              <span className="filter-text">Filters</span>
-              <i class="bi bi-caret-down-fill"></i>
             </div>
             <div className="search-bar">
               <input type="text" name="search" onChange={(e) => setSearchField(e.target.value)} className="search_container" />
@@ -188,7 +182,7 @@ const BlogPage = () => {
                         {blog.title}
                       </h5>
                       <p class="card-text">
-                        {blog.content.substring(0, 400)}....
+                        {blog.content.substring(0, 80)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
                       <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
@@ -221,7 +215,7 @@ const BlogPage = () => {
                           {blog.title}
                         </h5>
                         <p class="card-text">
-                          {blog.content.substring(0, 400)}....
+                          {blog.content.substring(0, 80)}....
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
                         <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
@@ -254,7 +248,7 @@ const BlogPage = () => {
                         {blog.title}
                       </h5>
                       <p class="card-text">
-                        {blog.content.substring(0, 400)}....
+                        {blog.content.substring(0, 80)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
                       <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
@@ -267,7 +261,7 @@ const BlogPage = () => {
             }
           </div>
           <div className="view-more">
-            <button class="btn btn-read " id="show-more">
+            <button class="btn show-more load-more " id="next">
               Show More
             </button>
           </div>

@@ -1,14 +1,14 @@
 import react from "react";
-import "./franchise.css";
-import Header from "../../pages/header/header";
+import "./exclusivestore.css";
+import Header from "../header/header";
 import img from "../../assets/image 2.png";
 import sideImg from "../../assets/Group 358.png";
 import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
-import Footer from "../../pages/footer/footer";
+import Footer from "../footer/footer";
 
 
-const Franchise = () => {
+const ExclusiveStore = () => {
   const footerHandler = () => {
     document.getElementById('bottom').scrollIntoView({ behavior: 'smooth' });
    }
@@ -195,4 +195,4 @@ const Franchise = () => {
   );
 };
 
-export default Franchise;
+export default ExclusiveStore;
