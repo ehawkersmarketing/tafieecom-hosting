@@ -16,8 +16,7 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  console.log(id);
-  const [index, setIndex] = useState(id);
+  const [path, setPath] = useState(id);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -27,7 +26,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (id) {
-      setIndex(id);
+      setPath(id);
     }
   }, [id]);
 
@@ -77,8 +76,8 @@ const SignIn = () => {
     }
   };
 
-  const onTogglePage = (index) => {
-    setIndex(index);
+  const onTogglePage = (path) => {
+    setPath(path);
   };
 
   const onLogin = async (event) => {
@@ -102,7 +101,7 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      {index == 0 && (
+      {path === 'login' && (
         <div className="div sign_in">
           <div className="div-8">
             <div className="div-9">
@@ -175,7 +174,7 @@ const SignIn = () => {
                       Haven’t registered yet?{" "}
                     </span>
                     <Link
-                      onClick={(e) => onTogglePage(1)}
+                      onClick={(e) => onTogglePage('register')}
                       className="create-account-text"
                     >
                       Create an account
@@ -192,7 +191,7 @@ const SignIn = () => {
           </div>
         </div>
       )}
-      {index == 1 && (
+      {path === 'register' && (
         <div className="div sign_up">
           <div className="div-8">
             <div className="div-9">
@@ -253,7 +252,7 @@ const SignIn = () => {
                   <div className="div-20">
                     <span className="register-text">Already a user? </span>
                     <Link
-                      onClick={(e) => onTogglePage(0)}
+                      onClick={(e) => onTogglePage('login')}
                       className="create-account-text"
                     >
                       Login

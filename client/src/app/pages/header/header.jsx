@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/Tafi_logo_white.png";
-import { useNavigate } from "react-router-dom";
 
 import "./header.css";
-import { Link, useActionData } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
   return (
     <>
       <div className="header">
@@ -35,15 +40,15 @@ const Header = () => {
           </Link>
         </div>
         <div className="login-section col-3">
-          <Link className="register" to={`/auth/${1}`}>
+          <Link className="register" to={`/auth/register`}>
             Register
           </Link>
-          <Link className="signin" to={`/auth/${0}`}>
+          <Link className="signin" to={`/auth/login`}>
             Sign In
           </Link>
-          <Link className="register myaccount" to={"/myaccount"}>
+          {user && user.role.role === 'User' && <Link className="register myaccount" to={"/myaccount"}>
             My account
-          </Link>
+          </Link>}
         </div>
       </div>
     </>

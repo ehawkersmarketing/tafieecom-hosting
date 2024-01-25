@@ -113,8 +113,6 @@ module.exports.verifyOtp = async (req, res) => {
   }
 };
 
-module.exports.googleAuth = async (req, res) => { };
-
 exports.user = async (req, res) => {
   try {
     const { phone, email, userName, role } = req.body;
