@@ -8,30 +8,46 @@ import dayjs from "dayjs";
 import axios from "axios";
 
 const AdminPage = () => {
-  const [value, setValue] = useState(0);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [value, setValue] = useState(1);
+  const [Blog, setBlog] = useState();
+
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
     if (user) {
-      if (user.role.role === "User") {
-        navigate('/')
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
+        navigate("/adminPage");
+      } else {
+        navigate("/auth/1");
       }
-    } else {
+    }else {
       navigate("/auth/1");
     }
-  }, [user]);
+  }, []);
 
-  const navigate = useNavigate();
-  const { data: blogs } = useFetch('/api/blogs');
-  const { data: products } = useFetch('/api/allProducts');
-  const { data: orders } = useFetch('/api/getAllOrders');
-  const { data: users } = useFetch('/auth/users');
+  const { data: blogs } = useFetch("/api/blogs");
+  const { data: products } = useFetch("/api/allProducts");
+  const { data: orders } = useFetch("/api/getAllOrders");
+  const { data: users } = useFetch("/auth/users");
 
-  const onDelete = async (event, id) => {
-    event.preventDefault();
-    const { data } = await axios.delete(`http://localhost:8080/api/deleteBlog/${id}`);
-    if (data.success) {
-      window.location.reload();
+  const onDelete = (id) => {
+    if (
+      window.confirm("Do you want to delete the resource permently?") == true
+    ) {
+      axios
+        .delete(`http://localhost:8080/api/deleteBlog/${id}`)
+        .then((res) => {
+          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
+          console.log("Blog deleted successfully");
+          // window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("Dont delete the Resource Center");
     }
   };
 
@@ -39,7 +55,7 @@ const AdminPage = () => {
     product: "",
     order: "",
     blogs: "",
-    users: ""
+    users: "",
   });
 
   const [searchProducts, setSearchProducts] = useState([]);
@@ -48,21 +64,30 @@ const AdminPage = () => {
   const [searchUsers, setSearchUser] = useState([]);
 
   const search = async (text) => {
-    if (text !== '') {
+    if (text !== "") {
       if (value == 3) {
-        const { data } = await axios.post(`http://localhost:8080/api/searchProduct`, {
-          search: text
-        });
+        const { data } = await axios.post(
+          `http://localhost:8080/api/searchProduct`,
+          {
+            search: text,
+          }
+        );
         setSearchProducts(data.data);
       } else if (value == 4) {
-        const { data } = await axios.post(`http://localhost:8080/api/searchBlog`, {
-          search: text
-        });
+        const { data } = await axios.post(
+          `http://localhost:8080/api/searchBlog`,
+          {
+            search: text,
+          }
+        );
         setSearchBlog(data.data);
       } else if (value == 2) {
-        const { data } = await axios.post(`http://localhost:8080/auth/searchUser`, {
-          search: text
-        });
+        const { data } = await axios.post(
+          `http://localhost:8080/auth/searchUser`,
+          {
+            search: text,
+          }
+        );
         setSearchUser(data.data);
       }
     } else {
@@ -78,7 +103,7 @@ const AdminPage = () => {
       product: "",
       order: "",
       blogs: "",
-      users: ""
+      users: "",
     });
   }, [value]);
 
@@ -86,9 +111,9 @@ const AdminPage = () => {
     e.preventDefault();
     setSearchField({
       ...searchField,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
   useEffect(() => {
     if (value == 3) {
@@ -146,9 +171,9 @@ const AdminPage = () => {
   };
 
   const onLogOut = () => {
-    localStorage.clear()
-    navigate(`/auth/${1}`)
-  }
+    localStorage.clear();
+    navigate(`/auth/${1}`);
+  };
 
   const dashboardHandler = () => setValue(1);
   const storeHandler = () => setValue(0);
@@ -161,9 +186,8 @@ const AdminPage = () => {
   };
 
   const CreateNewBlogHandler = () => {
-    navigate("/blog/composeBlog")
-  }
-
+    navigate("/blog/composeBlog");
+  };
 
   const inlineStyle = {
     "--size": 0.4,
@@ -172,7 +196,7 @@ const AdminPage = () => {
 
   return (
     <div className="admin-wrapper">
-      {(
+      {user && (
         <div className="row row-wrapper">
           <div className="col-3 admin-sub-wrapper">
             <div className="div-admin">
@@ -270,7 +294,6 @@ const AdminPage = () => {
                 <div className="admin-navbar">
                   <div className="nav-header">
                     <div className="admin-header-nav">
-
                       <div className="tab">
                         <span className="tab1">Pages</span>
                         <span>/Orders</span>
@@ -278,7 +301,7 @@ const AdminPage = () => {
                       </div>
 
                       <div className="nav-rightContent">
-                        <div className="admin-right">
+                        <div className="admin-right" onClick={onLogOut}>
                           <div className="logout-button lg-admin-button">
                             <span style={{ marginLeft: "15px" }}>
                               <i class="bi bi-person"></i>
@@ -300,21 +323,27 @@ const AdminPage = () => {
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
-                    <div className="tab">
-                      <span className="tab1">Pages</span>
-                      <span>/Dashboard</span>
-                    </div>
-                    <div className="nav-title">Dashboard</div>
-                    <div className="nav-rightContent">
-                      <div className="admin-right">
-                        <div className="logout-button">
-                          <span style={{ marginLeft: "15px" }}>
-                            <i class="bi bi-person"></i>
-                          </span>
-                          <span>Logout</span>
-                          <span style={{ marginLeft: "5px" }}>
-                            <i class="bi bi-gear-fill"></i>
-                          </span>
+                    <div className="admin-header-nav">
+                      <div className="tab">
+                        <span className="tab1">Pages</span>
+                        <span>/Dashboard</span>
+                        <div className="nav-title">Dashboard</div>
+                      </div>
+
+                      <div className="nav-rightContent">
+                        <div className="admin-right">
+                          <div
+                            className="logout-button lg-admin-button"
+                            onClick={onLogOut}
+                          >
+                            <span style={{ marginLeft: "15px" }}>
+                              <i class="bi bi-person"></i>
+                            </span>
+                            <span>Logout</span>
+                            <span style={{ marginLeft: "5px" }}>
+                              <i class="bi bi-gear-fill"></i>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -327,9 +356,7 @@ const AdminPage = () => {
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
                   <div className="nav-header">
-                    <div className="admin-header-nav"
-                    >
-
+                    <div className="admin-header-nav">
                       <div className="tab">
                         <span className="tab1">Pages</span>
                         <span>/User</span>
@@ -338,7 +365,10 @@ const AdminPage = () => {
 
                       <div className="nav-rightContent">
                         <div className="admin-right">
-                          <div className="logout-button lg-admin-button">
+                          <div
+                            className="logout-button lg-admin-button"
+                            onClick={onLogOut}
+                          >
                             <span style={{ marginLeft: "15px" }}>
                               <i class="bi bi-person"></i>
                             </span>
@@ -350,12 +380,10 @@ const AdminPage = () => {
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </nav>
             )}
-
 
             {value == 3 && (
               <nav className="nav-admin-page">
@@ -374,8 +402,7 @@ const AdminPage = () => {
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-
-                        <div className="logout-button">
+                        <div className="logout-button" onClick={onLogOut}>
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
                           </span>
@@ -408,7 +435,6 @@ const AdminPage = () => {
                         <i class="bi bi-plus-lg"></i> Create New
                       </button>
                       <div className="admin-right">
-
                         <div className="logout-button" onClick={onLogOut}>
                           <span style={{ marginLeft: "15px" }}>
                             <i class="bi bi-person"></i>
@@ -424,9 +450,6 @@ const AdminPage = () => {
                 </div>
               </nav>
             )}
-
-
-
 
             {value == 0 && (
               <div className="card admin-table-card">
@@ -484,16 +507,22 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {
-                          orders && orders.map((order, index) => {
+                        {orders &&
+                          orders.map((order, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
                                 <td className="td table-center">{order._id}</td>
-                                <td className="td table-center">{order.amount}</td>
-                                <td className="td table-center">{order.orderStatus}</td>
+                                <td className="td table-center">
+                                  {order.amount}
+                                </td>
+                                <td className="td table-center">
+                                  {order.orderStatus}
+                                </td>
                                 <td className="td table-center">10</td>
-                                <td className="td table-center">{order.createdAt}</td>
+                                <td className="td table-center">
+                                  {order.createdAt}
+                                </td>
                                 <td className="td table-center">
                                   <div className="action-dropdown">
                                     <select
@@ -508,9 +537,8 @@ const AdminPage = () => {
                                   </div>
                                 </td>
                               </tr>
-                            )
-                          })
-                        }
+                            );
+                          })}
                       </tbody>
                     </table>
                   </div>
@@ -733,49 +761,102 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {
-                          searchField.product !== '' ? (searchProducts && searchProducts.length > 0) ? searchProducts.map((product, index) => {
+                        {searchField.product !== "" ? (
+                          searchProducts && searchProducts.length > 0 ? (
+                            searchProducts.map((product, index) => {
+                              return (
+                                <tr>
+                                  <th scope="row table-center">{index + 1}</th>
+                                  <td className="td">
+                                    <img
+                                      src={product.image}
+                                      className="img-product-admin-data"
+                                    />
+                                  </td>
+                                  <td className="td table-center">
+                                    {product.title}
+                                  </td>
+                                  <td className="td table-center">
+                                    {product.price}
+                                  </td>
+                                  <td className="td table-center">
+                                    {product?.category?.category}
+                                  </td>
+                                  <td className="td table-center">
+                                    {product.quantity}
+                                  </td>
+                                  <td className="td table-center">
+                                    {product &&
+                                      `${dayjs(product.createdAt).format(
+                                        "MMMM D, YYYY"
+                                      )}`}
+                                  </td>
+                                  <td className="td table-center">
+                                    <span className="td-edit-icon ">
+                                      <i
+                                        class="bi bi-pencil-square"
+                                        onClick={(e) =>
+                                          navigate(
+                                            `/updateProduct/${product._id}`
+                                          )
+                                        }
+                                      ></i>
+                                    </span>
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <div>
+                              <h4>No Results Found</h4>
+                            </div>
+                          )
+                        ) : (
+                          products.map((product, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
                                 <td className="td">
-                                  <img src={product.image} />
+                                  <img
+                                    src={product.image}
+                                    className="img-product-admin-data"
+                                  />
                                 </td>
-                                <td className="td table-center">{product.title}</td>
-                                <td className="td table-center">{product.price}</td>
-                                <td className="td table-center">{product?.category?.category}</td>
-                                <td className="td table-center">{product.gstSlab}%</td>
-                                <td className="td table-center">{product.quantity}</td>
-                                <td className="td table-center">{product && `${dayjs(product.createdAt).format('MMMM D, YYYY')}`}</td>
                                 <td className="td table-center">
-                                  <span className="td-edit-icon ">
-                                    <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateProduct/${product._id}`)}></i>
-                                  </span>
+                                  {product.title}
                                 </td>
-                              </tr>
-                            );
-                          }) : <div><h4>No Results Found</h4></div> : products.map((product, index) => {
-                            return (
-                              <tr>
-                                <th scope="row table-center">{index + 1}</th>
-                                <td className="td">
-                                  <img src={product.image} className="img-product-admin-data" />
+                                <td className="td table-center">
+                                  {product.price}
                                 </td>
-                                <td className="td table-center">{product.title}</td>
-                                <td className="td table-center">{product.price}</td>
-                                <td className="td table-center">{product?.category?.category}</td>
+                                <td className="td table-center">
+                                  {product?.category?.category}
+                                </td>
                                 {/* <td className="td table-center">{product.gstSlab}%</td> */}
-                                <td className="td table-center">{product.quantity}</td>
-                                <td className="td table-center">{product && `${dayjs(product.createdAt).format('MMMM D, YYYY')}`}</td>
+                                <td className="td table-center">
+                                  {product.quantity}
+                                </td>
+                                <td className="td table-center">
+                                  {product &&
+                                    `${dayjs(product.createdAt).format(
+                                      "MMMM D, YYYY"
+                                    )}`}
+                                </td>
                                 <td className="td table-center">
                                   <span className="td-edit-icon ">
-                                    <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateProduct/${product._id}`)}></i>
+                                    <i
+                                      class="bi bi-pencil-square"
+                                      onClick={(e) =>
+                                        navigate(
+                                          `/updateProduct/${product._id}`
+                                        )
+                                      }
+                                    ></i>
                                   </span>
                                 </td>
                               </tr>
                             );
                           })
-                        }
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -832,41 +913,80 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {
-                          searchField.blogs !== '' ? (searchBlogs && searchBlogs.length > 0) ? searchBlogs?.map((blog, index) => {
-                            return <tr>
-                              <th scope="row table-center">{index + 1}</th>
-                              <td className="td">
-                                <img src={blog.image} />
-                              </td>
-                              <td className="td table-center">{blog.title}</td>
-                              <td className="td table-center">
-                                <span className="td-edit-icon ">
-                                  <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateBlog/${blog._id}`)}></i>
-                                </span>
-                                <span className="td-delete-icon">
-                                  <i class="bi bi-trash3-fill" onClick={(e) => onDelete(e, blog._id)}></i>
-                                </span>
-                              </td>
-                            </tr>
-                          }) : <div><h4>No Results Found</h4></div> : blogs && blogs?.map((blog, index) => {
-                            return <tr>
-                              <th scope="row table-center">{index + 1}</th>
-                              <td className="td ">
-                                <img src={blog.image} className="featured-img-admin-blog" />
-                              </td>
-                              <td className="td table-center">{blog.title}</td>
-                              <td className="td table-center">
-                                <span className="td-edit-icon ">
-                                  <i class="bi bi-pencil-square" onClick={(e) => navigate(`/updateBlog/${blog._id}`)}></i>
-                                </span>
-                                <span className="td-delete-icon">
-                                  <i class="bi bi-trash3-fill" onClick={(e) => onDelete(e, blog._id)}></i>
-                                </span>
-                              </td>
-                            </tr>
+                        {searchField.blogs !== "" ? (
+                          searchBlogs && searchBlogs.length > 0 ? (
+                            searchBlogs?.map((blog, index) => {
+                              return (
+                                <tr>
+                                  <th scope="row table-center">{index + 1}</th>
+                                  <td className="td">
+                                    <img
+                                      src={blog.image}
+                                      className="featured-img-admin-blog"
+                                    />
+                                  </td>
+                                  <td className="td table-center">
+                                    {blog.title}
+                                  </td>
+                                  <td className="td table-center">
+                                    <span className="td-edit-icon ">
+                                      <i
+                                        class="bi bi-pencil-square"
+                                        onClick={(e) =>
+                                          navigate(`/updateBlog/${blog._id}`)
+                                        }
+                                      ></i>
+                                    </span>
+                                    <span className="td-delete-icon">
+                                      <i
+                                        class="bi bi-trash3-fill"
+                                        onClick={(e) => onDelete(e, blog._id)}
+                                      ></i>
+                                    </span>
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <div>
+                              <h4>No Results Found</h4>
+                            </div>
+                          )
+                        ) : (
+                          blogs &&
+                          blogs?.map((blog, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td ">
+                                  <img
+                                    src={blog.image}
+                                    className="featured-img-admin-blog"
+                                  />
+                                </td>
+                                <td className="td table-center">
+                                  {blog.title}
+                                </td>
+                                <td className="td table-center">
+                                  <span className="td-edit-icon ">
+                                    <i
+                                      class="bi bi-pencil-square"
+                                      onClick={(e) =>
+                                        navigate(`/updateBlog/${blog._id}`)
+                                      }
+                                    ></i>
+                                  </span>
+                                  <span className="td-delete-icon">
+                                    <i
+                                      class="bi bi-trash3-fill"
+                                      onClick={(e) => onDelete(e, blog._id)}
+                                    ></i>
+                                  </span>
+                                </td>
+                              </tr>
+                            );
                           })
-                        }
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -922,27 +1042,48 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {
-                          searchField.users !== '' ? (searchUsers && searchUsers.length > 0) ? searchUsers.map((user, index) => {
+                        {searchField.users !== "" ? (
+                          searchUsers && searchUsers.length > 0 ? (
+                            searchUsers.map((user, index) => {
+                              return (
+                                <tr>
+                                  <th scope="row table-center">{index + 1}</th>
+                                  <td className="td table-center">
+                                    {user.userName}
+                                  </td>
+                                  <td className="td table-center">
+                                    {user.role.role}
+                                  </td>
+                                  <td className="td table-center">
+                                    {user.phone}
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <div>
+                              <h4>No Results Found</h4>
+                            </div>
+                          )
+                        ) : (
+                          users &&
+                          users.map((user, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
-                                <td className="td table-center">{user.userName}</td>
-                                <td className="td table-center">{user.role.role}</td>
-                                <td className="td table-center">{user.phone}</td>
-                              </tr>
-                            );
-                          }) : <div><h4>No Results Found</h4></div> : users && users.map((user, index) => {
-                            return (
-                              <tr>
-                                <th scope="row table-center">{index + 1}</th>
-                                <td className="td table-center">{user.userName}</td>
-                                <td className="td table-center">{user.role.role}</td>
-                                <td className="td table-center">{user.phone}</td>
+                                <td className="td table-center">
+                                  {user.userName}
+                                </td>
+                                <td className="td table-center">
+                                  {user.role.role}
+                                </td>
+                                <td className="td table-center">
+                                  {user.phone}
+                                </td>
                               </tr>
                             );
                           })
-                        }
+                        )}
                       </tbody>
                     </table>
                   </div>

@@ -1,6 +1,6 @@
-import react, { useState } from "react";
+import react, { useState ,useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 
 const CreateBlog = () => {
   const [inputHandler, setInputHandler] = useState({
@@ -9,6 +9,21 @@ const CreateBlog = () => {
     readingTime: " ",
   });
   const [image, setImage] = useState();
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
+        // navigate("blog/composeBlog");
+      } else {
+        navigate("/auth/1");
+      }
+    }else {
+      navigate("/auth/1");
+    }
+  }, []);
 
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;

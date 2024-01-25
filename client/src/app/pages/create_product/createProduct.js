@@ -6,7 +6,7 @@ import axios from "axios";
 
 const CreateProduct = () => {
   const { data } = useFetch("/api/allCategory");
-  const user = JSON.parse(localStorage.getItem("user"));
+  // const user = JSON.parse(localStorage.getItem("user"));
   const [value, setValue] = useState(1);
   const [maxValue, setMaxValue] = useState(8);
 
@@ -26,6 +26,21 @@ const CreateProduct = () => {
   });
 
   const history = useNavigate();
+
+  
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
+        // history("/adminPage");
+      } else {
+      history("/auth/1");
+      }
+    }else {
+      history("/auth/1");
+    }
+  }, []);
 
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;

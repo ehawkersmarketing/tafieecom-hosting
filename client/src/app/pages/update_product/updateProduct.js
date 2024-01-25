@@ -18,13 +18,28 @@ const UpdateProduct = () => {
     description: "",
     price: "",
     quantity: "",
-    minQuantity:"",
-    maxQuantity:""
+    minQuantity: "",
+    maxQuantity: ""
   });
 
   const [dropdown, setDropdown] = useState({
-    category: " ",
+    category: "",
   });
+
+    
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
+        // history("/adminPage");
+      } else {
+      history("/auth/1");
+      }
+    }else {
+      history("/auth/1");
+    }
+  }, []);
 
   const onDropdownChangeInputHandler = (e) => {
     const { name, value } = e.target;
@@ -48,9 +63,11 @@ const UpdateProduct = () => {
           description: res.data.data.description,
           price: res.data.data.price,
           quantity: res.data.data.quantity,
-          maxQuantity:res.data.data.units.maxQuantity,
-          minQuantity:res.data.data.units.minQuantity,
-          UpdateProduct,
+          maxQuantity: res.data.data.units.maxQuantity,
+          minQuantity: res.data.data.units.minQuantity,
+        });
+        setDropdown({
+          category: res.data.data.category.category,
         });
       })
       .catch((err) => {
@@ -70,15 +87,15 @@ const UpdateProduct = () => {
     e.preventDefault();
     let categoryList = data.filter((item) => item.category === category);
     axios
-      .patch("http://localhost:8080/api/updateProduct/" + id, {        
-          title: inputHandler.title,
-          description: inputHandler.description,
-          price: inputHandler.price,
-          quantity: inputHandler.quantity,
-          maxQuantity: inputHandler.maxQuantity,
-          minQuantity: inputHandler.minQuantity,
-          category: categoryList[0]._id
-        
+      .patch("http://localhost:8080/api/updateProduct/" + id, {
+        title: inputHandler.title,
+        description: inputHandler.description,
+        price: inputHandler.price,
+        quantity: inputHandler.quantity,
+        maxQuantity: inputHandler.maxQuantity,
+        minQuantity: inputHandler.minQuantity,
+        category: categoryList[0]._id
+
       })
       .then((res) => {
         console.log(res.data);
@@ -130,7 +147,7 @@ const UpdateProduct = () => {
               placeholder="Price"
             />
           </div>
-          
+
           <div className="form_input">
             <label htmlFor="quantity">Quantity</label>
             <input
