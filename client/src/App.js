@@ -89,11 +89,11 @@ function App() {
           <Route path="/Cart" exact element={<Cart />} />
           <Route path="/myaccount" exact element={<Myaccount />} />
           <Route path="/franchise" exact element={<Franchise />} />
-            <Route path="/checkout" exact element={<Checkout />} />
+          <Route path="/checkout" exact element={<Checkout />} />
 
-          <Route path="/services" exact element={<Services/>}/>
+          <Route path="/services" exact element={<Services />} />
           <Route path="/service_pop" exact element={<Service_pop />} />
-          <Route path="/adminprocessorder" exact element={<AdminProcessOrder/>} />
+          <Route path="/adminprocessorder" exact element={<AdminProcessOrder />} />
         </Routes>
       </Routers>
     </div>

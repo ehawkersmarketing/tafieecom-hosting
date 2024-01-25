@@ -18,9 +18,6 @@ const orderSchema = new mongoose.Schema(
         transactionId: {
             type: String,
         },
-        merchantId: {
-            type: String,
-        },
         transactionStatus: {
             type: String,
             default: "PROCESSING",

@@ -24,7 +24,7 @@ const transactionSchema = new mongoose.Schema({
   },
   cartId: {
     type: mongoose.Types.ObjectId,
-    ref: "cart",
+    ref: "Cart",
     default: new mongoose.Types.ObjectId("65a1077e2d86e257edce492c"), //change this by taking out the default
   },
 });

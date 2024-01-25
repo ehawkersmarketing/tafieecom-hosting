@@ -1,7 +1,3 @@
-// const crypto = require("crypto");
-const axios = require("axios");
-const uniqid = require("uniqid");
-const { setTimeout } = require("timers");
 const {
   calcShipment,
   createOrder,
@@ -14,10 +10,13 @@ const {
   generateRetAWBFunction,
   generateInvoiceFunction,
   getOrderDetsFunction,
+  requestApproval
 } = require("../../controlllers/ship/shipController");
 const express = require("express");
 
 const router = express.Router();
+
+router.post("/requestApproval", requestApproval);
 
 router.post("/calcShipment", calcShipment);
 

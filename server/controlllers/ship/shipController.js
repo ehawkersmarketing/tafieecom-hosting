@@ -2,6 +2,124 @@ const crypto = require("crypto");
 const axios = require("axios");
 const uniqid = require("uniqid");
 const { setTimeout } = require("timers");
+const requestModel = require("../../models/shipmentModel/shipmentModel");
+const orderModel = require("../../models/orderModel/orderModel");
+
+exports.requestApproval = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+    const request = new requestModel({
+      orderId: orderId,
+    });
+    const data = await request.save();
+
+    if (data) {
+      res.json({
+        success: true,
+        message: "Request Sent",
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "Request failed",
+      });
+    }
+  } catch (err) {
+    res.json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+exports.approveRequest = async (req, res) => {
+  try {
+    const { requestId } = req.body;
+    const request = await requestModel.findOne({ _id: requestId });
+    if (request) {
+      const data = await requestModel.findOneAndUpdate(
+        { _id: requestId },
+        {
+          status: "APPROVED",
+        }
+      );
+      if (data) {
+
+        res.json({
+          success: true,
+          message: "Request Approved",
+        });
+      } else {
+        res.json({
+          success: false,
+          message: "Request Approval Failed",
+        });
+      }
+    }
+  } catch (err) {
+    res.json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+exports.cancelApprovalRequest = async (req, res) => {
+  try {
+    const { requestId } = req.body;
+    const request = await requestModel.findOne({ _id: requestId });
+    if (request) {
+      const data = await requestModel.findOneAndUpdate(
+        { _id: requestId },
+        {
+          status: "REJECTED",
+        }
+      );
+      if (data) {
+        const order = await orderModel.findOneAndUpdate({ _id: data.orderId }, {
+          orderStatus: "REJECTED"
+        });
+        if (order) {
+          const { data: payRefund } = await axios.post("http://localhost:8080/api/pay/refund", {
+            transactionId: order.transactionId,
+            orderId: order._id
+          });
+          if (payRefund) {
+            res.json({
+              success: true,
+              message: "Refunded",
+            });
+          } else {
+            res.json({
+              success: true,
+              message: "Failed to initiate refund",
+            });
+          }
+        } else {
+          res.json({
+            success: false,
+            message: "Order Rejection Failed",
+          });
+        }
+      } else {
+        res.json({
+          success: false,
+          message: "Request Rejection Failed",
+        });
+      }
+    } else {
+      res.json({
+        success: false,
+        message: "Request Not found",
+      });
+    }
+  } catch (err) {
+    res.json({
+      success: false,
+      message: err,
+    });
+  }
+};
 
 //GET || getting cost alternatives for different courier services
 exports.calcShipment = async (req, res) => {
@@ -64,13 +182,13 @@ exports.calcShipment = async (req, res) => {
                 );
               console.log(
                 "The minimum rate for delivery is:" +
-                  minRateObject.rate +
-                  "\n" +
-                  "The estimated time of delivery for the service is: " +
-                  minRateObject.etd +
-                  "\n" +
-                  "The name of the service is: " +
-                  minRateObject.courier_name
+                minRateObject.rate +
+                "\n" +
+                "The estimated time of delivery for the service is: " +
+                minRateObject.etd +
+                "\n" +
+                "The name of the service is: " +
+                minRateObject.courier_name
               );
               resData.status = true;
               resData.message = "Success!!";
