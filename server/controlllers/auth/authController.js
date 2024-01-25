@@ -15,14 +15,14 @@ exports.signup = async (req, res) => {
     let newUser;
     if (role) {
       newUser = new userModel({
-        userName:userName,
-        phone:phone,
-        role:role,
+        userName: userName,
+        phone: phone,
+        role: role,
       });
     } else {
       newUser = new userModel({
-        userName:userName,
-        phone:phone,
+        userName: userName,
+        phone: phone,
       });
     }
     const user = await newUser.save();
@@ -113,12 +113,39 @@ module.exports.verifyOtp = async (req, res) => {
   }
 };
 
-module.exports.googleAuth = async (req, res) => {};
+module.exports.googleAuth = async (req, res) => { };
 
 exports.user = async (req, res) => {
   try {
     const { phone, email, userName, role } = req.body;
     let user = await userModel.find({}).populate("role");
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User is not found",
+      });
+    }
+    res.json({
+      success: true,
+      data: user,
+      message: "User found",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "error",
+    });
+  }
+};
+
+exports.searchUser = async (req, res) => {
+  try {
+    const { search } = req.body;
+    let user = await userModel.find({
+      userName: { $regex: search },
+    }).populate("role");
 
     if (!user) {
       return res.status(401).json({
