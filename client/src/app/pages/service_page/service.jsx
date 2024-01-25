@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./service.css";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import cardimg1 from "../../assets/services-card1.png";
-import cardimg2 from "../../assets/services-card2.png";
-import cardimg3 from "../../assets/services-card3.png";
-import cardimg4 from "../../assets/services-card4.png";
 import Service_pop from "../../components/service_pop/Service_pop";
+import { useFetch } from "../../hooks/api_hook";
+import axios from "axios";
 
 const OurServices = () => {
+
+  const [searchField, setSearchField] = useState('');
+  const { data: services } = useFetch('/api/getAllService');
+  const [searchService, setSearchService] = useState(undefined);
+  const [openIndex, setIndex] = useState(0);
+
+  const search = async (text) => {
+    if (text !== '') {
+      const { data } = await axios.post(`http://localhost:8080/api/searchService`, {
+        search: text
+      });
+      setSearchService(data.data);
+    } else {
+      setIndex(0);
+      setSearchService(undefined);
+    }
+  };
+
+  useEffect(() => {
+    search(searchField);
+  }, [searchField]);
+
   return (
     <>
       <Header />
@@ -22,9 +42,9 @@ const OurServices = () => {
                   <span>OUR</span> <span>SERVICES</span>
                 </h1>
                 <p>Define your agriculture in a whole different way</p>
-                <Link to="">
+                <a href="#allservice">
                   Learn More <i class="bi bi-whatsapp"></i>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -43,6 +63,7 @@ const OurServices = () => {
                   type="text"
                   id="text-blog"
                   name="search"
+                  onChange={(e) => setSearchField(e.target.value)}
                   className="search_container"
                 />
                 <div className="search-button">
@@ -54,87 +75,74 @@ const OurServices = () => {
             </div>
           </div>
         </div>
-        <div className="services-card-outer">
+        <div className="services-card-outer" id="allservice">
           <div className="services-card row">
-            <div className="col-4">
-              <div className="service-block d-flex">
-                <div className="block-text col-7">
-                  <div>
-                    <h5><button type="button" class="card-button" data-bs-toggle="modal" data-bs-target="#service-about">Poly House</button></h5>
-                    <p>cultivation of high quality and exotic crops</p>
-                  </div>
-                </div>
-                <div className="block-img col-5">
-                  <img src={cardimg1} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="service-block d-flex">
-                <div className="block-text col-7">
-                  <div>
-                    <h5><button type="button" class="card-button" data-bs-toggle="modal" data-bs-target="#service-about">Shade Net House</button></h5>
-                    <p>Temperature-Controlled Cultivation</p>
-                  </div>
-                </div>
-                <div className="block-img col-5">
-                  <img src={cardimg2} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="service-block d-flex">
-                <div className="block-text col-7">
-                  <div>
-                    <h5><button type="button" class="card-button" data-bs-toggle="modal" data-bs-target="#service-about">Fan & Pad Poly House</button></h5>
-                    <p>Climate-Optimized Plantation</p>
-                  </div>
-                </div>
-                <div className="block-img col-5">
-                  <img src={cardimg3} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="service-block d-flex">
-                <div className="block-text col-7">
-                  <div>
-                    <h5><button type="button" class="card-button" data-bs-toggle="modal" data-bs-target="#service-about">Mist Chamber</button></h5>
-                    <p>Precision Propagation Hub</p>
-                  </div>
-                </div>
-                <div className="block-img col-5">
-                  <img src={cardimg4} alt="" />
-                </div>
-              </div>
-            </div>
 
-            {/* <--Missing Something--/> */}
-
-            <div className="col-4">
-              <div className="service-block d-flex">
-                <div className="block-text-missing">
-                  <div>
-                    <h5>Missing Something?</h5>
-                    <p>Tell us your requirements below.</p>
-                  </div>
+            {
+              searchField !== '' &&
+              <div className="blog-latest-post">
+                <div>
+                  <h4>Search Posts</h4>
+                </div>
+                <div className="below-line">
+                  <div className="below-post"></div>
+                  <div className="below-post-1"></div>
+                </div>
+                <div className="latest-post-card row">
+                  {
+                    searchService && searchService.length !== 0 ? searchService?.map((service, index) => {
+                      return <div className="col-4" key={index}>
+                        <div className="service-block d-flex">
+                          <div className="block-text col-7">
+                            <div>
+                              <h5><button type="button" class="card-button" data-bs-toggle="modal" onClick={() => setIndex(index)} data-bs-target="#service-about">{service.title}</button></h5>
+                              <p>{service.description}</p>
+                            </div>
+                          </div>
+                          <div className="block-img col-5">
+                            <img src={service.image} alt="" />
+                          </div>
+                        </div>
+                      </div>
+                    }) : <div><h4>No Results Found</h4></div>
+                  }
                 </div>
               </div>
-            </div>
+            }
+
+            {
+              services && searchField === '' && services.map((service, index) => {
+                return (
+                  <div className="col-4" key={index}>
+                    <div className="service-block d-flex">
+                      <div className="block-text col-7">
+                        <div>
+                          <h5><button type="button" class="card-button" data-bs-toggle="modal" onClick={() => setIndex(index)} data-bs-target="#service-about">{service.title}</button></h5>
+                          <p>{service.description}</p>
+                        </div>
+                      </div>
+                      <div className="block-img col-5">
+                        <img src={service.image} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            }
 
             {/* <--Modal--/> */}
-            <div class="modal fade" id="service-about" tabindex="-1" aria-labelledby="servicemodalpop" aria-hidden="true">
+            {services && <div class="modal fade" id="service-about" tabindex="-1" aria-labelledby="servicemodalpop" aria-hidden="true">
               <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                   <div class="modal-header">
                     <div>
-                      <h1 class="modal-title fs-5" id="servicemodalpop">Poly House</h1>
-                      <p>Cultivation of high quality and exotic crops</p>
+                      <h1 class="modal-title fs-5" id="servicemodalpop">{searchField === '' ? services[openIndex].title : (searchService && searchService.length > 0) && searchService[openIndex].title}</h1>
+                      <p>{services[openIndex].description}</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <Service_pop />
+                    <Service_pop item={searchField === '' ? services[openIndex] : (searchService && searchService.length > 0) && searchService[openIndex]} />
                   </div>
                   <div class="modal-footer">
                     <div className='service-pop'>
@@ -145,7 +153,7 @@ const OurServices = () => {
 
                 </div>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </div>

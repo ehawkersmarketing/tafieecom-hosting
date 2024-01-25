@@ -10,6 +10,7 @@ const {
   addRole,
   verifyOtp,
   googleAuth,
+  searchUser,
 } = require("../../controlllers/auth/authController");
 
 router.get(
@@ -24,6 +25,7 @@ router.post("/signup", signup);
 router.post("/sendOtp", sendOtp);
 router.post("/verifyOtp", verifyOtp);
 router.post("/login", login);
+router.post("/searchUser", searchUser);
 router.post("/googleAuth", googleAuth);
 router.get("/users", user);
 router.get("/login/failed", (req, res) => {
