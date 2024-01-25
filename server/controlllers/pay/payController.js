@@ -2,12 +2,13 @@ const crypto = require("crypto");
 const axios = require("axios");
 const uniqid = require("uniqid");
 const { setTimeout } = require("timers");
+const transactionModel = require("../../models/transactionModel/transactionModel");
 
 const giveUniqueId = (length) => {
   return "TAFI" + uniqid(length);
 };
 
-//PhonePe redirect for payment
+//redirecting to PhonePe for payment facilitation
 exports.payFunction = async (req, res) => {
   try {
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
@@ -50,7 +51,7 @@ exports.payFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data.instrumentResponse.redirectInfo.url);//url to PhonePe page for payment
+        console.log(response.data.data.instrumentResponse.redirectInfo.url); //url to PhonePe page for payment
         res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
       })
       .catch(function (error) {
@@ -72,6 +73,7 @@ exports.payFunction = async (req, res) => {
   }
 };
 
+//Check status call => accepting success and making document in trasaction DB
 exports.checkStatusFunction = async (req, res) => {
   const { transactionId, cartId } = req.params; //sent as params withthe redirect from the pay API
   const string =
@@ -94,26 +96,41 @@ exports.checkStatusFunction = async (req, res) => {
   let status = statusCall(n, options, cartId);
   console.log(`This is the status ${status}`);
   if (status) {
-    res.redirect("http://localhost:8080/api/cart");
+    return res.redirect("http://localhost:8080/api/cart"); //LANDING PAGE TO REDIRECT TO AFTER ORDER CONFIRMATION
+  } else {
+    return res.status(500).semd({
+      success: false,
+      message: "Check status returned failed status of transaction",
+    });
   }
-
 };
 
+//recursive status check function called when first status call fails
 async function statusCall(n, options, cartId) {
   try {
     let response = await axios.request(options);
     if (response.data.success === true) {
+      console.log(response.data.data);
       console.log("Taking data to place order");
-      let { data } = await axios.post("http://localhost:8080/api/placeOrder", {
-        transactionId: response.data.data.merchantTransactionId,
-        merchantId: response.data.data.merchantId,
-        cartId: cartId,
+
+      const newTransaction = new transactionModel({
+        transactionId: response.data.data.transactionId,
+        status: "COMPLETE",
+        date: Date.now(),
         amount: response.data.data.amount,
-        transactionStatus: response.data.data.state
+        // cartId:cartId,
       });
-      if (data.success) {
-        return true;
-      } else {
+      try {
+        await newTransaction.save().then(() => {
+          console.log(
+            "transaction successfully and document made in transactionModel" +
+              newTransaction._id
+          );
+          return true;
+        });
+      } catch (error) {
+        console.log(error);
+        console.log("failure in saving new transaction");
         return false;
       }
     } else {
@@ -134,7 +151,7 @@ exports.getOrderLogFunction = async (req, res) => {
     console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
   } catch (err) {
     console.log(err);
-    res.status(500).send({
+    return res.status(500).send({
       message:
         "ERROR IN GETTING POST REQUEST FROM THE PHONEPE API CONFIRMING PAYMENT INITIATION",
       success: false,
@@ -146,9 +163,12 @@ exports.refundFunction = async (req, res) => {
   try {
     const { transactionId } = req.body;
     const refundTransId = giveUniqueId(16);
-    const refundAmount = await paymentModel.findOne({
+    const refundEntry = await transactionModel.findOne({
       transactionId: transactionId,
-    }).amount; //amount that has to be refunded from the paymentModel referring to successfull transactions
+      status: "COMPLETE",
+    }); //amount that has to be refunded from the paymentModel referring to successfull transactions
+    console.log(refundEntry);
+    const refundAmount = refundEntry.amount;
     const data = {
       merchantId: process.env.MERCHANT_ID,
       merchantUserId: process.env.MERCHANT_USER_ID,
@@ -185,34 +205,36 @@ exports.refundFunction = async (req, res) => {
           const refundCommited = await paymentModel.findOneAndUpdate(
             { transactionId: transactionId },
             {
-              refund: true,
-              refundCommited,
+              status: "REFUNDED",
+              refundTransactionId: response.data.data.transactionId,
             }
           );
-          res.status(200).send({
+          console.log("refund commited in transactinoModel");
+          return res.status(200).send({
             success: true,
             message: "REFUND SUCCESSFULllY UPDATED IN PAYMENT MODEL",
           });
         } catch (err) {
           console.log(err);
-          res.status(500).send({
+          return res.status(500).send({
             success: false,
             message: "ERROR IN FINDING AND UPDATING PAYMENT TRANSACTION",
           });
         }
       })
       .catch(function (error) {
+        console.log(error);
         if (error.response.status === 500) {
           // console.log(error.response.status);
-          res.status(500).send({
+          return res.status(500).send({
             success: false,
             message: "ERROR IN REFUNDING THE PAYMENT",
           });
         }
       });
   } catch (err) {
-    // console.log(err);
-    res.status(500).send({
+    console.log(err);
+    return res.status(500).send({
       success: false,
       message: "ERROR IN REFUNDING THE PAYMENT",
     });

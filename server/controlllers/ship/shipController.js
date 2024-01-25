@@ -5,22 +5,19 @@ const { setTimeout } = require("timers");
 
 //GET || getting cost alternatives for different courier services
 exports.calcShipment = async (req, res) => {
-  const { pickup_postcode, shipping_postcode, weight, shipping_value } =
-    req.body;
+  const { shipping_postcode, weight, declared_value, is_return } = req.body;
   let rs_data = await srShippingRateCalculation(
-    pickup_postcode,
     shipping_postcode,
     weight,
-    // "xyzORDER_ID",
-    shipping_value
+    declared_value,
+    is_return
   );
   //Function ShippingRateCalculation
   function srShippingRateCalculation(
-    pickup_postcode,
     shipping_postcode,
     weight,
-    // order_id,
-    declared_value
+    declared_value,
+    is_return
   ) {
     return new Promise(async (resolve, reject) => {
       let resData = {
@@ -29,20 +26,18 @@ exports.calcShipment = async (req, res) => {
         message: "Fail!!",
       };
       try {
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         let getToken = await srlogin();
-        console.log("below is the api key token recieved");
+        // console.log("below is the api key token recieved");
         // console.log(getToken);
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        let paramers = "pickup_postcode=" + pickup_postcode;
+
+        let paramers = "pickup_postcode=" + process.env.SHOP_PINCODE;
         paramers += "&delivery_postcode=" + shipping_postcode;
         paramers += "&weight=" + weight;
-        // paramers += "&order_id=" + order_id;
-        paramers += "&cod=0";
+        paramers += "&cod=" + 0;
         paramers += "&declared_value=" + declared_value;
         paramers += "&rate_calculator=1";
-        paramers += "&is_return=0";
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        paramers += "&is_return=" + is_return;
+
         if (getToken.status) {
           console.log(getToken.mainToken);
           var options = {
@@ -61,29 +56,48 @@ exports.calcShipment = async (req, res) => {
               console.log(
                 "Following are the delivery companies available for the delivery service: "
               );
-              console.log(response.data.data.available_courier_companies);
+              let minRateObject =
+                response.data.data.available_courier_companies.reduce(
+                  (prev, curr) => {
+                    return prev.rate < curr.rate ? prev : curr;
+                  }
+                );
+              console.log(
+                "The minimum rate for delivery is:" +
+                  minRateObject.rate +
+                  "\n" +
+                  "The estimated time of delivery for the service is: " +
+                  minRateObject.etd +
+                  "\n" +
+                  "The name of the service is: " +
+                  minRateObject.courier_name
+              );
               resData.status = true;
               resData.message = "Success!!";
               resData.mainset = response.data;
               console.log(resData);
+              return resData;
             })
             .catch(function (error) {
               console.log("Calculate shipment failure");
+              console.log(error);
               resData.status = false;
               resData.message = "Error!!";
               resData.mainset = JSON.stringify(error);
               console.log(resData);
+              return resData;
             });
         } else {
-          console.log("token failure");
+          console.log("Token failure");
           resData.status = false;
-          resData.message = "Error!!";
-          // reject(resData);
+          resData.message = "Error!! token failure";
+          return resData;
         }
       } catch (e) {
         console.error(e);
-        console.log("sdvkbnhujdfbk");
-        // reject(resData);
+        resData.status = false;
+        resData.message = "Error!!";
+        return resData;
       }
     });
   }
@@ -137,23 +151,7 @@ exports.createOrder = async (req, res) => {
     console.log("below is the api key token recieved");
     console.log(getToken);
 
-    // console.log("following is the url we are pinging for createOrder:");
-    // console.log(
-    //   "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc?" + paramers
-    // );
-
     if (getToken.status) {
-      // let options = {
-      //   method: "post",
-      //   maxBodyLength: Infinity,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${getToken.mainToken}`,
-      //   },
-      //   url:
-      //     "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc?" +
-      //     paramers,
-      // };
       await axios
         .post(
           "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc",
@@ -212,9 +210,17 @@ exports.createOrder = async (req, res) => {
         .catch(function (error) {
           console.log("error in creating order error message as follows: ");
           console.log(error);
+          return res.status(error.response.data.status_code).send({
+            success: false,
+            message: error.response.data.message,
+          });
         });
     } else {
-      console.log("token recieval failed from the srlogin function");
+      console.log("token recieval from the srlogin function failed");
+      return res.status(400).send({
+        success: false,
+        message: "Token recieval from the srlogin function failed",
+      });
     }
   }
 };
@@ -444,24 +450,11 @@ exports.setPickupFunction = async (req, res) => {
 //POST || generating manifest for shipment
 exports.generateManifestFunction = async (req, res) => {
   let { shipment_id } = req.body;
-  // let paramers = "shipment_id=" + shipment_id;
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
 
   if (getToken) {
-    // let options = {
-    //   method: "post",
-    //   maxBodyLength: Infinity,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${getToken.mainToken}`,
-    //   },
-    //   url:
-    //     "https://apiv2.shiprocket.in/v1/external/manifests/generate?" +
-    //     paramers,
-    // };
-
     await axios
       .post(
         "https://apiv2.shiprocket.in/v1/external/manifests/generate",
@@ -478,12 +471,12 @@ exports.generateManifestFunction = async (req, res) => {
       .then(function (response) {
         let manifest_url = response.data.manifest_url;
         if (manifest_url === "") {
-          res.send({
+          return res.send({
             success: false,
             message: "Missing fields or invalid data",
           });
         }
-        res.status(200).send({
+        return res.status(200).send({
           success: true,
           message: "Manifest generated check here: ",
           manifest_url,
@@ -491,7 +484,7 @@ exports.generateManifestFunction = async (req, res) => {
       })
       .catch(function (error) {
         if (error.response.data.status_code === 400) {
-          res.status(400).send({
+          return res.status(400).send({
             success: false,
             message: "Manifest for the shipment already generated",
           });
@@ -521,13 +514,13 @@ exports.shipmentDetsFunction = async (req, res) => {
     await axios(options)
       .then(function (response) {
         if (response == {}) {
-          res.send({
+          return res.send({
             success: failure,
             message: "No shipment found",
           });
         }
         let shipDets = response.data;
-        res.status(200).send({
+        return res.status(200).send({
           success: true,
           message: "Shipment details as follows: ",
           shipDets,
@@ -535,6 +528,10 @@ exports.shipmentDetsFunction = async (req, res) => {
       })
       .catch(function (error) {
         console.log(error);
+        return res.status(error.response.data.status).send({
+          success: false,
+          message: error.response.data.message,
+        });
       });
   }
 };
@@ -543,7 +540,7 @@ exports.shipmentDetsFunction = async (req, res) => {
 exports.cancelShipmentFunction = async (req, res) => {
   let { awbs } = req.body; //array of awbs
   if (awbs == []) {
-    res.status(404).send({
+    return res.status(404).send({
       success: false,
       message: "No AWBs were sent",
     });
@@ -566,13 +563,17 @@ exports.cancelShipmentFunction = async (req, res) => {
       )
       .then(function (response) {
         console.log(response);
-        res.status(200).send({
+        return res.status(200).send({
           success: true,
           message: response.data.message,
         });
       })
       .catch(function (error) {
         console.log(error);
+        return res.status(error.response.data.status).send({
+          success: false,
+          message: error.response.data.message,
+        });
       });
   }
 };
@@ -617,55 +618,11 @@ exports.createReturnOrderFunction = async (req, res) => {
     weight,
   } = req.body;
 
-  // let paramers = "order_id=" + order_id;
-  // paramers += "&order_date=" + order_date;
-  // paramers += "&channel_id=" + channel_id;
-  // paramers += "&pickup_customer_name=" + pickup_customer_name;
-  // paramers += "&pickup_last_name=" + pickup_last_name;
-  // paramers += "&pickup_address=" + pickup_address;
-  // paramers += "&pickup_address_2=" + pickup_address_2;
-  // paramers += "&pickup_city=" + pickup_city;
-  // paramers += "&pickup_state=" + pickup_state;
-  // paramers += "&pickup_country=" + pickup_country;
-  // paramers += "&pickup_pincode=" + pickup_pincode;
-  // paramers += "&pickup_email=" + pickup_email;
-  // paramers += "&pickup_phone=" + pickup_phone;
-  // paramers += "&shipping_customer_name=" + shipping_customer_name;
-  // paramers += "&shipping_last_name=" + shipping_last_name;
-  // paramers += "&shipping_address=" + shipping_address;
-  // paramers += "&shipping_address_2=" + shipping_address_2;
-  // paramers += "&shipping_city=" + shipping_city;
-  // paramers += "&shipping_country=" + shipping_country;
-  // paramers += "&shipping_pincode=" + shipping_pincode;
-  // paramers += "&shipping_state=" + shipping_state;
-  // paramers += "&shipping_email=" + shipping_email;
-  // paramers += "&shipping_phone=" + shipping_phone;
-  // paramers += "&order_items=" + order_items;
-  // paramers += "&payment_method=" + "Prepaid";
-  // paramers += "&total_discount=" + total_discount;
-  // paramers += "&sub_total=" + sub_total;
-  // paramers += "&length=" + length;
-  // paramers += "&breadth=" + breadth;
-  // paramers += "&height=" + height;
-  // paramers += "&weight=" + weight;
-
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
 
   if (getToken) {
-    // let options = {
-    //   method: "post",
-    //   maxBodyLength: Infinity,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${getToken.mainToken}`,
-    //   },
-    //   url:
-    //     "https://apiv2.shiprocket.in/v1/external/orders/create/return?" +
-    //     paramers,
-    // };
-
     await axios
       .post(
         "https://apiv2.shiprocket.in/v1/external/orders/create/return",
@@ -712,24 +669,28 @@ exports.createReturnOrderFunction = async (req, res) => {
       .then(function (response) {
         console.log(response);
         if (response.status_code == 422) {
-          res.status(422).send({
+          return res.status(422).send({
             success: false,
             message: response.data.message,
           });
         }
-        res.status(200).send({
+        return res.status(200).send({
           success: true,
           message: response.data.status,
         });
       })
       .catch(function (error) {
         if (error.data.status_code == 400) {
-          res.status(400).send({
+          return res.status(400).send({
             success: false,
             message: error.response.data.message,
           });
         } else {
           console.log(error);
+          return res.status(error.response.data.status_code).send({
+            success: false,
+            message: error.response.data.message,
+          });
         }
       });
   }
@@ -765,6 +726,7 @@ exports.generateRetAWBFunction = async (req, res) => {
     await axios(options)
       .then(function (response) {
         console.log(response);
+        return response;
       })
       .catch(function (error) {
         if (
@@ -773,32 +735,32 @@ exports.generateRetAWBFunction = async (req, res) => {
           error.response.data.status_code == 503 ||
           error.response.data.status_code == 504
         ) {
-          res.status(500).send({
+          return res.status(500).send({
             message: "Server error at shiprocket missing data",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 401) {
-          res.status(401).send({
+          return res.status(401).send({
             message: "Eroor in authenticating request error",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 404) {
-          res.status(404).send({
+          return res.status(404).send({
             message: "Invaliv url access requested, check params",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 422) {
-          res.status(422).send({
+          return res.status(422).send({
             message: "Unable to process params, check params",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 429) {
-          res.status(429).send({
+          return res.status(429).send({
             message: "Rate limit exceeded",
             status_code: error.response.data.status_code,
           });
         } else {
-          res.status(500).send({
+          return res.status(500).send({
             success: false,
             status_code: error.response.data.status_code,
             error,
@@ -820,10 +782,8 @@ function srlogin() {
     };
     //REQUIRED DATA FOR AUTHENTICATION API
     var srlogindata = JSON.stringify({
-      // email: "kotharibhavik2307@gmail.com",
-      // password: "hellomam",
-      email: "tech@ehawkersmarketing.in",
-      password: "Marketing@1657",
+      email: process.env.SHIPROCKET_EMAIL,
+      password: process.env.SHIPROCKET_PASSWORD,
     });
     try {
       //REQUIRED OPTIONS FOR AUTHENTICATION API
