@@ -15,6 +15,20 @@ const UpdateBlog = () => {
     readingTime: "",
   });
 
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
+        // history("/adminPage");
+      } else {
+      history("/auth/1");
+      }
+    }else {
+      history("/auth/1");
+    }
+  }, []);
+
   const getOneBlog = async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/api/blog/" + id);
