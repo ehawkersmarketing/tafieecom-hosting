@@ -23,7 +23,8 @@
   text-align: center;
   mask-image: radial-gradient(circle, white 40%, rgba(254, 254, 254, 0) 70%);
 }
-.topDiv .headingimage img{
+
+.topDiv .headingimage img {
   /* width: 20%; */
   max-width: 120%;
   margin: auto;

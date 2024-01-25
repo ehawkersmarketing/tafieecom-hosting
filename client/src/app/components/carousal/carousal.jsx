@@ -14,8 +14,8 @@ const CarouselCard = ({ items }) => {
                     margin={8}
                     autoplayTimeout={5000}
                     autoplayHoverPause={true}
-                    autoplay={true} >{items?.map((item) => {
-                        return <ProductCard item={item} className='productItem' />
+                    autoplay={true} >{items?.map((item, index) => {
+                        return <ProductCard item={item} className='productItem' key={index} />
                     })}
                 </OwlCarousel>
             </div>

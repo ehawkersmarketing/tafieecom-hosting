@@ -79,8 +79,8 @@ const Invoice = () => {
                   <th>Product Name</th>
                   <th>HSN/SAC</th>
                   <th>Quantity</th>
-                  <th>Price (INR)</th>
-                  <th>GST (%)</th>
+                  <th>Price (INR)<p>(inclusive of taxes)</p></th>
+                  
                   <th>Total Amount</th>
                 </tr>
               </thead>
@@ -91,7 +91,7 @@ const Invoice = () => {
                   <td>1234</td>
                   <td>1</td>
                   <td>500.00</td>
-                  <td>90.00</td>
+                  
                   <td>590</td>
                 </tr>
               </tbody>
@@ -102,7 +102,7 @@ const Invoice = () => {
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td></td>
+                  
                   <td>590</td>
                 </tr>
               </tfoot>

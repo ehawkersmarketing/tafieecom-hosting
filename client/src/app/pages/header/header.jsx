@@ -10,7 +10,9 @@ const Header = () => {
     <>
       <div className="header">
         <div className="logo-section col-2">
-          <img src={logo} alt="" />
+          <Link to="/">
+            <img src={logo} alt="" />
+          </Link>
         </div>
         <div className="link-section col-7 justify-content-around">
           <Link to="/">
@@ -19,11 +21,14 @@ const Header = () => {
           <Link to="/shopPage">
             <span>Shop</span>
           </Link>
+          <Link to="/services">
+            <span>Service </span>
+          </Link>
           <Link to="/about">
             <span>About Us</span>
           </Link>
           <Link to="/franchise">
-            <span>Franchise interest</span>
+            <span>Exclusive Store</span>
           </Link>
           <Link to="/blog">
             <span>Resource center</span>
@@ -36,7 +41,9 @@ const Header = () => {
           <Link className="signin" to={`/auth/${0}`}>
             Sign In
           </Link>
-
+          <Link className="register myaccount" to={"/myaccount"}>
+            My account
+          </Link>
         </div>
       </div>
     </>

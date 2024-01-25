@@ -28,7 +28,7 @@ exports.getAllProducts = async (req, res) => {
 
 exports.getProductsById = async (req, res) => {
   try {
-    const products = await productModel.find({ _id: req.params.id });
+    const products = await productModel.findOne({ _id: req.params.id }).populate('category');
     console.log(products);
     if (!products) {
       return res.status(500).send({
@@ -57,7 +57,6 @@ exports.createProduct = async (req, res) => {
       title,
       description,
       price,
-      gstSlab,
       image,
       quantity,
       rating,
@@ -70,9 +69,8 @@ exports.createProduct = async (req, res) => {
     const product = await productModel.create({
       title,
       description,
-      image: `${process.env.SERVER_URL}/${image}`,
+      image: `${image}`,
       price,
-      gstSlab,
       quantity,
       units,
       rating,
@@ -117,9 +115,8 @@ exports.updateProduct = async (req, res) => {
       quantity,
       metric,
       companyName,
-      productType,
+      category
     } = req.body;
-
     const updatedProduct = await productModel.findByIdAndUpdate(
       { _id: id },
       {
@@ -130,7 +127,7 @@ exports.updateProduct = async (req, res) => {
         quantity,
         metric,
         companyName,
-        productType,
+        category,
       }
     );
 
@@ -185,8 +182,11 @@ exports.searchProduct = async (req, res) => {
     let { search } = req.body;
     search = search.trim();
     const products = await productModel.find({
-      $or: [{ title: { $regex: search } }, { description: { $regex: search } }],
-    });
+      $or: [
+        { title: { $regex: search } },
+        { description: { $regex: search } },
+      ],
+    }).populate('category');
     console.log(products);
     if (!products) {
       return res.status(500).send({
@@ -212,7 +212,7 @@ exports.searchProduct = async (req, res) => {
 exports.searchProductByCategory = async (req, res) => {
   try {
     const search = req.params.category;
-    const products = await productModel.find({ category: search });
+    const products = await productModel.find({ category: search }).populate('category');
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -236,10 +236,11 @@ exports.searchProductByCategory = async (req, res) => {
 
 exports.CreateCategory = async (req, res) => {
   try {
-    const { category } = req.body;
+    const { category, categoryImg } = req.body;
 
     const response = await categoryModel.create({
       category,
+      categoryImg
     });
 
     const productType = await response.save();
