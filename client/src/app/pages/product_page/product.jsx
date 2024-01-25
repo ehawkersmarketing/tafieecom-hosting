@@ -3,10 +3,14 @@ import "./product.css";
 import ProductImage from "../../assets/fertilizers.png";
 import Carousal from "../../components/carousal/carousal";
 import Header from "../../pages/header/header";
+
+import Footer from "../footer/footer";
+
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/api_hook";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import $ from "jquery";
 const Product = () => {
   const { id } = useParams();
@@ -73,7 +77,9 @@ const Product = () => {
       });
     });
 
-    return (
+
+  return (
+    <><Header/>
       <div className="single-product bg">
         <section className="product-bg">
           <div className="wrapper">
@@ -111,6 +117,7 @@ const Product = () => {
                           Add to wishlist
                         </a>
                       </div>
+
                     </div>
                   </div>
                 </card>
@@ -206,8 +213,11 @@ const Product = () => {
           </div>
         </div>
       </div>
-    );
-  
+    </div>
+    <Footer/>
+    </>
+  );
+
 };
 
 export default Product;

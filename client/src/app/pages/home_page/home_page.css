@@ -14,6 +14,7 @@
   width: 100%;
   padding-bottom: 8%;
   justify-content: space-between;
+  --bs-gutter-x:0;
 }
 
 .topDiv .headingimage {
@@ -277,7 +278,6 @@
 }
 
 .div4 .soilDiv .soilTestInfo p {
-  text-indent: 16px;
   color: white;
   font-weight: 300;
   font-size: 1.2rem;
