@@ -95,16 +95,10 @@ const Dashboard = () => {
           </div>
           <div className="category-region">
             <div className="category-carousel">
-              <div className="left-arrow">
-                <i class="bi bi-arrow-left"></i>
-              </div>
               <div className="feature-carousal">
                 {featuredProducts && (
                   <FeatureCarouselCard items={featuredProducts} />
                 )}
-              </div>
-              <div className="right-arrow">
-                <i class="bi bi-arrow-right"></i>
               </div>
             </div>
           </div>
@@ -174,7 +168,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <div className="registerSoilBTN">
-                <button onClick={(e) => navigate(`/auth/${1}`)}>
+                <button onClick={(e) => navigate(`/auth/register`)}>
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>

@@ -11,8 +11,8 @@ import Footer from "../footer/footer";
 const ExclusiveStore = () => {
   const footerHandler = () => {
     document.getElementById('bottom').scrollIntoView({ behavior: 'smooth' });
-   }
-   
+  }
+
   return (
     <div>
       <div className="franchise-wrapper">
@@ -161,7 +161,7 @@ const ExclusiveStore = () => {
                     <i>Unveil unique products & services not found</i>
                   </span>
                 </div>
-                <div className="content-map-fan">
+                {/* <div className="content-map-fan">
                   <p
                     style={{
                       fontWeight: "700",
@@ -171,9 +171,9 @@ const ExclusiveStore = () => {
                   >
                     Find the stores near you!
                   </p>
-                </div>
+                </div> */}
 
-                <div className="search-bar">
+                {/* <div className="search-bar">
                   <input
                     type="text"
                     name="search"
@@ -184,7 +184,7 @@ const ExclusiveStore = () => {
                       <i class="bi bi-search"></i>
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

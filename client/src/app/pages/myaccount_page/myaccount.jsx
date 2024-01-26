@@ -20,7 +20,7 @@ const Myaccount = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.role.role === "Admin" || "Editor") {
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
         navigate('/')
       }
     } else {

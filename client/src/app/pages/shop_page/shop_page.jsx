@@ -160,16 +160,6 @@ const ShopPage = () => {
               <span>SELLERS</span>
             </div>
           </div>
-          <div className="side-nav">
-            <div className="previous-nav">
-              <i class="bi bi-arrow-left"></i>
-              <span className="previous-text">Previous</span>
-            </div>
-            <div className="next-nav">
-              <span className="next-text">Next</span>
-              <i class="bi bi-arrow-right"></i>
-            </div>
-          </div>
           <div className="best-seller-product">
             {visibleProducts && <CarousalCard items={visibleProducts} />}
           </div>
@@ -202,12 +192,6 @@ const ShopPage = () => {
               <div className="tafi-product-text2">
                 <span>PRODUCTS</span>
               </div>
-            </div>
-          </div>
-          <div className="side-nav">
-            <div className="next-nav">
-              <span className="next-text">Next</span>
-              <i class="bi bi-arrow-right"></i>
             </div>
           </div>
           <div className="all-products-card">

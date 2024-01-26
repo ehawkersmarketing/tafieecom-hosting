@@ -32,11 +32,13 @@ const ShopPageCarouselCard = ({ items }) => {
                                         <h1 className='product-name'>{item.title}</h1>
                                         <div className="ratingAndReview">
                                             <ul class="rating">
-                                                <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                                                <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                                                <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                                                <li><i class="bi bi-star-fill" id='review-icon'></i></li>
-                                                <li><i class="bi bi-star-fill" id='review-icon'></i></li>
+                                                {Array.apply(null, { length: 5 }).map(
+                                                    (e, i) => (
+                                                        <li>
+                                                            <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                                                        </li>
+                                                    )
+                                                )}
                                             </ul>
                                             <span className='review'>{item.reviews} Reviews</span>
                                         </div>

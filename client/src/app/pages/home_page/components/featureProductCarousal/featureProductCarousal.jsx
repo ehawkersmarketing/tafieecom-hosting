@@ -8,7 +8,7 @@ const FeatureCarouselCard = ({ items }) => {
     return (
         <div>
             <div class='container-fluid' >
-                <OwlCarousel items={2.7}
+                <OwlCarousel items={3}
                     className="owl-theme"
                     loop
                     nav
