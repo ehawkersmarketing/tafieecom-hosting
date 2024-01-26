@@ -27,7 +27,7 @@ const Header = () => {
           <Link to="/about">
             <span>About Us</span>
           </Link>
-          <Link to="/franchise">
+          <Link to="/exclusivestore">
             <span>Exclusive Store</span>
           </Link>
           <Link to="/blog">
@@ -41,9 +41,9 @@ const Header = () => {
           <Link className="signin" to={`/auth/${0}`}>
             Sign In
           </Link>
-          <Link className="register myaccount" to={"/myaccount"}>
+          {/* <Link className="register myaccount" to={"/myaccount"}>
             My account
-          </Link>
+          </Link> */}
         </div>
       </div>
     </>

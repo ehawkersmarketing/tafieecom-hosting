@@ -6,7 +6,6 @@ import SignIn from "./app/pages/auth/sign_in/sign_in.jsx";
 import CreateProduct from "./app/pages/create_product/createProduct.js";
 import ComposeBlog from "./app/pages/blog_page/CreateBlog/createBlog.js";
 import UpdateBlog from "./app/pages/blog_page/UpdateBlog/updateBlog.js";
-import ResourceCenter from "./app/pages/resourceCenter/resourceCenter.js";
 import SingleBlog from "./app/pages/blog_page/SingleBlog/SingleBlog.jsx";
 import UpdateProduct from "./app/pages/update_product/updateProduct.js";
 import Product from "./app/pages/product_page/product.jsx";
@@ -23,7 +22,7 @@ import Header from "./app/pages/header/header.jsx";
 import Footer from "./app/pages/footer/footer.jsx";
 import About from "./app/pages/about_page/about.jsx";
 import Myaccount from "./app/pages/myaccount_page/myaccount.jsx";
-import Franchise from "./app/pages/franchise/franchise.jsx";
+import ExclusiveStore from "./app/pages/exclusivestore/exclusivestore.jsx";
 import Cart from "./app/pages/cart_page/Cart.jsx";
 import Checkout from "./app/pages/checkout_page/Checkout.jsx";
 import Service_pop from "./app/components/service_pop/Service_pop.jsx";
@@ -64,7 +63,6 @@ function App() {
           <Route path="/updateProduct/:id" exact element={<UpdateProduct />} />
           <Route path="/blog/composeBlog" exact element={<ComposeBlog />} />
           <Route path="/updateBlog/:id" exact element={<UpdateBlog />} />
-          <Route path="/resourceCenter" exact element={<ResourceCenter />} />
           <Route path="/product/:id" exact element={<Product />} />
           <Route path="/singleBlog/:blogId" exact element={<SingleBlog />} />
           <Route path="/blog" exact element={<BlogPage />} />
@@ -88,7 +86,7 @@ function App() {
           <Route path="/Invoice" exact element={<Invoice />} />
           <Route path="/Cart" exact element={<Cart />} />
           <Route path="/myaccount" exact element={<Myaccount />} />
-          <Route path="/franchise" exact element={<Franchise />} />
+          <Route path="/exclusivestore" exact element={<ExclusiveStore />} />
             <Route path="/checkout" exact element={<Checkout />} />
 
           <Route path="/services" exact element={<Services/>}/>

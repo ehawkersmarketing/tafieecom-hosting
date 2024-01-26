@@ -15,7 +15,7 @@ const CategoryCarousel = ({ items }) => {
                     margin={8}
                     autoplayTimeout={5000}
                     autoplayHoverPause={true}
-                    autoplay={true} >{items?.map((item, index) => {
+                    autoplay={false} >{items?.map((item, index) => {
                         return (
                             <CategoryCard item={item} key={index} />
                         );

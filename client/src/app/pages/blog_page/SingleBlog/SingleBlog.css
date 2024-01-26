@@ -1,6 +1,7 @@
 .single_blog {
     background-color: #DBEEEA;
     padding-top: 70px;
+    padding-bottom: 8rem;
 }
 
 .single_blog .single_blog_tile {
@@ -101,11 +102,12 @@
     margin-top: 70px;
 }
 .single_blog_content_keywords{
-    justify-content: start;
+    display: flex;
+    flex-direction: row;
 }
 .single_blog_content_keywords span a{
     padding: 5px 9px;
-    margin-left: 4px ;
+    margin-right: 10px ;
     border-radius: 7px;
     background-color: #FFFFFFE6;
     color: black;
@@ -154,10 +156,13 @@
 
 .single_blog .card-text {
     font-size: 12px;
-    font-weight: lighter;
+    color: black;
 }
 .single_blog .btn-read{
     background-image: linear-gradient(79deg, #36914b 0.36%, #44a95c 58.15%, #7bf197 117.12%);
     color:white;
+    border: none;
+}
+.single_blog .back-button{
     border: none;
 }

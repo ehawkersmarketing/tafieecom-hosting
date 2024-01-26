@@ -14,7 +14,7 @@ const AllCategoryComponent = () => {
           <div className="sub-head row">
             <div className="sub-head-product col-6">
               <h5>Products</h5>
-              <div className="products">
+              <div className="products-comp">
                 <Link >Smart Irrigation</Link>
                 <Link >Greenhouse Accessories</Link>
                 <Link >Pesticides</Link>
@@ -26,14 +26,14 @@ const AllCategoryComponent = () => {
             </div>
             <div className="sub-head-service col-6">
               <h5>Services</h5>
-              <div className="services column">
-                <Link >Agri Implements</Link>
-                <Link >Gardening Tools</Link>
-                <Link >Machinery</Link>
-                <Link >Soilless Solution</Link>
-                <Link >Solar Solution</Link>
-                <Link >Hydroponics</Link>
-                <Link >Vertical Farming</Link>
+              <div className="services-comp">
+                <Link to="/services">Agri Implements</Link>
+                <Link to="/services">Gardening Tools</Link>
+                <Link to="/services">Machinery</Link>
+                <Link to="/services">Soilless Solution</Link>
+                <Link to="/services">Solar Solution</Link>
+                <Link to="/services">Hydroponics</Link>
+                <Link to="/services">Vertical Farming</Link>
               </div>
             </div>
           </div>
