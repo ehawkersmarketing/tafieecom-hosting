@@ -7,22 +7,39 @@ import CarousalCard from "../../components/carousal/carousal.jsx";
 import PosterCardBackground from '../../assets/poster_card_background.svg';
 import ProductCard from "../../components/productCard/productCard.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
+import axios from "axios";
 
 const ShopPage = () => {
     const [open, setOpen] = useState(false);
-    const { data } = useFetch("/api/allCategory");
     const [activeFilter, setActiveFilter] = useState({
         filter: ""
     });
+    const [searchField, setSearchField] = useState('');
     const filter = ["Price: High To Low", "Price: Low To High"];
     const { data: products } = useFetch('/api/allProducts');
     const [visibleProducts, setVisibleProducts] = useState();
+    const [searchProducts, setSearchProducts] = useState([]);
 
     useEffect(() => {
         setVisibleProducts(products);
-    }, [products])
-    const { data: categories } = useFetch('/api/allCategory');
+    }, [products]);
 
+    const search = async (text) => {
+        if (text !== '') {
+            const { data } = await axios.post(`http://localhost:8080/api/searchProduct`, {
+                search: text
+            });
+            setSearchProducts(data.data);
+        } else {
+            setSearchProducts(undefined);
+        }
+    };
+
+    useEffect(() => {
+        search(searchField);
+    }, [searchField]);
+
+    const { data: categories } = useFetch('/api/allCategory');
     const applyFilter = (e, index) => {
         if (index == 2) {
             setVisibleProducts(products.filter((item) => item.category.category === e.target.value))
@@ -98,7 +115,7 @@ const ShopPage = () => {
                         <i class="bi bi-caret-down-fill"></i>
                     </div>
                     <div className="search-bar">
-                        <input type="text" name="search" className="search_container" />
+                        <input type="text" name="search" onChange={(e) => setSearchField(e.target.value)} className="search_container" />
                         <div className="search-button">
                             <button className="search-icon">
                                 <i class="bi bi-search"></i>
@@ -112,7 +129,7 @@ const ShopPage = () => {
                             filter.map((item, index) => {
                                 return (
                                     <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100" key={index} onClick={(e) => applyFilter(e, index)}>
-                                        <span className="">{item}</span>
+                                        <span className="">{item.title}</span>
                                     </li>
                                 )
                             })
@@ -129,7 +146,8 @@ const ShopPage = () => {
                                 }}
                             >
                                 <option>select the Category</option>
-                                {data?.map((item) => (
+
+                                {categories?.map((item) => (
                                     <option key={item._id} name="category" value={item.category}>
                                         {item.category}
                                     </option>
@@ -138,6 +156,25 @@ const ShopPage = () => {
                         </li>
                     </ul>
                 </div>}
+                {
+                    searchField !== '' &&
+                    <div className="blog-latest-post">
+                        <div>
+                            <h4>Search Posts</h4>
+                        </div>
+                        <div className="below-line">
+                            <div className="below-post"></div>
+                            <div className="below-post-1"></div>
+                        </div>
+                        <div className="latest-post-card row">
+                            {
+                                searchProducts && searchProducts.length !== 0 ? searchProducts?.map((item, index) => {
+                                    return <ProductCard item={item} key={index} className='productItem' />
+                                }) : <div><h4>No Results Found</h4></div>
+                            }
+                        </div>
+                    </div>
+                }
                 <div className="product-region">
                     <div className="best-seller-text">
                         <div className="tafi-product-text1">
@@ -202,9 +239,9 @@ const ShopPage = () => {
                         </div>
                     </div>
                     <div className="all-products-card">
-                        {visibleProducts && visibleProducts?.map((item) => {
+                        {visibleProducts && visibleProducts?.map((item, index) => {
                             return (
-                                <ProductCard item={item} className='productItem' />
+                                <ProductCard item={item} key={index} className='productItem' />
                             );
                         })}
                     </div>

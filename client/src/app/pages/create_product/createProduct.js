@@ -15,7 +15,6 @@ const CreateProduct = () => {
   const [inputHandler, setInputHandler] = useState({
     title: "",
     description: "",
-    gstSlab: "",
     price: "",
     quantity: "",
     productType: "",
@@ -24,7 +23,6 @@ const CreateProduct = () => {
   });
   const [dropdown, setDropdown] = useState({
     category: " ",
-    gstSlab: " ",
   });
 
   const history = useNavigate();
@@ -55,7 +53,8 @@ const CreateProduct = () => {
 
     const { title, description, maxQuantity, minQuantity, price, quantity } =
       inputHandler;
-    const { category, gstSlab } = dropdown;
+    const { category } = dropdown;
+    const categoryList = data.filter((item) => item.category === category);
     // console.log(category);
     // console.log(inputHandler);
     if (title === "") {
@@ -64,9 +63,13 @@ const CreateProduct = () => {
       alert(" Add Description");
     } else if (quantity === "") {
       alert("Add Quantity");
-    } else if (price === "") {
-      alert("Price");
-    } else {
+    } else if (!image) {
+      alert("Add image");
+    }else if (price === "") {
+      alert("Add Price");
+    } else if(!category){
+       alert("Select category")
+    }else {
       const formData = new FormData();
       formData.append("image", image);
 
@@ -74,8 +77,8 @@ const CreateProduct = () => {
         "http://localhost:8080/api/uploadImage",
         formData
       );
-      const gstNumber = parseInt(gstSlab.split("%")[0]);
-
+   
+      console.log(categoryList[0]._id);
       console.log(imageUrl);
       if (imageUrl?.data.success) {
         const { data } = await axios.post(
@@ -87,10 +90,10 @@ const CreateProduct = () => {
               minQuantity: minQuantity,
               maxQuantity: maxQuantity,
             },
-            gstSlab: gstNumber,
+        
             price: price,
             quantity: quantity,
-            category: category,
+            category: categoryList[0]._id,
             image: imageUrl.data.url,
           }
         );
@@ -105,8 +108,8 @@ const CreateProduct = () => {
             price: "",
             quantity: "",
           });
-          setDropdown({ category: "", gstSlab: " " });
-          history("/");
+          setDropdown({ category: "" });
+          history("/adminPage");
         }
       }
     }
@@ -163,23 +166,6 @@ const CreateProduct = () => {
                 name="price"
                 placeholder="Price"
               />
-            </div>
-
-            <div className="form_input">
-              <label htmlFor="gstSlab">GST SLAB</label>
-              <br></br>
-              <select
-                style={{ width: "20rem", height: "2rem", marginBottom: "1rem" }}
-                onChange={onDropdownChangeInputHandler}
-                value={dropdown.gstSlab}
-                name="gstSlab"
-              >
-                <option>select the GST</option>
-                <option> 5%</option>
-                <option>12%</option>
-                <option>28%</option>
-                <option>18%</option>
-              </select>
             </div>
 
             <div className="form_input">

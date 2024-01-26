@@ -71,7 +71,7 @@
 
 .footer .in-image{
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
 }
 .footer .form-content{
@@ -115,11 +115,6 @@
   border-left:  5px solid #44a98b;
   
 }
-.footer .input-columns .input-sec input{
-  padding: 5px;
-  border-radius: 3px;
-  
-}
 .footer .form{
   padding: 50px;
   background-color: #0a3834bc;
@@ -129,6 +124,14 @@
 .footer .circle-image{
   position: absolute;
 }
+.footer .aao-baat-kre{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  padding: 17%;
+  margin-left: 9%;
+}
 .footer .aao-baat-kre h1{
   color: white;
   display: flex;
@@ -137,11 +140,34 @@
   padding-left: 110px;
   font-size: 60px;
 }
-.footer .aao-baat-kre span{
-  background-color: #c8a33d;
-  margin-left: 50px;
-}
-.footer input{
+.footer input {
   border: none;
   background-color: #D9EAE8;
+  padding: 5px;
+  border-radius: 3px;
+}
+.footer .headingMainText {
+  width: fit-content;
+  text-align: left;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.footer .headingMainText h1 {
+  font-weight: 700;
+  line-height: 1.5;
+  font-family: "Eczar", serif;
+  font-size: 60px;
+  margin-bottom: 0;
+  
+}
+.footer .headingMainText h1 span{
+  background-color: #C8A33D;
+  padding: 1px 5px;
+  font-family: "Eczar", serif;
+}
+.footer .form-img{
+  background-image: url("../../assets/footer-mask.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }

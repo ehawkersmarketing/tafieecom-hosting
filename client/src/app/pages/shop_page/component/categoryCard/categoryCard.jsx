@@ -1,12 +1,11 @@
 import React from "react";
 import "./categoryCard.css";
 const CategoryCard = ({ item }) => {
-  console.log(item);
-  return (
-    <div key={item?._id} className="categoryCarouselItem">
-      {/* <img src={item.categoryImg} alt="" /> */}
-    </div>
-  );
-};
+    return (
+        <div key={item._id} className="categoryCarouselItem">
+            <img src={item.categoryImg} alt="" />
+        </div>
+    )
+}
 
 export default CategoryCard;

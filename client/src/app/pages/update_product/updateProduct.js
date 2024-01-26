@@ -18,11 +18,12 @@ const UpdateProduct = () => {
     description: "",
     price: "",
     quantity: "",
+    minQuantity:"",
+    maxQuantity:""
   });
 
   const [dropdown, setDropdown] = useState({
     category: " ",
-    gstSlab: " ",
   });
 
   const onDropdownChangeInputHandler = (e) => {
@@ -38,15 +39,17 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     axios
-      .patch("http://localhost:8080/api/updateProduct/" + id)
+      .get("http://localhost:8080/api/getProduct/" + id)
       .then((res) => {
-        console.log(res.data.data.title);
+        console.log(res.data.data.category.category);
         setInputHandler({
           ...inputHandler,
           title: res.data.data.title,
           description: res.data.data.description,
           price: res.data.data.price,
           quantity: res.data.data.quantity,
+          maxQuantity:res.data.data.units.maxQuantity,
+          minQuantity:res.data.data.units.minQuantity,
           UpdateProduct,
         });
       })
@@ -63,14 +66,23 @@ const UpdateProduct = () => {
   };
 
   const onSubmitHandler = async (e) => {
-    const { category, gstSlab } = dropdown;
-    const gstNumber = parseInt(gstSlab.split("%")[0]);
+    const { category } = dropdown;
     e.preventDefault();
+    let categoryList = data.filter((item) => item.category === category);
     axios
-      .patch("http://localhost:8080/api/updateProduct/" + id, inputHandler)
+      .patch("http://localhost:8080/api/updateProduct/" + id, {        
+          title: inputHandler.title,
+          description: inputHandler.description,
+          price: inputHandler.price,
+          quantity: inputHandler.quantity,
+          maxQuantity: inputHandler.maxQuantity,
+          minQuantity: inputHandler.minQuantity,
+          category: categoryList[0]._id
+        
+      })
       .then((res) => {
         console.log(res.data);
-        history("/");
+        history("/adminPage");
       })
       .catch((err) => {
         console.log(err);
@@ -118,22 +130,7 @@ const UpdateProduct = () => {
               placeholder="Price"
             />
           </div>
-          <div className="form_input">
-            <label htmlFor="gstSlab">GST SLAB</label>
-            <br></br>
-            <select
-              style={{ width: "20rem", height: "2rem", marginBottom: "1rem" }}
-              onChange={onDropdownChangeInputHandler}
-              value={dropdown.gstSlab}
-              name="gstSlab"
-            >
-              <option>select the GST</option>
-              <option> 5%</option>
-              <option>12%</option>
-              <option>28%</option>
-              <option>18%</option>
-            </select>
-          </div>
+          
           <div className="form_input">
             <label htmlFor="quantity">Quantity</label>
             <input

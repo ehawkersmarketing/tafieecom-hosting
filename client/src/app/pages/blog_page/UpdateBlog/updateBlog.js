@@ -60,10 +60,10 @@ const UpdateBlog = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     axios
-      .patch("http://localhost:8080/api/updateBlog/" + id, inputHandler)
+      .put("http://localhost:8080/api/updateBlog/" + id, inputHandler)
       .then((res) => {
         console.log(res.data);
-        history("/resourceCenter");
+        history("/adminPage");
       })
       .catch((err) => {
         console.log(err);

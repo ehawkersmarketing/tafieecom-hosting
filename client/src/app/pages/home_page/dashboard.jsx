@@ -69,11 +69,11 @@ const Dashboard = () => {
             <div className="category-region">
               <div className="category-carousel">
                 <div className="left-arrow">
-                  <i class="bi bi-arrow-left"></i>
+                  {/* <i class="bi bi-arrow-left"></i> */}
                 </div>
-                <CategoryCarousel />
+                {categories && <CategoryCarousel items={categories} />}
                 <div className="right-arrow">
-                  <i class="bi bi-arrow-right"></i>
+                  {/* <i class="bi bi-arrow-right"></i> */}
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@ const Dashboard = () => {
           <div className="category-region">
             <div className="category-carousel">
               <div className="left-arrow">
-                <i class="bi bi-arrow-left"></i>
+                {/* <i class="bi bi-arrow-left"></i> */}
               </div>
               <div className="feature-carousal">
                 {featuredProducts && (
@@ -101,7 +101,7 @@ const Dashboard = () => {
                 )}
               </div>
               <div className="right-arrow">
-                <i class="bi bi-arrow-right"></i>
+                {/* <i class="bi bi-arrow-right"></i> */}
               </div>
             </div>
           </div>

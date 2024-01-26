@@ -1,16 +1,13 @@
 const express = require("express");
 const AWS = require("aws-sdk");
 const {
-  getAllProducts,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  searchProduct,
-  searchProductByCategory,
-  getProductsById,
-  CreateCategory,
-  getAllCategory,
-} = require("../../controlllers/product/productController");
+  createService,
+  getAllServices,
+  getServicesById,
+  updateService,
+  deleteService,
+  searchServices
+} = require("../../controlllers/service/serviceController");
 
 const {
   AdminRole,
@@ -27,7 +24,6 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 const S3_BUCKET_NAME = "tafi-ecom-img";
-
 const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
     cb(null, "public/images");
@@ -39,13 +35,15 @@ const storage = multer.memoryStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/uploadImage", upload.single("image"), (req, res) => {
+router.post("/uploadServiceImage", upload.single("image"), (req, res) => {
+  console.log(req.file);
   const params = {
     Bucket: S3_BUCKET_NAME,
-    Key: `products/${req.file.originalname}`,
+    Key: `services/${req.file.originalname}`,
     Body: req.file.buffer,
     ContentType: "image/jpeg"
   };
+  console.log("params", params)
 
   s3.upload(params, (error, data) => {
     if (error) {
@@ -60,14 +58,12 @@ router.post("/uploadImage", upload.single("image"), (req, res) => {
   });
 });
 
-router.post("/createProduct", createProduct);
-router.get("/allProducts", getAllProducts);
-router.get("/getProduct/:id", getProductsById);
-router.patch("/updateProduct/:id", updateProduct);
-router.delete("/deleteProduct/:id", deleteProduct);
-router.post("/searchProduct", searchProduct);
-router.get("/searchProduct/:category", searchProductByCategory);
-router.post("/createCategory", CreateCategory);
-router.get("/allCategory", getAllCategory);
+router.post("/createService", createService);
+router.get("/getAllService", getAllServices);
+router.post("/searchService", searchServices);
+router.get("/getService/:id", getServicesById);
+router.put("/updateService/:id", updateService);
+router.delete("/deleteService/:id", deleteService)
+
 
 module.exports = router;

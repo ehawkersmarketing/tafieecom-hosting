@@ -13,7 +13,7 @@ const SingleBlog = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="single_blog">
         <div className="single_blog_tile row">
           <div className="tile-circle"></div>
@@ -83,7 +83,7 @@ const SingleBlog = () => {
                         {item.title}
                       </h5>
                       <p class="card-text">
-                        {item.content}
+                        {item.content.substring(0, 600)}....
                       </p>
                       <p class="blogcard_color">{`${dayjs(item.createdAt).format('MMMM D, YYYY')}`}</p>
                       <Link to="#" class="btn btn-read">
@@ -98,7 +98,7 @@ const SingleBlog = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

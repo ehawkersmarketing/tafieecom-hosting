@@ -63,7 +63,7 @@ const SignIn = () => {
         }
       );
       if (data.success) {
-        const { data } = await axios.post("http://localhost:8080/auth/signUp", {
+        const { data } = await axios.post("http://localhost:8080/auth/signup", {
           phone: formField.phone,
           userName: formField.name,
           email: formField.email,
@@ -92,7 +92,7 @@ const SignIn = () => {
       if (data.success) {
         localStorage.setItem("auth_token", token);
 
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data.data));
         localStorage.setItem("user_id", data.data._id);
         navigate("/");
       }

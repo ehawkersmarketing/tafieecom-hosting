@@ -26,7 +26,9 @@ const CreateBlog = () => {
       alert("Add Title");
     } else if (content === " ") {
       alert(" Add Content");
-    } else {
+    }else if (readingTime === " ") {
+      alert(" Add reading time");
+    }else {
       const formData = new FormData();
       formData.append("image", image);
 
@@ -54,7 +56,7 @@ const CreateBlog = () => {
               readingTime: " ",
               image: "",
             });
-            history("/resourceCenter");
+            history("/adminPage");
           }
         }
       }

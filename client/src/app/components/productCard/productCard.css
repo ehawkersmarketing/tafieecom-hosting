@@ -4,6 +4,7 @@
     background-color: white;
     margin: 1rem 0.5rem 1.5rem;
     overflow: hidden;
+    width: 25rem;
 
     .product-image {
         height: 15.5rem;
