@@ -14,8 +14,11 @@ const blogRoute = require("./routes/blogRoute/blogRoute");
 const payRoute = require("./routes/payRoute/payRoute");
 const serviceRoute = require('./routes/serviceRoute/serviceRoute')
 const shipRoute = require("./routes/shipRoute/shipRoute");
-
+const reviewRoute = require('./routes/review/reviewRoute');
 const orderRoute = require("./routes/orderRoute/orderRoute");
+const googleAuthRoute = require("./routes/googleAuthRoute/googleAuthRoute");
+const path = require("path");
+// require('./middleware/passport')(passport);
 
 app.use(express.json());
 app.use(
@@ -25,6 +28,24 @@ app.use(
     credentials: true,
   })
 );
+// const _dirname = path.dirname("")
+// const buildPath = path.join(_dirname, "../client/build");
+
+// app.use(express.static(buildPath))
+
+// app.get("/*", function (req, res) {
+
+//   res.sendFile(
+//     path.join(__dirname, "../client/build/index.html"),
+//     function (err) {
+//       if (err) {
+//         res.status(500).send(err);
+//       }
+//     }
+//   );
+
+// })
+
 app.use(
   cookieSession({
     name: "session",
@@ -32,10 +53,11 @@ app.use(
     keys: [process.env.COOKIE_KEY],
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use("/auth", authRoute);
+// app.use('/googleAuth', googleAuthRoute);
 app.use("/api", productRoute);
 app.use("/api", userRoute);
 app.use("/api", blogRoute);
@@ -43,7 +65,8 @@ app.use("/api", cartRoute);
 app.use("/api/pay", payRoute);
 app.use("/api", orderRoute);
 app.use("/api/ship", shipRoute);
-app.use("/api",serviceRoute)
+app.use("/api", serviceRoute);
+app.use("/api", reviewRoute);
 
 app.use(express.static("public"));
 app.get("/:file", (req, res) => {

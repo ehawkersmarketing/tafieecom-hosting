@@ -9,13 +9,18 @@ const CategoryCarousel = ({ items }) => {
     return (
         <div className='carousal'>
             <div class='container-fluid' >
-                <OwlCarousel items={2.5}
+                <OwlCarousel items={3.05}
                     className="owl-theme"
                     loop
+                    nav
                     margin={8}
                     autoplayTimeout={5000}
+                    navText={[
+                        '<span class="arrow prev">‹</span>',
+                        '<span class="arrow next">›</span>'
+                    ]}
                     autoplayHoverPause={true}
-                    autoplay={true} >{items?.map((item, index) => {
+                    autoplay={false} >{items?.map((item, index) => {
                         return (
                             <CategoryCard item={item} key={index} />
                         );

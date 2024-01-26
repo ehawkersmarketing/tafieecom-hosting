@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/Tafi_logo_white.png";
-import { useNavigate } from "react-router-dom";
 
 import "./header.css";
-import { Link, useActionData } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
+  const onLogout = () => {
+    localStorage.clear();
+    navigate('/auth/login');
+  };
+
   return (
     <>
       <div className="header">
@@ -27,7 +38,7 @@ const Header = () => {
           <Link to="/about">
             <span>About Us</span>
           </Link>
-          <Link to="/franchise">
+          <Link to="/exclusivestore">
             <span>Exclusive Store</span>
           </Link>
           <Link to="/blog">
@@ -35,15 +46,18 @@ const Header = () => {
           </Link>
         </div>
         <div className="login-section col-3">
-          <Link className="register" to={`/auth/${1}`}>
+          {!user && <Link className="register" to={`/auth/register`}>
             Register
-          </Link>
-          <Link className="signin" to={`/auth/${0}`}>
+          </Link>}
+          {!user && <Link className="signin" to={`/auth/login`}>
             Sign In
-          </Link>
-          <Link className="register myaccount" to={"/myaccount"}>
+          </Link>}
+          {user && <Link className="signin" onClick={onLogout}>
+            Logout
+          </Link>}
+          {user && user.role.role === 'User' && <Link className="register myaccount" to={"/myaccount"}>
             My account
-          </Link>
+          </Link>}
         </div>
       </div>
     </>

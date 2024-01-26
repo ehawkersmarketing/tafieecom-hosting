@@ -14,6 +14,7 @@
   width: 100%;
   padding-bottom: 8%;
   justify-content: space-between;
+  --bs-gutter-x: 0;
 }
 
 .topDiv .headingimage {
@@ -277,7 +278,6 @@
 }
 
 .div4 .soilDiv .soilTestInfo p {
-  text-indent: 16px;
   color: white;
   font-weight: 300;
   font-size: 1.2rem;
@@ -408,7 +408,7 @@
 
   .category-region {
     width: 100%;
-    margin: 0 5rem 0;
+    margin: 0 0rem 0;
     display: flex;
     align-items: center;
 
@@ -417,7 +417,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      padding: 0 9rem;
+      padding: 0 0 0.5rem;
       width: 100%;
 
       .bi-arrow-left {
@@ -484,7 +484,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      padding: 0 9rem;
+      padding: 0 1rem;
       width: 100%;
 
       .bi-arrow-left {
@@ -500,7 +500,7 @@
       }
 
       .feature-carousal {
-        width: 80rem;
+        width: 90rem;
         height: 18rem;
       }
     }

@@ -6,10 +6,16 @@ import { useFetch } from "../../../hooks/api_hook";
 import dayjs from 'dayjs';
 import Header from "../../header/header";
 import Footer from "../../footer/footer";
+import { useNavigate } from "react-router-dom";
 const SingleBlog = () => {
   const { blogId } = useParams();
   const { data: blog } = useFetch(`/api/blog/${blogId}`);
   const { data: blogs } = useFetch('/api/blogs');
+  const navigate = useNavigate();
+
+  const backHandler = () => {
+    navigate("/blog")
+  }
 
   return (
     <div>
@@ -38,7 +44,7 @@ const SingleBlog = () => {
           <div className="single_blog_content col-9">
             <div className="single_blog_content_title">
               <div>
-                <button type="button" class="btn btn-circle">
+                <button type="button" class="btn btn-circle back-button" onClick={backHandler}>
                   <i class="bi bi-arrow-left-circle-fill"></i>
                 </button>
               </div>
@@ -47,10 +53,10 @@ const SingleBlog = () => {
               </div>
             </div>
             <div className="single_blog_content_below_title row">
-              <div className="single_blog_content_keywords col-16 row">{
+              <div className="single_blog_content_keywords">{
                 blog && blog.tags.map((tag, index) => {
                   return (
-                    <span className="col" key={index}>
+                    <span className="keyword" key={index}>
                       <Link>{tag}</Link>
                     </span>
                   )
@@ -83,10 +89,10 @@ const SingleBlog = () => {
                         {item.title}
                       </h5>
                       <p class="card-text">
-                        {item.content.substring(0, 600)}....
+                        {item.content.substring(0, 80)}....
                       </p>
                       <p class="blogcard_color">{`${dayjs(item.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to="#" class="btn btn-read">
+                      <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
                         Read More
                       </Link>
                     </div>

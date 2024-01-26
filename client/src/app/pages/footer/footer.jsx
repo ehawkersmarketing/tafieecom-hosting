@@ -6,6 +6,14 @@ import image from "../../assets/Footer_img.svg";
 import footer_img from "../../assets/Footer_mask group.png";
 
 const Footer = () => {
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <>
       <div className="footer" id="bottom">
@@ -88,10 +96,10 @@ const Footer = () => {
                       <h5>LEGAL</h5>
                       <div>
                         <div>
-                          <Link to="/PrivacyPolicy">Privacy Policy</Link>
+                          <Link to="/PrivacyPolicy" onClick={scrollToTop}>Privacy Policy</Link>
                         </div>
                         <div>
-                          <Link to="/TermsAndCondition">T&C</Link>
+                          <Link to="/TermsAndCondition" onClick={scrollToTop}>T&C</Link>
                         </div>
                       </div>
                     </div>
@@ -99,10 +107,10 @@ const Footer = () => {
                       <h5>PAGES</h5>
                       <div>
                         <div>
-                          <Link to="/franchise">Franchise</Link>
+                          <Link to="/exclusivestore" onClick={scrollToTop}>Exclusive Store</Link>
                         </div>
                         <div>
-                          <Link to="/blog">Blogs</Link>
+                          <Link to="/blog" onClick={scrollToTop}>Resource Center</Link>
                         </div>
                       </div>
                     </div>
@@ -110,7 +118,7 @@ const Footer = () => {
                       <h5>SHOPS</h5>
                       <div>
                         <div>
-                          <Link to="/shopPage">Shop</Link>
+                          <Link to="/shopPage" onClick={scrollToTop}>Shop</Link>
                         </div>
                       </div>
                     </div>
@@ -119,7 +127,7 @@ const Footer = () => {
                 {/* column 3 */}
                 <div className="column3 col-2">
                   <div className="col-12">
-                    <img src={logo} />
+                    <Link to='/' onClick={scrollToTop}><img src={logo} /></Link>
                   </div>
                 </div>
               </div>

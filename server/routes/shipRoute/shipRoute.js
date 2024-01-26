@@ -1,6 +1,3 @@
-// const crypto = require("crypto");
-const axios = require("axios");
-const uniqid = require("uniqid");
 const {
   calcShipment,
   createOrder,
@@ -13,10 +10,14 @@ const {
   generateRetAWBFunction,
   generateInvoiceFunction,
   getOrderDetsFunction,
+  requestApproval,
 } = require("../../controlllers/ship/shipController");
+
 const express = require("express");
 
 const router = express.Router();
+
+router.post("/requestApproval", requestApproval);
 
 router.post("/calcShipment", calcShipment);
 
@@ -28,7 +29,7 @@ router.post("/pickup", setPickupFunction);
 
 router.post("/manifest", generateManifestFunction);
 
-router.get("/shipDets", shipmentDetsFunction);
+router.post("/shipDets", shipmentDetsFunction);
 
 router.post("/cancelShip", cancelShipmentFunction);
 

@@ -239,10 +239,21 @@ margin-top: 30px;
   width: fit-content;
   padding: 15px 50px;
   margin: auto;
-  display: block;
+  display: none;
 }
 
 .blogpage .filter-hover{
   position: relative;
 
+}
+.load-more{
+  border: none;
+  background-color: white;
+  color: var(--darkgreen-primary, #19443F);
+      font-size: 15px;
+      font-style: normal;
+      line-height: normal;
+      font-weight: bold;
+      margin-left: 30rem;
+      display: none;
 }

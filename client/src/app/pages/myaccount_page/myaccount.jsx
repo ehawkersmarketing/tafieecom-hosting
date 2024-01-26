@@ -1,9 +1,8 @@
 import "./myaccount.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
-import Footer from "../footer/footer";
 import logoImage from "../../assets/Tafi_logo_white.png";
 
 const Myaccount = () => {
@@ -13,9 +12,21 @@ const Myaccount = () => {
   const orderHandler = () => setValue(1);
   const logoutHandler = () => {
     localStorage.clear();
-    Navigate('/auth')
+    navigate('/auth/login')
   }
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
+        navigate('/')
+      }
+    } else {
+      navigate("/auth/1");
+    }
+  }, [user]);
 
   return (
     <div>
@@ -208,7 +219,6 @@ const Myaccount = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

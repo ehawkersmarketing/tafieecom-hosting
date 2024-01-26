@@ -1,18 +1,18 @@
 import react from "react";
-import "./franchise.css";
-import Header from "../../pages/header/header";
+import "./exclusivestore.css";
+import Header from "../header/header";
 import img from "../../assets/image 2.png";
 import sideImg from "../../assets/Group 358.png";
 import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
-import Footer from "../../pages/footer/footer";
+import Footer from "../footer/footer";
 
 
-const Franchise = () => {
+const ExclusiveStore = () => {
   const footerHandler = () => {
     document.getElementById('bottom').scrollIntoView({ behavior: 'smooth' });
-   }
-   
+  }
+
   return (
     <div>
       <div className="franchise-wrapper">
@@ -161,7 +161,7 @@ const Franchise = () => {
                     <i>Unveil unique products & services not found</i>
                   </span>
                 </div>
-                <div className="content-map-fan">
+                {/* <div className="content-map-fan">
                   <p
                     style={{
                       fontWeight: "700",
@@ -171,9 +171,9 @@ const Franchise = () => {
                   >
                     Find the stores near you!
                   </p>
-                </div>
+                </div> */}
 
-                <div className="search-bar">
+                {/* <div className="search-bar">
                   <input
                     type="text"
                     name="search"
@@ -184,7 +184,7 @@ const Franchise = () => {
                       <i class="bi bi-search"></i>
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -195,4 +195,4 @@ const Franchise = () => {
   );
 };
 
-export default Franchise;
+export default ExclusiveStore;

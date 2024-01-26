@@ -11,7 +11,7 @@ const blogModel = new mongoose.Schema({
     type: String,
   },
   readingTime: {
-    type: Number,
+    type: String,
   },
   tags: [
     {

@@ -136,18 +136,13 @@ exports.updateBlog = async (req, res) => {
 exports.deleteBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
-    const blog = await blogModel.findOneAndDelete(blogId);
+    const blog = await blogModel.findByIdAndDelete(blogId);
     if (blog) {
       return res.status(200).send({
         success: true,
         message: "Blog deleted!!",
       });
     }
-    return res.status(200).send({
-      success: true,
-      message: "Blog deleted!!",
-      blogId,
-    });
   } catch (error) {
     console.log(error);
     return res.status(400).send({

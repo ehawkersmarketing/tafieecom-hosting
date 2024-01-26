@@ -1,5 +1,5 @@
 .carousal {
-    width: 80rem;
+    width: 79rem;
 }
 
 .categoryCarouselItems {
@@ -7,4 +7,25 @@
     gap: 5rem;
     overflow: hidden;
     margin: 5rem 0;
+}
+
+.arrow {
+    position: absolute;
+    border-radius: 3px;
+    font-size: 3rem;
+    display: flex;
+    top: 25%;
+    margin: 0 -3rem 0 -2rem;
+}
+
+.arrow:hover {
+    color: black;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev {
+    left: 10px;
 }

@@ -20,7 +20,7 @@ router.get("/getAllOrders", getAllOrders);
 router.get("/getOrderById/:id", getOrderById);
 router.get("/getAllOrderByUser/:userId", getAllOrderByUser);
 router.get("/getOrderCount", getAllOrderCounts);
-router.post("/placeOrder", EditorRole, placeOrder);
+router.post("/placeOrder", placeOrder);
 router.get("/getOrderByStatus/:orderStatus", getAllOrdersByStatus);
 
 module.exports = router;
