@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const baseUrl = "http://localhost:8080";
 
@@ -26,7 +27,13 @@ export const getRequestWithAuth = async (url) => {
             return null;
         }
     } catch (error) {
-        console.log(error.toString());
+        toast.error(`${error.message}`, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+        });
     }
 };
 
@@ -48,7 +55,13 @@ export const getRequest = async (url) => {
             return null;
         }
     } catch (error) {
-        console.log(error.toString());
+        toast.error(`${error.message}`, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+        });
     }
 };
 

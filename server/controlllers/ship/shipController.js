@@ -4,6 +4,7 @@ const uniqid = require("uniqid");
 const { setTimeout } = require("timers");
 const requestModel = require("../../models/shipmentModel/shipmentModel");
 const orderModel = require("../../models/orderModel/orderModel");
+const userAddress = require("../../models/userModel/userAddress");
 
 exports.requestApproval = async (req, res) => {
   try {
@@ -44,11 +45,67 @@ exports.approveRequest = async (req, res) => {
         }
       );
       if (data) {
-
-        res.json({
-          success: true,
-          message: "Request Approved",
+        const { data: order } = await orderModel.findOne({ _id: data.orderId }).populate("products.productId").populate("user").populate("userAddress");
+        const { data: shipment } = await axios.post("http:/localhost:8080/api/ship/createOrder", {
+          pickup_location: "Primary",
+          order_id: order._id,
+          order_date: order.timestamps,
+          payment_method: "Prepaid",
+          // channel_id: ,
+          // comment,
+          // reseller_name,
+          // company_name,
+          billing_customer_name: `${order.user.userName}`,
+          billing_last_name: `${order.user.userName}`,
+          billing_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
+          // billing_address_2,
+          billing_city: `${order.userAddress.city}`,
+          billing_pincode: `${order.userAddress.zipCode}`,
+          billing_state: `${order.userAddress.state}`,
+          billing_country: `${order.userAddress.country}`,
+          billing_email: `${order.user.email}`,
+          billing_phone: `${order.user.phone}`,
+          // billing_alternate_phone: ,
+          shipping_customer_name: `${order.user.userName}`,
+          shipping_last_name: `${order.user.userName}`,
+          shipping_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
+          // shipping_address_2: ,
+          shipping_city: `${order.userAddress.city}`,
+          shipping_pincode: `${order.userAddress.zipCode}`,
+          shipping_country: `${order.userAddress.country}`,
+          shipping_state: `${order.userAddress.state}`,
+          // shipping_email: `${order.user.email}`,
+          // shipping_phone: `${order.user.phone}`,
+          order_items: [
+            order.products.map((product) => {
+              return {
+                name: product.productId.title,
+                sku: product.productId._id,
+                selling_price: product.productId.price,
+                units: product.units,
+                discount: 0,
+                tax: 0
+              }
+            })
+          ],
+          sub_total: order.amount,
+          total_discount: 0,
+          // length: ,
+          // breadth: ,
+          // height: ,
+          // weight: ,
         });
+        if (shipment) {
+          res.json({
+            success: true,
+            message: "Request Approved",
+          });
+        } else {
+          res.json({
+            success: true,
+            message: "Request Approved",
+          });
+        }
       } else {
         res.json({
           success: false,
@@ -316,14 +373,74 @@ exports.createOrder = async (req, res) => {
             },
           }
         )
-        .then(function (response) {
+        .then(async function (response) {
           console.log(response);
-          console.log(response.order_id);
-          console.log(response.shipment_id);
-          res.status(200).send({
-            success: true,
-            message: "Order created successfully",
+          console.log(response.data.order_id);
+          console.log(response.data.shipment_id);
+          const { data: awb } = await axios.post("http://localhost:8080/api/ship/generateAWB", {
+            shipment_id: response.data.shipment_id
           });
+          if (awb.success) {
+            const { data: pickUp } = await axios.post("http://localhost:8080/api/ship/pickup", {
+              shipment_id: response.data.shipment_id,
+              // pickup_date: ,
+            });
+            if (pickUp.success) {
+              const { data: manifest } = await axios.post("http://localhost:8080/api/ship/manifest", {
+                shipment_id: response.data.shipment_id,
+              });
+              if (manifest.success) {
+                await orderModel.findOneAndUpdate({ _id: order_id }, { manifest: manifest.data });
+                const { data: shipmentDetails } = await axios.post("http://localhost:8080/api/ship/shipDets", {
+                  shipment_id: response.data.shipment_id,
+                });
+                if (shipmentDetails.success) {
+                  await orderModel.findOneAndUpdate({ _id: order_id }, {
+                    shipment_id: response.data.shipment_id,
+                    awb: shipmentDetails.awb,
+                    orderId: shipmentDetails.order_id
+                  });
+                  const { data: invoice } = await axios.post("http://localhost:8080/api/ship/generateInvoice", {
+                    order_ids: shipmentDetails.order_id,
+                  });
+                  if (invoice.success) {
+                    await orderModel.findOneAndUpdate({ _id: order_id }, {
+                      invoice: invoice.data
+                    });
+                    res.json({
+                      success: true,
+                      message: "Order created successfully",
+                    });
+                  } else {
+                    res.json({
+                      success: false,
+                      message: invoice.message,
+                    });
+                  }
+                } else {
+                  return res.json({
+                    success: false,
+                    message: shipmentDetails.message,
+                  });
+                }
+              } else {
+                return res.json({
+                  success: false,
+                  message: manifest.message,
+                });
+              }
+            } else {
+              return res.json({
+                success: false,
+                message: pickUp.message,
+              });
+            }
+          } else {
+            return res.status(400).send({
+              success: false,
+              message: awb.message,
+            });
+          }
         })
         .catch(function (error) {
           console.log("error in creating order error message as follows: ");
@@ -375,7 +492,7 @@ exports.getOrderDetsFunction = async (req, res) => {
         res.status(200).send({
           success: true,
           message: "Order details are as follows: ",
-          orderDets,
+          data: orderDets,
         });
       })
       .catch(function (error) {
@@ -407,7 +524,10 @@ exports.generateAWBFunction = async (req, res) => {
     };
     await axios(options)
       .then(function (response) {
-        console.log(response.data);
+        return res.json({
+          success: true,
+          message: "AWB generated successfully",
+        });
       })
       .catch(function (error) {
         if (
@@ -470,7 +590,7 @@ exports.generateInvoiceFunction = async (req, res) => {
     //   maxBodyLength: Infinity,
     //   headers: {
     //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${getToken.mainToken}`,
+    //     Authorization: `Bearer ${ getToken.mainToken }`,
     //   },
     //   url:
     //     "https://apiv2.shiprocket.in/v1/external/orders/print/invoice?" +
@@ -481,7 +601,7 @@ exports.generateInvoiceFunction = async (req, res) => {
       .post(
         "https://apiv2.shiprocket.in/v1/external/orders/print/invoice",
         {
-          ids: order_ids,
+          ids: [order_ids],
         },
         {
           headers: {
@@ -495,7 +615,7 @@ exports.generateInvoiceFunction = async (req, res) => {
         res.status(200).send({
           success: true,
           message: "Order invoice generated check here: ",
-          invoice_url,
+          data: invoice_url,
         });
       })
       .catch(function (error) {
@@ -523,7 +643,7 @@ exports.setPickupFunction = async (req, res) => {
     //   maxBodyLength: Infinity,
     //   headers: {
     //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${getToken.mainToken}`,
+    //     Authorization: `Bearer ${ getToken.mainToken }`,
     //   },
     //   url:
     //     "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup?" +
@@ -535,7 +655,7 @@ exports.setPickupFunction = async (req, res) => {
         "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup",
         {
           shipment_id: shipment_id,
-          pickup_date: pickup_date,
+          // pickup_date: pickup_date,
         },
         {
           headers: {
@@ -545,13 +665,17 @@ exports.setPickupFunction = async (req, res) => {
         }
       )
       .then(function (response) {
-        let Booked_date = response.data.Booked_date;
+        let res = response.data.response;
         if (response.data.Status == true) {
-          res.status(200).send({
+          return res.status(200).send({
             success: true,
-            message:
-              "Shipment pickup successfully set, following is the date: ",
-            Booked_date,
+            message: "Shipment pickup successfully set, following is the date: ",
+            data: res,
+          });
+        } else {
+          return res.json({
+            success: false,
+            message: "Shipment pickup not set",
           });
         }
       })
@@ -597,7 +721,7 @@ exports.generateManifestFunction = async (req, res) => {
         return res.status(200).send({
           success: true,
           message: "Manifest generated check here: ",
-          manifest_url,
+          data: manifest_url,
         });
       })
       .catch(function (error) {
@@ -637,11 +761,11 @@ exports.shipmentDetsFunction = async (req, res) => {
             message: "No shipment found",
           });
         }
-        let shipDets = response.data;
+        let shipDets = response.data.shipDets.data;
         return res.status(200).send({
           success: true,
-          message: "Shipment details as follows: ",
-          shipDets,
+          message: "Shipment details",
+          data: shipDets,
         });
       })
       .catch(function (error) {

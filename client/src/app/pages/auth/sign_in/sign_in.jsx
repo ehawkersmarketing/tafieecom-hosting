@@ -10,6 +10,8 @@ import Tafi_logo_white from "../../../assets/Tafi_logo_white.png";
 import { Link } from "react-router-dom";
 import Header from "../../header/header";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+
 var token;
 
 const SignIn = () => {
@@ -33,69 +35,168 @@ const SignIn = () => {
   const [formField, setFormField] = useState({
     phone: "",
     otp: "",
+    name: "",
+    checkbox: 0
   });
 
   const handleChangeFormField = (e) => {
     console.log(token);
+    if (e.target.name === "phone" || e.target.name === "otp") {
+      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    }
     setFormField({ ...formField, [e.target.name]: e.target.value });
   };
 
   const onSendOtp = async (event) => {
-    event.preventDefault();
-    if (formField.phone.length == 10) {
-      const { data } = await axios.post("http://localhost:8080/auth/sendOtp", {
-        phone: formField.phone,
+    try {
+      event.preventDefault();
+      if (formField.phone.length == 10) {
+        const { data } = await axios.post("http://localhost:8080/auth/sendOtp", {
+          phone: formField.phone,
+        });
+        token = data.token;
+        if (data.success) {
+          toast.success("OTP Sent successfully", {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+          });
+        }
+      } else {
+        toast.error("Please enter a valid phone number", {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error(`${error.response.data.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
       });
-      token = data.token;
-      console.log(token);
     }
   };
 
   const onSignUp = async (event) => {
-    event.preventDefault();
-    if (token) {
-      const { data } = await axios.post(
-        "http://localhost:8080/auth/verifyOtp",
-        {
-          otp: formField.otp,
-          token: token,
-        }
-      );
-      if (data.success) {
-        const { data } = await axios.post("http://localhost:8080/auth/signup", {
-          phone: formField.phone,
-          userName: formField.name,
-          email: formField.email,
-        });
+    try {
+      event.preventDefault();
+      if (token) {
+        const { data } = await axios.post(
+          "http://localhost:8080/auth/verifyOtp",
+          {
+            otp: formField.otp,
+            token: token,
+          }
+        );
         if (data.success) {
-          localStorage.setItem("auth_token", token);
-          localStorage.setItem("user_id", data.data._id);
-          navigate("/");
+          const { data } = await axios.post("http://localhost:8080/auth/signup", {
+            phone: formField.phone,
+            userName: formField.name,
+            email: formField.email,
+          });
+          if (data.success) {
+            localStorage.setItem("auth_token", token);
+            localStorage.setItem("user_id", data.data._id);
+            if (formField.checkbox == 0) {
+              forgotOnClose();
+            }
+            navigate("/");
+          } else {
+            toast.error(data.message, {
+              position: "bottom-right",
+              autoClose: 8000,
+              pauseOnHover: true,
+              draggable: true,
+              theme: "dark",
+            });
+          }
+        } else {
+          toast.error(data.message, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+          });
         }
+      } else {
+        toast.error("Please enter a valid OTP", {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
       }
+    } catch (error) {
+      toast.error(`${error.response.data.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
     }
   };
+
+  const forgotOnClose = () => {
+    window.onbeforeunload = function (e) {
+      localStorage.clear();
+    }
+  }
 
   const onTogglePage = (path) => {
     setPath(path);
   };
 
   const onLogin = async (event) => {
-    event.preventDefault();
-    if (token) {
-      const { data } = await axios.post("http://localhost:8080/auth/login", {
-        phone: formField.phone,
-        otp: formField.otp,
-        token: token,
-      });
-      if (data.success) {
-        localStorage.setItem("auth_token", token);
-
-        localStorage.setItem("user", JSON.stringify(data.data));
-        localStorage.setItem("user_id", data.data._id);
-        navigate("/");
+    try {
+      event.preventDefault();
+      if (token) {
+        const { data } = await axios.post("http://localhost:8080/auth/login", {
+          phone: formField.phone,
+          otp: formField.otp,
+          token: token,
+        });
+        if (data.success) {
+          localStorage.setItem("auth_token", token);
+          localStorage.setItem("user", JSON.stringify(data.data));
+          localStorage.setItem("user_id", data.data._id);
+          if (formField.checkbox == 0) {
+            forgotOnClose();
+          }
+          navigate("/");
+        } else {
+          toast.error(data.message, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+          });
+        }
       }
+    } catch (error) {
+      toast.error(`${error.response.data.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
     }
+  };
+
+  const handleCheckBox = (e) => {
+    const { value, checked } = e.target;
+    setFormField({ ...formField, [value]: checked ? 1 : 0 });
   };
 
   return (
@@ -162,7 +263,7 @@ const SignIn = () => {
                     </div>
                   </span>
                   <div className="checkbox">
-                    <input type="checkbox" style={{ marginRight: "5px" }} />
+                    <input type="checkbox" value="checkbox" onChange={handleCheckBox} style={{ marginRight: "5px" }} />
                     Keep me signed in
                   </div>
                   <button className="span-9" onClick={onLogin}>
@@ -182,7 +283,7 @@ const SignIn = () => {
                   </div>
                   <div className="div-21">
                     <div className="div-22">
-                      <img loading="lazy" src={google_icon} className="img-5" />
+                      {/* <img loading="lazy" src={google_icon} className="img-5" /> */}
                     </div>
                   </div>
                 </span>
@@ -240,7 +341,7 @@ const SignIn = () => {
                     </div>
                   </span>
                   <div className="checkbox">
-                    <input type="checkbox" style={{ marginRight: "5px" }} />
+                    <input type="checkbox" onChange={handleCheckBox} style={{ marginRight: "5px" }} />
                     Keep me signed in
                   </div>
                   <div className="register">
@@ -280,7 +381,7 @@ const SignIn = () => {
                         <br />
                       </div>
                     </span>
-                    <img loading="lazy" src={photo} className="img-4" />
+                    {/* <img loading="lazy" src={photo} className="img-4" /> */}
                   </div>
                 </div>
               </div>
@@ -288,6 +389,7 @@ const SignIn = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 };

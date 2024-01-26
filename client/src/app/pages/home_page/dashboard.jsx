@@ -11,6 +11,8 @@ import FeatureCarouselCard from "./components/featureProductCarousal/featureProd
 import { useNavigate } from "react-router-dom";
 import homehero from "../../assets/homepage-main.png";
 import { Link } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const { data: featuredProducts } = useFetch("/api/allProducts");
@@ -68,13 +70,7 @@ const Dashboard = () => {
             </div>
             <div className="category-region">
               <div className="category-carousel">
-                <div className="left-arrow">
-                  {/* <i class="bi bi-arrow-left"></i> */}
-                </div>
                 {categories && <CategoryCarousel items={categories} />}
-                <div className="right-arrow">
-                  {/* <i class="bi bi-arrow-right"></i> */}
-                </div>
               </div>
             </div>
           </div>
@@ -203,6 +199,7 @@ const Dashboard = () => {
         </div>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 };

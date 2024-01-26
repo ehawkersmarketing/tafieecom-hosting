@@ -29,7 +29,7 @@ import Checkout from "./app/pages/checkout_page/Checkout.jsx";
 import Service_pop from "./app/components/service_pop/Service_pop.jsx";
 import Services from "./app/pages/service_page/service.jsx";
 import AdminProcessOrder from "./app/pages/admin-process-order/admin-process-order.jsx";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -86,7 +86,7 @@ function App() {
           />
           <Route path="/about" exact element={<About />} />
           <Route path="/Invoice" exact element={<Invoice />} />
-          <Route path="/Cart" exact element={<Cart />} />
+          <Route path="/Cart/:id" exact element={<Cart />} />
           <Route path="/myaccount" exact element={<Myaccount />} />
           <Route path="/franchise" exact element={<Franchise />} />
           <Route path="/checkout" exact element={<Checkout />} />

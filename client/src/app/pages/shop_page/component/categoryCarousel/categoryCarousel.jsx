@@ -12,8 +12,13 @@ const CategoryCarousel = ({ items }) => {
                 <OwlCarousel items={2.5}
                     className="owl-theme"
                     loop
+                    nav
                     margin={8}
                     autoplayTimeout={5000}
+                    navText={[
+                        '<span class="arrow prev">‹</span>',
+                        '<span class="arrow next">›</span>'
+                    ]}
                     autoplayHoverPause={true}
                     autoplay={true} >{items?.map((item, index) => {
                         return (

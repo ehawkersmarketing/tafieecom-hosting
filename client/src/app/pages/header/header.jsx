@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import logo from "../../assets/Tafi_logo_white.png";
 
 import "./header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
+
+  const onLogout = () => {
+    localStorage.clear();
+    navigate('/auth/login');
+  };
 
   return (
     <>
@@ -40,12 +46,15 @@ const Header = () => {
           </Link>
         </div>
         <div className="login-section col-3">
-          <Link className="register" to={`/auth/register`}>
+          {!user && <Link className="register" to={`/auth/register`}>
             Register
-          </Link>
-          <Link className="signin" to={`/auth/login`}>
+          </Link>}
+          {!user && <Link className="signin" to={`/auth/login`}>
             Sign In
-          </Link>
+          </Link>}
+          {user && <Link className="signin" onClick={onLogout}>
+            Logout
+          </Link>}
           {user && user.role.role === 'User' && <Link className="register myaccount" to={"/myaccount"}>
             My account
           </Link>}

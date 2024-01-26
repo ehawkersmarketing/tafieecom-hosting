@@ -11,6 +11,9 @@ const orderSchema = new mongoose.Schema(
                 units: Number,
             },
         ],
+        orderId: {
+            type: Number,
+        },
         user: {
             type: mongoose.Types.ObjectId,
             ref: "User",
@@ -25,6 +28,18 @@ const orderSchema = new mongoose.Schema(
         orderStatus: {
             type: String,
             default: "PROCESSING",
+        },
+        manifestUrl: {
+            type: String,
+        },
+        invoice: {
+            type: String,
+        },
+        shipment_id: {
+            type: Number,
+        },
+        awb: {
+            type: String,
         },
         amount: {
             type: Number,

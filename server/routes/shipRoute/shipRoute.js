@@ -12,6 +12,7 @@ const {
   getOrderDetsFunction,
   requestApproval
 } = require("../../controlllers/ship/shipController");
+
 const express = require("express");
 
 const router = express.Router();
@@ -28,7 +29,7 @@ router.post("/pickup", setPickupFunction);
 
 router.post("/manifest", generateManifestFunction);
 
-router.get("/shipDets", shipmentDetsFunction);
+router.post("/shipDets", shipmentDetsFunction);
 
 router.post("/cancelShip", cancelShipmentFunction);
 
