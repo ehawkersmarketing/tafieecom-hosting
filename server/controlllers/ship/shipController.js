@@ -400,18 +400,6 @@ exports.setPickupFunction = async (req, res) => {
   console.log(getToken);
 
   if (getToken) {
-    // let options = {
-    //   method: "post",
-    //   maxBodyLength: Infinity,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${getToken.mainToken}`,
-    //   },
-    //   url:
-    //     "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup?" +
-    //     paramers,
-    // };
-
     await axios
       .post(
         "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup",
@@ -427,13 +415,14 @@ exports.setPickupFunction = async (req, res) => {
         }
       )
       .then(function (response) {
-        let Booked_date = response.data.Booked_date;
+        // let Booked_date = response.data.Booked_date;
+        console.log(response);
         if (response.data.Status == true) {
           res.status(200).send({
             success: true,
             message:
               "Shipment pickup successfully set, following is the date: ",
-            Booked_date,
+            // Booked_date,
           });
         }
       })
@@ -470,6 +459,7 @@ exports.generateManifestFunction = async (req, res) => {
       )
       .then(function (response) {
         let manifest_url = response.data.manifest_url;
+        console.log(response);
         if (manifest_url === "") {
           return res.send({
             success: false,
