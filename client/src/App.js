@@ -29,6 +29,7 @@ import Service_pop from "./app/components/service_pop/Service_pop.jsx";
 import Services from "./app/pages/service_page/service.jsx";
 import AdminProcessOrder from "./app/pages/admin-process-order/admin-process-order.jsx";
 import CreateService from "./app/pages/createService/createService.js";
+import UpdateService from "./app/pages/updateService/updateService.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ function App() {
 
           <Route path="/services" exact element={<Services/>}/>
           <Route path="/createService" exact element={<CreateService/>}/>
+          <Route path="/updateService/:id" exact element={<UpdateService />} />
 
           <Route path="/service_pop" exact element={<Service_pop />} />
           <Route path="/adminprocessorder" exact element={<AdminProcessOrder/>} />

@@ -19,14 +19,13 @@ const UpdateProduct = () => {
     price: "",
     quantity: "",
     minQuantity: "",
-    maxQuantity: ""
+    maxQuantity: "",
   });
 
   const [dropdown, setDropdown] = useState({
     category: "",
   });
 
-    
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
@@ -34,9 +33,9 @@ const UpdateProduct = () => {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // history("/adminPage");
       } else {
-      history("/auth/1");
+        history("/auth/1");
       }
-    }else {
+    } else {
       history("/auth/1");
     }
   }, []);
@@ -47,8 +46,9 @@ const UpdateProduct = () => {
   };
 
   function limitInputValue(e) {
-    if (e.target.value > maxValue) {
-      <p>The Minimum value should be less than maximum value</p>;
+  
+    if (parseInt(e.target.value) >= maxValue) {
+      alert("The Minimum value should be less than maximum value");
     }
   }
 
@@ -94,8 +94,7 @@ const UpdateProduct = () => {
         quantity: inputHandler.quantity,
         maxQuantity: inputHandler.maxQuantity,
         minQuantity: inputHandler.minQuantity,
-        category: categoryList[0]._id
-
+        category: categoryList[0]._id,
       })
       .then((res) => {
         console.log(res.data);
@@ -167,7 +166,7 @@ const UpdateProduct = () => {
               value={inputHandler.minQuantity}
               id="minQuantity"
               name="minQuantity"
-              onKeyUp={limitInputValue}
+              onKeyDown={limitInputValue}
               max="8"
               placeholder="Minimum Quantity"
             />

@@ -43,7 +43,9 @@ const CreateBlog = () => {
       alert(" Add Content");
     }else if (readingTime === " ") {
       alert(" Add reading time");
-    }else {
+    }else if (!image) {
+      alert(" Add Image");
+    }else{
       const formData = new FormData();
       formData.append("image", image);
 

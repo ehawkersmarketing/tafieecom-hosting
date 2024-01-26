@@ -126,7 +126,7 @@ const UpdateBlog = () => {
             />
           </div>
           <button className="btn" onClick={onSubmitHandler}>
-            Edit Blog
+            Edit Resource Center
           </button>
         </form>
       </div>

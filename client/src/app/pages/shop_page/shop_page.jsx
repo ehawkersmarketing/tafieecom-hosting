@@ -284,10 +284,10 @@ const ShopPage = () => {
             </div>
           </div>
           <div className="side-nav">
-            <div className="next-nav">
+            {/* <div className="next-nav">
               <span className="next-text">Next</span>
               <i class="bi bi-arrow-right"></i>
-            </div>
+            </div> */}
           </div>
           <div className="all-products-card">
             {visibleProducts &&

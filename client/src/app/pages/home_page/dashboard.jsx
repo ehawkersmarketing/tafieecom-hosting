@@ -16,6 +16,12 @@ const Dashboard = () => {
   const { data: featuredProducts } = useFetch("/api/allProducts");
   const { data: categories } = useFetch("/api/allCategory");
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   return (
     <>
       <Header />
@@ -193,8 +199,8 @@ const Dashboard = () => {
                 <strong>Join the Krishak Vatika</strong> family today and
                 harvest the success tomorrow!
               </p>
-              <div className="registerSoilBTN">
-                <button onClick={(e) => navigate("/franchise")}>
+              <div className="registerSoilBTN" onClick={scrollToTop}>
+                <button onClick={(e) =>  navigate("/exclusivestore")}>
                   Know More
                 </button>
               </div>
