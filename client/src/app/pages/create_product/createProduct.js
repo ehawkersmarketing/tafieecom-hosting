@@ -6,7 +6,7 @@ import axios from "axios";
 
 const CreateProduct = () => {
   const { data } = useFetch("/api/allCategory");
-  const user = JSON.parse(localStorage.getItem("user"));
+  // const user = JSON.parse(localStorage.getItem("user"));
   const [value, setValue] = useState(1);
   const [maxValue, setMaxValue] = useState(8);
 
@@ -27,6 +27,21 @@ const CreateProduct = () => {
 
   const history = useNavigate();
 
+  
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  useEffect(() => {
+    if (user) {
+      if (user.role.role === "Admin" || user.role.role === "Editor") {
+        // history("/adminPage");
+      } else {
+      history("/auth/1");
+      }
+    }else {
+      history("/auth/1");
+    }
+  }, []);
+
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;
     if (name == "minQuantity") {
@@ -43,8 +58,9 @@ const CreateProduct = () => {
   };
 
   function limitInputValue(e) {
-    if (e.target.value > maxValue) {
-      <p>The Minimum value should be less than maximum value</p>;
+  
+    if (parseInt(e.target.value) >= maxValue) {
+      alert("The Minimum value should be less than maximum value");
     }
   }
 
@@ -55,8 +71,7 @@ const CreateProduct = () => {
       inputHandler;
     const { category } = dropdown;
     const categoryList = data.filter((item) => item.category === category);
-    // console.log(category);
-    // console.log(inputHandler);
+    console.log(categoryList)
     if (title === "") {
       alert("Add Title");
     } else if (description === "") {
@@ -67,9 +82,9 @@ const CreateProduct = () => {
       alert("Add image");
     }else if (price === "") {
       alert("Add Price");
-    } else if(!category){
-       alert("Select category")
-    }else {
+    } if (!categoryList.length) {
+      alert("Select category");
+     }else {
       const formData = new FormData();
       formData.append("image", image);
 

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
-import Footer from "../footer/footer";
 import logoImage from "../../assets/Tafi_logo_white.png";
 
 const Myaccount = () => {
@@ -220,7 +219,6 @@ const Myaccount = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

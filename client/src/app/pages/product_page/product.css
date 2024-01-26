@@ -1,16 +1,14 @@
 .single-product{
     box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-    background: linear-gradient(90deg, rgba(41, 100, 94, 0.10) -0.43%, rgba(68, 169, 139, 0.10) 99.93%), var(--light-base-green-2, #EBF6F5);
-    
+    background: linear-gradient(90deg, rgba(41, 100, 94, 0.10) -0.43%, rgba(68, 169, 139, 0.10) 99.93%), var(--light-base-green-2, #EBF6F5); 
 }
-
+.product-bg{
+    margin-top: 0;
+}
 /* section top */
 .wrapper{
 background-image: url('../../assets//mask.png');
 background-size: cover;
-/* background-position-y: 70px ; */
 background-repeat: no-repeat;
 }
 .wrapper-about{
@@ -51,23 +49,22 @@ padding-top: 5rem;
 }
 .category-name{
     color: var(--bright-green-primary, #44A98B);
-    width: 66.633px;
-        height: 17.464px;
+    /* width: 66.633px; */
+        /* height: 17.464px; */
         font-size: 15px;
         
-        line-height: normal;
+        line-height: 1.4;
 }
 .product-name{
     color: var(--darkgreen-primary, #19443F);
     /* width: 342px; */
     font-weight: bold;
-        height: 68px;
-        font-size: 26.491px;
+        /* height: 68px; */
         line-height: 29.434px;
 }
 .review{
     color: var(--bright-green-primary, #44A98B);
-        height: 18.068px;
+        /* height: 18.068px; */
         font-size: 14.455px;
         line-height: normal;
 }
@@ -116,11 +113,11 @@ color:#44A98B
         line-height: normal;
         text-decoration-line: underline;
 }
-.ratingAndReview{
+/* .ratingAndReview{
     display: flex;
         gap: 5rem;
         margin-left: -2rem;
-}
+} */
 .rating{
     list-style-type: none;
     display: flex;
@@ -178,7 +175,7 @@ color:#44A98B
 }
 .review-btn{
     width: 47px;
-        height: 24px;
+        /* height: 24px; */
     border-radius: 140px;
         background: var(--yellow-primary, #C8A33D);
 }

@@ -20,7 +20,7 @@ const CategoryCarousel = ({ items }) => {
                         '<span class="arrow next">›</span>'
                     ]}
                     autoplayHoverPause={true}
-                    autoplay={true} >{items?.map((item, index) => {
+                    autoplay={false} >{items?.map((item, index) => {
                         return (
                             <CategoryCard item={item} key={index} />
                         );

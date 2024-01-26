@@ -1,7 +1,6 @@
 .component-outer {
     top: 3rem;
     left: 2rem;
-    /* min-th: 100%; */
     padding: 2%;
     position: absolute;
     display: block;
@@ -16,7 +15,7 @@
     position: relative;
     border-radius: 10px;
 }
-.component-outer .products, .component-outer .services{
+.component-outer .products-comp, .component-outer .services-comp{
     text-decoration: none;
     display: flex;
     flex-direction: column;

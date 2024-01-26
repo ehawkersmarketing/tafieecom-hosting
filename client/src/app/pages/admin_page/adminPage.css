@@ -144,6 +144,7 @@
   border: none;
   background-color: #e2e8f0;
   outline: none;
+  padding: 0.7rem;
 }
 
 .admin-wrapper .admin-right {
@@ -168,6 +169,7 @@
 .admin-wrapper .admin-suber-wrapper {
   height: 100vh;
   padding: 2%;
+  padding-top: 0px;
   overflow: scroll;
 }
 
@@ -248,7 +250,7 @@
 }
 
 .admin-wrapper .subHeading {
-  margin: 1rem;
+  margin: 1.2rem;
 }
 
 .admin-wrapper .admin-table-card {
@@ -278,6 +280,7 @@
   letter-spacing: -0.01em;
   text-align: left;
   color: #44a98b;
+  padding: 0.7rem;
   margin-left: 2rem;
 }
 

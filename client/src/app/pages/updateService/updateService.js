@@ -1,18 +1,16 @@
 import react, { useState, useEffect } from "react";
-import "../CreateBlog/createBlog";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const UpdateBlog = () => {
+const UpdateService = () => {
   const history = useNavigate();
 
   const { id } = useParams();
   const [inputHandler, setInputHandler] = useState({
     id: id,
     title: "",
-    content: "",
-    readingTime: "",
+    description: "",
   });
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -29,14 +27,13 @@ const UpdateBlog = () => {
     }
   }, []);
 
-  const getOneBlog = async () => {
+  const getOneService = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/api/blog/" + id);
-      console.log(data);
+      const { data } = await axios.get("http://localhost:8080/api/getService/" + id);
+      console.log(data.data[0].title);
       setInputHandler({
-        title: data.data.title,
-        content: data.data.content,
-        readingTime: data.data.readingTime,
+        title: data.data[0].title,
+        description: data.data[0].description,
       });
     } catch (err) {
       console.log(err);
@@ -44,19 +41,18 @@ const UpdateBlog = () => {
   };
 
   useEffect(() => {
-    getOneBlog();
+    getOneService();
   }, []);
 
   useEffect(() => {
     axios
-      .patch("http://localhost:8080/api/updateBlog/" + id)
+      .put("http://localhost:8080/api/updateService/" + id)
       .then((res) => {
+        console.log(res.data.data)
         setInputHandler({
           ...inputHandler,
-          title: res.data.updatedBlog.title,
-          content: res.data.updatedBlog.content,
-          readingTime: res.data.updatedBlog.readingTime,
-          UpdateBlog,
+          title: res.data.data.title,
+          description: res.data.data.description,
         });
       })
       .catch((err) => {
@@ -74,7 +70,7 @@ const UpdateBlog = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:8080/api/updateBlog/" + id, inputHandler)
+      .put("http://localhost:8080/api/updateService/" + id, inputHandler)
       .then((res) => {
         console.log(res.data);
         history("/adminPage");
@@ -88,7 +84,7 @@ const UpdateBlog = () => {
     <section>
       <div className="form_data">
         <div className="form_heading">
-          <h1>Edit Blog</h1>
+          <h1>Update Service</h1>
         </div>
 
         <form>
@@ -104,29 +100,18 @@ const UpdateBlog = () => {
             />
           </div>
           <div className="form_input">
-            <label htmlFor="title">Content</label>
+            <label htmlFor="description">Description</label>
             <input
               type="text"
               onChange={onChangeInputHandler}
-              id="content"
-              name="content"
-              value={inputHandler.content}
-              placeholder="Content"
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="readingTime">Reading Time</label>
-            <input
-              type="readingTime"
-              onChange={onChangeInputHandler}
-              value={inputHandler.readingTime}
-              id="readingTime"
-              name="readingTime"
-              placeholder="readingTime"
+              id="description"
+              name="description"
+              value={inputHandler.description}
+              placeholder="Description...."
             />
           </div>
           <button className="btn" onClick={onSubmitHandler}>
-            Edit Resource Center
+            Update service
           </button>
         </form>
       </div>
@@ -134,4 +119,4 @@ const UpdateBlog = () => {
   );
 };
 
-export default UpdateBlog;
+export default UpdateService;

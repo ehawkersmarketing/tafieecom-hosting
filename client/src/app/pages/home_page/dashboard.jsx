@@ -18,6 +18,12 @@ const Dashboard = () => {
   const { data: featuredProducts } = useFetch("/api/allProducts");
   const { data: categories } = useFetch("/api/allCategory");
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   return (
     <>
       <Header />
@@ -70,6 +76,7 @@ const Dashboard = () => {
             </div>
             <div className="category-region">
               <div className="category-carousel">
+
                 {categories && <CategoryCarousel items={categories} />}
               </div>
             </div>
@@ -89,7 +96,7 @@ const Dashboard = () => {
           <div className="category-region">
             <div className="category-carousel">
               <div className="left-arrow">
-                {/* <i class="bi bi-arrow-left"></i> */}
+                <i class="bi bi-arrow-left"></i>
               </div>
               <div className="feature-carousal">
                 {featuredProducts && (
@@ -97,7 +104,7 @@ const Dashboard = () => {
                 )}
               </div>
               <div className="right-arrow">
-                {/* <i class="bi bi-arrow-right"></i> */}
+                <i class="bi bi-arrow-right"></i>
               </div>
             </div>
           </div>
@@ -189,8 +196,8 @@ const Dashboard = () => {
                 <strong>Join the Krishak Vatika</strong> family today and
                 harvest the success tomorrow!
               </p>
-              <div className="registerSoilBTN">
-                <button onClick={(e) => navigate("/franchise")}>
+              <div className="registerSoilBTN" onClick={scrollToTop}>
+                <button onClick={(e) => navigate("/exclusivestore")}>
                   Know More
                 </button>
               </div>
