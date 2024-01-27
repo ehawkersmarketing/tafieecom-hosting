@@ -18,7 +18,7 @@ const ProductCard = ({ cart, item }) => {
       navigate(`/Cart`);
     }
   };
-  const inCart = cart.products.find((product) => {
+  const inCart = cart?.products.find((product) => {
     return product.productId._id === item._id
   });
 

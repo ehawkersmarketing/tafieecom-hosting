@@ -35,7 +35,7 @@ exports.requestApproval = async (req, res) => {
 
 exports.approveRequest = async (req, res) => {
   try {
-    const { requestId } = req.body;
+    const { requestId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ _id: requestId });
     if (request) {
       const data = await requestModel.findOneAndUpdate(
@@ -44,6 +44,14 @@ exports.approveRequest = async (req, res) => {
           status: "APPROVED",
         }
       );
+      await orderModel.findOneAndUpdate({
+        _id: request.orderId,
+      }, {
+        length: length,
+        breadth: breadth,
+        height: height,
+        weight: weight,
+      });
       if (data) {
         const { data: order } = await orderModel.findOne({ _id: data.orderId }).populate("products.productId").populate("user").populate("userAddress");
         const { data: shipment } = await axios.post("http:/localhost:8080/api/ship/createOrder", {
@@ -90,10 +98,10 @@ exports.approveRequest = async (req, res) => {
           ],
           sub_total: order.amount,
           total_discount: 0,
-          // length: ,
-          // breadth: ,
-          // height: ,
-          // weight: ,
+          length: length,
+          breadth: breadth,
+          height: height,
+          weight: weight,
         });
         if (shipment) {
           res.json({

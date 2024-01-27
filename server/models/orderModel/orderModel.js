@@ -32,6 +32,18 @@ const orderSchema = new mongoose.Schema(
         manifestUrl: {
             type: String,
         },
+        length: {
+            type: Number,
+        },
+        bredth: {
+            type: Number,
+        },
+        height: {
+            type: Number,
+        },
+        weight: {
+            type: Number,
+        },
         invoice: {
             type: String,
         },

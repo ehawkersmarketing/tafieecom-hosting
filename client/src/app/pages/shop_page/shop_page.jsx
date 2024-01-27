@@ -17,7 +17,7 @@ const ShopPage = () => {
     filter: "",
   });
   const user = JSON.parse(localStorage.getItem("user"));
-  const { data: cart } = useFetch(`/api/getCartByUser/${user._id}`);
+  const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [searchField, setSearchField] = useState("");
   const filter = ["Price: High To Low", "Price: Low To High"];
   const { data: products, setData: setProducts } = useFetch("/api/allProducts");
