@@ -8,7 +8,8 @@ import ProductCard from "../../components/productCard/productCard.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
 import ShopPageCarouselCard from "./component/shop_card_carousal/shop_card_carousal.jsx";
 import axios from "axios";
-import AllCategoryComponent from "../../components/allcategory/allcategory.jsx"
+import AllCategoryComponent from "../../components/allcategory/allcategory.jsx";
+import { toast, ToastContainer } from 'react-toastify';
 
 const ShopPage = () => {
   const [open, setOpen] = useState(false);
@@ -27,13 +28,23 @@ const ShopPage = () => {
 
   const search = async (text) => {
     if (text !== "") {
-      const { data } = await axios.post(
-        `http://localhost:8080/api/searchProduct`,
-        {
-          search: text,
-        }
-      );
-      setSearchProducts(data.data);
+      try {
+        const { data } = await axios.post(
+          `http://localhost:8080/api/searchProduct`,
+          {
+            search: text,
+          }
+        );
+        setSearchProducts(data.data);
+      } catch (error) {
+        toast.error(`${error.message}`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
     } else {
       setSearchProducts(undefined);
     }
@@ -204,6 +215,7 @@ const ShopPage = () => {
         </div>
       </div>
       <Footer />
+      <ToastContainer />
     </div >
   )
 }
