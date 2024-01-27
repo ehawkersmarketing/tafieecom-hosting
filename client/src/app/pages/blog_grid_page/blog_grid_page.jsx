@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
+import { toast, ToastContainer } from 'react-toastify';
 
 const BlogPage = () => {
 
@@ -48,13 +49,30 @@ const BlogPage = () => {
       }
     }
   };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
 
   const search = async (text) => {
     if (text !== '') {
-      const { data } = await axios.post(`http://localhost:8080/api/searchBlog`, {
-        search: text
-      });
-      setSearchBlog(data.data);
+      try {
+        const { data } = await axios.post(`http://localhost:8080/api/searchBlog`, {
+          search: text
+        });
+        setSearchBlog(data.data);
+      } catch (error) {
+        toast.error(`${error.message}`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
     } else {
       setSearchBlog(undefined);
     }
@@ -66,7 +84,7 @@ const BlogPage = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="blogpage">
         <div className="blog-tile">
           <div className="blog-grid-page row">
@@ -152,7 +170,7 @@ const BlogPage = () => {
                           {blog.content}
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                        <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                        <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                           Read More
                         </Link>
                       </div>
@@ -185,7 +203,7 @@ const BlogPage = () => {
                         {blog.content.substring(0, 80)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                      <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                         Read More
                       </Link>
                     </div>
@@ -218,7 +236,7 @@ const BlogPage = () => {
                           {blog.content.substring(0, 80)}....
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                        <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                        <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                           Read More
                         </Link>
                       </div>
@@ -251,7 +269,7 @@ const BlogPage = () => {
                         {blog.content.substring(0, 80)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                      <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                         Read More
                       </Link>
                     </div>
@@ -267,7 +285,8 @@ const BlogPage = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
+      <ToastContainer />
     </div>
   );
 };

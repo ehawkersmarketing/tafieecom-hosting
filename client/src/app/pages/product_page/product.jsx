@@ -84,14 +84,14 @@ const Product = () => {
   return (
     <><Header />
       <div className="single-product bg">
-        <section className="product-bg">
+        <div className="product-bg">
           <div className="wrapper">
             <div className="container">
-              <div className="inner-container">
-                <div className="product-image">
+              <div className="inner-container row">
+                <div className="product-image col-7">
                   <img src={product?.image} />
                 </div>
-                <card className="card card-design">
+                <card className="card card-design col-5">
                   <div className="inner-card">
                     <h3 className="category-name">
                       {product?.category?.category}
@@ -112,14 +112,6 @@ const Product = () => {
                     <div className="price">Rs.{product?.price} /-</div>
                     <div className="wishlistAndAddCart">
                       <button className="cart-btn">Add to Cart</button>
-                      <div>
-                        <span>
-                          <i class="bi bi-heart-fill" id="wishlist-icon"></i>
-                        </span>
-                        <a href="/" className="wishlist">
-                          Add to wishlist
-                        </a>
-                      </div>
 
                     </div>
                   </div>
@@ -130,12 +122,12 @@ const Product = () => {
           <div className="wrapper-about">
             <div className="about-product">
               <h1 className="about-title">About Product</h1>
-              <div>
+              <div className="about-desc">
                 <p className="description">{product?.description}</p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
         <div className="card-product-wrapper">
           <div className="carousel-card">
@@ -224,6 +216,7 @@ const Product = () => {
           </div>
         </div>
       </div>
+
 
       <Footer />
     </>

@@ -6,6 +6,7 @@ import { Chart } from "react-google-charts";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
 import Header from '../header/header'
 const AdminPage = () => {
   const [value, setValue] = useState(1);
@@ -14,7 +15,7 @@ const AdminPage = () => {
   const { data: blogs, setData: setBlogs } = useFetch("/api/blogs");
   const { data: products } = useFetch("/api/allProducts");
   const { data: orders } = useFetch("/api/getAllOrders");
-  const { data: services , setData:setServices } = useFetch("/api/getAllService");
+  const { data: services, setData: setServices } = useFetch("/api/getAllService");
   const { data: users } = useFetch("/auth/users");
   const [searchField, setSearchField] = useState({
     product: "",
@@ -89,50 +90,63 @@ const AdminPage = () => {
   }, []);
 
   function deleteResourceHandler(id) {
-    fetch(`http://localhost:8080/api/deleteBlog/${id}`, { method: 'DELETE' })
+    try {
+      fetch(`http://localhost:8080/api/deleteBlog/${id}`, { method: 'DELETE' })
         .then(response => response.json())
         .then(data => {
-          if (data.message === "Blog deleted!!") {    
-            fetchDeleted();      }
+          if (data.message === "Blog deleted!!") {
+            fetchDeleted();
+          }
         });
-   }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  }
+
 
    function onDelete(id) {
     if (window.confirm('Are you sure you want to delete this resource?')) {
        deleteResourceHandler(id);
     }
-   }
+  }
 
-   const fetchDeleted = async () => {
-    const {data} = await axios.get(`http://localhost:8080/api/blogs`);
+  const fetchDeleted = async () => {
+    const { data } = await axios.get(`http://localhost:8080/api/blogs`);
     console.log(data)
-    setBlogs(data.data); 
+    setBlogs(data.data);
   }
 
 
- const deleteServiceHandler = (id) =>{
-  console.log("id" , id)
-  fetch(`http://localhost:8080/api/deleteService/${id}`, { method: 'DELETE' })
-  .then(response => response.json())
-  .then(data => {
-    if (data.message === "service deleted!!") { 
-      console.log("deleted")   
-      fetchDeletedService();      }
-  });
- }
-
- function onDeleteService(id) {
-  if (window.confirm('Are you sure you want to delete this Service?')) {
-     deleteServiceHandler(id);
+  const deleteServiceHandler = (id) => {
+    console.log("id", id)
+    fetch(`http://localhost:8080/api/deleteService/${id}`, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === "service deleted!!") {
+          console.log("deleted")
+          fetchDeletedService();
+        }
+      });
   }
- }
+
+  function onDeleteService(id) {
+    if (window.confirm('Are you sure you want to delete this Service?')) {
+      deleteServiceHandler(id);
+    }
+  }
 
 
- const fetchDeletedService = async () => {
-  const {data} = await axios.get(`http://localhost:8080/api/getAllService`);
-  console.log(data)
-  setServices(data.data); 
-}
+  const fetchDeletedService = async () => {
+    const { data } = await axios.get(`http://localhost:8080/api/getAllService`);
+    console.log(data)
+    setServices(data.data);
+  }
 
 
 
@@ -235,7 +249,7 @@ const AdminPage = () => {
 
   return (
     <div className="admin-wrapper">
-    <Header/>
+      <Header />
       {user && (
         <div className="row row-wrapper">
           <div className="col-3 admin-sub-wrapper">
@@ -1030,37 +1044,37 @@ const AdminPage = () => {
                             if (blog._id === deletedBlogId) {
                               console.log(blog.title)
                               return null;
-                            }else 
-                            return (
-                              <tr>
-                                <th scope="row table-center">{index + 1}</th>
-                                <td className="td ">
-                                  <img
-                                    src={blog.image}
-                                    className="featured-img-admin-blog"
-                                  />
-                                </td>
-                                <td className="td table-center">
-                                  {blog.title}
-                                </td>
-                                <td className="td table-center">
-                                  <span className="td-edit-icon ">
-                                    <i
-                                      class="bi bi-pencil-square"
-                                      onClick={(e) =>
-                                        navigate(`/updateBlog/${blog._id}`)
-                                      }
-                                    ></i>
-                                  </span>
-                                  <span className="td-delete-icon">
-                                    <i
-                                      class="bi bi-trash3-fill"
-                                      onClick={() => onDelete(blog._id)}
-                                    ></i>
-                                  </span>
-                                </td>
-                              </tr>
-                            );
+                            } else
+                              return (
+                                <tr>
+                                  <th scope="row table-center">{index + 1}</th>
+                                  <td className="td ">
+                                    <img
+                                      src={blog.image}
+                                      className="featured-img-admin-blog"
+                                    />
+                                  </td>
+                                  <td className="td table-center">
+                                    {blog.title}
+                                  </td>
+                                  <td className="td table-center">
+                                    <span className="td-edit-icon ">
+                                      <i
+                                        class="bi bi-pencil-square"
+                                        onClick={(e) =>
+                                          navigate(`/updateBlog/${blog._id}`)
+                                        }
+                                      ></i>
+                                    </span>
+                                    <span className="td-delete-icon">
+                                      <i
+                                        class="bi bi-trash3-fill"
+                                        onClick={() => onDelete(blog._id)}
+                                      ></i>
+                                    </span>
+                                  </td>
+                                </tr>
+                              );
                           })
                         )}
                       </tbody>
@@ -1242,15 +1256,15 @@ const AdminPage = () => {
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
-                                        // onClick={(e) =>
-                                        // navigate(`/updateService/${service._id}`)
-                                        // }
+                                      // onClick={(e) =>
+                                      // navigate(`/updateService/${service._id}`)
+                                      // }
                                       ></i>
                                     </span>
                                     <span className="td-delete-icon">
                                       <i
                                         class="bi bi-trash3-fill"
-                                        // onClick={(e) => onDelete(e, service._id)}
+                                      // onClick={(e) => onDelete(e, service._id)}
                                       ></i>
                                     </span>
                                   </td>
@@ -1286,7 +1300,7 @@ const AdminPage = () => {
                                     <i
                                       class="bi bi-pencil-square"
                                       onClick={(e) =>
-                                      navigate(`/updateService/${service._id}`)
+                                        navigate(`/updateService/${service._id}`)
                                       }
                                     ></i>
                                   </span>
@@ -1309,6 +1323,7 @@ const AdminPage = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

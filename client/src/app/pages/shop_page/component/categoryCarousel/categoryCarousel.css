@@ -1,12 +1,12 @@
 .carousal {
-    width: 79rem;
+    width: 100%;
 }
 
 .categoryCarouselItems {
     display: flex;
     gap: 5rem;
     overflow: hidden;
-    margin: 5rem 0;
+    margin: 0rem 0;
 }
 
 .arrow {
@@ -15,7 +15,7 @@
     font-size: 3rem;
     display: flex;
     top: 25%;
-    margin: 0 -3rem 0 -2rem;
+    margin: 0 -3rem 0 -3rem;
 }
 
 .arrow:hover {
@@ -28,4 +28,17 @@
 
 .prev {
     left: 10px;
+}
+
+/* New CSS */
+.owl-carousel {
+    width: 100%;
+}
+
+.item {
+    width: 100%;
+}
+
+.item img {
+    width: 100%;
 }

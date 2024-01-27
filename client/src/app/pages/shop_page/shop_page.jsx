@@ -8,7 +8,8 @@ import ProductCard from "../../components/productCard/productCard.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
 import ShopPageCarouselCard from "./component/shop_card_carousal/shop_card_carousal.jsx";
 import axios from "axios";
-import AllCategoryComponent from "../../components/allcategory/allcategory.jsx"
+import AllCategoryComponent from "../../components/allcategory/allcategory.jsx";
+import { toast, ToastContainer } from 'react-toastify';
 
 const ShopPage = () => {
   const [open, setOpen] = useState(false);
@@ -27,13 +28,23 @@ const ShopPage = () => {
 
   const search = async (text) => {
     if (text !== "") {
-      const { data } = await axios.post(
-        `http://localhost:8080/api/searchProduct`,
-        {
-          search: text,
-        }
-      );
-      setSearchProducts(data.data);
+      try {
+        const { data } = await axios.post(
+          `http://localhost:8080/api/searchProduct`,
+          {
+            search: text,
+          }
+        );
+        setSearchProducts(data.data);
+      } catch (error) {
+        toast.error(`${error.message}`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
     } else {
       setSearchProducts(undefined);
     }
@@ -160,7 +171,7 @@ const ShopPage = () => {
               <span>SELLERS</span>
             </div>
           </div>
-          <div className="best-seller-product">
+          <div className="best-seller-product row">
             {visibleProducts && <CarousalCard items={visibleProducts} />}
           </div>
         </div>
@@ -194,7 +205,7 @@ const ShopPage = () => {
               </div>
             </div>
           </div>
-          <div className="all-products-card">
+          <div className="all-products-card row">
             {visibleProducts && visibleProducts?.map((item, index) => {
               return (
                 <ProductCard item={item} key={index} className='productItem' />
@@ -204,6 +215,7 @@ const ShopPage = () => {
         </div>
       </div>
       <Footer />
+      <ToastContainer />
     </div >
   )
 }

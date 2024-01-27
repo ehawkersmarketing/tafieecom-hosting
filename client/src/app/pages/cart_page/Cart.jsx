@@ -1,87 +1,158 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Cart.css";
-
+import { useFetch } from "../../hooks/api_hook";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
+import Header from "../header/header";
+import Footer from "../footer/footer";
 
 const Cart = () => {
-  let [value, setValue] = useState(1);
+  const navigate = useNavigate();
+  const [total, setTotal] = useState(0);
+  const user = JSON.parse(localStorage.getItem("user"));
+  let { data: cart, setData: updateCart } = useFetch(
+    `/api/getCartByUser/${user._id}`
+  );
 
-  const increaseValueHandler = () => {
-    setValue(value++);
+  useEffect(() => {
+    if (!user) {
+      navigate("/auth/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cart) {
+      let totalPrice = 0;
+      for (let i = 0; i < cart.products.length; i++) {
+        totalPrice += cart.products[i].productId.price * cart.products[i].units;
+      }
+      setTotal(totalPrice);
+    }
+  }, [cart]);
+
+  const increaseValueHandler = async (index) => {
+    try {
+      const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
+        userId: user._id,
+        productId: cart.products[index].productId._id,
+        units: 1,
+      });
+      if (data.success) {
+        window.location.reload();
+      } else {
+        toast.error(`${data.message}`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
   };
 
-  const decreaseValueHandler = () => {
-    if (value < 1) {
+  const decreaseValueHandler = async (index) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8080/api/dropFromCart/${user._id}/${cart.products[index].productId._id}`
+      );
+      if (data.success) {
+        window.location.reload();
+      } else {
+        toast.error(`${data.message}`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
     }
-    setValue(value--);
   };
   return (
-    <div className="cart-page">
-      <div className="cart-header">
-        <h2 className="page-header">Cart</h2>
-      </div>
-      <div className="cart-overall">
-        <table className="cartTable">
-          <thead className="table-head">
-            <tr className="table-row">
-              <th>Product Name</th>
-              <th>Price (INR)</th>
-              <th>Quantity</th>
-              <th>Total Amount</th>
-            </tr>
-          </thead>
-
-          {value >= 1 && (
-            <tbody className="table-body">
+    <>
+      <Header />
+      <div className="cart-page">
+        <div className="cart-header">
+          <h2 className="page-header">Cart</h2>
+        </div>
+        <div className="cart-overall">
+          <table className="cartTable">
+            <thead className="table-head">
               <tr className="table-row">
-                <td>Fertilizer</td>
-                <td>500.00</td>
-                <td>
-                  <button class="minus" onClick={decreaseValueHandler}>
-                    -
-                  </button>
-                  <span id="number">{value}</span>
-                  <button class="plus" onClick={increaseValueHandler}>
-                    +
-                  </button>
-                </td>
-                <td>{value * 500}</td>
+                <th>Product Name</th>
+                <th>Price (INR)</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
               </tr>
+            </thead>
+            <tbody className="table-body">
+              {cart &&
+                cart.products.map((item, index) => {
+                  return (
+                    <tr className="table-row" key={index}>
+                      <td>{item.productId.title}</td>
+                      <td>{item.productId.price}</td>
+                      <td>
+                        <button
+                          class="minus"
+                          onClick={(e) => decreaseValueHandler(index)}
+                        >
+                          -
+                        </button>
+                        <span id="number">{item.units}</span>
+                        <button
+                          class="plus"
+                          onClick={(e) => increaseValueHandler(index)}
+                        >
+                          +
+                        </button>
+                      </td>
+                      <td>{item.productId.price * item.units}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
-          )}
-          {value >= 1 && (
             <tfoot className="table-footer">
               <tr className="table-row">
                 <td>Total Gross</td>
                 <td></td>
                 <td></td>
-                <td>{value * 500}</td>
+                <td>{total}</td>
               </tr>
             </tfoot>
-          )}
-        </table>
+          </table>
 
-        <div className="checkout-subtotal">
-          <div className="subtotal">
-            <p>Subtotal: </p>
-            <hr class="solid" />
-          </div>
-          <div className="checkout-address">
-            <div className="checkout-address-heading">
-              <h4>Shipping Address: </h4>
+          <div className="checkout-subtotal">
+            <div className="subtotal">
+              <p>Subtotal: {total}</p>
             </div>
-            <div className="checkout-address-text">
-              <p>Address: 456 Billing Street</p>
-              <p>Pin:</p>
-              <p>City: Billing City</p>
+            <div className="checkout">
+              <button>Proceed To Checkout</button>
             </div>
-          </div>
-          <div className="checkout">
-            <button>Proceed To Checkout</button>
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

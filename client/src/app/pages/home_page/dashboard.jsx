@@ -167,11 +167,11 @@ const Dashboard = () => {
                   soil testing.
                 </p>
               </div>
-              <div className="registerSoilBTN">
+              {/* <div className="registerSoilBTN">
                 <button onClick={(e) => navigate(`/auth/register`)}>
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="franDiv col-7">
@@ -190,6 +190,7 @@ const Dashboard = () => {
                 <strong>Join the Krishak Vatika</strong> family today and
                 harvest the success tomorrow!
               </p>
+
               <div className="registerSoilBTN" onClick={scrollToTop}>
                 <button onClick={(e) => navigate("/exclusivestore")}>
                   Know More

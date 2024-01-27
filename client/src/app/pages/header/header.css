@@ -1,7 +1,7 @@
 .header {
     background-color: var(--darkgreen-primary, #19443f);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-direction: row;
     width: 100%;
@@ -14,6 +14,10 @@
     column-gap: 10px;
 
 }
+.header .link-section a span{
+    font-weight: 600;
+    font-size: 16px;
+}
 
 .header .login-section {
     display: flex;
@@ -25,14 +29,14 @@
 }
 
 .header .logo-section img {
-    width: 100px;
+    width: 150px;
 }
 
 .header .link-section a {
     padding: 4px;
     text-decoration: none;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
 }
 .login-section .register,
 .login-section .signin 
@@ -45,7 +49,7 @@
     color: white;
     padding: 10px 23px 10px 23px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
 }
 .login-section .register {
     background-image: linear-gradient(79deg, #36914b 0.36%, #44a95c 58.15%, #7bf197 117.12%);

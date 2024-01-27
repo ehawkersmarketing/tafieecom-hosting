@@ -16,6 +16,12 @@ const SingleBlog = () => {
   const backHandler = () => {
     navigate("/blog")
   }
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div>
@@ -92,7 +98,7 @@ const SingleBlog = () => {
                         {item.content.substring(0, 80)}....
                       </p>
                       <p class="blogcard_color">{`${dayjs(item.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to={`/singleBlog/${item._id}`} class="btn btn-read">
+                      <Link to={`/singleBlog/${item._id}`} onClick={scrollToTop} class="btn btn-read">
                         Read More
                       </Link>
                     </div>
