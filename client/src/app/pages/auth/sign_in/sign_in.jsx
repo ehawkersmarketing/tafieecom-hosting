@@ -391,7 +391,7 @@ const SignIn = () => {
                         <br />
                       </div>
                     </span>
-                    {/* <img loading="lazy" src={photo} className="img-4" /> */}
+                    <img loading="lazy" src={photo} className="img-4" />
                   </div>
                 </div>
               </div>

@@ -171,7 +171,7 @@ const ShopPage = () => {
               <span>SELLERS</span>
             </div>
           </div>
-          <div className="best-seller-product">
+          <div className="best-seller-product row">
             {visibleProducts && <CarousalCard items={visibleProducts} />}
           </div>
         </div>
@@ -205,7 +205,7 @@ const ShopPage = () => {
               </div>
             </div>
           </div>
-          <div className="all-products-card">
+          <div className="all-products-card row">
             {visibleProducts && visibleProducts?.map((item, index) => {
               return (
                 <ProductCard item={item} key={index} className='productItem' />
