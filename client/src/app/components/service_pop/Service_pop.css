@@ -39,3 +39,6 @@
 .service-pop-main .service-pop-image{
     padding: 0;
 }
+.service-pop-main .service-pop-image img{
+    width: 100%;
+}

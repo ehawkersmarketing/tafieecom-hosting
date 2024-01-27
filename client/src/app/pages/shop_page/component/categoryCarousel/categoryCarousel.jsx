@@ -9,7 +9,7 @@ const CategoryCarousel = ({ items }) => {
     return (
         <div className='carousal'>
             <div class='container-fluid' >
-                <OwlCarousel items={2.5}
+                <OwlCarousel items={3}
                     className="owl-theme"
                     loop
                     margin={8}
