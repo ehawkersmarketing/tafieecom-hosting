@@ -31,6 +31,8 @@ const Product = () => {
     });
   };
 
+  const [rated, setRated] = useState(0);
+
   const fetchReviews = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/getReviewById/${id}`);
     setReviews(data.data);
@@ -43,7 +45,7 @@ const Product = () => {
 
     const { data } = await axios.post("http://localhost:8080/api/addReview", {
       reviewContent: reviewContent,
-      rating: rating,
+      rating: rated,
       productId: id,
       userId: userUniqueId
     });
@@ -154,16 +156,19 @@ const Product = () => {
             <div className="review-heading">
               <div className="review-main-title">
                 <h1 className="review-title">Reviews</h1>
+              
+                
                 <sup>
-                  <button className="review-btn">128</button>
-                </sup>
+                <button className="review-btn">0</button>
+              </sup>
+             
               </div>
               <div className="ratingAndReview">
                 <ul class="rating">
                   {Array.apply(null, { length: 5 }).map(
                     (e, i) => (
                       <li>
-                        <i class={i >= product?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                        <i class={i >= rated ? `bi bi-star` : `bi bi-star-fill`} id="review-icon" onClick={() => setRated(i+1)}></i>
                       </li>
                     )
                   )}
@@ -200,6 +205,13 @@ const Product = () => {
                           <h3 className="personName">{item.userId.userName}</h3>
                         </div>
                         <p>{item.review}</p>
+                        {/* <span> {Array.apply(null, { length: 5 }).map(
+                          (e, i) => (
+                            <li>
+                              <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                            </li>
+                          )
+                        )}</span> */}
                       </div>
                     </li>
                   );

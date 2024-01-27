@@ -12,15 +12,19 @@ const CreateService = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
    const navigate = useNavigate()
 
+   const backToDashboard = () =>{
+    history('/adminPage')
+  }
+
   useEffect(() => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // navigate("blog/composeBlog");
       } else {
-        navigate("/auth/1");
+        navigate("/auth/login");
       }
     }else {
-      navigate("/auth/1");
+      navigate("/auth/login");
     }
   }, []);
 
@@ -79,6 +83,9 @@ const CreateService = () => {
     <section>
       {
         <div className="form_data">
+          <div className="cross" onClick={backToDashboard}>
+           <i class="bi bi-file-x-fill"></i>
+            </div>
           <div className="form_heading">
             <h1>Create Service</h1>
           </div>

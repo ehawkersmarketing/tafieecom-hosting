@@ -81,10 +81,10 @@ const AdminPage = () => {
       } else if (user.role.role === "Editor") {
         setValue(3);
       } else {
-        navigate("/auth/1");
+        navigate("/auth/login");
       }
     } else {
-      navigate("/auth/1");
+      navigate("/auth/login");
     }
   }, []);
 
@@ -98,7 +98,7 @@ const AdminPage = () => {
    }
 
    function onDelete(id) {
-    if (window.confirm('Are you sure you want to delete this resource center?')) {
+    if (window.confirm('Are you sure you want to delete this resource?')) {
        deleteResourceHandler(id);
     }
    }
@@ -213,7 +213,7 @@ const AdminPage = () => {
 
   const onLogOut = () => {
     localStorage.clear();
-    navigate(`/auth/${1}`);
+    navigate(`/auth/login`);
   };
 
   const CreateNewHandler = () => {
@@ -358,9 +358,7 @@ const AdminPage = () => {
                               <i class="bi bi-person"></i>
                             </span>
                             <span>Logout</span>
-                            <span style={{ marginLeft: "5px" }}>
-                              <i class="bi bi-gear-fill"></i>
-                            </span>
+                           
                           </div>
                         </div>
                       </div>
@@ -391,9 +389,7 @@ const AdminPage = () => {
                               <i class="bi bi-person"></i>
                             </span>
                             <span>Logout</span>
-                            <span style={{ marginLeft: "5px" }}>
-                              <i class="bi bi-gear-fill"></i>
-                            </span>
+                           
                           </div>
                         </div>
                       </div>
@@ -424,9 +420,7 @@ const AdminPage = () => {
                               <i class="bi bi-person"></i>
                             </span>
                             <span>Logout</span>
-                            <span style={{ marginLeft: "5px" }}>
-                              <i class="bi bi-gear-fill"></i>
-                            </span>
+                            
                           </div>
                         </div>
                       </div>
@@ -458,9 +452,7 @@ const AdminPage = () => {
                             <i class="bi bi-person"></i>
                           </span>
                           <span>Logout</span>
-                          <span style={{ marginLeft: "5px" }}>
-                            <i class="bi bi-gear-fill"></i>
-                          </span>
+                          
                         </div>
                       </div>
                     </div>
@@ -491,9 +483,7 @@ const AdminPage = () => {
                             <i class="bi bi-person"></i>
                           </span>
                           <span>Logout</span>
-                          <span style={{ marginLeft: "5px" }}>
-                            <i class="bi bi-gear-fill"></i>
-                          </span>
+                          
                         </div>
                       </div>
                     </div>
@@ -524,9 +514,7 @@ const AdminPage = () => {
                             <i class="bi bi-person"></i>
                           </span>
                           <span>Logout</span>
-                          <span style={{ marginLeft: "5px" }}>
-                            <i class="bi bi-gear-fill"></i>
-                          </span>
+                          
                         </div>
                       </div>
                     </div>

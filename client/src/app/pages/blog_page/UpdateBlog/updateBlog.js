@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const UpdateBlog = () => {
   const history = useNavigate();
-
+  const [image, setImage] = useState();
   const { id } = useParams();
   const [inputHandler, setInputHandler] = useState({
     id: id,
@@ -22,10 +22,10 @@ const UpdateBlog = () => {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // history("/adminPage");
       } else {
-      history("/auth/1");
+      history("/auth/login");
       }
     }else {
-      history("/auth/1");
+      history("/auth/login");
     }
   }, []);
 
@@ -49,13 +49,15 @@ const UpdateBlog = () => {
 
   useEffect(() => {
     axios
-      .patch("http://localhost:8080/api/updateBlog/" + id)
+      .put("http://localhost:8080/api/updateBlog/" + id)
       .then((res) => {
+        console.log(res.data)
         setInputHandler({
           ...inputHandler,
           title: res.data.updatedBlog.title,
           content: res.data.updatedBlog.content,
           readingTime: res.data.updatedBlog.readingTime,
+          image:res.data.updatedBlog.image,
           UpdateBlog,
         });
       })
@@ -63,6 +65,10 @@ const UpdateBlog = () => {
         console.log(err);
       });
   }, []);
+
+  const backToDashboard = () =>{
+    history('/adminPage')
+  }
 
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;
@@ -73,27 +79,45 @@ const UpdateBlog = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    axios
-      .put("http://localhost:8080/api/updateBlog/" + id, inputHandler)
-      .then((res) => {
-        console.log(res.data);
-        history("/adminPage");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const formData = new FormData();
+      formData.append("image", image);
+
+      var imageUrl = await axios.post(
+        "http://localhost:8080/api/uploadBlogImage",
+        formData
+      );
+      console.log(imageUrl)
+      if(imageUrl.data.success){
+        axios.put("http://localhost:8080/api/updateBlog/" + id, {
+          title: inputHandler.title,
+          content: inputHandler.content,
+          readingTime: inputHandler.readingTime,
+          image: imageUrl.data.url
+        })
+        .then((res) => {
+          console.log(res.data);
+          history("/adminPage");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+    
   };
 
   return (
     <section>
       <div className="form_data">
+      <div className="cross" onClick={backToDashboard}>
+           <i class="bi bi-file-x-fill"></i>
+            </div>
         <div className="form_heading">
-          <h1>Edit Blog</h1>
+          <h1>Update Resource Center</h1>
         </div>
 
         <form>
           <div className="form_input">
-            <label htmlFor="title">title</label>
+            <label htmlFor="title">Title</label>
             <input
               type="text"
               onChange={onChangeInputHandler}
@@ -105,17 +129,19 @@ const UpdateBlog = () => {
           </div>
           <div className="form_input">
             <label htmlFor="title">Content</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="content"
-              name="content"
-              value={inputHandler.content}
-              placeholder="Content"
-            />
+            <textarea
+                style={{ width: "100%" }}
+                rows={10}
+                type="text"
+                onChange={onChangeInputHandler}
+                value={inputHandler.content}
+                id="content"
+                name="content"
+                placeholder="Content ...."
+              />
           </div>
           <div className="form_input">
-            <label htmlFor="readingTime">Reading Time</label>
+            <label htmlFor="readingTime"> Estimate Reading Time</label>
             <input
               type="readingTime"
               onChange={onChangeInputHandler}
@@ -125,8 +151,19 @@ const UpdateBlog = () => {
               placeholder="readingTime"
             />
           </div>
+          <div className="form_input">
+              <label for="productImage">Resource Image</label>
+              <input
+                type="file"
+                id="productImage"
+                // value={}
+                onChange={(e) => setImage(e.target.files[0])}
+                name="image"
+                required
+              />
+            </div>
           <button className="btn" onClick={onSubmitHandler}>
-            Edit Resource Center
+            Update Resource Center
           </button>
         </form>
       </div>

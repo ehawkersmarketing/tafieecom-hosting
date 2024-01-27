@@ -18,10 +18,10 @@ const CreateBlog = () => {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // navigate("blog/composeBlog");
       } else {
-        navigate("/auth/1");
+        navigate("/auth/login");
       }
     }else {
-      navigate("/auth/1");
+      navigate("/auth/login");
     }
   }, []);
 
@@ -32,6 +32,11 @@ const CreateBlog = () => {
     });
   };
   const history = useNavigate();
+  const backToDashboard = () =>{
+    history('/adminPage')
+  }
+
+
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -84,8 +89,11 @@ const CreateBlog = () => {
     <section>
       {
         <div className="form_data">
+                    <div className="cross" onClick={backToDashboard}>
+           <i class="bi bi-file-x-fill"></i>
+            </div>
           <div className="form_heading">
-            <h1>Create Blog</h1>
+            <h1>Create Resource Center</h1>
           </div>
 
           <form>
@@ -114,7 +122,7 @@ const CreateBlog = () => {
               />
             </div>
             <div className="form_input">
-              <label htmlFor="readingTime">Reading Time</label>
+              <label htmlFor="readingTime">Estimate Reading Time</label>
               <input
                 type="readingTime"
                 onChange={onChangeInputHandler}
@@ -140,7 +148,7 @@ const CreateBlog = () => {
               onClick={onSubmitHandler}
               style={{ backgroundColor: "#005C4B" }}
             >
-              Create Blog
+              Create Resource Center
             </button>
           </form>
         </div>

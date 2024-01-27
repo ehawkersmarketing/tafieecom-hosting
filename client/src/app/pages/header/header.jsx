@@ -52,7 +52,10 @@ const Header = () => {
           {!user && <Link className="signin" to={`/auth/login`}>
             Sign In
           </Link>}
-          {user && <Link className="signin" onClick={onLogout}>
+          {user && <Link className="signin" to={`/adminPage`} >
+            Dashboard
+          </Link>}
+          {user && <Link className="signin" to={`/auth/login`} onClick={onLogout}>
             Logout
           </Link>}
           {user && user.role.role === 'User' && <Link className="register myaccount" to={"/myaccount"}>
