@@ -35,10 +35,10 @@ const CreateProduct = () => {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // history("/adminPage");
       } else {
-      history("/auth/1");
+      history("/auth/login");
       }
     }else {
-      history("/auth/1");
+      history("/auth/login");
     }
   }, []);
 
@@ -62,6 +62,10 @@ const CreateProduct = () => {
     if (parseInt(e.target.value) >= maxValue) {
       alert("The Minimum value should be less than maximum value");
     }
+  }
+
+  const backToDashboard = () =>{
+    history('/adminPage')
   }
 
   const onSubmitHandler = async (e) => {
@@ -134,6 +138,9 @@ const CreateProduct = () => {
     <section>
       {
         <div className="form_data">
+           <div className="cross" onClick={backToDashboard}>
+           <i class="bi bi-file-x-fill"></i>
+            </div>
           <div className="form_heading">
             <h1>Create Product</h1>
           </div>
@@ -152,7 +159,9 @@ const CreateProduct = () => {
             </div>
             <div className="form_input">
               <label htmlFor="Description">Description</label>
-              <input
+              <textarea
+                style={{ width: "100%" }}
+                rows={10}
                 type="text"
                 onChange={onChangeInputHandler}
                 value={inputHandler.description}
@@ -249,7 +258,7 @@ const CreateProduct = () => {
         </div>
       }
     </section>
-  );
+  )
 };
 
 export default CreateProduct;

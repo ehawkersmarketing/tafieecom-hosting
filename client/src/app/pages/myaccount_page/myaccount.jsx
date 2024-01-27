@@ -24,7 +24,7 @@ const Myaccount = () => {
         navigate('/')
       }
     } else {
-      navigate("/auth/1");
+      navigate("/auth/login");
     }
   }, [user]);
 

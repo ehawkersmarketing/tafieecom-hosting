@@ -7,6 +7,7 @@ import { useFetch } from "../../hooks/api_hook";
 
 const UpdateProduct = () => {
   const history = useNavigate();
+  const [image, setImage] = useState();
   const { data } = useFetch("/api/allCategory");
   const [value, setValue] = useState(1);
   const [maxValue, setMaxValue] = useState(8);
@@ -33,10 +34,10 @@ const UpdateProduct = () => {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // history("/adminPage");
       } else {
-        history("/auth/1");
+        history("/auth/login");
       }
     } else {
-      history("/auth/1");
+      history("/auth/login");
     }
   }, []);
 
@@ -81,33 +82,50 @@ const UpdateProduct = () => {
       return { ...inputHandler, [name]: value };
     });
   };
+  const backToDashboard = () =>{
+    history('/adminPage')
+  }
 
   const onSubmitHandler = async (e) => {
     const { category } = dropdown;
     e.preventDefault();
     let categoryList = data.filter((item) => item.category === category);
-    axios
-      .patch("http://localhost:8080/api/updateProduct/" + id, {
-        title: inputHandler.title,
-        description: inputHandler.description,
-        price: inputHandler.price,
-        quantity: inputHandler.quantity,
-        maxQuantity: inputHandler.maxQuantity,
-        minQuantity: inputHandler.minQuantity,
-        category: categoryList[0]._id,
-      })
-      .then((res) => {
-        console.log(res.data);
-        history("/adminPage");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const imageUrl = await axios.post(
+      "http://localhost:8080/api/uploadImage",
+      formData
+    );
+
+   if(imageUrl.data.success){
+    axios.patch("http://localhost:8080/api/updateProduct/" + id, {
+      title: inputHandler.title,
+      description: inputHandler.description,
+      price: inputHandler.price,
+      quantity: inputHandler.quantity,
+      maxQuantity: inputHandler.maxQuantity,
+      minQuantity: inputHandler.minQuantity,
+      category: categoryList[0]._id,
+      image:imageUrl.data.url
+    })
+    .then((res) => {
+      console.log(res.data);
+      history("/adminPage");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+   }
   };
 
   return (
     <section>
       <div className="form_data">
+      <div className="cross" onClick={backToDashboard}>
+           <i class="bi bi-file-x-fill"></i>
+            </div>
         <div className="form_heading">
           <h1>Update Product</h1>
         </div>
@@ -126,15 +144,27 @@ const UpdateProduct = () => {
           </div>
           <div className="form_input">
             <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="description"
-              name="description"
-              value={inputHandler.description}
-              placeholder="description"
-            />
+            <textarea
+                style={{ width: "100%" }}
+                rows={10}
+                type="text"
+                onChange={onChangeInputHandler}
+                value={inputHandler.description}
+                id="description"
+                name="description"
+                placeholder="Description"
+              />
           </div>
+          <div className="form_input">
+              <label for="productImage">Product Image</label>
+              <input
+                type="file"
+                id="productImage"
+                onChange={(e) => setImage(e.target.files[0])}
+                name="productImage"
+                required
+              />
+            </div>
           <div className="form_input">
             <label htmlFor="price">Price</label>
             <input

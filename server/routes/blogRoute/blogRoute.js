@@ -47,11 +47,12 @@ router.post("/uploadBlogImage", upload.single("image"), async (req, res) => {
     if (error) {
       console.log(error);
     } else {
+      console.log(data.Location)
       res.json({
         success: true,
         message: "Image Uploaded Successfully",
         url: data.Location,
-      });
+       });
     }
   });
 });

@@ -21,6 +21,10 @@ const reviewSchema = mongoose.Schema({
                 type: Number,
                 required: true
             },
+            count:{
+                type:Number,
+                default:0
+            },
             createdAt: {
                 type: Date,
                 default: Date.now()
