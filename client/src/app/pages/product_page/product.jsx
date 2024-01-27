@@ -121,21 +121,31 @@ const Product = () => {
 
   const increaseValueHandler = async () => {
     try {
-      const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
-        "userId": user._id,
-        "productId": id,
-        "units": 1
-      });
-      if (data.success) {
-        setQuantity(quantity + 1);
-      } else {
-        toast.error(`${data.message}`, {
+      if (quantity == product.units.maxQuantity) {
+        toast.error(`You have reached product max limit`, {
           position: "bottom-right",
           autoClose: 8000,
           pauseOnHover: true,
           draggable: true,
           theme: "dark",
         });
+      } else {
+        const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
+          "userId": user._id,
+          "productId": id,
+          "units": 1
+        });
+        if (data.success) {
+          setQuantity(quantity + 1);
+        } else {
+          toast.error(`${data.message}`, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+          });
+        }
       }
     } catch (error) {
       toast.error(`${error.message}`, {
@@ -311,9 +321,8 @@ const Product = () => {
           </div>
         </div>
       </div>
-
-
       <Footer />
+      <ToastContainer />
     </>
   );
 

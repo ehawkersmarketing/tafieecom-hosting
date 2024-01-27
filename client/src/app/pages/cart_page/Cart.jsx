@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Cart.css";
 import { useFetch } from "../../hooks/api_hook";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 
 const Cart = () => {
@@ -30,21 +30,31 @@ const Cart = () => {
 
   const increaseValueHandler = async (index) => {
     try {
-      const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
-        "userId": user._id,
-        "productId": cart.products[index].productId._id,
-        "units": 1
-      });
-      if (data.success) {
-        window.location.reload();
-      } else {
-        toast.error(`${data.message}`, {
+      if (cart.products[index].units == cart.products[index].productId.units.maxQuantity) {
+        toast.error(`You have reached product max limit`, {
           position: "bottom-right",
           autoClose: 8000,
           pauseOnHover: true,
           draggable: true,
           theme: "dark",
         });
+      } else {
+        const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
+          "userId": user._id,
+          "productId": cart.products[index].productId._id,
+          "units": 1
+        });
+        if (data.success) {
+          window.location.reload();
+        } else {
+          toast.error(`${data.message}`, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+          });
+        }
       }
     } catch (error) {
       toast.error(`${error.message}`, {
@@ -137,6 +147,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
