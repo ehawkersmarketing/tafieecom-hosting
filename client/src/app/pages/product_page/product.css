@@ -16,9 +16,10 @@
 /* section top */
 .wrapper {
   background-image: url("../../assets//mask.png");
-  background-size: cover;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
-  height: 65vh;
+  min-height: 65vh;
+  padding: 2%;
 }
 
 .wrapper-about {
@@ -300,9 +301,13 @@
   position: relative;
   margin-bottom: 10px;
 }
-
-.single-product .product-image img {
-  max-width: 100%;
+.single-product .wrapper .product-image{
+  height: 80%;
+}
+.single-product .wrapper .product-image img {
+  max-width: 80%;
+  max-height: 80%;
+  padding: 3%;
 }
 .container-fluid {
   padding: 4%;
@@ -311,4 +316,27 @@
 .review-description button{
     display: block;
     margin: auto;
+}
+
+.single-product .carouselItem{
+  width: 100%;
+}
+
+
+.single-product .carouselItem img{
+  height: 250px;
+}
+.single-product .ratingAndReview {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  /* margin-left: -2rem; */
+  margin-bottom: 2rem;
+}
+
+.single-product .rating {
+  list-style-type: none;
+  display: flex;
+  gap: 0.7rem;
+  margin-bottom: 0;
 }
