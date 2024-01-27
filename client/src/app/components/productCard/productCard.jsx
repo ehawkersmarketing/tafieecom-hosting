@@ -12,6 +12,8 @@ const ProductCard = ({ item }) => {
     navigate('/cart')
   }
 
+  
+
   return (
     <div key={item._id} className="carouselItem col-3" interval="500">
       <div className="col-gapping">

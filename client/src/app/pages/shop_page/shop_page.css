@@ -6,17 +6,13 @@
 .shop-page-container {
     
     margin-bottom: 5%;
+
     .shop-page-card {
-        height: 30.5rem;
-        background-color: #EBF6F5;
+        height: 35rem;;
+        background: linear-gradient(89.83deg, rgba(41, 100, 94, 0.1) -0.43%, rgba(68, 169, 139, 0.1) 99.93%);
         border-radius: 1rem;
         position: relative;
-
-        .poster-card {
-            position: absolute;
-            right: 0rem;
-            top: 0;
-        }
+        padding: 2%;
 
         .poster-card-background {
             position: absolute;
@@ -25,28 +21,45 @@
         }
 
         .shop-page-card-content {
-            position: absolute;
+            display: flex;
+            min-width: 100%;
+            align-items: center;
+            border-radius: 0.7rem;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #EBF6F5;
+            background-image: url('./../../assets/poster_card_background.svg');
+            box-shadow: 0px 4px 14px 0px #29645E66;
+
 
             .product-content {
                 border-radius: 0.5rem;
-                position: absolute;
-                top: 12rem;
                 display: flex;
-                right: -19rem;
                 padding: 0 0 0.5rem 0;
-                background-color: white;
-                width: 25rem;
-                margin: 1rem 0.5rem 1.5rem;
-                overflow: hidden;
+                display: flex;
+                align-items: center;
 
                 .text-fields {
-                    padding: 0.5rem 1.2rem 0.5rem 1.2rem;
-                    width: 50%;
+                    background-color: white;
+                    padding: 1.4rem 1.2rem 1rem 1.4rem;
+                    border-radius: 0.5rem;
+                    .poster-card{
+                        max-height: 250px;
+                        position: relative;
+                        min-width: 5rem;
+
+                        img{
+                            /* height: 100%; */
+                            width: 20rem;
+                            position: absolute;
+                            bottom: 50%;
+                            height: 120%;
+                        }
+                    }
 
                     .category-name {
                         color: var(--bright-green-primary, #44A98B);
-                        width: 66.633px;
-                        height: 17.464px;
                         font-size: 15px;
                         line-height: normal;
                     }
@@ -107,7 +120,6 @@
                         display: flex;
                         gap: 2rem;
                         align-items: center;
-                        margin-left: -2rem;
                     }
 
                     .rating {
@@ -119,10 +131,8 @@
             }
 
             .view-more {
-                width: 50%;
                 height: 30rem;
                 display: flex;
-                margin: -2rem 0 0 8rem;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
@@ -150,8 +160,8 @@
                 .signin {
                     border: 1px solid white;
                     border-radius: 5px;
-                    margin-left: -8rem;
                     margin-top: 2rem;
+                    width: fit-content;
                     cursor: pointer;
                     background-color: transparent;
                     color: white;

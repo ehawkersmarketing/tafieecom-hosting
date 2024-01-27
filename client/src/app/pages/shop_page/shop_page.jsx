@@ -93,11 +93,8 @@ const ShopPage = () => {
           products && <ShopPageCarouselCard items={products} />
         }
         <div className="filter-region">
-          <div className="filter">
-            <i class="bi bi-grid"></i>
-            <span className="category-text">All Categories</span>
-            <span>|</span>
-            <i class="bi bi-funnel-fill" onClick={(e) => setOpen(!open)}></i>
+          <div className="filter" onClick={(e) => setOpen(!open)}>
+            <i class="bi bi-funnel-fill" ></i>
             <span className="filter-text">Filters</span>
             <i class="bi bi-caret-down-fill"></i>
           </div>

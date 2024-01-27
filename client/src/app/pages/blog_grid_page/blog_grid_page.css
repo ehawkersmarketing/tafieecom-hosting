@@ -258,3 +258,9 @@ margin-top: 30px;
       margin-left: 30rem;
       display: none;
 }
+.latest-post-card .card-main{
+  padding: 10px;
+}
+.most-viewed-post-card .card-main{
+  padding: 10px;
+}
