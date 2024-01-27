@@ -262,7 +262,7 @@ exports.CreateCategory = async (req, res) => {
 exports.getAllCategory = async (req, res) => {
   try {
     const category = await categoryModel.find({});
-    console.log(category);
+    // console.log(category);
     if (!category) {
       return res.status(500).send({
         success: false,

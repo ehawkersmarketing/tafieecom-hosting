@@ -1,14 +1,14 @@
-import react, { useEffect, useState } from "react";
+import  { useState ,useEffect} from "react";
 import "./product.css";
-import ProductImage from "../../assets/fertilizers.png";
+// import ProductImage from "../../assets/fertilizers.png";
 import Carousal from "../../components/carousal/carousal";
 import Header from "../../pages/header/header";
 
 import Footer from "../footer/footer";
 
-import { useParams } from "react-router-dom";
-import { useFetch } from "../../hooks/api_hook";
-import { useNavigate } from "react-router-dom";
+import { useParams ,useNavigate} from "react-router-dom";
+import { useFetch  } from "../../hooks/api_hook";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import $ from "jquery";
@@ -23,7 +23,7 @@ const Product = () => {
     reviewContent: " ",
     rating: " ",
   });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;
     setInputHandler(() => {
@@ -32,6 +32,18 @@ const Product = () => {
   };
 
   const [rated, setRated] = useState(0);
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // useEffect(() => {
+  //   if (user) {
+  //     if (user.role.role === "Admin" || user.role.role === "Editor") {
+  //       navigate('/')
+  //     }
+  //   } else {
+  //     navigate("/");
+  //   }
+  // }, [user]);
 
   const fetchReviews = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/getReviewById/${id}`);
@@ -40,23 +52,31 @@ const Product = () => {
 
   const ReviewAddHandler = async (e) => {
     e.preventDefault();
+     if(!user){
+      alert("You can't Add review  untill you are login")
+     }
+else{
+  const { reviewContent, rating } = inputHandler;
 
-    const { reviewContent, rating } = inputHandler;
-
-    const { data } = await axios.post("http://localhost:8080/api/addReview", {
-      reviewContent: reviewContent,
-      rating: rated,
-      productId: id,
-      userId: userUniqueId
+  const { data } = await axios.post("http://localhost:8080/api/addReview", {
+    reviewContent: reviewContent,
+    rating: rated,
+    productId: id,
+    userId: userUniqueId
+  });
+  console.log(data)
+  if (data.success) {
+    fetchReviews();
+    setInputHandler({
+      ...inputHandler,
+      reviewContent: " ",
+      rating: " ",
     });
-    if (data.success) {
-      fetchReviews();
-      setInputHandler({
-        ...inputHandler,
-        reviewContent: " ",
-        rating: " ",
-      });
-    }
+  }
+}
+   
+
+
   }
 
   $(document).ready(function () {
@@ -89,7 +109,7 @@ const Product = () => {
             <div className="container">
               <div className="inner-container row">
                 <div className="product-image col-7">
-                  <img src={product?.image} />
+                  <img src={product?.image} alt="product-img" />
                 </div>
                 <card className="card card-design col-5">
                   <div className="inner-card">
@@ -187,6 +207,7 @@ const Product = () => {
             <div className="review-description">
               <ul className="list">
                 {reviews?.reviews.map((item) => {
+                  console.log(item?.userId.userName)
                   return (
                     <li>
                       <div className="user-review">
@@ -194,7 +215,7 @@ const Product = () => {
                           <span className="user-icon">
                             <i class="bi bi-person-circle"></i>
                           </span>
-                          <h3 className="personName">{item.userId.userName}</h3>
+                          {/* <h3 className="personName">{item?.userId.userName}</h3> */}
                         </div>
                         <p>{item.review}</p>
                         {/* <span> {Array.apply(null, { length: 5 }).map(
