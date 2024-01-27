@@ -34,3 +34,27 @@ module.exports.putUserAddress = async (req, res, next) => {
         next(error);
     }
 };
+
+module.exports.getUserAddress = async (req, res, next) => {
+    try {
+        const { userId } = req.body;
+        const user = await userAddress.find({ userId: userId });
+        if (user) {
+            return res.status(200).json({
+                success: true,
+                data: user
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+    } catch (error) {
+        res.status(404).json({
+            success: false,
+            message: "Failed to create user address"
+        })
+        next(error);
+    }
+};

@@ -43,7 +43,7 @@ exports.approveRequest = async (req, res) => {
       const data = await requestModel.findOneAndUpdate(
         { _id: requestId },
         {
-          status: "APPROVED",
+          approvalStatus: "APPROVED",
         }
       );
       await orderModel.findOneAndUpdate({
@@ -55,67 +55,119 @@ exports.approveRequest = async (req, res) => {
         weight: weight,
       });
       if (data) {
-        const { data: order } = await orderModel.findOne({ _id: data.orderId }).populate("products.productId").populate("user").populate("userAddress");
-        const { data: shipment } = await axios.post("http:/localhost:8080/api/ship/createOrder", {
-          pickup_location: "Primary",
-          order_id: order._id,
-          order_date: order.timestamps,
-          payment_method: "Prepaid",
-          // channel_id: ,
-          // comment,
-          // reseller_name,
-          // company_name,
-          billing_customer_name: `${order.user.userName}`,
-          billing_last_name: `${order.user.userName}`,
-          billing_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
-          // billing_address_2,
-          billing_city: `${order.userAddress.city}`,
-          billing_pincode: `${order.userAddress.zipCode}`,
-          billing_state: `${order.userAddress.state}`,
-          billing_country: `${order.userAddress.country}`,
-          billing_email: `${order.user.email}`,
-          billing_phone: `${order.user.phone}`,
-          // billing_alternate_phone: ,
-          shipping_customer_name: `${order.user.userName}`,
-          shipping_last_name: `${order.user.userName}`,
-          shipping_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
-          // shipping_address_2: ,
-          shipping_city: `${order.userAddress.city}`,
-          shipping_pincode: `${order.userAddress.zipCode}`,
-          shipping_country: `${order.userAddress.country}`,
-          shipping_state: `${order.userAddress.state}`,
-          // shipping_email: `${order.user.email}`,
-          // shipping_phone: `${order.user.phone}`,
-          order_items: [
-            order.products.map((product) => {
-              return {
-                name: product.productId.title,
-                sku: product.productId._id,
-                selling_price: product.productId.price,
-                units: product.units,
-                discount: 0,
-                tax: 0
-              }
-            })
-          ],
-          sub_total: order.amount,
-          total_discount: 0,
-          length: length,
-          breadth: breadth,
-          height: height,
-          weight: weight,
-        });
-        if (shipment) {
-          res.json({
-            success: true,
-            message: "Request Approved",
-          });
-        } else {
-          res.json({
-            success: true,
-            message: "Request Approved",
-          });
+        const order = await orderModel.findOne({ _id: request.orderId }).populate("products.productId").populate("user").populate("userAddress");
+        console.log(order);
+        // var options = {
+        //   method: "POST",
+        //   maxBodyLength: Infinity,
+        //   url: "http://localhost:8080/api/ship/createOrder",
+        //   // body: JSON.stringify({
+        //   //   "pickup_location": "Primary",
+        //   //   // order_id: `${order._id}`,
+        //   //   "order_id": `TAFI_ID123`,
+        //   //   // order_date: order.timestamps,
+        //   //   "order_date": '2024-01-27',
+        //   //   "payment_method": "Prepaid",
+        //   //   // channel_id: ,
+        //   //   // comment,
+        //   //   // reseller_name,
+        //   //   // company_name,
+        //   //   "billing_customer_name": `${order.user.userName}`,
+        //   //   "billing_last_name": `${order.user.userName}`,
+        //   //   "billing_address": `${order.userAddress.street}, ${order.userAddress.landmark}`,
+        //   //   "billing_address_2": "",
+        //   //   "billing_city": `${order.userAddress.city}`,
+        //   //   "billing_pincode": parseInt(order.userAddress.zipCode),
+        //   //   "billing_state": `${order.userAddress.state}`,
+        //   //   "billing_country": `${order.userAddress.country}`,
+        //   //   "shipping_is_billing": 0,
+        //   //   "billing_email": `${order.user.email}`,
+        //   //   "billing_phone": `${order.user.phone}`,
+        //   //   "billing_alternate_phone": "",
+        //   //   "shipping_customer_name": `${order.user.userName}`,
+        //   //   "shipping_last_name": `${order.user.userName}`,
+        //   //   "shipping_address": `${order.userAddress.street}, ${order.userAddress.landmark}`,
+        //   //   "shipping_address_2": "",
+        //   //   "shipping_city": `${order.userAddress.city}`,
+        //   //   "shipping_pincode": parseInt(order.userAddress.zipCode),
+        //   //   "shipping_country": `${order.userAddress.country}`,
+        //   //   "shipping_state": `${order.userAddress.state}`,
+        //   //   "shipping_email": `${order.user.email}`,
+        //   //   "shipping_phone": `${order.user.phone}`,
+        //   //   "order_items": [{ "name": "paper box", "sku": "paper123", "units": 1, "selling_price": 250, "discount": 0, "tax": 0 }],
+        //   //   "sub_total": order.amount,
+        //   //   "total_discount": 0,
+        //   //   "length": length,
+        //   //   "breadth": breadth,
+        //   //   "height": height,
+        //   //   "weight": weight,
+        //   // })
+        //   body: JSON.stringify()
+        // };
+        let orderItems = [];
+        for (let i = 0; i < order.products.length; i++) {
+          orderItems.push({
+            name: order.products[i].productId.title,
+            sku: order.products[i].productId._id,
+            units: order.products[i].units,
+            selling_price: order.products[i].productId.price,
+            discount: 0,
+            tax: 0
+          })
         }
+        console.log(orderItems);
+        let time = order.timestamps.toISOString();
+        axios.post("http://localhost:8080/api/ship/createOrder",
+          {
+            order_id: `${order._id}`,
+            order_date: `${time.substring(0, 10)}`,
+            pickup_location: "Primary",
+            billing_customer_name: `${order.user.userName}`,
+            billing_last_name: `${order.user.userName}`,
+            billing_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
+            billing_address_2: "",
+            billing_city: `${order.userAddress.city}`,
+            billing_pincode: parseInt(order.userAddress.zipCode),
+            billing_state: `${order.userAddress.state}`,
+            billing_country: `${order.userAddress.country}`,
+            billing_email: `uditsathe@gmail.com`,
+            billing_phone: `${order.user.phone}`,
+            billing_alternate_phone: "",
+            shipping_is_billing: 0,
+            shipping_customer_name: `${order.user.userName}`,
+            shipping_last_name: `${order.user.userName}`,
+            shipping_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
+            shipping_address_2: "",
+            shipping_city: `${order.userAddress.city}`,
+            shipping_pincode: parseInt(order.userAddress.zipCode),
+            shipping_country: `${order.userAddress.country}`,
+            shipping_state: `${order.userAddress.state}`,
+            shipping_email: "uditsathe@gmail.com",
+            shipping_phone: `${order.user.phone}`,
+            order_items: orderItems,
+            payment_method: "Prepaid",
+            sub_total: order.amount,
+            total_discount: 0,
+            length: length,
+            breadth: breadth,
+            height: height,
+            weight: weight
+          }
+        ).then((shipment) => {
+          if (shipment) {
+            res.json({
+              success: true,
+              message: "Request Approved",
+            });
+          } else {
+            res.json({
+              success: true,
+              message: "Request Approved",
+            });
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
       } else {
         res.json({
           success: false,
@@ -204,7 +256,8 @@ exports.calcShipment = async (req, res) => {
     declared_value,
     is_return
   );
-  //Function ShippingRateCalculation
+  // console.log(rs_data);
+
   function srShippingRateCalculation(
     shipping_postcode,
     weight,
@@ -300,6 +353,7 @@ exports.calcShipment = async (req, res) => {
 
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
+  console.log("dsjhbuygesufheys");
   const {
     pickup_location,
     order_id,
@@ -338,8 +392,7 @@ exports.createOrder = async (req, res) => {
     height,
     weight,
   } = req.body;
-
-  let newShipData = await newShipFunction();
+  await newShipFunction();
 
   async function newShipFunction() {
     let getToken = await srlogin();
@@ -548,6 +601,7 @@ exports.getOrderDetsFunction = async (req, res) => {
 //POST || generating AWB for order mandatory for shipment pickup
 exports.generateAWBFunction = async (req, res) => {
   let { shipment_id } = req.body;
+  console.log("generating AWB");
 
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
@@ -674,6 +728,7 @@ exports.generateInvoiceFunction = async (req, res) => {
 
 //POST || requesting pickup of a shipment
 exports.setPickupFunction = async (req, res) => {
+  console.log("Set pickup");
   let { shipment_id, pickup_date } = req.body;
   // let paramers = "shipment_id=" + shipment_id + "&pickup_date=" + pickup_date;
 
@@ -709,13 +764,14 @@ exports.setPickupFunction = async (req, res) => {
         }
       )
       .then(function (response) {
-        let res = response.data.response;
-        if (response.data.Status == true) {
+        let data = response.data.response;
+        console.log(response);
+        if (response.data.pickup_status == 1) {
           return res.status(200).send({
             success: true,
             message:
               "Shipment pickup successfully set, following is the date: ",
-            data: res,
+            data: data,
           });
         } else {
           return res.json({
@@ -736,6 +792,7 @@ exports.setPickupFunction = async (req, res) => {
 
 //POST || generating manifest for shipment
 exports.generateManifestFunction = async (req, res) => {
+  console.log("generate manifest");
   let { shipment_id } = req.body;
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
@@ -783,6 +840,7 @@ exports.generateManifestFunction = async (req, res) => {
 
 //GET || getting shipment details by shipment id
 exports.shipmentDetsFunction = async (req, res) => {
+  console.log("getting shipment details");
   let { shipment_id } = req.body;
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
@@ -1062,6 +1120,7 @@ exports.generateRetAWBFunction = async (req, res) => {
 
 //getToken Function ||Authentication via login and token recieval REQUIRED FOR ALL API CALLS
 function srlogin() {
+  console.log(process.env.SHIPROCKET_EMAIL);
   return new Promise(async (resolve, reject) => {
     //DUMMY RESPONSE DATA, UPDATED ON RESPONSE RECIEVAL
     let resData = {

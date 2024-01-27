@@ -17,7 +17,7 @@ module.exports.getAllOrders = async (req, res, next) => {
 
 module.exports.getOrderById = async (req, res, next) => {
     try {
-        const orders = await orderModel.findOne({ _id: req.params.id }).populate('user').populate('userAddress');
+        const orders = await orderModel.findOne({ _id: req.params.id }).populate('products.productId').populate('user').populate('userAddress');
         res.status(200).json({
             success: true,
             data: orders
@@ -44,7 +44,7 @@ module.exports.getAllOrdersByStatus = async (req, res, next) => {
 
 module.exports.getAllOrderByUser = async (req, res, next) => {
     try {
-        const orders = await orderModel.find({ userId: req.params.userId });
+        const orders = await orderModel.find({ user: req.params.userId }).populate('products.productId').populate('user').populate('userAddress');
         res.status(200).json({
             success: true,
             data: orders
@@ -58,12 +58,18 @@ module.exports.placeOrder = async (req, res, next) => {
     try {
         const { cartId, transactionId, amount, transactionStatus, userAddress } = req.body;
         console.log(`${cartId} - ${transactionId} - ${amount} - ${transactionStatus}`);
-        const cart = await cartModel.findOne({ _id: cartId });
+        const cart = await cartModel.findOne({ _id: cartId }).populate('products.productId');
         if (cart) {
+            let shipCharge = 0;
+            let totalAmount = 0;
+            for (let i = 0; i < cart.products.length; i++) {
+                totalAmount += cart.products[i].productId.price * cart.products[i].units;
+            }
             const newOrder = new orderModel({
                 products: cart.products,
                 user: cart.userId,
-                amount: amount,
+                amount: totalAmount,
+                shipment_charge: amount - totalAmount,
                 transactionId: transactionId,
                 transactionStatus: transactionStatus,
                 userAddress: userAddress,

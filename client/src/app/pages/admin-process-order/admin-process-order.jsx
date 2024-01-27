@@ -1,41 +1,78 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./admin-process-order.css";
 import TafiLogo from "../../assets/Tafi_logo_white.png";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { useFetch } from "../../hooks/api_hook";
+import { toast, ToastContainer } from 'react-toastify';
 
 
 const AdminProcessOrder = () => {
+  //Here I have to pass id
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const acceptHandler = () => setValue(1);
   const backHandler = () => setValue(0);
-    
+  const { data: order } = useFetch(`/api/getOrderById/65b4f0c8153375c918b97d87`);
+  const products = order?.products;
+  const user = order?.user;
+  const userAddress = order?.userAddress;
   const [formData, setFormData] = useState({
-    length:0,
-    breadth:0,
-    height:0,
-    weight:0
+    length: 0,
+    breadth: 0,
+    height: 0,
+    weight: 0
   });
-   
+
   const handleInputChange = (event) => {
-     setFormData({
-       ...formData,
-       [event.target.name]: event.target.value,
-     });
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
   };
 
-  const dashboardHandler = () =>{
-    axios.post("/api/ship/approveRequest",{
-      requestId:"65b4bbbaac2915cda952b469",
-      length:formData.length,
-      breadth:formData.breadth,
-      height:formData.height,
-      weight:formData.weight,
-    });
-    navigate("/adminPage");
+  const dashboardHandler = async () => {
+    try {
+      if (formData.length == 0 || formData.breadth == 0 || formData.height == 0 || formData.weight == 0) {
+        toast.error(`Please provide all details to accept the request`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      } else {
+        console.log(formData.length + formData.breadth + formData.height + formData.weight);
+        const { data } = await axios.post("http://locahost:8080/api/ship/approveRequest", {
+          requestId: "65b4f0ea153375c918b97d92",
+          length: formData.length,
+          breadth: formData.breadth,
+          height: formData.height,
+          weight: formData.weight,
+        });
+        if (data.success) {
+          navigate("/adminPage");
+        } else {
+          toast.error(`${data.message}`, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+          });
+        }
+      }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
   }
 
   return (
@@ -46,25 +83,25 @@ const AdminProcessOrder = () => {
           <div class="section col-6">
             <div class="section-title">Buyer Information</div>
             <div class="details row">
-              <p>Name: John Doe</p>
-              <p>Email: john@example.com</p>
-              <p>Phone: +1 123-456-7890</p>
+              <p>Name: {user?.userName}</p>
+              <p>Email: {user?.email}</p>
+              <p>Phone: {user?.phone}</p>
             </div>
           </div>
           <div class="section col-6">
             <div class="section-title">Billing To</div>
             <div class="details row">
-              <p>Address: 456 Billing Street</p>
-              <p>Pin:</p>
-              <p>City: Billing City</p>
+              <p>{userAddress?.street}</p>
+              <p>Pin: {userAddress?.zipCode}</p>
+              <p>City: {userAddress?.city}</p>
             </div>
           </div>
           <div class="section col-6">
             <div class="section-title">Shipping To</div>
             <div class="details row">
-              <p>Address: 123 Shipping Street</p>
-              <p>Pin: Shipping Pin</p>
-              <p>City: Shipping City</p>
+              <p>Address: {userAddress?.landmark}</p>
+              <p>Pin: {userAddress?.zipCode}</p>
+              <p>City: {userAddress?.city}</p>
             </div>
           </div>
           <div className="table-details">
@@ -83,17 +120,34 @@ const AdminProcessOrder = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Fertilizer</td>
-                  <td>1234</td>
-                  <td>1</td>
-                  <td>500.00</td>
+                {
+                  products && products.map((item, index) => {
+                    return (
+                      <tr>
+                        <td>{index + 1}</td>
+                        <td>{item.productId.title}</td>
+                        <td>{item.productId.price}</td>
+                        <td>{item.units}</td>
+                        <td>{item.productId.price}</td>
 
-                  <td>590</td>
-                </tr>
+                        <td>{item.productId.price * item.units}</td>
+                      </tr>
+                    );
+                  })
+                }
               </tbody>
               <tfoot>
+                <tr>
+                  <td>Shipment Charge</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+
+                  <td>{
+                    order?.shipment_charge
+                  }</td>
+                </tr>
                 <tr>
                   <td>Total Gross</td>
                   <td></td>
@@ -101,7 +155,9 @@ const AdminProcessOrder = () => {
                   <td></td>
                   <td></td>
 
-                  <td>590</td>
+                  <td>{
+                    order?.amount + order?.shipment_charge
+                  }</td>
                 </tr>
               </tfoot>
             </table>
@@ -110,8 +166,7 @@ const AdminProcessOrder = () => {
             <div class="section-bottom">Shipping From:</div>
             <div class="details row">
               <p>
-                204, Princess Business SkyPark, Opp. Orbito Mall, A.B. Road,
-                Indore
+                {userAddress?.street}, {userAddress?.city}
               </p>
               <p>Phone: +91 81200 00506</p>
               <p>Email: support@twicks.in</p>
@@ -142,19 +197,19 @@ const AdminProcessOrder = () => {
           <div className="input-table">
             <div className="height row mb-3">
               <lable className="col-2">Height ( in cm. ):</lable>
-              <input type="tel" name="height" className="col-8"></input>
+              <input type="number" name="height" onChange={handleInputChange} className="col-8"></input>
             </div>
             <div className="length row mb-3">
               <lable className="col-2">Length ( in cm. ):</lable>
-              <input type="tel" name="length" className="col-8"></input>
+              <input type="number" name="length" onChange={handleInputChange} className="col-8"></input>
             </div>
             <div className="breadth row mb-3">
               <lable className="col-2">Breadth ( in cm. ):</lable>
-              <input type="tel" name="breadth" className="col-8"></input>
+              <input type="number" name="breadth" onChange={handleInputChange} className="col-8"></input>
             </div>
             <div className="weight row mb-3">
               <lable className="col-2">Weight ( in Kg. ):</lable>
-              <input type="tel" name="weight" className="col-8"></input>
+              <input type="number" name="weight" onChange={handleInputChange} className="col-8"></input>
             </div>
 
             <div className="shipment-buttons">
@@ -172,6 +227,7 @@ const AdminProcessOrder = () => {
         </div>
       )}
       <Footer />
+      <ToastContainer />
     </>
   );
 };

@@ -20,7 +20,7 @@ const router = express.Router();
 
 router.post("/requestApproval", requestApproval);
 
-router.post("/approveRequest/:requestId", approveRequest);
+router.post("/approveRequest", approveRequest);
 
 router.post("/calcShipment", calcShipment);
 

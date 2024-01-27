@@ -153,31 +153,28 @@ exports.getCartByUser = async (req, res, next) => {
   }
 };
 
-/////////////////////////////////////////////////////////////////////////
 exports.getAllProductsInCart = async (req, res) => {
   try {
     const { userId } = req.params;
-    const cart = await cartModel.findOne({ userId: userId }).products;
+    const cart = await cartModel.findOne({ userId: userId }).populate('products.productId');
     let totalWeight = 0;
     let totalPrice = 0;
     if (cart) {
-      for (product in products) {
-        totalWeight =
-          totalWeight +
-          productModel.findById(product.productId).weight * product.units;
-        totalPrice =
-          totalPrice +
-          productModel.findById(product.productId).price * product.units;
+      for (let i = 0; i < cart.products.length; i++) {
+        totalWeight = totalWeight + cart.products[i].productId.weight * cart.products[i].units;
+        totalPrice = totalPrice + cart.products[i].productId.price * cart.products[i].units;
       }
       res.status(200).json({
         success: true,
-        products: cart.products,
-        totalWeight: totalWeight,
-        totalPrice: totalPrice,
-        cartId: cart._id,
+        data: {
+          products: cart.products,
+          totalWeight: totalWeight,
+          totalPrice: totalPrice,
+          cartId: cart._id
+        },
       });
     } else {
-      res.status(404).json({
+      res.json({
         success: false,
         message: "Cart not found",
       });

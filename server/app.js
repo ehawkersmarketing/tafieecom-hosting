@@ -21,13 +21,23 @@ const path = require("path");
 // require('./middleware/passport')(passport);
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
+//     credentials: true,
+//   })
+// );
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Max-Age", "3600");
+  next();
+});
 // const _dirname = path.dirname("")
 // const buildPath = path.join(_dirname, "../client/build");
 

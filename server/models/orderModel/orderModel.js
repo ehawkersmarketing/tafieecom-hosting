@@ -29,6 +29,9 @@ const orderSchema = new mongoose.Schema(
             type: String,
             default: "PROCESSING",
         },
+        shipment_charge: {
+            type: Number,
+        },
         manifestUrl: {
             type: String,
         },
