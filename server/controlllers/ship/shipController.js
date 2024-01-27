@@ -2,30 +2,197 @@ const crypto = require("crypto");
 const axios = require("axios");
 const uniqid = require("uniqid");
 const { setTimeout } = require("timers");
+const requestModel = require("../../models/shipmentModel/shipmentModel");
+const orderModel = require("../../models/orderModel/orderModel");
+const userAddress = require("../../models/userModel/userAddress");
+
+exports.requestApproval = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+    const request = new requestModel({
+      orderId: orderId,
+    });
+    const data = await request.save();
+
+    if (data) {
+      res.json({
+        success: true,
+        message: "Request Sent",
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "Request failed",
+      });
+    }
+  } catch (err) {
+    res.json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+exports.approveRequest = async (req, res) => {
+  try {
+    const { requestId } = req.body;
+    const request = await requestModel.findOne({ _id: requestId });
+    if (request) {
+      const data = await requestModel.findOneAndUpdate(
+        { _id: requestId },
+        {
+          status: "APPROVED",
+        }
+      );
+      if (data) {
+        const { data: order } = await orderModel.findOne({ _id: data.orderId }).populate("products.productId").populate("user").populate("userAddress");
+        const { data: shipment } = await axios.post("http:/localhost:8080/api/ship/createOrder", {
+          pickup_location: "Primary",
+          order_id: order._id,
+          order_date: order.timestamps,
+          payment_method: "Prepaid",
+          // channel_id: ,
+          // comment,
+          // reseller_name,
+          // company_name,
+          billing_customer_name: `${order.user.userName}`,
+          billing_last_name: `${order.user.userName}`,
+          billing_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
+          // billing_address_2,
+          billing_city: `${order.userAddress.city}`,
+          billing_pincode: `${order.userAddress.zipCode}`,
+          billing_state: `${order.userAddress.state}`,
+          billing_country: `${order.userAddress.country}`,
+          billing_email: `${order.user.email}`,
+          billing_phone: `${order.user.phone}`,
+          // billing_alternate_phone: ,
+          shipping_customer_name: `${order.user.userName}`,
+          shipping_last_name: `${order.user.userName}`,
+          shipping_address: `${order.userAddress.street}, ${order.userAddress.landmark}`,
+          // shipping_address_2: ,
+          shipping_city: `${order.userAddress.city}`,
+          shipping_pincode: `${order.userAddress.zipCode}`,
+          shipping_country: `${order.userAddress.country}`,
+          shipping_state: `${order.userAddress.state}`,
+          // shipping_email: `${order.user.email}`,
+          // shipping_phone: `${order.user.phone}`,
+          order_items: [
+            order.products.map((product) => {
+              return {
+                name: product.productId.title,
+                sku: product.productId._id,
+                selling_price: product.productId.price,
+                units: product.units,
+                discount: 0,
+                tax: 0
+              }
+            })
+          ],
+          sub_total: order.amount,
+          total_discount: 0,
+          // length: ,
+          // breadth: ,
+          // height: ,
+          // weight: ,
+        });
+        if (shipment) {
+          res.json({
+            success: true,
+            message: "Request Approved",
+          });
+        } else {
+          res.json({
+            success: true,
+            message: "Request Approved",
+          });
+        }
+      } else {
+        res.json({
+          success: false,
+          message: "Request Approval Failed",
+        });
+      }
+    }
+  } catch (err) {
+    res.json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+exports.cancelApprovalRequest = async (req, res) => {
+  try {
+    const { requestId } = req.body;
+    const request = await requestModel.findOne({ _id: requestId });
+    if (request) {
+      const data = await requestModel.findOneAndUpdate(
+        { _id: requestId },
+        {
+          status: "REJECTED",
+        }
+      );
+      if (data) {
+        const order = await orderModel.findOneAndUpdate({ _id: data.orderId }, {
+          orderStatus: "REJECTED"
+        });
+        if (order) {
+          const { data: payRefund } = await axios.post("http://localhost:8080/api/pay/refund", {
+            transactionId: order.transactionId,
+            orderId: order._id
+          });
+          if (payRefund) {
+            res.json({
+              success: true,
+              message: "Refunded",
+            });
+          } else {
+            res.json({
+              success: true,
+              message: "Failed to initiate refund",
+            });
+          }
+        } else {
+          res.json({
+            success: false,
+            message: "Order Rejection Failed",
+          });
+        }
+      } else {
+        res.json({
+          success: false,
+          message: "Request Rejection Failed",
+        });
+      }
+    } else {
+      res.json({
+        success: false,
+        message: "Request Not found",
+      });
+    }
+  } catch (err) {
+    res.json({
+      success: false,
+      message: err,
+    });
+  }
+};
 
 //GET || getting cost alternatives for different courier services
 exports.calcShipment = async (req, res) => {
-  const { pickup_postcode, shipping_postcode, weight, shipping_value } =
-    req.body;
-  res.status(200).send({
-    success: true,
-    message: "calculate shipment controller triggered",
-  });
-
+  const { shipping_postcode, weight, declared_value, is_return } = req.body;
   let rs_data = await srShippingRateCalculation(
-    pickup_postcode,
     shipping_postcode,
     weight,
-    // "xyzORDER_ID",
-    shipping_value
+    declared_value,
+    is_return
   );
   //Function ShippingRateCalculation
   function srShippingRateCalculation(
-    pickup_postcode,
     shipping_postcode,
     weight,
-    // order_id,
-    declared_value
+    declared_value,
+    is_return
   ) {
     return new Promise(async (resolve, reject) => {
       let resData = {
@@ -34,20 +201,18 @@ exports.calcShipment = async (req, res) => {
         message: "Fail!!",
       };
       try {
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         let getToken = await srlogin();
-        console.log("below is the api key token recieved");
+        // console.log("below is the api key token recieved");
         // console.log(getToken);
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        let paramers = "pickup_postcode=" + pickup_postcode;
+
+        let paramers = "pickup_postcode=" + process.env.SHOP_PINCODE;
         paramers += "&delivery_postcode=" + shipping_postcode;
         paramers += "&weight=" + weight;
-        // paramers += "&order_id=" + order_id;
-        paramers += "&cod=0";
+        paramers += "&cod=" + 0;
         paramers += "&declared_value=" + declared_value;
         paramers += "&rate_calculator=1";
-        paramers += "&is_return=0";
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        paramers += "&is_return=" + is_return;
+
         if (getToken.status) {
           console.log(getToken.mainToken);
           var options = {
@@ -66,29 +231,48 @@ exports.calcShipment = async (req, res) => {
               console.log(
                 "Following are the delivery companies available for the delivery service: "
               );
-              console.log(response.data.data.available_courier_companies);
+              let minRateObject =
+                response.data.data.available_courier_companies.reduce(
+                  (prev, curr) => {
+                    return prev.rate < curr.rate ? prev : curr;
+                  }
+                );
+              console.log(
+                "The minimum rate for delivery is:" +
+                minRateObject.rate +
+                "\n" +
+                "The estimated time of delivery for the service is: " +
+                minRateObject.etd +
+                "\n" +
+                "The name of the service is: " +
+                minRateObject.courier_name
+              );
               resData.status = true;
               resData.message = "Success!!";
               resData.mainset = response.data;
               console.log(resData);
+              return resData;
             })
             .catch(function (error) {
               console.log("Calculate shipment failure");
+              console.log(error);
               resData.status = false;
               resData.message = "Error!!";
               resData.mainset = JSON.stringify(error);
               console.log(resData);
+              return resData;
             });
         } else {
-          console.log("token failure");
+          console.log("Token failure");
           resData.status = false;
-          resData.message = "Error!!";
-          // reject(resData);
+          resData.message = "Error!! token failure";
+          return resData;
         }
       } catch (e) {
         console.error(e);
-        console.log("sdvkbnhujdfbk");
-        // reject(resData);
+        resData.status = false;
+        resData.message = "Error!!";
+        return resData;
       }
     });
   }
@@ -100,6 +284,7 @@ exports.createOrder = async (req, res) => {
     pickup_location,
     order_id,
     order_date,
+    payment_method,
     channel_id,
     comment,
     reseller_name,
@@ -141,81 +326,178 @@ exports.createOrder = async (req, res) => {
     console.log("below is the api key token recieved");
     console.log(getToken);
 
-    let paramers = "order_id=" + order_id;
-    paramers += "&order_date=" + order_date; //mandatory
-    paramers += "&pickup_location=" + pickup_location; //mandatory
-    // paramers += "&comment=" + comment;
-    paramers += "&billing_customer_name=" + billing_customer_name; //billing customer name
-    paramers += "&billing_last_name=" + billing_last_name; //billing customer last name
-    paramers += "&billing_address=" + billing_address; //billing address 1
-    // if (billing_address_2 != "") {
-    //   paramers += "&billing_address_2=" + billing_address_2; //billing address 2
-    // }
-    paramers += "&billing_city=" + billing_city; //billing city mand.
-    paramers += "&billing_pincode=" + billing_pincode; //billing pincode mand.
-    paramers += "&billing_state=" + billing_state; //billing state mand.
-    paramers += "&billing_country=" + billing_country; //billing country mand.
-    paramers += "&billing_email=" + billing_email; //billing email mand.
-    paramers += "&billing_phone=" + billing_phone; //billing phone mand.
-    // if (billing_alternate_phone != "") {
-    //   paramers += "&billing_alternate_phone=" + billing_alternate_phone; //billing alternate phone mand.
-    // }
-    paramers += "&shipping_is_billing=" + 1;
-    paramers += "&shipping_customer_name=" + shipping_customer_name;
-    paramers += "&shipping_last_name=" + shipping_last_name;
-    paramers += "&shipping_address=" + shipping_address; //billing shipping address mand. if shipping not billing
-    // if (shipping_address_2 != "") {
-    //   paramers += "&shipping_address_2=" + shipping_address_2; //billing shipping address 2 mand. if shipping not billing
-    // }
-    paramers += "&shipping_city=" + shipping_city; //billing shipping city mand. if shipping not billing
-    paramers += "&shipping_pincode=" + shipping_pincode; //billing shipping pincode mand. if shipping not billing
-    paramers += "&shipping_country=" + shipping_country; //billing shipping country mand. if shipping not billing
-    paramers += "&shipping_state=" + shipping_state; //billing shipping state mand. if shipping not billing
-    paramers += "&shipping_email=" + shipping_email; //(ASK)    billing shipping email  if shipping not billing
-    paramers += "&shipping_phone=" + shipping_phone; //(ASK)    billing shipping phone mand. if shipping not billing
-    paramers += "&order_items=" + order_items; //order items mand.
-    paramers += "&payment_method=" + "Prepaid";
-    paramers += "&sub_total=" + sub_total;
-    paramers += "&total_discount=" + total_discount;
-    paramers += "&length=" + length; //order items mand.
-    paramers += "&breadth=" + breadth; //order items mand.
-    paramers += "&height=" + height; //order items mand.
-    paramers += "&weight=" + weight;
-
-    // console.log("following is the url we are pinging for createOrder:");
-    // console.log(
-    //   "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc?" + paramers
-    // );
-
     if (getToken.status) {
-      let options = {
-        method: "post",
-        maxBodyLength: Infinity,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getToken.mainToken}`,
-        },
-        url:
-          "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc?" +
-          paramers,
-      };
-      await axios(options)
-        .then(function (response) {
+      await axios
+        .post(
+          "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc",
+          {
+            order_id: order_id,
+            order_date: order_date,
+            payment_method: payment_method,
+            pickup_location: pickup_location,
+            billing_customer_name: billing_customer_name,
+            billing_last_name: billing_last_name,
+            billing_address: billing_address,
+            billing_address_2: billing_address_2,
+            billing_city: billing_city,
+            billing_pincode: billing_pincode,
+            billing_state: billing_state,
+            billing_country: billing_country,
+            billing_email: billing_email,
+            billing_phone: billing_phone,
+            billing_alternate_phone: billing_alternate_phone,
+            shipping_is_billing: 1,
+            shipping_customer_name: shipping_customer_name,
+            shipping_last_name: shipping_last_name,
+            shipping_address: shipping_address,
+            shipping_address_2: shipping_address_2,
+            shipping_city: shipping_city,
+            shipping_pincode: shipping_pincode,
+            shipping_country: shipping_country,
+            shipping_state: shipping_state,
+            shipping_email: shipping_email,
+            shipping_phone: shipping_phone,
+            order_items: order_items,
+            payment_method: payment_method,
+            sub_total: sub_total,
+            total_discount: total_discount,
+            length: length,
+            breadth: breadth,
+            height: height,
+            weight: weight,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getToken.mainToken}`,
+            },
+          }
+        )
+        .then(async function (response) {
           console.log(response);
-          console.log(response.order_id);
-          console.log(response.shipment_id);
-          res.status(200).send({
-            success: true,
-            message: "Order created successfully",
+          console.log(response.data.order_id);
+          console.log(response.data.shipment_id);
+          const { data: awb } = await axios.post("http://localhost:8080/api/ship/generateAWB", {
+            shipment_id: response.data.shipment_id
           });
+          if (awb.success) {
+            const { data: pickUp } = await axios.post("http://localhost:8080/api/ship/pickup", {
+              shipment_id: response.data.shipment_id,
+              // pickup_date: ,
+            });
+            if (pickUp.success) {
+              const { data: manifest } = await axios.post("http://localhost:8080/api/ship/manifest", {
+                shipment_id: response.data.shipment_id,
+              });
+              if (manifest.success) {
+                await orderModel.findOneAndUpdate({ _id: order_id }, { manifest: manifest.data });
+                const { data: shipmentDetails } = await axios.post("http://localhost:8080/api/ship/shipDets", {
+                  shipment_id: response.data.shipment_id,
+                });
+                if (shipmentDetails.success) {
+                  await orderModel.findOneAndUpdate({ _id: order_id }, {
+                    shipment_id: response.data.shipment_id,
+                    awb: shipmentDetails.awb,
+                    orderId: shipmentDetails.order_id
+                  });
+                  const { data: invoice } = await axios.post("http://localhost:8080/api/ship/generateInvoice", {
+                    order_ids: shipmentDetails.order_id,
+                  });
+                  if (invoice.success) {
+                    await orderModel.findOneAndUpdate({ _id: order_id }, {
+                      invoice: invoice.data
+                    });
+                    res.json({
+                      success: true,
+                      message: "Order created successfully",
+                    });
+                  } else {
+                    res.json({
+                      success: false,
+                      message: invoice.message,
+                    });
+                  }
+                } else {
+                  return res.json({
+                    success: false,
+                    message: shipmentDetails.message,
+                  });
+                }
+              } else {
+                return res.json({
+                  success: false,
+                  message: manifest.message,
+                });
+              }
+            } else {
+              return res.json({
+                success: false,
+                message: pickUp.message,
+              });
+            }
+          } else {
+            return res.status(400).send({
+              success: false,
+              message: awb.message,
+            });
+          }
         })
         .catch(function (error) {
           console.log("error in creating order error message as follows: ");
           console.log(error);
+          return res.status(error.response.data.status_code).send({
+            success: false,
+            message: error.response.data.message,
+          });
         });
     } else {
-      console.log("token recieval failed from the srlogin function");
+      console.log("token recieval from the srlogin function failed");
+      return res.status(400).send({
+        success: false,
+        message: "Token recieval from the srlogin function failed",
+      });
     }
+  }
+};
+
+//GET || getting details of an order using order_id
+exports.getOrderDetsFunction = async (req, res) => {
+  let { order_id } = req.body;
+
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved");
+  console.log(getToken);
+
+  if (getToken) {
+    let options = {
+      method: "get",
+      maxBodyLength: Infinity,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken.mainToken}`,
+      },
+      url: "https://apiv2.shiprocket.in/v1/external/orders/show/" + order_id,
+    };
+
+    await axios(options)
+      .then(function (response) {
+        if (response == {}) {
+          res.send({
+            success: failure,
+            message: "No order found",
+          });
+        }
+        let orderDets = response.data.data;
+        console.log(orderDets);
+        res.status(200).send({
+          success: true,
+          message: "Order details are as follows: ",
+          data: orderDets,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 };
 
@@ -242,7 +524,10 @@ exports.generateAWBFunction = async (req, res) => {
     };
     await axios(options)
       .then(function (response) {
-        console.log(response);
+        return res.json({
+          success: true,
+          message: "AWB generated successfully",
+        });
       })
       .catch(function (error) {
         if (
@@ -289,32 +574,110 @@ exports.generateAWBFunction = async (req, res) => {
   }
 };
 
-//POST || requesting pickup of a shipment
-exports.setPickupFunction = async (req, res) => {
-  let { shipment_id, pickup_date } = req.body;
-  let paramers = "shipment_id=" + shipment_id;
-  paramers += "&pickup_date=" + pickup_date;
+//POST || response is download url for invoice orders passed as array of ORDER_ids
+exports.generateInvoiceFunction = async (req, res) => {
+  // https://apiv2.shiprocket.in/v1/external/orders/print/invoice
+
+  let { order_ids } = req.body;
 
   let getToken = await srlogin();
   console.log("below is the api key token recieved: ");
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup?" +
-        paramers,
-    };
+    // let options = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${ getToken.mainToken }`,
+    //   },
+    //   url:
+    //     "https://apiv2.shiprocket.in/v1/external/orders/print/invoice?" +
+    //     paramers,
+    // };
 
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/orders/print/invoice",
+        {
+          ids: [order_ids],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
-        console.log(response);
+        let invoice_url = response.data.invoice_url;
+        res.status(200).send({
+          success: true,
+          message: "Order invoice generated check here: ",
+          data: invoice_url,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.status(error.response.data.status).send({
+          success: false,
+          message: error.response.data.message,
+        });
+      });
+  }
+};
+
+//POST || requesting pickup of a shipment
+exports.setPickupFunction = async (req, res) => {
+  let { shipment_id, pickup_date } = req.body;
+  // let paramers = "shipment_id=" + shipment_id + "&pickup_date=" + pickup_date;
+
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved: ");
+  console.log(getToken);
+
+  if (getToken) {
+    // let options = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${ getToken.mainToken }`,
+    //   },
+    //   url:
+    //     "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup?" +
+    //     paramers,
+    // };
+
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/courier/generate/pickup",
+        {
+          shipment_id: shipment_id,
+          // pickup_date: pickup_date,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
+      .then(function (response) {
+        let res = response.data.response;
+        if (response.data.Status == true) {
+          return res.status(200).send({
+            success: true,
+            message: "Shipment pickup successfully set, following is the date: ",
+            data: res,
+          });
+        } else {
+          return res.json({
+            success: false,
+            message: "Shipment pickup not set",
+          });
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -329,30 +692,45 @@ exports.setPickupFunction = async (req, res) => {
 //POST || generating manifest for shipment
 exports.generateManifestFunction = async (req, res) => {
   let { shipment_id } = req.body;
-  let paramers = "shipment_id=" + shipment_id;
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/manifests/generate?" +
-        paramers,
-    };
-
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/manifests/generate",
+        {
+          shipment_id: shipment_id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
-        console.log(response);
+        let manifest_url = response.data.manifest_url;
+        if (manifest_url === "") {
+          return res.send({
+            success: false,
+            message: "Missing fields or invalid data",
+          });
+        }
+        return res.status(200).send({
+          success: true,
+          message: "Manifest generated check here: ",
+          data: manifest_url,
+        });
       })
       .catch(function (error) {
-        console.log(error);
+        if (error.response.data.status_code === 400) {
+          return res.status(400).send({
+            success: false,
+            message: "Manifest for the shipment already generated",
+          });
+        }
       });
   }
 };
@@ -360,7 +738,6 @@ exports.generateManifestFunction = async (req, res) => {
 //GET || getting shipment details by shipment id
 exports.shipmentDetsFunction = async (req, res) => {
   let { shipment_id } = req.body;
-  let paramers = "shipment_id=" + shipment_id;
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
@@ -373,15 +750,30 @@ exports.shipmentDetsFunction = async (req, res) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken.mainToken}`,
       },
-      url: "https://apiv2.shiprocket.in/v1/external/shipments?" + paramers,
+      url: "https://apiv2.shiprocket.in/v1/external/shipments/" + shipment_id,
     };
 
     await axios(options)
       .then(function (response) {
-        console.log(response);
+        if (response == {}) {
+          return res.send({
+            success: failure,
+            message: "No shipment found",
+          });
+        }
+        let shipDets = response.data.shipDets.data;
+        return res.status(200).send({
+          success: true,
+          message: "Shipment details",
+          data: shipDets,
+        });
       })
       .catch(function (error) {
         console.log(error);
+        return res.status(error.response.data.status).send({
+          success: false,
+          message: error.response.data.message,
+        });
       });
   }
 };
@@ -389,10 +781,8 @@ exports.shipmentDetsFunction = async (req, res) => {
 //POST || cancelling shipment by shipment id
 exports.cancelShipmentFunction = async (req, res) => {
   let { awbs } = req.body; //array of awbs
-  if (awbs != []) {
-    let paramers = "awbs=" + awbs;
-  } else {
-    res.status(404).send({
+  if (awbs == []) {
+    return res.status(404).send({
       success: false,
       message: "No AWBs were sent",
     });
@@ -402,38 +792,44 @@ exports.cancelShipmentFunction = async (req, res) => {
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/orders/cancel/shipment/awbs?" +
-        paramers,
-    };
-
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/orders/cancel/shipment/awbs",
+        { awbs: awbs },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
         console.log(response);
+        return res.status(200).send({
+          success: true,
+          message: response.data.message,
+        });
       })
       .catch(function (error) {
         console.log(error);
+        return res.status(error.response.data.status).send({
+          success: false,
+          message: error.response.data.message,
+        });
       });
   }
 };
 
 //POST || creating a return order
 exports.createReturnOrderFunction = async (req, res) => {
+  // const{ channel_id } =await axios.get("/ship/orderDets",{"order_id":order_id});
+
   const {
     // pickup_location,
     order_id,
     order_date,
+    payment_method,
     channel_id,
-    // comment,
-    // reseller_name,
-    // company_name,
     pickup_customer_name,
     pickup_last_name,
     pickup_address,
@@ -464,61 +860,80 @@ exports.createReturnOrderFunction = async (req, res) => {
     weight,
   } = req.body;
 
-  let paramers = "order_id=" + order_id;
-  paramers += "&order_date=" + order_date;
-  paramers += "&channel_id=" + channel_id;
-  paramers += "&pickup_customer_name=" + pickup_customer_name;
-  paramers += "&pickup_last_name=" + pickup_last_name;
-  paramers += "&pickup_address=" + pickup_address;
-  paramers += "&pickup_address_2=" + pickup_address_2;
-  paramers += "&pickup_city=" + pickup_city;
-  paramers += "&pickup_state=" + pickup_state;
-  paramers += "&pickup_country=" + pickup_country;
-  paramers += "&pickup_pincode=" + pickup_pincode;
-  paramers += "&pickup_email=" + pickup_email;
-  paramers += "&pickup_phone=" + pickup_phone;
-  paramers += "&shipping_customer_name=" + shipping_customer_name;
-  paramers += "&shipping_last_name=" + shipping_last_name;
-  paramers += "&shipping_address=" + shipping_address;
-  paramers += "&shipping_address_2=" + shipping_address_2;
-  paramers += "&shipping_city=" + shipping_city;
-  paramers += "&shipping_country=" + shipping_country;
-  paramers += "&shipping_pincode=" + shipping_pincode;
-  paramers += "&shipping_state=" + shipping_state;
-  paramers += "&shipping_email=" + shipping_email;
-  paramers += "&shipping_phone=" + shipping_phone;
-  paramers += "&order_items=" + order_items;
-  paramers += "&payment_method=" + "Prepaid";
-  paramers += "&total_discount=" + total_discount;
-  paramers += "&sub_total=" + sub_total;
-  paramers += "&length=" + length;
-  paramers += "&breadth=" + breadth;
-  paramers += "&height=" + height;
-  paramers += "&weight=" + weight;
-
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
 
   if (getToken) {
-    let options = {
-      method: "post",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url:
-        "https://apiv2.shiprocket.in/v1/external/orders/create/return?" +
-        paramers,
-    };
-
-    await axios(options)
+    await axios
+      .post(
+        "https://apiv2.shiprocket.in/v1/external/orders/create/return",
+        {
+          order_id: order_id,
+          order_date: order_date,
+          channel_id: channel_id,
+          pickup_customer_name: pickup_customer_name,
+          pickup_last_name: pickup_last_name,
+          pickup_address: pickup_address,
+          pickup_address_2: pickup_address_2,
+          pickup_city: pickup_city,
+          pickup_state: pickup_state,
+          pickup_country: pickup_country,
+          pickup_pincode: pickup_pincode,
+          pickup_email: pickup_email,
+          pickup_phone: pickup_phone,
+          shipping_customer_name: shipping_customer_name,
+          shipping_last_name: shipping_last_name,
+          shipping_address: shipping_address,
+          shipping_address_2: shipping_address_2,
+          shipping_city: shipping_city,
+          shipping_country: shipping_country,
+          shipping_pincode: shipping_pincode,
+          shipping_state: shipping_state,
+          shipping_email: shipping_email,
+          shipping_phone: shipping_phone,
+          order_items: order_items,
+          payment_method: payment_method,
+          total_discount: total_discount,
+          sub_total: sub_total,
+          length: length,
+          breadth: breadth,
+          height: height,
+          weight: weight,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken.mainToken}`,
+          },
+        }
+      )
       .then(function (response) {
         console.log(response);
+        if (response.status_code == 422) {
+          return res.status(422).send({
+            success: false,
+            message: response.data.message,
+          });
+        }
+        return res.status(200).send({
+          success: true,
+          message: response.data.status,
+        });
       })
       .catch(function (error) {
-        console.log(error);
+        if (error.data.status_code == 400) {
+          return res.status(400).send({
+            success: false,
+            message: error.response.data.message,
+          });
+        } else {
+          console.log(error);
+          return res.status(error.response.data.status_code).send({
+            success: false,
+            message: error.response.data.message,
+          });
+        }
       });
   }
 };
@@ -553,6 +968,7 @@ exports.generateRetAWBFunction = async (req, res) => {
     await axios(options)
       .then(function (response) {
         console.log(response);
+        return response;
       })
       .catch(function (error) {
         if (
@@ -561,32 +977,32 @@ exports.generateRetAWBFunction = async (req, res) => {
           error.response.data.status_code == 503 ||
           error.response.data.status_code == 504
         ) {
-          res.status(500).send({
+          return res.status(500).send({
             message: "Server error at shiprocket missing data",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 401) {
-          res.status(401).send({
+          return res.status(401).send({
             message: "Eroor in authenticating request error",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 404) {
-          res.status(404).send({
+          return res.status(404).send({
             message: "Invaliv url access requested, check params",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 422) {
-          res.status(422).send({
+          return res.status(422).send({
             message: "Unable to process params, check params",
             status_code: error.response.data.status_code,
           });
         } else if (error.response.data.status_code == 429) {
-          res.status(429).send({
+          return res.status(429).send({
             message: "Rate limit exceeded",
             status_code: error.response.data.status_code,
           });
         } else {
-          res.status(500).send({
+          return res.status(500).send({
             success: false,
             status_code: error.response.data.status_code,
             error,
@@ -608,10 +1024,8 @@ function srlogin() {
     };
     //REQUIRED DATA FOR AUTHENTICATION API
     var srlogindata = JSON.stringify({
-      // email: "kotharibhavik2307@gmail.com",
-      // password: "hellomam",
-      email: "tech@ehawkersmarketing.in",
-      password: "Marketing@1657",
+      email: process.env.SHIPROCKET_EMAIL,
+      password: process.env.SHIPROCKET_PASSWORD,
     });
     try {
       //REQUIRED OPTIONS FOR AUTHENTICATION API

@@ -17,6 +17,7 @@ const Product = () => {
   const userUniqueId = localStorage.getItem("user_id")
   console.log(userUniqueId)
   const { data: product } = useFetch(`/api/getProduct/${id}`);
+  const { data: allProducts } = useFetch("/api/allProducts");
   const { data: reviews, setData: setReviews } = useFetch(`/api/getReviewById/${id}`);
   const [inputHandler, setInputHandler] = useState({
     reviewContent: " ",
@@ -31,8 +32,8 @@ const Product = () => {
   };
 
   const fetchReviews = async () => {
-    const {data} = await axios.get(`http://localhost:8080/api/getReviewById/${id}`);
-    setReviews(data.data); 
+    const { data } = await axios.get(`http://localhost:8080/api/getReviewById/${id}`);
+    setReviews(data.data);
   }
 
   const ReviewAddHandler = async (e) => {
@@ -43,8 +44,8 @@ const Product = () => {
     const { data } = await axios.post("http://localhost:8080/api/addReview", {
       reviewContent: reviewContent,
       rating: rating,
-      productId:id,
-      userId:userUniqueId
+      productId: id,
+      userId: userUniqueId
     });
     if (data.success) {
       fetchReviews();
@@ -52,34 +53,34 @@ const Product = () => {
         ...inputHandler,
         reviewContent: " ",
         rating: " ",
-      });      
+      });
     }
   }
 
-    $(document).ready(function () {
-      var list = $(".list li");
-      var numToShow = 3;
-      var button = $("#next");
-      var numInList = list.length;
-      list.hide();
-      if (numInList > numToShow) {
-        button.show();
-      }
-      list.slice(0, numToShow).show();
+  $(document).ready(function () {
+    var list = $(".list li");
+    var numToShow = 3;
+    var button = $("#next");
+    var numInList = list.length;
+    list.hide();
+    if (numInList > numToShow) {
+      button.show();
+    }
+    list.slice(0, numToShow).show();
 
-      button.click(function () {
-        var showing = list.filter(":visible").length;
-        list.slice(showing - 1, showing + numToShow).fadeIn();
-        var nowShowing = list.filter(":visible").length;
-        if (nowShowing >= numInList) {
-          button.hide();
-        }
-      });
+    button.click(function () {
+      var showing = list.filter(":visible").length;
+      list.slice(showing - 1, showing + numToShow).fadeIn();
+      var nowShowing = list.filter(":visible").length;
+      if (nowShowing >= numInList) {
+        button.hide();
+      }
     });
+  });
 
 
   return (
-    <><Header/>
+    <><Header />
       <div className="single-product bg">
         <div className="product-bg">
           <div className="wrapper">
@@ -96,10 +97,10 @@ const Product = () => {
                     <h1 className="product-name">{product?.title}</h1>
                     <div className="ratingAndReview">
                       <ul class="rating">
-                        {Array.apply(null, { length: product?.rating }).map(
+                        {Array.apply(null, { length: 5 }).map(
                           (e, i) => (
                             <li>
-                              <i class="bi bi-star-fill" id="review-icon"></i>
+                              <i class={i >= product?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
                             </li>
                           )
                         )}
@@ -133,14 +134,8 @@ const Product = () => {
                 <h2 className="recommended">Recommended</h2>
                 <h2 className="foryou">For You</h2>
               </div>
-              <div className="more-card">
-                <span className="view-more">View More </span>
-                <span className="more-icon">
-                  <i class="bi bi-arrow-right"></i>
-                </span>
-              </div>
-              <div className="carousal">
-                <Carousal />
+              <div className="product-page-carousal">
+                {allProducts && <Carousal items={allProducts} />}
               </div>
             </div>
           </div>
@@ -157,9 +152,13 @@ const Product = () => {
               </div>
               <div className="ratingAndReview">
                 <ul class="rating">
-                  <li>
-                    <i class="bi bi-star-fill" id="review-icon"></i>
-                  </li>
+                  {Array.apply(null, { length: 5 }).map(
+                    (e, i) => (
+                      <li>
+                        <i class={i >= product?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             </div>
@@ -205,7 +204,9 @@ const Product = () => {
           </div>
         </div>
       </div>
-    <Footer/>
+
+
+      <Footer />
     </>
   );
 

@@ -2,11 +2,10 @@ import react, { useState ,useEffect } from "react";
 import axios from "axios";
 import { useNavigate  } from "react-router-dom";
 
-const CreateBlog = () => {
+const CreateService = () => {
   const [inputHandler, setInputHandler] = useState({
     title: " ",
-    content: " ",
-    readingTime: " ",
+    description: " ",
   });
   const [image, setImage] = useState();
 
@@ -36,32 +35,29 @@ const CreateBlog = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const { title, content, readingTime } = inputHandler;
+    const { title, description} = inputHandler;
     if (title === " ") {
       alert("Add Title");
-    } else if (content === " ") {
-      alert(" Add Content");
-    }else if (readingTime === " ") {
-      alert(" Add reading time");
-    }else if (!image) {
-      alert(" Add Image");
-    }else{
+    } else if (description === " ") {
+      alert(" Add Description");
+    }else if(!image){
+    alert("Add Image")
+    } else{
       const formData = new FormData();
       formData.append("image", image);
 
       const imageUrl = await axios.post(
-        "http://localhost:8080/api/uploadBlogImage",
+        "http://localhost:8080/api/uploadServiceImage",
         formData
       );
       console.log(imageUrl);
       if (imageUrl) {
         if (imageUrl?.data.success) {
           const { data } = await axios.post(
-            "http://localhost:8080/api/composeBlog",
+            "http://localhost:8080/api/createService",
             {
               title: title,
-              content: content,
-              readingTime: readingTime,
+              description: description,
               image: imageUrl.data.url,
             }
           );
@@ -69,8 +65,7 @@ const CreateBlog = () => {
             setInputHandler({
               ...inputHandler,
               title: " ",
-              content: " ",
-              readingTime: " ",
+              description: " ",
               image: "",
             });
             history("/adminPage");
@@ -85,7 +80,7 @@ const CreateBlog = () => {
       {
         <div className="form_data">
           <div className="form_heading">
-            <h1>Create Blog</h1>
+            <h1>Create Service</h1>
           </div>
 
           <form>
@@ -101,36 +96,26 @@ const CreateBlog = () => {
               />
             </div>
             <div className="form_input">
-              <label htmlFor="Content">Content</label>
+              <label htmlFor="Description">Description</label>
               <textarea
                 style={{ width: "100%" }}
                 rows={10}
                 type="text"
                 onChange={onChangeInputHandler}
-                value={inputHandler.content}
-                id="content"
-                name="content"
-                placeholder="Content ...."
+                value={inputHandler.description}
+                id="description"
+                name="description"
+                placeholder="Description ...."
               />
             </div>
+           
             <div className="form_input">
-              <label htmlFor="readingTime">Reading Time</label>
-              <input
-                type="readingTime"
-                onChange={onChangeInputHandler}
-                value={inputHandler.readingTime}
-                id="readingTime"
-                name="readingTime"
-                placeholder="readingTime"
-              />
-            </div>
-            <div className="form_input">
-              <label for="productImage">Resource Image</label>
+              <label for="serviceImage">Service Image</label>
               <input
                 type="file"
-                id="productImage"
+                id="serviceImage"
                 onChange={(e) => setImage(e.target.files[0])}
-                name="productImage"
+                name="serviceImage"
                 required
               />
             </div>
@@ -140,7 +125,7 @@ const CreateBlog = () => {
               onClick={onSubmitHandler}
               style={{ backgroundColor: "#005C4B" }}
             >
-              Create Blog
+              Create Service
             </button>
           </form>
         </div>
@@ -149,4 +134,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default CreateService;

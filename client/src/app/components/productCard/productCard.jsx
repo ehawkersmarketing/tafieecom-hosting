@@ -8,6 +8,10 @@ const ProductCard = ({ item }) => {
     navigate(`/product/${id}`);
   };
 
+  const addToCart = () => {
+    navigate('/cart')
+  }
+
   return (
     <div key={item._id} className="carouselItem" interval="500">
       <div className="textBlock">
@@ -24,17 +28,19 @@ const ProductCard = ({ item }) => {
           </h3>
           <div className="ratingAndReview">
             <div>
-            <ul class="rating">
-              {Array.apply(null, { length: item.rating }).map((e, i) => (
-                <li>
-                  <i class="bi bi-star-fill" id="review-icon"></i>
-                </li>
-              ))}
-            </ul></div>
+              <ul class="rating">
+                {Array.apply(null, { length: 5 }).map(
+                  (e, i) => (
+                    <li>
+                      <i class={i >= item.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                    </li>
+                  )
+                )}
+              </ul></div>
             <div className="review">345 Reviews</div>
           </div>
           <div className="price">{`Rs ${item.price}/-`}</div>
-          <button className="cart-btn">Add to Cart</button>
+          <button className="cart-btn" onClick={addToCart}>Add to Cart</button>
         </div>
       </div>
     </div>

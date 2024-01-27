@@ -6,66 +6,140 @@ import { Chart } from "react-google-charts";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
-
+import Header from '../header/header'
 const AdminPage = () => {
   const [value, setValue] = useState(1);
-  const [Blog, setBlog] = useState();
-
   const navigate = useNavigate();
-
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const { data: blogs, setData: setBlogs } = useFetch("/api/blogs");
+  const { data: products } = useFetch("/api/allProducts");
+  const { data: orders } = useFetch("/api/getAllOrders");
+  const { data: services , setData:setServices } = useFetch("/api/getAllService");
+  const { data: users } = useFetch("/auth/users");
+  const [searchField, setSearchField] = useState({
+    product: "",
+    order: "",
+    service: "",
+    blogs: "",
+    users: "",
+  });
+  const [searchProducts, setSearchProducts] = useState([]);
+  const [searchOrders, setSearchOrders] = useState([]);
+  const [searchBlogs, setSearchBlog] = useState([]);
+  const [searchService, setSearchService] = useState([]);
+  const [searchUsers, setSearchUser] = useState([]);
+  const [deletedBlogId, setDeletedBlogId] = useState(null);
+  const data = [
+    ["x", "dogs", "cats"],
+    [0, 0, 0],
+    [1, 10, 5],
+    [2, 23, 15],
+    [3, 17, 9],
+    [4, 18, 10],
+    [5, 9, 5],
+    [6, 11, 3],
+    [7, 27, 19],
+  ];
+  const options = {
+    hAxis: {
+      title: "Time",
+    },
+    vAxis: {
+      title: "Popularity",
+    },
+    series: {
+      1: { curveType: "function" },
+    },
+  };
+  const dataOld = [
+    ["Name", "Popularity"],
+    ["Cesar", 250],
+    ["Rachel", 4200],
+    ["Patrick", 2900],
+    ["Eric", 8200],
+  ];
+  const dataNew = [
+    ["Name", "Popularity"],
+    ["Cesar", 370],
+    ["Rachel", 600],
+    ["Patrick", 700],
+    ["Eric", 1500],
+  ];
+  const diffdata = { old: dataOld, new: dataNew };
+
+  const dashboardHandler = () => setValue(1);
+  const storeHandler = () => setValue(0);
+  const productHandler = () => setValue(3);
+  const blogHandler = () => setValue(4);
+  const userHandler = () => setValue(2);
+  const serviceHandler = () => setValue(5);
 
   useEffect(() => {
     if (user) {
-      if (user.role.role === "Admin" || user.role.role === "Editor") {
-        navigate("/adminPage");
+      if (user.role.role === "Admin") {
+        setValue(1);
+      } else if (user.role.role === "Editor") {
+        setValue(3);
       } else {
         navigate("/auth/1");
       }
-    }else {
+    } else {
       navigate("/auth/1");
     }
   }, []);
 
-  const { data: blogs } = useFetch("/api/blogs");
-  const { data: products } = useFetch("/api/allProducts");
-  const { data: orders } = useFetch("/api/getAllOrders");
-  const { data: users } = useFetch("/auth/users");
-
-  const onDelete = (id) => {
-    if (
-      window.confirm("Do you want to delete the resource permently?") == true
-    ) {
-      axios
-        .delete(`http://localhost:8080/api/deleteBlog/${id}`)
-        .then((res) => {
-          setBlog((prevBlogs) => prevBlogs.filter((blog) => blog.id === id));
-          console.log("Blog deleted successfully");
-          // window.location.reload();
-        })
-        .catch((err) => {
-          console.log(err);
+  function deleteResourceHandler(id) {
+    fetch(`http://localhost:8080/api/deleteBlog/${id}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Blog deleted!!") {    
+            fetchDeleted();      }
         });
-    } else {
-      console.log("Dont delete the Resource Center");
+   }
+
+   function onDelete(id) {
+    if (window.confirm('Are you sure you want to delete this resource center?')) {
+       deleteResourceHandler(id);
     }
-  };
+   }
 
-  const [searchField, setSearchField] = useState({
-    product: "",
-    order: "",
-    blogs: "",
-    users: "",
+   const fetchDeleted = async () => {
+    const {data} = await axios.get(`http://localhost:8080/api/blogs`);
+    console.log(data)
+    setBlogs(data.data); 
+  }
+
+
+ const deleteServiceHandler = (id) =>{
+  console.log("id" , id)
+  fetch(`http://localhost:8080/api/deleteService/${id}`, { method: 'DELETE' })
+  .then(response => response.json())
+  .then(data => {
+    if (data.message === "service deleted!!") { 
+      console.log("deleted")   
+      fetchDeletedService();      }
   });
+ }
 
-  const [searchProducts, setSearchProducts] = useState([]);
-  const [searchOrders, setSearchOrders] = useState([]);
-  const [searchBlogs, setSearchBlog] = useState([]);
-  const [searchUsers, setSearchUser] = useState([]);
+ function onDeleteService(id) {
+  if (window.confirm('Are you sure you want to delete this Service?')) {
+     deleteServiceHandler(id);
+  }
+ }
+
+
+ const fetchDeletedService = async () => {
+  const {data} = await axios.get(`http://localhost:8080/api/getAllService`);
+  console.log(data)
+  setServices(data.data); 
+}
+
+
+
 
   const search = async (text) => {
     if (text !== "") {
-      if (value == 3) {
+      if (value === 3) {
         const { data } = await axios.post(
           `http://localhost:8080/api/searchProduct`,
           {
@@ -73,7 +147,7 @@ const AdminPage = () => {
           }
         );
         setSearchProducts(data.data);
-      } else if (value == 4) {
+      } else if (value === 4) {
         const { data } = await axios.post(
           `http://localhost:8080/api/searchBlog`,
           {
@@ -81,6 +155,14 @@ const AdminPage = () => {
           }
         );
         setSearchBlog(data.data);
+      } else if (value === 5) {
+        const { data } = await axios.post(
+          `http://localhost:8080/api/searchService`,
+          {
+            search: text,
+          }
+        );
+        setSearchService(data.data);
       } else if (value == 2) {
         const { data } = await axios.post(
           `http://localhost:8080/auth/searchUser`,
@@ -95,6 +177,7 @@ const AdminPage = () => {
       setSearchOrders(undefined);
       setSearchBlog(undefined);
       setSearchUser(undefined);
+      setSearchService(undefined);
     }
   };
 
@@ -104,6 +187,7 @@ const AdminPage = () => {
       order: "",
       blogs: "",
       users: "",
+      service: "",
     });
   }, [value]);
 
@@ -116,70 +200,21 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    if (value == 3) {
+    if (value === 3) {
       search(searchField.product);
-    } else if (value == 4) {
+    } else if (value === 4) {
       search(searchField.blogs);
-    } else if (value == 2) {
+    } else if (value === 2) {
       search(searchField.users);
+    } else if (value === 5) {
+      search(searchField.service);
     }
   }, [searchField]);
-
-  const data = [
-    ["x", "dogs", "cats"],
-    [0, 0, 0],
-    [1, 10, 5],
-    [2, 23, 15],
-    [3, 17, 9],
-    [4, 18, 10],
-    [5, 9, 5],
-    [6, 11, 3],
-    [7, 27, 19],
-  ];
-
-  const options = {
-    hAxis: {
-      title: "Time",
-    },
-    vAxis: {
-      title: "Popularity",
-    },
-    series: {
-      1: { curveType: "function" },
-    },
-  };
-
-  const dataOld = [
-    ["Name", "Popularity"],
-    ["Cesar", 250],
-    ["Rachel", 4200],
-    ["Patrick", 2900],
-    ["Eric", 8200],
-  ];
-
-  const dataNew = [
-    ["Name", "Popularity"],
-    ["Cesar", 370],
-    ["Rachel", 600],
-    ["Patrick", 700],
-    ["Eric", 1500],
-  ];
-
-  const diffdata = {
-    old: dataOld,
-    new: dataNew,
-  };
 
   const onLogOut = () => {
     localStorage.clear();
     navigate(`/auth/${1}`);
   };
-
-  const dashboardHandler = () => setValue(1);
-  const storeHandler = () => setValue(0);
-  const productHandler = () => setValue(3);
-  const blogHandler = () => setValue(4);
-  const userHandler = () => setValue(2);
 
   const CreateNewHandler = () => {
     navigate("/createProduct");
@@ -189,6 +224,10 @@ const AdminPage = () => {
     navigate("/blog/composeBlog");
   };
 
+  const CreateNewServiceHandler = () => {
+    navigate("/createService");
+  };
+
   const inlineStyle = {
     "--size": 0.4,
     fontSize: "var(--size)rem",
@@ -196,6 +235,7 @@ const AdminPage = () => {
 
   return (
     <div className="admin-wrapper">
+    <Header/>
       {user && (
         <div className="row row-wrapper">
           <div className="col-3 admin-sub-wrapper">
@@ -253,6 +293,17 @@ const AdminPage = () => {
                     </div>
                     <div className="title" onClick={productHandler}>
                       Products
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="sidebar-title">
+                    <div className="icon">
+                      <i class="bi bi-box"></i>
+                    </div>
+                    <div className="title" onClick={serviceHandler}>
+                      Services
                     </div>
                   </div>
                 </div>
@@ -418,6 +469,39 @@ const AdminPage = () => {
               </nav>
             )}
 
+            {value == 5 && (
+              <nav className="nav-admin-page">
+                <div className="admin-navbar">
+                  <div className="nav-header">
+                    <div className="tab">
+                      <span className="tab1">Pages</span>
+                      <span>/Services</span>
+                    </div>
+                    <div className="nav-title">Services</div>
+                    <div className="nav-rightContent">
+                      <button
+                        className="admin-btn-nav"
+                        onClick={CreateNewServiceHandler}
+                      >
+                        <i class="bi bi-plus-lg"></i> Create New
+                      </button>
+                      <div className="admin-right">
+                        <div className="logout-button" onClick={onLogOut}>
+                          <span style={{ marginLeft: "15px" }}>
+                            <i class="bi bi-person"></i>
+                          </span>
+                          <span>Logout</span>
+                          <span style={{ marginLeft: "5px" }}>
+                            <i class="bi bi-gear-fill"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            )}
+
             {value == 4 && (
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
@@ -463,9 +547,9 @@ const AdminPage = () => {
                           type="text"
                           className="nav-input"
                           style={{ width: "15rem" }}
-                          placeholder="&#61442; Search"
+                          placeholder="Search"
                         />
-                        <div className="short">
+                        {/* <div className="short">
                           <select
                             type="text"
                             name="input"
@@ -475,7 +559,7 @@ const AdminPage = () => {
                             <option>Short by : Newest</option>
                             <option>yes</option>
                           </select>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -524,7 +608,7 @@ const AdminPage = () => {
                                   {order.createdAt}
                                 </td>
                                 <td className="td table-center">
-                                  <div className="action-dropdown">
+                                  {/* <div className="action-dropdown">
                                     <select
                                       type="text"
                                       name="input"
@@ -534,7 +618,7 @@ const AdminPage = () => {
                                       <option>op1</option>
                                       <option>op2</option>
                                     </select>
-                                  </div>
+                                  </div> */}
                                 </td>
                               </tr>
                             );
@@ -714,9 +798,9 @@ const AdminPage = () => {
                           className="nav-input"
                           onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
-                          placeholder="&#61442; Search"
+                          placeholder=" Search"
                         />
-                        <div className="short">
+                        {/* <div className="short">
                           <select
                             type="text"
                             name="input"
@@ -726,7 +810,7 @@ const AdminPage = () => {
                             <option>Short by : Newest</option>
                             <option>yes</option>
                           </select>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -812,7 +896,7 @@ const AdminPage = () => {
                             </div>
                           )
                         ) : (
-                          products.map((product, index) => {
+                          products && products.map((product, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
@@ -878,9 +962,9 @@ const AdminPage = () => {
                           name="blogs"
                           onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
-                          placeholder="&#61442; Search"
+                          placeholder="Search"
                         />
-                        <div className="short">
+                        {/* <div className="short">
                           <select
                             type="text"
                             name="input"
@@ -890,7 +974,7 @@ const AdminPage = () => {
                             <option>Short by : Newest</option>
                             <option>yes</option>
                           </select>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -955,6 +1039,10 @@ const AdminPage = () => {
                         ) : (
                           blogs &&
                           blogs?.map((blog, index) => {
+                            if (blog._id === deletedBlogId) {
+                              console.log(blog.title)
+                              return null;
+                            }else 
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
@@ -979,7 +1067,7 @@ const AdminPage = () => {
                                   <span className="td-delete-icon">
                                     <i
                                       class="bi bi-trash3-fill"
-                                      onClick={(e) => onDelete(e, blog._id)}
+                                      onClick={() => onDelete(blog._id)}
                                     ></i>
                                   </span>
                                 </td>
@@ -1007,9 +1095,9 @@ const AdminPage = () => {
                           name="users"
                           onChange={(e) => handleSearchFields(e)}
                           style={{ width: "15rem" }}
-                          placeholder="&#61442; Search"
+                          placeholder="Search"
                         />
-                        <div className="short">
+                        {/* <div className="short">
                           <select
                             type="text"
                             name="input"
@@ -1019,7 +1107,7 @@ const AdminPage = () => {
                             <option>Short by : Newest</option>
                             <option>yes</option>
                           </select>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -1079,6 +1167,146 @@ const AdminPage = () => {
                                 </td>
                                 <td className="td table-center">
                                   {user.phone}
+                                </td>
+                              </tr>
+                            );
+                          })
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {value == 5 && (
+              <div className="card admin-product-card">
+                <div className="subHeading">
+                  <div className="admin-card-heading">
+                    <h1 className="h1">All Services</h1>
+                    <div className="admin-card-header">
+                      <h3 className="h3">Services</h3>
+                      <div className="admin-input-dropdown">
+                        <input
+                          type="text"
+                          name="service"
+                          className="nav-input"
+                          onChange={(e) => handleSearchFields(e)}
+                          style={{ width: "15rem" }}
+                          placeholder="Search"
+                        />
+                        {/* <div className="short">
+                          <select
+                            type="text"
+                            name="input"
+                            id="input"
+                            placeholder="Short by:Newest "
+                          >
+                            <option>Short by : Newest</option>
+                            <option>yes</option>
+                          </select>
+                        </div> */}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="admin-table-div">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="th">
+                            Sr.No.
+                          </th>
+                          <th scope="col" className="th">
+                            Image
+                          </th>
+                          <th scope="col" className="th">
+                            Title
+                          </th>
+                          <th scope="col" className="th">
+                            Description
+                          </th>
+                          <th scope="col" className="th">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {searchField.service !== "" ? (
+                          searchService && searchService.length > 0 ? (
+                            searchService.map((service, index) => {
+                              return (
+                                <tr>
+                                  <th scope="row table-center">{index + 1}</th>
+                                  <td className="td">
+                                    <img
+                                      src={service.image}
+                                      className="img-product-admin-data"
+                                    />
+                                  </td>
+                                  <td className="td table-center">
+                                    {service.title}
+                                  </td>
+                                  <td className="td table-center">
+                                    {service.description}
+                                  </td>
+
+                                  <td className="td table-center">
+                                    <span className="td-edit-icon ">
+                                      <i
+                                        class="bi bi-pencil-square"
+                                        // onClick={(e) =>
+                                        // navigate(`/updateService/${service._id}`)
+                                        // }
+                                      ></i>
+                                    </span>
+                                    <span className="td-delete-icon">
+                                      <i
+                                        class="bi bi-trash3-fill"
+                                        // onClick={(e) => onDelete(e, service._id)}
+                                      ></i>
+                                    </span>
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <div>
+                              <h4>No Results Found</h4>
+                            </div>
+                          )
+                        ) : (
+                          services &&
+                          services.map((service, index) => {
+                            console.log(service._id)
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td">
+                                  <img
+                                    src={service.image}
+                                    className="img-product-admin-data"
+                                  />
+                                </td>
+                                <td className="td table-center">
+                                  {service.title}
+                                </td>
+                                <td className="td table-center">
+                                  {service.description}
+                                </td>
+                                <td className="td table-center">
+                                  <span className="td-edit-icon ">
+                                    <i
+                                      class="bi bi-pencil-square"
+                                      onClick={(e) =>
+                                      navigate(`/updateService/${service._id}`)
+                                      }
+                                    ></i>
+                                  </span>
+                                  <span className="td-delete-icon">
+                                    <i
+                                      class="bi bi-trash3-fill"
+                                      onClick={(e) => onDeleteService(service._id)}                                    ></i>
+                                  </span>
                                 </td>
                               </tr>
                             );

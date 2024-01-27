@@ -58,8 +58,9 @@ const CreateProduct = () => {
   };
 
   function limitInputValue(e) {
-    if (e.target.value > maxValue) {
-      <p>The Minimum value should be less than maximum value</p>;
+  
+    if (parseInt(e.target.value) >= maxValue) {
+      alert("The Minimum value should be less than maximum value");
     }
   }
 
@@ -70,8 +71,7 @@ const CreateProduct = () => {
       inputHandler;
     const { category } = dropdown;
     const categoryList = data.filter((item) => item.category === category);
-    // console.log(category);
-    // console.log(inputHandler);
+    console.log(categoryList)
     if (title === "") {
       alert("Add Title");
     } else if (description === "") {
@@ -82,9 +82,9 @@ const CreateProduct = () => {
       alert("Add image");
     }else if (price === "") {
       alert("Add Price");
-    } else if(!category){
-       alert("Select category")
-    }else {
+    } if (!categoryList.length) {
+      alert("Select category");
+     }else {
       const formData = new FormData();
       formData.append("image", image);
 

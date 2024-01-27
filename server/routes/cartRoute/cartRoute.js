@@ -12,10 +12,10 @@ const {
 const router = express.Router();
 
 //PUT || add product route
-router.put("/addToCart", AdminRole, EditorRole, putProductInCart);
+router.put("/addToCart", putProductInCart);
 
 //DELETE || delete product route
-router.delete("/dropFromCart", AdminRole, EditorRole, deleteProductInCart);
+router.delete("/dropFromCart", deleteProductInCart);
 router.get("/getCartByUser/:userId", getCartByUser);
 
 module.exports = router;
