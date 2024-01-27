@@ -120,7 +120,7 @@ const Product = () => {
           <div className="wrapper-about">
             <div className="about-product">
               <h1 className="about-title">About Product</h1>
-              <div>
+              <div className="about-desc">
                 <p className="description">{product?.description}</p>
               </div>
             </div>

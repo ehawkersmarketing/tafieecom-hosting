@@ -14,7 +14,8 @@ const ShopPageCarouselCard = ({ items }) => {
                     className="owl-theme"
                     loop
                     nav
-                    autoplayTimeout={5000}
+                    dots={false}
+                    autoplayTimeout={2000}
                     autoplayHoverPause={true}
                     navText={[
                         '<span class="arrow prev">‹</span>',

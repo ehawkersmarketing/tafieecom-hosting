@@ -291,3 +291,7 @@ line-height: 15px;
 .services .block-text button{
   text-align: left;
 }
+.missing-card .service-block .block-text{
+  display: flex; 
+  align-items: center;
+}
