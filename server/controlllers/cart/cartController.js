@@ -15,30 +15,22 @@ exports.putProductInCart = async (req, res) => {
       });
       if (product) {
         product = product.toObject();
-        if (units == 0) {
-          cartModel.deleteOne({ "products.productId": productId });
-          res.status(200).send({
-            success: true,
-            message: "cart updated",
-            data: {},
-          });
-        } else {
-          for (var i = 0; i < product.products.length; i++) {
-            if (product.products[i].productId == productId) {
-              product.products[i].units = product.products[i].units + 1;
-            }
+        for (var i = 0; i < product.products.length; i++) {
+          if (product.products[i].productId == productId) {
+            product.products[i].units = product.products[i].units + 1;
+            break;
           }
-          const updatedCart = await cartModel.findOneAndUpdate(
-            { userId: userId },
-            { $set: { products: product.products } },
-            { new: true }
-          );
-          res.status(200).send({
-            success: true,
-            message: "cart updated",
-            data: updatedCart,
-          });
         }
+        const updatedCart = await cartModel.findOneAndUpdate(
+          { userId: userId },
+          { $set: { products: product.products } },
+          { new: true }
+        );
+        res.status(200).send({
+          success: true,
+          message: "cart updated",
+          data: updatedCart,
+        });
       } else {
         userCart = userCart.toObject();
         userCart.products.push({ productId, units });
@@ -85,23 +77,52 @@ exports.putProductInCart = async (req, res) => {
 //deleteing product from cart
 exports.deleteProductInCart = async (req, res) => {
   try {
-    const { userId, productId } = req.body;
-    const cart = await cartModel.findByIdAndUpdate(
-      userId,
-      { $pull: { products: { productId } } },
-      { new: true }
-    );
-    res.status(200).send({
-      success: true,
-      message: "product deleted from cart",
-      productId,
-      userId,
-    });
+    const { userId, productId } = req.params;
+    let userCart = await cartModel.findOne({ userId: userId });
+
+    if (userCart) {
+      let cart = await cartModel.findOne({
+        "products.productId": productId,
+        userId: userId,
+      });
+      if (cart) {
+        cart = cart.toObject();
+        for (var i = 0; i < cart.products.length; i++) {
+          if (cart.products[i].productId == productId) {
+            cart.products[i].units = cart.products[i].units - 1;
+            if (cart.products[i].units == 0) {
+              cart.products = cart.products.filter((item) => item.productId != productId)
+            }
+            break;
+          }
+        }
+        const updatedCart = await cartModel.findOneAndUpdate(
+          { userId: userId },
+          { $set: { products: cart.products } },
+          { new: true }
+        );
+        res.status(200).send({
+          success: true,
+          message: "cart updated",
+          data: updatedCart,
+        });
+      } else {
+        res.status(500).send({
+          success: false,
+          message: "cart update failed",
+        });
+      }
+    } else {
+      res.status(500).send({
+        success: false,
+        message: "cart update failed",
+      });
+    }
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send({
       success: false,
-      message: "product deletion from cart failed",
+      message: "cart update failed",
     });
   }
 };
@@ -109,7 +130,7 @@ exports.deleteProductInCart = async (req, res) => {
 exports.getCartByUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const cart = await cartModel.findOne({ userId: userId });
+    const cart = await cartModel.findOne({ userId: userId }).populate('products.productId');
     if (cart) {
       res.status(200).json({
         success: true,

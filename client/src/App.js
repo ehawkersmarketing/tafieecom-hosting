@@ -88,7 +88,7 @@ function App() {
           />
           <Route path="/about" exact element={<About />} />
           <Route path="/Invoice" exact element={<Invoice />} />
-          <Route path="/Cart/:id" exact element={<Cart />} />
+          <Route path="/Cart" exact element={<Cart />} />
           <Route path="/myaccount" exact element={<Myaccount />} />
           <Route path="/exclusivestore" exact element={<ExclusiveStore />} />
           <Route path="/checkout" exact element={<Checkout />} />
