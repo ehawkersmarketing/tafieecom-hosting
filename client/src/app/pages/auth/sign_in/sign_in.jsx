@@ -45,7 +45,8 @@ const SignIn = () => {
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
     }
     setFormField({ ...formField, [e.target.name]: e.target.value });
-  };
+  
+}
 
   const onSendOtp = async (event) => {
     try {
@@ -182,6 +183,15 @@ const SignIn = () => {
             theme: "dark",
           });
         }
+      }
+      else{
+        toast.error("Please enter a valid phone number", {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
       }
     } catch (error) {
       toast.error(`${error.response.data.message}`, {

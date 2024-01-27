@@ -92,7 +92,7 @@ const SingleBlog = () => {
                         {item.content.substring(0, 80)}....
                       </p>
                       <p class="blogcard_color">{`${dayjs(item.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                      <Link to={`/singleBlog/${item._id}`} class="btn btn-read">
                         Read More
                       </Link>
                     </div>
