@@ -11,6 +11,7 @@ const {
   generateInvoiceFunction,
   getOrderDetsFunction,
   requestApproval,
+  approveRequest,
 } = require("../../controlllers/ship/shipController");
 
 const express = require("express");
@@ -18,6 +19,8 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/requestApproval", requestApproval);
+
+router.post("/approveRequest/:requestId", approveRequest);
 
 router.post("/calcShipment", calcShipment);
 

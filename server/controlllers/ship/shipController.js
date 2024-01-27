@@ -6,6 +6,7 @@ const requestModel = require("../../models/shipmentModel/shipmentModel");
 const orderModel = require("../../models/orderModel/orderModel");
 const userAddress = require("../../models/userModel/userAddress");
 
+//Request approval handling
 exports.requestApproval = async (req, res) => {
   try {
     const { orderId } = req.body;
@@ -33,9 +34,10 @@ exports.requestApproval = async (req, res) => {
   }
 };
 
+//POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
-    const { requestId } = req.body;
+    const { requestId } = req.params;
     const request = await requestModel.findOne({ _id: requestId });
     if (request) {
       const data = await requestModel.findOneAndUpdate(
@@ -128,6 +130,7 @@ exports.approveRequest = async (req, res) => {
   }
 };
 
+//POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
     const { requestId } = req.body;
@@ -264,7 +267,10 @@ exports.calcShipment = async (req, res) => {
               resData.message = "Success!!";
               resData.mainset = response.data;
               console.log(resData);
-              return resData;
+              res.json({
+                success: true,
+                shipPrice: minRateObject.rate,
+              });
             })
             .catch(function (error) {
               console.log("Calculate shipment failure");
@@ -1052,6 +1058,7 @@ exports.generateRetAWBFunction = async (req, res) => {
     console.log("token recieval failed from the srlogin function");
   }
 };
+
 //getToken Function ||Authentication via login and token recieval REQUIRED FOR ALL API CALLS
 function srlogin() {
   return new Promise(async (resolve, reject) => {
