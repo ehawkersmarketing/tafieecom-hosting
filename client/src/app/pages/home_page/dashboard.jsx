@@ -190,6 +190,7 @@ const Dashboard = () => {
                 <strong>Join the Krishak Vatika</strong> family today and
                 harvest the success tomorrow!
               </p>
+
               <div className="registerSoilBTN" onClick={scrollToTop}>
                 <button onClick={(e) => navigate("/exclusivestore")}>
                   Know More
