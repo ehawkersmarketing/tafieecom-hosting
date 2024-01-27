@@ -7,7 +7,7 @@ const FeaturedProductCard = ({ item }) => {
     const knowmoreHandler = (id) => {
         navigate(`/product/${id}`);
     }
-    
+
 
     return (
         <div key={item._id} className="carouselItem" interval="500" >
@@ -17,11 +17,13 @@ const FeaturedProductCard = ({ item }) => {
                     <h1 className='product-name'>{item.title}</h1>
                     <div className="ratingAndReview">
                         <ul class="rating">
-                            {
-                                Array.apply(null, { length: item.rating }).map((e, i) => (
-                                    <li key={i}><i class="bi bi-star-fill" id='review-icon'></i></li>
-                                ))
-                            }
+                            {Array.apply(null, { length: 5 }).map(
+                                (e, i) => (
+                                    <li>
+                                        <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                                    </li>
+                                )
+                            )}
                         </ul>
                     </div>
                     <button className='cart-btn' onClick={() => knowmoreHandler(item._id)}>Know More</button>

@@ -2,12 +2,14 @@ const crypto = require("crypto");
 const axios = require("axios");
 const uniqid = require("uniqid");
 const { setTimeout } = require("timers");
+const transactionModel = require("../../models/transactionModel/transactionModel");
+const orderModel = require("../../models/orderModel/orderModel");
 
 const giveUniqueId = (length) => {
   return "TAFI" + uniqid(length);
 };
 
-//PhonePe redirect for payment
+//redirecting to PhonePe for payment facilitation
 exports.payFunction = async (req, res) => {
   try {
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
@@ -18,7 +20,7 @@ exports.payFunction = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount,
-      redirectUrl: `http://localhost:8080/api/pay/checkStatus/${merchantTransactionId}/${cartId}`, //url to be redirected post complete transaction
+      redirectUrl: `http://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
@@ -50,7 +52,7 @@ exports.payFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data.instrumentResponse.redirectInfo.url);//url to PhonePe page for payment
+        console.log(response.data.data.instrumentResponse.redirectInfo.url); //url to PhonePe page for payment
         res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
       })
       .catch(function (error) {
@@ -73,54 +75,128 @@ exports.payFunction = async (req, res) => {
 };
 
 exports.checkStatusFunction = async (req, res) => {
-  const { transactionId, cartId } = req.params; //sent as params withthe redirect from the pay API
-  const string =
-    `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
-    process.env.PHONEPE_API_SALT_KEY;
-  const sha256 = crypto.createHash("sha256").update(string).digest("hex");
-  const checksum = sha256 + "###" + process.env.KEY_INDEX; // required value for sendin in the X_VERIFY field in header
-
-  //FOLLOWING IS THE HEADER STRUCTURE AND OPTIONS MANDATORY FOR GET STATUS REQUEST
-  const options = {
-    method: "get",
-    url: `https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}`,
-    headers: {
-      "Content-Type": "application/json",
-      "X-VERIFY": checksum,
-      "X-MERCHANT-ID": `${process.env.MERCHANT_ID}`,
-    },
-  };
-  let n = 10;
-  let status = statusCall(n, options, cartId);
-  console.log(`This is the status ${status}`);
-  if (status) {
-    res.redirect("http://localhost:8080/api/cart");
+  const { transactionId, cartId, isRefund } = req.query;
+  if (isRefund) {
+    const string = `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` + process.env.PHONEPE_API_SALT_KEY;
+    const sha256 = crypto.createHash("sha256").update(string).digest("hex");
+    const checksum = sha256 + "###" + process.env.KEY_INDEX;
+    const options = {
+      method: "get",
+      url: `https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}`,
+      headers: {
+        "Content-Type": "application/json",
+        "X-VERIFY": checksum,
+        "X-MERCHANT-ID": `${process.env.MERCHANT_ID}`,
+      },
+    };
+    let n = 10;
+    let status = statusCall(n, options, null);
+    if (status) {
+      //Here the cartId is holding the value of orderId during the call
+      const order = await orderModel.findOneAndUpdate({
+        _id: cartId
+      }, {
+        transactionStatus: "REFUNDED"
+      });
+      if (order) {
+        res.json({
+          success: true,
+          message: "Transaction Refunded Successfully",
+        })
+      } else {
+        res.json({
+          success: false,
+          message: "Transaction Refunded Failed",
+        })
+      }
+    } else {
+      res.json({
+        success: false,
+        message: "Transaction Refunded Failed",
+      })
+    }
+    if (status) {
+      return res.redirect("http://localhost:8080/");
+    } else {
+      return res.status(500).semd({
+        success: false,
+        message: "Check status returned failed status of transaction",
+      });
+    }
+  } else {
+    const string = `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` + process.env.PHONEPE_API_SALT_KEY;
+    const sha256 = crypto.createHash("sha256").update(string).digest("hex");
+    const checksum = sha256 + "###" + process.env.KEY_INDEX;
+    const options = {
+      method: "get",
+      url: `https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}`,
+      headers: {
+        "Content-Type": "application/json",
+        "X-VERIFY": checksum,
+        "X-MERCHANT-ID": `${process.env.MERCHANT_ID}`,
+      },
+    };
+    let n = 10;
+    let status = statusCall(n, options, cartId);
+    console.log(`This is the status ${status}`);
+    if (status) {
+      return res.redirect("http://localhost:8080/");
+    } else {
+      return res.status(500).semd({
+        success: false,
+        message: "Check status returned failed status of transaction",
+      });
+    }
   }
-
 };
 
 async function statusCall(n, options, cartId) {
   try {
-    let response = await axios.request(options);
-    if (response.data.success === true) {
-      console.log("Taking data to place order");
-      let { data } = await axios.post("http://localhost:8080/api/placeOrder", {
-        transactionId: response.data.data.merchantTransactionId,
-        merchantId: response.data.data.merchantId,
-        cartId: cartId,
-        amount: response.data.data.amount,
-        transactionStatus: response.data.data.state
-      });
-      if (data.success) {
+    if (cartId == null) {
+      let response = await axios.request(options);
+      if (response.data.success === true) {
         return true;
       } else {
-        return false;
+        if (n === 0) {
+          return false;
+        } else {
+          return setTimeout(statusCall(--n, options, null), 3000);
+        }
       }
     } else {
-      if (n === 0) {
-        return false;
+      let response = await axios.request(options);
+      if (response.data.success === true) {
+        console.log(response.data.data);
+        try {
+          const { data } = await axios.post("http://localhost:8080/api/placeOrder", {
+            cartId: cartId,
+            transactionId: response.data.data.transactionId,
+            amount: response.data.data.amount,
+            transactionStatus: response.data.data.transactionStatus,
+            // user: ,
+            // userAddress: ,
+          });
+          if (data.success) {
+            const { data } = await axios.post("http://localhost:8080/api/requestApproval", {
+              orderId: data.data._id
+            });
+            if (data.success) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        } catch (error) {
+          console.log(error);
+          console.log("failure in saving new transaction");
+          return false;
+        }
       } else {
-        return setTimeout(statusCall(--n, options, cartId), 3000);
+        if (n === 0) {
+          return false;
+        } else {
+          return setTimeout(statusCall(--n, options, cartId), 3000);
+        }
       }
     }
   } catch (error) {
@@ -134,7 +210,7 @@ exports.getOrderLogFunction = async (req, res) => {
     console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
   } catch (err) {
     console.log(err);
-    res.status(500).send({
+    return res.status(500).send({
       message:
         "ERROR IN GETTING POST REQUEST FROM THE PHONEPE API CONFIRMING PAYMENT INITIATION",
       success: false,
@@ -144,11 +220,14 @@ exports.getOrderLogFunction = async (req, res) => {
 
 exports.refundFunction = async (req, res) => {
   try {
-    const { transactionId } = req.body;
+    const { transactionId, orderId } = req.body;
     const refundTransId = giveUniqueId(16);
-    const refundAmount = await paymentModel.findOne({
+    const refundEntry = await transactionModel.findOne({
       transactionId: transactionId,
-    }).amount; //amount that has to be refunded from the paymentModel referring to successfull transactions
+      status: "COMPLETE",
+    }); //amount that has to be refunded from the paymentModel referring to successfull transactions
+    console.log(refundEntry);
+    const refundAmount = refundEntry.amount;
     const data = {
       merchantId: process.env.MERCHANT_ID,
       merchantUserId: process.env.MERCHANT_USER_ID,
@@ -167,7 +246,7 @@ exports.refundFunction = async (req, res) => {
     // HEADER STRUCTURE AND OPTIONS MANDATORY FOR REFUND PAYMENT
     const options = {
       method: "post",
-      url: "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
+      url: "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/refund",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
@@ -180,19 +259,20 @@ exports.refundFunction = async (req, res) => {
     await axios
       .request(options)
       .then(async function (response) {
-        console.log(response); //RESPONSE FROM THE REFUND PROCESS API
+        console.log(response.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
-          const refundCommited = await paymentModel.findOneAndUpdate(
-            { transactionId: transactionId },
-            {
-              refund: true,
-              refundCommited,
-            }
-          );
-          res.status(200).send({
-            success: true,
-            message: "REFUND SUCCESSFULllY UPDATED IN PAYMENT MODEL",
-          });
+          const { data } = await axios.get(`http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`);
+          if (data.success) {
+            res.status(500).send({
+              success: true,
+              message: "PAYMENT Refunded",
+            });
+          } else {
+            res.status(500).send({
+              success: false,
+              message: "Failed to refund your payment.",
+            });
+          }
         } catch (err) {
           console.log(err);
           res.status(500).send({
@@ -202,6 +282,7 @@ exports.refundFunction = async (req, res) => {
         }
       })
       .catch(function (error) {
+        console.log(error);
         if (error.response.status === 500) {
           // console.log(error.response.status);
           res.status(500).send({
@@ -211,7 +292,7 @@ exports.refundFunction = async (req, res) => {
         }
       });
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     res.status(500).send({
       success: false,
       message: "ERROR IN REFUNDING THE PAYMENT",

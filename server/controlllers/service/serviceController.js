@@ -152,24 +152,21 @@ exports.updateService = async (req, res) => {
 
 exports.deleteService = async (req, res) => {
   try {
-    const { id } = req.params;
-    const {
-      title,
-      description,
-      image,
-    } = req.body;
-    const deletedService = await serviceModel.findByIdAndDelete({ _id: id });
-
-    res.status(200).json({
-      success: true,
-      message: "Service Deleted Successfully",
-    });
+    const {id} = req.params;
+    console.log(id)
+    const service = await serviceModel.findByIdAndDelete(id);
+    if (service) {
+      return res.status(200).send({
+        success: true,
+        message: "service deleted!!",
+      });
+    }
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(400).send({
       success: false,
-      data: error,
-      message: "Error fetched while deleting the service",
+      message: "Error while deleting service",
+      error,
     });
   }
 };

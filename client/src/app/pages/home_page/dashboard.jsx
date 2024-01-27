@@ -11,11 +11,19 @@ import FeatureCarouselCard from "./components/featureProductCarousal/featureProd
 import { useNavigate } from "react-router-dom";
 import homehero from "../../assets/homepage-main.png";
 import { Link } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const { data: featuredProducts } = useFetch("/api/allProducts");
   const { data: categories } = useFetch("/api/allCategory");
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   return (
     <>
       <Header />
@@ -68,13 +76,8 @@ const Dashboard = () => {
             </div>
             <div className="category-region">
               <div className="category-carousel">
-                <div className="left-arrow">
-                  <i class="bi bi-arrow-left"></i>
-                </div>
+
                 {categories && <CategoryCarousel items={categories} />}
-                <div className="right-arrow">
-                  <i class="bi bi-arrow-right"></i>
-                </div>
               </div>
             </div>
           </div>
@@ -92,16 +95,10 @@ const Dashboard = () => {
           </div>
           <div className="category-region">
             <div className="category-carousel">
-              <div className="left-arrow">
-                <i class="bi bi-arrow-left"></i>
-              </div>
               <div className="feature-carousal">
                 {featuredProducts && (
                   <FeatureCarouselCard items={featuredProducts} />
                 )}
-              </div>
-              <div className="right-arrow">
-                <i class="bi bi-arrow-right"></i>
               </div>
             </div>
           </div>
@@ -171,7 +168,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <div className="registerSoilBTN">
-                <button onClick={(e) => navigate(`/auth/${1}`)}>
+                <button onClick={(e) => navigate(`/auth/register`)}>
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>
@@ -193,8 +190,8 @@ const Dashboard = () => {
                 <strong>Join the Krishak Vatika</strong> family today and
                 harvest the success tomorrow!
               </p>
-              <div className="registerSoilBTN">
-                <button onClick={(e) => navigate("/franchise")}>
+              <div className="registerSoilBTN" onClick={scrollToTop}>
+                <button onClick={(e) => navigate("/exclusivestore")}>
                   Know More
                 </button>
               </div>
@@ -203,6 +200,7 @@ const Dashboard = () => {
         </div>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 };

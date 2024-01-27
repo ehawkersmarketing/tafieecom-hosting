@@ -8,11 +8,16 @@ const FeatureCarouselCard = ({ items }) => {
     return (
         <div>
             <div class='container-fluid' >
-                <OwlCarousel items={2.7}
+                <OwlCarousel items={3}
                     className="owl-theme"
                     loop
+                    nav
                     margin={5}
                     autoplayTimeout={5000}
+                    navText={[
+                        '<span class="arrow prev">‹</span>',
+                        '<span class="arrow next">›</span>'
+                    ]}
                     autoplayHoverPause={true}
                     autoplay={false} >{items?.map((item) => {
                         return <FeaturedProductCard item={item} className='productItem' />

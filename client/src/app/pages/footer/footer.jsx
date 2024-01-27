@@ -107,10 +107,10 @@ const Footer = () => {
                       <h5>PAGES</h5>
                       <div>
                         <div>
-                          <Link to="/franchise" onClick={scrollToTop}>Franchise</Link>
+                          <Link to="/exclusivestore" onClick={scrollToTop}>Exclusive Store</Link>
                         </div>
                         <div>
-                          <Link to="/blog" onClick={scrollToTop}>Blogs</Link>
+                          <Link to="/blog" onClick={scrollToTop}>Resource Center</Link>
                         </div>
                       </div>
                     </div>
@@ -127,7 +127,7 @@ const Footer = () => {
                 {/* column 3 */}
                 <div className="column3 col-2">
                   <div className="col-12">
-                    <img src={logo} />
+                    <Link to='/' onClick={scrollToTop}><img src={logo} /></Link>
                   </div>
                 </div>
               </div>

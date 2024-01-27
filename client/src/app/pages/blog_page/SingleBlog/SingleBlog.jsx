@@ -13,7 +13,7 @@ const SingleBlog = () => {
   const { data: blogs } = useFetch('/api/blogs');
   const navigate = useNavigate();
 
-  const backHandler=()=>{
+  const backHandler = () => {
     navigate("/blog")
   }
 
@@ -92,7 +92,7 @@ const SingleBlog = () => {
                         {item.content.substring(0, 80)}....
                       </p>
                       <p class="blogcard_color">{`${dayjs(item.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to="#" class="btn btn-read">
+                      <Link to={`/singleBlog/${item._id}`} class="btn btn-read">
                         Read More
                       </Link>
                     </div>

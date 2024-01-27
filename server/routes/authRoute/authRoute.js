@@ -13,48 +13,28 @@ const {
   searchUser,
 } = require("../../controlllers/auth/authController");
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    successRedirect: process.env.CLIENT_URL,
-    failureRedirect: "/login",
-  })
-);
 router.post("/addrole", addRole);
 router.post("/signup", signup);
 router.post("/sendOtp", sendOtp);
 router.post("/verifyOtp", verifyOtp);
 router.post("/login", login);
 router.post("/searchUser", searchUser);
-router.post("/googleAuth", googleAuth);
 router.get("/users", user);
-router.get("/login/failed", (req, res) => {
-  res.status(401).json({
-    success: false,
-    message: "Login failed",
-  });
+
+router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+
+router.get('/google/callback', passport.authenticate('google', {
+  failureRedirect: '/'
+}), (req, res) => {
+  console.log(req.body);
+  // res.redirect('/auth/login')
 });
 
-router.get("/login/success", (req, res) => {
-  if (req.user) {
-    res.send(200).json({
-      success: true,
-      message: "Successfully LOGGED IN",
-      user: req.user,
-    });
-  } else {
-    res.send(403).json({
-      success: false,
-      message: "Login failed",
-    });
-  }
-});
-
-router.get("/google", passport.authenticate("google", ["profile", "email"]));
-
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect(process.env.CLIENT_URL);
-});
+router.get('/logout', (req, res, next) => {
+  req.logout((error) => {
+    if (error) { return next(error) }
+    res.redirect('/')
+  })
+})
 
 module.exports = router;

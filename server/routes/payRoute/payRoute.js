@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/phonePePayment", payFunction);
 
-router.get("/checkStatus/:transactionId/:cartId", checkStatusFunction);
+router.get("/checkStatus", checkStatusFunction);
 
 router.post("/getOrderLog", getOrderLogFunction);
 
