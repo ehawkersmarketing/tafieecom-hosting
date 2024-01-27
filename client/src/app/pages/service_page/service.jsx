@@ -43,7 +43,7 @@ const OurServices = () => {
                 </h1>
                 <p>Define your agriculture in a whole different way</p>
                 <a href="#allservice">
-                  Learn More <i class="bi bi-whatsapp"></i>
+                  Learn More
                 </a>
               </div>
             </div>

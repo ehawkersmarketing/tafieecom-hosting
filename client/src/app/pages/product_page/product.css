@@ -8,10 +8,12 @@
 }
 
 /* section top */
-.wrapper {
-    background-image: url('../../assets//mask.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+.wrapper{
+background-image: url('../../assets//mask.png');
+background-size: cover;
+background-repeat: no-repeat;
+height: 65vh;
+
 }
 
 .wrapper-about {
@@ -20,28 +22,30 @@
 
 .about-title {
     color: #FFF;
-    text-align: center;
-    font-size: 46px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-    margin-top: -2rem;
+
+        text-align: center;
+        font-size: 46px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        margin-top: -2rem;
 }
-
-.single-product .product-bg {
-    font-family: sans-serif;
-    font-style: normal;
-    font-weight: 700;
-
+.single-product .product-bg{
+    font-family:sans-serif;
+        font-style: normal;
+        font-weight: 700;
+       
 }
+.single-product .inner-container{
+padding-top: 6rem;
 
-.single-product .inner-container {
-    padding-top: 5rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    width: 70%;
+    margin: auto;
 }
 
 .single-product .card-design {
@@ -52,9 +56,9 @@
             height: 15rem */
 }
 
-.inner-card {
-    margin: 1.2rem 1.8rem;
-}
+.inner-card{
+        margin: 7%;
+
 
 .category-name {
     color: var(--bright-green-primary, #44A98B);
@@ -69,15 +73,21 @@
     color: var(--darkgreen-primary, #19443F);
     /* width: 342px; */
     font-weight: bold;
-    /* height: 68px; */
-    line-height: 29.434px;
+
+        /* height: 68px; */
+        /* font-size: 26.491px; */
+        line-height: 29.434px;
+
 }
 
 .review {
     color: var(--bright-green-primary, #44A98B);
-    /* height: 18.068px; */
-    font-size: 14.455px;
-    line-height: normal;
+
+        /* height: 18.068px; */
+        font-size: 14.455px;
+        line-height: normal;
+        font-weight: 400;
+
 }
 
 .price {
@@ -131,12 +141,13 @@
     text-decoration-line: underline;
 }
 
-/* .ratingAndReview{
+.ratingAndReview{
     display: flex;
         gap: 5rem;
         margin-left: -2rem;
-} */
-.rating {
+        justify-content: space-between;
+}
+.rating{
     list-style-type: none;
     display: flex;
     gap: 0.7rem;
@@ -289,4 +300,7 @@
 .list li {
     position: relative;
     margin-bottom: 10px;
+}
+.single-product .product-image img{
+    max-width: 100%;
 }
