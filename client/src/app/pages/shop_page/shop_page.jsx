@@ -16,15 +16,12 @@ const ShopPage = () => {
   const [activeFilter, setActiveFilter] = useState({
     filter: "",
   });
+  const user = JSON.parse(localStorage.getItem("user"));
+  const { data: cart } = useFetch(`/api/getCartByUser/${user._id}`);
   const [searchField, setSearchField] = useState("");
   const filter = ["Price: High To Low", "Price: Low To High"];
-  const { data: products } = useFetch("/api/allProducts");
-  const [visibleProducts, setVisibleProducts] = useState();
+  const { data: products, setData: setProducts } = useFetch("/api/allProducts");
   const [searchProducts, setSearchProducts] = useState([]);
-
-  useEffect(() => {
-    setVisibleProducts(products);
-  }, [products]);
 
   const search = async (text) => {
     if (text !== "") {
@@ -47,6 +44,7 @@ const ShopPage = () => {
       }
     } else {
       setSearchProducts(undefined);
+      setActiveFilter({ ['filter']: '' });
     }
   };
 
@@ -57,30 +55,31 @@ const ShopPage = () => {
   const { data: categories } = useFetch("/api/allCategory");
   const applyFilter = (e, index) => {
     if (index == 2) {
-      setVisibleProducts(
-        products.filter((item) => item.category.category === e.target.value)
-      );
-      setActiveFilter({ [e.target.name]: e.target.value });
+      if (e.target.value === 'select the Category') {
+        setSearchField('');
+        setActiveFilter({ [e.target.name]: '' });
+      } else {
+        setSearchField(e.target.value);
+        setActiveFilter({ [e.target.name]: e.target.value });
+      }
+      setOpen(!open);
     } else {
       if (index == 0) {
-        setVisibleProducts(
+        setProducts(
           products.sort(function (a, b) {
             return b.price - a.price;
           })
         );
-        setOpen(!open);
-        setActiveFilter(index);
-        console.log(visibleProducts);
+        setActiveFilter({ ['filter']: `` });
       } else {
-        setVisibleProducts(
+        setProducts(
           products.sort(function (a, b) {
             return a.price - b.price;
           })
         );
-        setOpen(!open);
-        setActiveFilter(index);
-        console.log(visibleProducts);
+        setActiveFilter({ ['filter']: `` });
       }
+      setOpen(!open);
     }
   };
 
@@ -90,7 +89,7 @@ const ShopPage = () => {
       <Header />
       <div className="shop-page-container">
         {
-          products && <ShopPageCarouselCard items={products} />
+          products && <ShopPageCarouselCard cart={cart} items={products} />
         }
         <div className="filter-region">
           <div className="filter">
@@ -144,7 +143,7 @@ const ShopPage = () => {
           </ul>
         </div>}
         {
-          searchField !== '' &&
+          (activeFilter.filter !== '' || searchField !== '') &&
           <div className="blog-latest-post">
             <div>
               <h4>Search Posts</h4>
@@ -156,7 +155,7 @@ const ShopPage = () => {
             <div className="latest-post-card row">
               {
                 searchProducts && searchProducts.length !== 0 ? searchProducts?.map((item, index) => {
-                  return <ProductCard item={item} key={index} className='productItem' />
+                  return <ProductCard item={item} cart={cart} key={index} className='productItem' />
                 }) : <div><h4>No Results Found</h4></div>
               }
             </div>
@@ -172,7 +171,7 @@ const ShopPage = () => {
             </div>
           </div>
           <div className="best-seller-product">
-            {visibleProducts && <CarousalCard items={visibleProducts} />}
+            {products && <CarousalCard items={products} cart={cart} />}
           </div>
         </div>
         <div className="categoryDiv ">
@@ -195,7 +194,7 @@ const ShopPage = () => {
           </div>
         </div>
         <div className="all-products">
-          <div className="all-product-text">
+          {searchField === '' && <div className="all-product-text">
             <div className="product-all-text">
               <div className="tafi-product-text1">
                 <span>All</span>
@@ -204,11 +203,11 @@ const ShopPage = () => {
                 <span>PRODUCTS</span>
               </div>
             </div>
-          </div>
+          </div>}
           <div className="all-products-card">
-            {visibleProducts && visibleProducts?.map((item, index) => {
+            {(activeFilter.filter === '' && searchField === '') && products && products?.map((item, index) => {
               return (
-                <ProductCard item={item} key={index} className='productItem' />
+                <ProductCard item={item} key={index} cart={cart} className='productItem' />
               );
             })}
           </div>

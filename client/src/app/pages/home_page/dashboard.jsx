@@ -18,6 +18,7 @@ const Dashboard = () => {
   const { data: featuredProducts } = useFetch("/api/allProducts");
   const { data: categories } = useFetch("/api/allCategory");
 
+  const user = JSON.parse(localStorage.getItem("user"));
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -163,15 +164,15 @@ const Dashboard = () => {
               </div>
               <div className="soliDescription">
                 <p>
-                  Discover the decret to successfull farming, sign up for free
+                  Discover the secret to successfull farming, sign up for free
                   soil testing.
                 </p>
               </div>
-              <div className="registerSoilBTN">
+              {!user && <div className="registerSoilBTN">
                 <button onClick={(e) => navigate(`/auth/register`)}>
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
-              </div>
+              </div>}
             </div>
           </div>
           <div className="franDiv col-7">

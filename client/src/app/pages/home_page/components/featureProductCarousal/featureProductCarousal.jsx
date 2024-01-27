@@ -13,6 +13,7 @@ const FeatureCarouselCard = ({ items }) => {
                     loop
                     nav
                     margin={5}
+
                     autoplayTimeout={5000}
                     navText={[
                         '<span class="arrow prev">‹</span>',
