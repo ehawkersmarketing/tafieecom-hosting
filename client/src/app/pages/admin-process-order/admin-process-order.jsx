@@ -4,16 +4,40 @@ import TafiLogo from "../../assets/Tafi_logo_white.png";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
 
 const AdminProcessOrder = () => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
-
   const acceptHandler = () => setValue(1);
   const backHandler = () => setValue(0);
+    
+  const [formData, setFormData] = useState({
+    length:0,
+    breadth:0,
+    height:0,
+    weight:0
+  });
+   
+  const handleInputChange = (event) => {
+     setFormData({
+       ...formData,
+       [event.target.name]: event.target.value,
+     });
+  };
+
   const dashboardHandler = () =>{
-    navigate("/adminPage")
+    axios.post("/api/ship/approveRequest",{
+      requestId:"65b4bbbaac2915cda952b469",
+      length:formData.length,
+      breadth:formData.breadth,
+      height:formData.height,
+      weight:formData.weight,
+    });
+    navigate("/adminPage");
   }
+
   return (
     <>
       <Header />
@@ -117,19 +141,19 @@ const AdminProcessOrder = () => {
           </h5>
           <div className="input-table">
             <div className="height row mb-3">
-              <lable className="col-2">Height :</lable>
+              <lable className="col-2">Height ( in cm. ):</lable>
               <input type="tel" name="height" className="col-8"></input>
             </div>
             <div className="length row mb-3">
-              <lable className="col-2">Length :</lable>
+              <lable className="col-2">Length ( in cm. ):</lable>
               <input type="tel" name="length" className="col-8"></input>
             </div>
             <div className="breadth row mb-3">
-              <lable className="col-2">Breadth :</lable>
+              <lable className="col-2">Breadth ( in cm. ):</lable>
               <input type="tel" name="breadth" className="col-8"></input>
             </div>
             <div className="weight row mb-3">
-              <lable className="col-2">Weight :</lable>
+              <lable className="col-2">Weight ( in Kg. ):</lable>
               <input type="tel" name="weight" className="col-8"></input>
             </div>
 

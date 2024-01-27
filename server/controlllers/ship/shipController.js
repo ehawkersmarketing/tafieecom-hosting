@@ -6,6 +6,7 @@ const requestModel = require("../../models/shipmentModel/shipmentModel");
 const orderModel = require("../../models/orderModel/orderModel");
 const userAddress = require("../../models/userModel/userAddress");
 
+//Request approval handling
 exports.requestApproval = async (req, res) => {
   try {
     const { orderId } = req.body;
@@ -33,6 +34,7 @@ exports.requestApproval = async (req, res) => {
   }
 };
 
+//POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
     const { requestId, length, breadth, height, weight } = req.body;
@@ -129,6 +131,7 @@ exports.approveRequest = async (req, res) => {
   }
 };
 
+//POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
     const { requestId } = req.body;
@@ -141,14 +144,20 @@ exports.cancelApprovalRequest = async (req, res) => {
         }
       );
       if (data) {
-        const order = await orderModel.findOneAndUpdate({ _id: data.orderId }, {
-          orderStatus: "REJECTED"
-        });
+        const order = await orderModel.findOneAndUpdate(
+          { _id: data.orderId },
+          {
+            orderStatus: "REJECTED",
+          }
+        );
         if (order) {
-          const { data: payRefund } = await axios.post("http://localhost:8080/api/pay/refund", {
-            transactionId: order.transactionId,
-            orderId: order._id
-          });
+          const { data: payRefund } = await axios.post(
+            "http://localhost:8080/api/pay/refund",
+            {
+              transactionId: order.transactionId,
+              orderId: order._id,
+            }
+          );
           if (payRefund) {
             res.json({
               success: true,
@@ -259,7 +268,10 @@ exports.calcShipment = async (req, res) => {
               resData.message = "Success!!";
               resData.mainset = response.data;
               console.log(resData);
-              return resData;
+              res.json({
+                success: true,
+                shipPrice: minRateObject.rate,
+              });
             })
             .catch(function (error) {
               console.log("Calculate shipment failure");
@@ -385,36 +397,60 @@ exports.createOrder = async (req, res) => {
           console.log(response);
           console.log(response.data.order_id);
           console.log(response.data.shipment_id);
-          const { data: awb } = await axios.post("http://localhost:8080/api/ship/generateAWB", {
-            shipment_id: response.data.shipment_id
-          });
-          if (awb.success) {
-            const { data: pickUp } = await axios.post("http://localhost:8080/api/ship/pickup", {
+          const { data: awb } = await axios.post(
+            "http://localhost:8080/api/ship/generateAWB",
+            {
               shipment_id: response.data.shipment_id,
-              // pickup_date: ,
-            });
-            if (pickUp.success) {
-              const { data: manifest } = await axios.post("http://localhost:8080/api/ship/manifest", {
+            }
+          );
+          if (awb.success) {
+            const { data: pickUp } = await axios.post(
+              "http://localhost:8080/api/ship/pickup",
+              {
                 shipment_id: response.data.shipment_id,
-              });
-              if (manifest.success) {
-                await orderModel.findOneAndUpdate({ _id: order_id }, { manifest: manifest.data });
-                const { data: shipmentDetails } = await axios.post("http://localhost:8080/api/ship/shipDets", {
+                // pickup_date: ,
+              }
+            );
+            if (pickUp.success) {
+              const { data: manifest } = await axios.post(
+                "http://localhost:8080/api/ship/manifest",
+                {
                   shipment_id: response.data.shipment_id,
-                });
-                if (shipmentDetails.success) {
-                  await orderModel.findOneAndUpdate({ _id: order_id }, {
+                }
+              );
+              if (manifest.success) {
+                await orderModel.findOneAndUpdate(
+                  { _id: order_id },
+                  { manifest: manifest.data }
+                );
+                const { data: shipmentDetails } = await axios.post(
+                  "http://localhost:8080/api/ship/shipDets",
+                  {
                     shipment_id: response.data.shipment_id,
-                    awb: shipmentDetails.awb,
-                    orderId: shipmentDetails.order_id
-                  });
-                  const { data: invoice } = await axios.post("http://localhost:8080/api/ship/generateInvoice", {
-                    order_ids: shipmentDetails.order_id,
-                  });
+                  }
+                );
+                if (shipmentDetails.success) {
+                  await orderModel.findOneAndUpdate(
+                    { _id: order_id },
+                    {
+                      shipment_id: response.data.shipment_id,
+                      awb: shipmentDetails.awb,
+                      orderId: shipmentDetails.order_id,
+                    }
+                  );
+                  const { data: invoice } = await axios.post(
+                    "http://localhost:8080/api/ship/generateInvoice",
+                    {
+                      order_ids: shipmentDetails.order_id,
+                    }
+                  );
                   if (invoice.success) {
-                    await orderModel.findOneAndUpdate({ _id: order_id }, {
-                      invoice: invoice.data
-                    });
+                    await orderModel.findOneAndUpdate(
+                      { _id: order_id },
+                      {
+                        invoice: invoice.data,
+                      }
+                    );
                     res.json({
                       success: true,
                       message: "Order created successfully",
@@ -677,7 +713,8 @@ exports.setPickupFunction = async (req, res) => {
         if (response.data.Status == true) {
           return res.status(200).send({
             success: true,
-            message: "Shipment pickup successfully set, following is the date: ",
+            message:
+              "Shipment pickup successfully set, following is the date: ",
             data: res,
           });
         } else {
@@ -720,6 +757,7 @@ exports.generateManifestFunction = async (req, res) => {
       )
       .then(function (response) {
         let manifest_url = response.data.manifest_url;
+        console.log(response);
         if (manifest_url === "") {
           return res.send({
             success: false,
@@ -1021,6 +1059,7 @@ exports.generateRetAWBFunction = async (req, res) => {
     console.log("token recieval failed from the srlogin function");
   }
 };
+
 //getToken Function ||Authentication via login and token recieval REQUIRED FOR ALL API CALLS
 function srlogin() {
   return new Promise(async (resolve, reject) => {

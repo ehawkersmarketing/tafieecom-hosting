@@ -33,6 +33,9 @@ const productSchema = new mongoose.Schema(
     metric: {
       type: String,
     },
+    weight: {
+      type: Number,
+    },
     companyName: {
       type: String,
       // require: true,
