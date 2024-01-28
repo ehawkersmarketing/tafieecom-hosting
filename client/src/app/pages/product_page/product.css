@@ -148,8 +148,8 @@
 
 .ratingAndReview {
     display: flex;
-    gap: 5rem;
-    margin-left: -2rem;
+    /* gap: 5rem; */
+    /* margin-left: -2rem; */
     justify-content: space-between;
 }
 
@@ -166,8 +166,6 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-
-    /* flex-shrink: 0; */
 }
 
 /* section top */
@@ -345,4 +343,7 @@
   display: flex;
   gap: 0.7rem;
   margin-bottom: 0;
+}
+.feature-textBlock .rating{
+  margin-left: -2rem
 }
