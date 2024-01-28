@@ -215,5 +215,38 @@
     }
     
     .best-seller-product .col-gapping{
-        padding: 0;
+        padding: 10px;
+        background-color: #C3DAD7;
+    }
+
+    .latest-post-card .product-image img{
+        height: 250px;
+        width: 100%;
+    }
+    .latest-post-card .col-gapping{
+        padding: 10px;
+        background-color: #C3DAD7;
+    }
+    .shop-page-container .blog-latest-post {
+        padding: 4%;
+    }
+    .shop-page-container .blog-latest-post{
+        .ratingAndReview {
+            display: flex;
+            flex-direction: row;
+            /* gap: 2rem; */
+            justify-content: space-between;
+            align-items: center;
+            /* margin-left: -2rem; */
+            margin-bottom: 1rem;
+            
+        }
+    
+        .rating {
+            list-style-type: none;
+            display: flex;
+            margin-bottom: 0;
+            /* gap: 0.5rem; */
+            padding-left: 0;
+        }
     }

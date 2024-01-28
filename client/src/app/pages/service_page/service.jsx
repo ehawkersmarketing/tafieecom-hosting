@@ -114,21 +114,7 @@ const OurServices = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="col-4 missing-card">
-                            <div className="service-block d-flex">
-                              <div className="block-text col-7">
-                                <div>
-                                  <h5>
-                                    <button type="button" class="card-button">
-                                      Missing Something?
-                                    </button>
-                                  </h5>
-                                  <p>{service.description}</p>
-                                </div>
-                              </div>
-                              <div className="block-img col-5"></div>
-                            </div>
-                          </div>
+                          
                         </>
                       );
                     })
@@ -137,6 +123,7 @@ const OurServices = () => {
                       <h4>No Results Found</h4>
                     </div>
                   )}
+                  
                 </div>
               </div>
             )}

@@ -159,7 +159,7 @@ const Dashboard = () => {
                 <h1>FREE</h1>
                 <h5 className="soilSubHead1">SOIL TESTING</h5>
                 <h5 className="soilSubHead2">
-                  (Know Your Soil, Grow Better Crops!)
+                  जानिये अपनी मिट्टी को!
                 </h5>
               </div>
               <div className="soliDescription">
