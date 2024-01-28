@@ -1,5 +1,6 @@
 const express = require("express");
 const cartModel = require("../../models/cartModel/cartModel.js");
+const productModel = require("../../models/productModel/productModel.js");
 
 const app = express();
 
@@ -151,3 +152,38 @@ exports.getCartByUser = async (req, res, next) => {
     });
   }
 };
+
+exports.getAllProductsInCart = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const cart = await cartModel.findOne({ userId: userId }).populate('products.productId');
+    let totalWeight = 0;
+    let totalPrice = 0;
+    if (cart) {
+      for (let i = 0; i < cart.products.length; i++) {
+        totalWeight = totalWeight + cart.products[i].productId.weight * cart.products[i].units;
+        totalPrice = totalPrice + cart.products[i].productId.price * cart.products[i].units;
+      }
+      res.status(200).json({
+        success: true,
+        data: {
+          products: cart.products,
+          totalWeight: totalWeight,
+          totalPrice: totalPrice,
+          cartId: cart._id
+        },
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "Cart not found",
+      });
+    }
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "Error in getting all products in cart",
+    });
+  }
+};
+//////////////////////////////////////////////////////////////////////////

@@ -29,7 +29,7 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductsById = async (req, res) => {
   try {
     const products = await productModel.findOne({ _id: req.params.id }).populate('category');
-    console.log(products);
+    // console.log(products);
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -181,14 +181,14 @@ exports.searchProduct = async (req, res) => {
   try {
     let { search } = req.body;
     search = search.trim();
-    const products = await productModel.find({
-      $or: [
-        { title: { $regex: search } },
-        { description: { $regex: search } },
-      ],
-    }).populate('category');
-    console.log(products);
-    if (!products) {
+    let products = await productModel.find({}).populate('category');
+    let searchProducts = [];
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].category.category.toLowerCase().includes(search.toLowerCase()) || products[i].title.toLowerCase().includes(search.toLowerCase()) || products[i].description.toLowerCase().includes(search.toLowerCase())) {
+        searchProducts.push(products[i]);
+      }
+    }
+    if (searchProducts.length < 0) {
       return res.status(500).send({
         success: false,
         message: "No products found",
@@ -197,7 +197,7 @@ exports.searchProduct = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "All blogs list",
-      data: products,
+      data: searchProducts,
     });
   } catch (error) {
     console.log(error);

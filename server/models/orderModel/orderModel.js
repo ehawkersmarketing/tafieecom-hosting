@@ -29,8 +29,23 @@ const orderSchema = new mongoose.Schema(
             type: String,
             default: "PROCESSING",
         },
+        shipment_charge: {
+            type: Number,
+        },
         manifestUrl: {
             type: String,
+        },
+        length: {
+            type: Number,
+        },
+        bredth: {
+            type: Number,
+        },
+        height: {
+            type: Number,
+        },
+        weight: {
+            type: Number,
         },
         invoice: {
             type: String,

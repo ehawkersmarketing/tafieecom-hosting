@@ -3,6 +3,7 @@ const {
   putProductInCart,
   deleteProductInCart,
   getCartByUser,
+  getAllProductsInCart,
 } = require("../../controlllers/cart/cartController");
 const {
   AdminRole,
@@ -17,5 +18,5 @@ router.put("/addToCart", putProductInCart);
 //DELETE || delete product route
 router.delete("/dropFromCart/:userId/:productId", deleteProductInCart);
 router.get("/getCartByUser/:userId", getCartByUser);
-
+router.get("/getProductsInCart/:userId", getAllProductsInCart);
 module.exports = router;

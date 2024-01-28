@@ -45,7 +45,9 @@ const SignIn = () => {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     }
     setFormField({ ...formField, [e.target.name]: e.target.value });
-  };
+
+  }
+
 
   const onSendOtp = async (event) => {
     try {
@@ -188,7 +190,9 @@ const SignIn = () => {
             theme: "dark",
           });
         }
+
       } else {
+
         toast.error("Please enter a valid phone number", {
           position: "bottom-right",
           autoClose: 8000,
@@ -300,11 +304,6 @@ const SignIn = () => {
                       Create an account
                     </Link>
                   </div>
-                  <div className="div-21">
-                    <div className="div-22">
-                      {/* <img loading="lazy" src={google_icon} className="img-5" /> */}
-                    </div>
-                  </div>
                 </span>
               </div>
             </div>
@@ -381,11 +380,6 @@ const SignIn = () => {
                     >
                       Login
                     </Link>
-                  </div>
-                  <div className="div-21">
-                    <div className="div-22">
-                      <img loading="lazy" src={google_icon} className="img-5" />
-                    </div>
                   </div>
                 </span>
               </div>

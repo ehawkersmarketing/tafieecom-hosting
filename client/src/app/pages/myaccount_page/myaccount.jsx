@@ -1,13 +1,13 @@
 import "./myaccount.css";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
 import logoImage from "../../assets/Tafi_logo_white.png";
+import { useFetch  } from "../../hooks/api_hook";
 
 const Myaccount = () => {
   const [value, setValue] = useState(0);
-
   const accountHandler = () => setValue(0);
   const orderHandler = () => setValue(1);
   const logoutHandler = () => {
@@ -15,8 +15,12 @@ const Myaccount = () => {
     navigate('/auth/login')
   }
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
+  const { data: userData } = useFetch(`/auth/user/${id}`);
+  const {data:locationData} = useFetch(`/api/getUserAddress/${id}`);
+  console.log(userData?._id);
+
 
   useEffect(() => {
     if (user) {
@@ -27,7 +31,11 @@ const Myaccount = () => {
       navigate("/auth/login");
     }
   }, [user]);
-
+  
+  const submitHandler = () =>{
+    navigate(`/updateUser/${userData?._id}`)
+  }
+  
   return (
     <div>
       <Header />
@@ -43,7 +51,7 @@ const Myaccount = () => {
                       <span>Welcome Back</span>
                     </h2>
                     <h4>
-                      <span>Rishika</span>
+                      <span>{userData?.userName}</span>
                     </h4>
                   </div>
                 </div>
@@ -94,57 +102,41 @@ const Myaccount = () => {
                   <table>
                     <tbody>
                       <tr>
-                        <td>Full Name :</td>
+                        <td>User Name :</td>
                         <td>
-                          {" "}
-                          <input type="text" placeholder="Rishika Kothari" />
+                          <span>{userData?.userName}</span>
                         </td>
                       </tr>
                       <tr>
                         <td>Mobile Number :</td>
                         <td>
-                          <input type="tel" placeholder="9993720620" />
+                          <span>{userData?.phone}</span>
                         </td>
                       </tr>
                       <tr>
                         <td>Email ID :</td>
                         <td>
-                          <input
-                            type="text"
-                            placeholder="rishikak10@gmail.com"
-                          />
+                          <span>{userData?.email}</span>
                         </td>
                       </tr>
                       <tr>
                         <td>Date of Birth :</td>
                         <td>
-                          <input type="date" placeholder="10/05/2002" />
+                          <span>{userData?.DOB}</span>
                         </td>
                       </tr>
                       <tr>
                         <td>Location :</td>
                         <td>
-                          <input type="text" placeholder="Indore" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Alternate Mobile :</td>
-                        <td>
-                          <input type="text" placeholder="-notadded" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Hint Name :</td>
-                        <td>
-                          <input type="text" placeholder="-not added" />
+                          <span>{locationData?.city}</span>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <div className="edit-button">
-                  <button type="button" className="edit">
-                    EDIT
+                  <button type="submit" className="edit">
+                   <Link style={{ color: "white" , outline:"none", textDecoration:"none" }} to={`/updateUser/${userData?._id}`}>EDIT</Link> 
                   </button>
                 </div>
               </div>

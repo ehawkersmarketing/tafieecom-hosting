@@ -28,6 +28,7 @@ import AdminProcessOrder from "./app/pages/admin-process-order/admin-process-ord
 import CreateService from "./app/pages/createService/createService.js";
 import UpdateService from "./app/pages/updateService/updateService.js";
 import 'react-toastify/dist/ReactToastify.css';
+import UpdateUser from "./app/pages/updateUser/updateUser.js";
 
 
 
@@ -85,10 +86,10 @@ function App() {
           />
           <Route path="/about" exact element={<About />} />
           <Route path="/Cart" exact element={<Cart />} />
-          <Route path="/myaccount" exact element={<Myaccount />} />
+          <Route path="/myaccount/:id" exact element={<Myaccount />} />
           <Route path="/exclusivestore" exact element={<ExclusiveStore />} />
           <Route path="/checkout" exact element={<Checkout />} />
-
+          <Route path="/updateUser/:id" exact element={<UpdateUser />} />
           <Route path="/services" exact element={<Services />} />
           <Route path="/createService" exact element={<CreateService />} />
           <Route path="/updateService/:id" exact element={<UpdateService />} />
