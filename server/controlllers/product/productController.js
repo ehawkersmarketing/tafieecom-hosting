@@ -29,7 +29,7 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductsById = async (req, res) => {
   try {
     const products = await productModel.findOne({ _id: req.params.id }).populate('category');
-    console.log(products);
+    // console.log(products);
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -187,7 +187,7 @@ exports.searchProduct = async (req, res) => {
         { description: { $regex: search } },
       ],
     }).populate('category');
-    console.log(products);
+    // console.log(products);
     if (!products) {
       return res.status(500).send({
         success: false,

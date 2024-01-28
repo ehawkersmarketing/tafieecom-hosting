@@ -5,14 +5,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  // email: {
-  //   type: String,
-  //   // unique: true,
-  //   trim: true,
-  // },
+  email: {
+    type: String,
+  },
   phone: {
     type: String,
     required: true,
+  },
+  DOB:{
+    type:Date
   },
   role: {
     type: mongoose.Types.ObjectId,
