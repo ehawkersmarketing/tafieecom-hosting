@@ -61,7 +61,7 @@ const UpdateUser = () => {
         console.log(res)
         setInputHandler({
           ...inputHandler,
-         location: res.data.data.city    
+         location: res?.data?.data.city    
         });
       })
       .catch((err) => {

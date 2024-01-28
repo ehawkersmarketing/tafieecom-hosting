@@ -13,7 +13,7 @@ const giveUniqueId = (length) => {
 exports.payFunction = async (req, res) => {
   try {
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
-    const { amount, cartId } = req.body;
+    const { amount, cartId, shipCharge } = req.body;
     const data = {
       //Required data structure for the pay API call
       merchantId: process.env.MERCHANT_ID,

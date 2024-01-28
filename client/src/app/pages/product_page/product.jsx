@@ -10,11 +10,16 @@ import { useParams ,useNavigate} from "react-router-dom";
 import { useFetch  } from "../../hooks/api_hook";
 // import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { toast, ToastContainer } from "react-toastify";
 import $ from "jquery";
+
+
 const Product = () => {
+
   const { id } = useParams();
+
   const userUniqueId = localStorage.getItem("user_id")
+  const user = JSON.parse(localStorage.getItem("user"));
   console.log(userUniqueId)
   const { data: product } = useFetch(`/api/getProduct/${id}`);
   const { data: allProducts } = useFetch("/api/allProducts");
@@ -23,7 +28,11 @@ const Product = () => {
     reviewContent: " ",
     rating: " ",
   });
-  // const navigate = useNavigate();
+  const [rated , setRated]=useState(0)
+  const [inCart, setInCart] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const { data: cart } = useFetch(`/api/getCartByUser/${user._id}`);
+  const navigate = useNavigate();
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;
     setInputHandler(() => {
@@ -31,19 +40,39 @@ const Product = () => {
     });
   };
 
-  const [rated, setRated] = useState(0);
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    if (cart) {
+      setInCart(
+        cart?.products.find((product) => {
+          return product.productId._id === id
+        })
+      );
+      setQuantity(
+        cart?.products.find((product) => {
+          return product.productId._id === id
+        })?.units
+      );
+    }
+  }, [cart, id])
 
-  // useEffect(() => {
-  //   if (user) {
-  //     if (user.role.role === "Admin" || user.role.role === "Editor") {
-  //       navigate('/')
-  //     }
-  //   } else {
-  //     navigate("/");
-  //   }
-  // }, [user]);
+  const onCartClick = async () => {
+    try {
+      await axios.put('http://localhost:8080/api/addToCart', {
+        productId: id,
+        userId: localStorage.getItem('user_id'),
+        units: 1
+      })
+      navigate(`/Cart`);
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  };
 
   const fetchReviews = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/getReviewById/${id}`);
@@ -100,6 +129,73 @@ else{
     });
   });
 
+  const increaseValueHandler = async () => {
+    try {
+      if (quantity == product.units.maxQuantity) {
+        toast.error(`You have reached product max limit`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      } else {
+        const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
+          "userId": user._id,
+          "productId": id,
+          "units": 1
+        });
+        if (data.success) {
+          setQuantity(quantity + 1);
+        } else {
+          toast.error(`${data.message}`, {
+            position: "bottom-right",
+            autoClose: 8000,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "dark",
+          });
+        }
+      }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  };
+
+  const decreaseValueHandler = async () => {
+    try {
+      const { data } = await axios.delete(`http://localhost:8080/api/dropFromCart/${user._id}/${id}`);
+      if (data.success) {
+        if (quantity != 1) {
+          setQuantity(quantity - 1);
+        } else {
+          setInCart(false);
+        }
+      } else {
+        toast.error(`${data.message}`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  };
 
   return (
     <><Header />
@@ -131,8 +227,17 @@ else{
                     </div>
                     <div className="price">Rs.{product?.price} /-</div>
                     <div className="wishlistAndAddCart">
-                      <button className="cart-btn">Add to Cart</button>
-
+                      {
+                        inCart ? <div>
+                          <button class="minus" onClick={(e) => decreaseValueHandler()}>
+                            -
+                          </button>
+                          <span id="number">{quantity}</span>
+                          <button class="plus" onClick={(e) => increaseValueHandler()}>
+                            +
+                          </button>
+                        </div> : <button className="cart-btn" onClick={(e) => onCartClick()}>Add To Cart</button>
+                      }
                     </div>
                   </div>
                 </card>
@@ -157,7 +262,7 @@ else{
                 <h2 className="foryou">For You</h2>
               </div>
               <div className="product-page-carousal">
-                {allProducts && <Carousal items={allProducts} />}
+                {allProducts && cart && <Carousal items={allProducts} cart={cart} />}
               </div>
             </div>
           </div>
@@ -207,7 +312,7 @@ else{
             <div className="review-description">
               <ul className="list">
                 {reviews?.reviews.map((item) => {
-                  console.log(item?.userId.userName)
+                  console.log(item?.userId?.userName)
                   return (
                     <li>
                       <div className="user-review">
@@ -237,9 +342,8 @@ else{
           </div>
         </div>
       </div>
-
-
       <Footer />
+      <ToastContainer />
     </>
   );
 

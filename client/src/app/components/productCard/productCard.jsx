@@ -1,9 +1,27 @@
 import React from "react";
 import "./productCard.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({ cart, item }) => {
   const navigate = useNavigate();
+
+  const onCartTap = async (id, inCart) => {
+    if (inCart) {
+      navigate(`/Cart`);
+    } else {
+      await axios.put('http://localhost:8080/api/addToCart', {
+        productId: id,
+        userId: localStorage.getItem('user_id'),
+        units: 1
+      })
+      navigate(`/Cart`);
+    }
+  };
+  const inCart = cart?.products.find((product) => {
+    return product.productId._id === item._id
+  });
+
   const viewproductHandler = (id) => {
     navigate(`/product/${id}`);
   };
@@ -41,7 +59,9 @@ const ProductCard = ({ item }) => {
             <div className="review">345 Reviews</div>
           </div>
           <div className="price">{`Rs ${item.price}/-`}</div>
-          <button className="cart-btn" onClick={addToCart}>Add to Cart</button>
+          <button className='cart-btn' onClick={(e) => onCartTap(item._id, inCart)}>{
+            inCart ? 'Update Cart' : 'Add To Cart'
+          }</button>
         </div>
       </div>
       </div>

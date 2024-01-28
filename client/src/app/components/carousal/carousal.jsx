@@ -4,7 +4,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import ProductCard from "../productCard/productCard";
 
-const CarouselCard = ({ items }) => {
+const CarouselCard = ({ cart, items }) => {
     return (
         <div>
             <div class='container-fluid' >
@@ -20,7 +20,7 @@ const CarouselCard = ({ items }) => {
                         '<span class="arrow prev">‹</span>',
                         '<span class="arrow next">›</span>'
                     ]}
-                    autoplay={false} >{items?.map((item, index) => {
+                    autoplay={true} >{items?.map((item, index) => {
                         return <ProductCard item={item} className='productItem' key={index} />
                     })}
                 </OwlCarousel>

@@ -4,9 +4,23 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import PosterCardBackground from '../../../../assets/poster_card_background.svg';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const ShopPageCarouselCard = ({ items }) => {
+const ShopPageCarouselCard = ({ cart, items }) => {
     const navigate = useNavigate();
+    const onCartTap = async (id, inCart) => {
+        if (inCart) {
+            navigate(`/Cart`);
+        } else {
+            await axios.put('http://localhost:8080/api/addToCart', {
+                productId: id,
+                userId: localStorage.getItem('user_id'),
+                units: 1
+            })
+            navigate(`/Cart`);
+        }
+    };
+
     return (
         <div>
             <div >
@@ -22,6 +36,9 @@ const ShopPageCarouselCard = ({ items }) => {
                         '<span class="arrow next">›</span>'
                     ]}
                     autoplay={true} >{items?.map((item, index) => {
+                        const inCart = cart?.products.find((product) => {
+                            return product.productId._id === item._id
+                        });
                         return <div className="shop-page-card">
                             <div className="poster-card-background">
                                 <img src={PosterCardBackground} height={500} />
@@ -46,7 +63,9 @@ const ShopPageCarouselCard = ({ items }) => {
                                         <div className="price">
                                             Rs.{item.price}/-
                                         </div>
-                                        <button className='cart-btn'>Add to Cart</button>
+                                        <button className='cart-btn' onClick={(e) => onCartTap(item._id, inCart)}>{
+                                            inCart ? 'Update Cart' : 'Add To Cart'
+                                        }</button>
                                     </div>
                                 </div>
                                 <div className="view-more">

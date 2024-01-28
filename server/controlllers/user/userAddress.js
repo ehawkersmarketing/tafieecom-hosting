@@ -62,13 +62,16 @@ module.exports.updateUserAddress = async(req,res) =>{
         try {
           const { id } = req.params;
           console.log(id)
-          const {userId,street , landmark , city ,state ,  country , zipCode} = req.body;
-          const updatedUserAddress = await userAddress.findOneAndUpdate({userId:id  },
+          const {street , landmark , city ,state ,  country , zipCode} = req.body;
+          const userId = id;
+          console.log(userId)
+
+          const updatedUserAddress = await userAddress.findOneAndUpdate({userId:id},
             {
                 street , landmark , city ,state ,  country , zipCode
             }
           );
-      
+        console.log(updatedUserAddress)
           res.status(200).json({
             success: true,
             data: updatedUserAddress,
