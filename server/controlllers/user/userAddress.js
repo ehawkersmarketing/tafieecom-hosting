@@ -6,20 +6,36 @@ module.exports.putUserAddress = async (req, res, next) => {
         const { userId, street, landmark, city, country, state, zipCode } = req.body;
         const user = await userModel.findOne({ _id: userId });
         if (user) {
-            const newUserAddress = new userAddress({
-                userId: userId,
-                street: street,
-                landmark: landmark,
-                city: city,
-                country: country,
-                state: state,
-                zipCode: zipCode
-            });
-            await newUserAddress.save();
-            res.status(200).json({
-                success: true,
-                data: newUserAddress
-            });
+            const address = await userAddress.findOne({ userId: user._id });
+            if (address) {
+                const newUserAddress = await userAddress.findOneAndUpdate({ userId: user._id }, {
+                    street: street,
+                    landmark: landmark,
+                    city: city,
+                    country: country,
+                    state: state,
+                    zipCode: zipCode
+                });
+                res.status(200).json({
+                    success: true,
+                    data: newUserAddress
+                });
+            } else {
+                const newUserAddress = new userAddress({
+                    userId: userId,
+                    street: street,
+                    landmark: landmark,
+                    city: city,
+                    country: country,
+                    state: state,
+                    zipCode: zipCode
+                });
+                await newUserAddress.save();
+                res.status(200).json({
+                    success: true,
+                    data: newUserAddress
+                });
+            }
         } else {
             res.status(404).json({
                 success: false,

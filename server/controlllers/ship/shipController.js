@@ -56,54 +56,6 @@ exports.approveRequest = async (req, res) => {
       });
       if (data) {
         const order = await orderModel.findOne({ _id: request.orderId }).populate("products.productId").populate("user").populate("userAddress");
-        console.log(order);
-        // var options = {
-        //   method: "POST",
-        //   maxBodyLength: Infinity,
-        //   url: "http://localhost:8080/api/ship/createOrder",
-        //   // body: JSON.stringify({
-        //   //   "pickup_location": "Primary",
-        //   //   // order_id: `${order._id}`,
-        //   //   "order_id": `TAFI_ID123`,
-        //   //   // order_date: order.timestamps,
-        //   //   "order_date": '2024-01-27',
-        //   //   "payment_method": "Prepaid",
-        //   //   // channel_id: ,
-        //   //   // comment,
-        //   //   // reseller_name,
-        //   //   // company_name,
-        //   //   "billing_customer_name": `${order.user.userName}`,
-        //   //   "billing_last_name": `${order.user.userName}`,
-        //   //   "billing_address": `${order.userAddress.street}, ${order.userAddress.landmark}`,
-        //   //   "billing_address_2": "",
-        //   //   "billing_city": `${order.userAddress.city}`,
-        //   //   "billing_pincode": parseInt(order.userAddress.zipCode),
-        //   //   "billing_state": `${order.userAddress.state}`,
-        //   //   "billing_country": `${order.userAddress.country}`,
-        //   //   "shipping_is_billing": 0,
-        //   //   "billing_email": `${order.user.email}`,
-        //   //   "billing_phone": `${order.user.phone}`,
-        //   //   "billing_alternate_phone": "",
-        //   //   "shipping_customer_name": `${order.user.userName}`,
-        //   //   "shipping_last_name": `${order.user.userName}`,
-        //   //   "shipping_address": `${order.userAddress.street}, ${order.userAddress.landmark}`,
-        //   //   "shipping_address_2": "",
-        //   //   "shipping_city": `${order.userAddress.city}`,
-        //   //   "shipping_pincode": parseInt(order.userAddress.zipCode),
-        //   //   "shipping_country": `${order.userAddress.country}`,
-        //   //   "shipping_state": `${order.userAddress.state}`,
-        //   //   "shipping_email": `${order.user.email}`,
-        //   //   "shipping_phone": `${order.user.phone}`,
-        //   //   "order_items": [{ "name": "paper box", "sku": "paper123", "units": 1, "selling_price": 250, "discount": 0, "tax": 0 }],
-        //   //   "sub_total": order.amount,
-        //   //   "total_discount": 0,
-        //   //   "length": length,
-        //   //   "breadth": breadth,
-        //   //   "height": height,
-        //   //   "weight": weight,
-        //   // })
-        //   body: JSON.stringify()
-        // };
         let orderItems = [];
         for (let i = 0; i < order.products.length; i++) {
           orderItems.push({
@@ -161,8 +113,8 @@ exports.approveRequest = async (req, res) => {
             });
           } else {
             res.json({
-              success: true,
-              message: "Request Approved",
+              success: false,
+              message: "Failed to Approve Request",
             });
           }
         }).catch((error) => {
