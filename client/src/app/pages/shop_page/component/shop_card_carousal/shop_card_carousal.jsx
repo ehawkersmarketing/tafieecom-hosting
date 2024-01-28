@@ -39,9 +39,9 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                             return product.productId._id === item._id
                         });
                         return <div className="shop-page-card">
-//                             <div className="poster-card-background">
-//                                 <img src={PosterCardBackground} height={500} />
-//                             </div>
+{/*                              <div className="poster-card-background">
+                                 <img src={PosterCardBackground} height={500} />
+                             </div> */}
                             <div className="shop-page-card-content row">
                                 <div className="product-content">
                                     <div className='text-fields'>
@@ -106,8 +106,8 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                             </div>
                             
                         </div>
-                        )
-                    })}
+                       })
+                    }
                 </OwlCarousel>
             </div>
         </div >
