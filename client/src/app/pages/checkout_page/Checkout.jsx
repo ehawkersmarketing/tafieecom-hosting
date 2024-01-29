@@ -65,10 +65,13 @@ const Checkout = () => {
                 });
                 if (data.success) {
                     const totalPayAmount = cart.totalPrice + shipCharge;
-                    await axios.post("http://localhost:8080/api/pay/phonePePayment", {
+                    const { data } = await axios.post("http://localhost:8080/api/pay/phonePePayment", {
                         amount: Math.round(totalPayAmount),
                         cartId: cart.cartId,
                     });
+                    if (data.success) {
+                        window.location.replace(data.data);
+                    }
                 } else {
                     toast.error(`${data.message}`, {
                         position: "bottom-right",

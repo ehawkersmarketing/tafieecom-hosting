@@ -8,6 +8,7 @@ import axios from "axios";
 
 const ShopPageCarouselCard = ({ cart, items }) => {
   const navigate = useNavigate();
+
   const onCartTap = async (id, inCart) => {
     if (inCart) {
       navigate(`/Cart`);
@@ -47,7 +48,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                                  <img src={PosterCardBackground} height={500} />
                              </div> */}
                 <div className="shop-page-card-content row">
-                  
+
                   <div className="view-more col-6">
                     <div className="poster-text">
                       <span className="fertilizer-text">
@@ -89,7 +90,9 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                           <span className="review">{item.reviews} Reviews</span>
                         </div>
                         <div className="price">Rs.{item.price}/-</div>
-                        <button className="cart-btn">Add to Cart</button>
+                        <button className="cart-btn" onClick={(e) => onCartTap(item._id, inCart)}>{
+                          inCart ? "Update Cart" : "Add to Cart"
+                        }</button>
                       </div>
                       <div className="poster-card">
                         <img src={item.image} alt="" />

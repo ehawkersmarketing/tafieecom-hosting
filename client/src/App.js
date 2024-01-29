@@ -94,7 +94,7 @@ function App() {
           <Route path="/createService" exact element={<CreateService />} />
           <Route path="/updateService/:id" exact element={<UpdateService />} />
           <Route path="/service_pop" exact element={<Service_pop />} />
-          <Route path="/adminprocessorder" exact element={<AdminProcessOrder />} />
+          <Route path="/adminprocessorder/:id" exact element={<AdminProcessOrder />} />
         </Routes>
       </Routers>
     </div>

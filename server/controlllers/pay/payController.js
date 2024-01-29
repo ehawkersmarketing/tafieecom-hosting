@@ -52,12 +52,14 @@ exports.payFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data.instrumentResponse.redirectInfo.url); //url to PhonePe page for payment
-        res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
+        console.log(response.data.data.instrumentResponse.redirectInfo.url);
+        res.json({
+          success: true,
+          data: response.data.data.instrumentResponse.redirectInfo.url
+        });
       })
       .catch(function (error) {
         console.error(error);
-
         res.status(500).send({
           message: "Error in connecting to PhonePe Try sometime later",
           success: false,
