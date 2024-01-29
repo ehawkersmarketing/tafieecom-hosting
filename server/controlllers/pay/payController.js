@@ -13,7 +13,7 @@ const giveUniqueId = (length) => {
 exports.payFunction = async (req, res) => {
   try {
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
-    const { amount, cartId, shipCharge } = req.body;
+    const { amount, cartId } = req.body;
     const data = {
       //Required data structure for the pay API call
       merchantId: process.env.MERCHANT_ID,
@@ -173,8 +173,6 @@ async function statusCall(n, options, cartId) {
             transactionId: response.data.data.transactionId,
             amount: response.data.data.amount,
             transactionStatus: response.data.data.transactionStatus,
-            // user: ,
-            // userAddress: ,
           });
           if (data.success) {
             const { data } = await axios.post("http://localhost:8080/api/requestApproval", {

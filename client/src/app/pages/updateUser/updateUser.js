@@ -11,7 +11,7 @@ const UpdateUser = () => {
     userName: "",
     phone: "",
     email: "",
-    DOB: "",
+    dob: "",
     street: "",
     landMark: "",
     city: "",
@@ -35,36 +35,42 @@ const UpdateUser = () => {
 
   const getOneUser = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8080/auth/user/${id}`);
+      const { data: user } = await axios.get(
+        `http://localhost:8080/auth/user/${id}`
+      );
+      const { data: userAddress } = await axios.get(
+        `http://localhost:8080/api/getUserAddress/${id}`
+      );
+      let date = new Date(user.data.dob);
+      let day = date.getDay();
+          if (day < 10) {
+              day = "0" + day;
+          }
+          let month = date.getMonth() + 1;
+          if (month < 10) {
+              month = "0" + month;
+          }
+          let year = date.getFullYear();
       setInputHandler({
-        userName: data.data[0].userName,
-        phone: data.data[0].phone,
-        email: data.dataa[0].email,
+        ...inputHandler,
+        ["street"]: userAddress.data.street,
+        ["city"]: userAddress.data.city,
+        ["landMark"]: userAddress.data.landmark,
+        ["zipCode"]: userAddress.data.zipCode,
+        ["country"]: userAddress.data.country,
+        ["state"]: userAddress.data.state,
+        ["userName"]: user.data.userName,
+        ["phone"]: user.data.phone,
+        ["email"]: user.data.email,
+        ["dob"]: `${year}-${month}-${day}`
       });
     } catch (err) {
       console.log(err);
     }
   };
-
+  
   useEffect(() => {
     getOneUser();
-  }, []);
-  useEffect(() => {
-    axios
-      .put(`http://localhost:8080/auth/user/${id}`)
-      .then((res) => {
-        console.log(res.data.data);
-        setInputHandler({
-          ...inputHandler,
-          userName: res.data.data.userName,
-          phone: res.data.data.phone,
-          email: res.data.data.email,
-          DOB: res.data.data.DOB,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
 
   const onChangeInputHandler = (e) => {
@@ -83,6 +89,8 @@ const UpdateUser = () => {
     await axios.post(`http://localhost:8080/api/putUserAddress`, {
       userId: id,
       email: inputHandler.email,
+      dob: inputHandler.dob,
+      phone: inputHandler.phone,
       street: inputHandler.street,
       landmark: inputHandler.landMark,
       city: inputHandler.city,
@@ -143,9 +151,9 @@ const UpdateUser = () => {
             <input
               type="date"
               onChange={onChangeInputHandler}
-              id="DOB"
-              name="DOB"
-              value={inputHandler.DOB}
+              id="dob"
+              name="dob"
+              value={inputHandler.dob}
               placeholder="Date ..."
             />
           </div>

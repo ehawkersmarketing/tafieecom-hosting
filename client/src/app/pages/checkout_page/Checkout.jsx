@@ -4,10 +4,11 @@ import Footer from "../footer/footer";
 import './Checkout.css';
 import axios from 'axios';
 import { useFetch } from "../../hooks/api_hook";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    let { data: cart, setData: updateCart } = useFetch(`/api/getProductsInCart/${user._id}`)
+    let { data: cart } = useFetch(`/api/getProductsInCart/${user._id}`)
     const products = cart?.products;
     const [shipCharge, setShipCharge] = useState(undefined);
 
@@ -53,11 +54,30 @@ const Checkout = () => {
                 alert("Submit adress details and calculate shipment before placing order");
             }
             else {
-                const totalPayAmount = cart.totalPrice + shipCharge;
-                await axios.post("http://localhost:8080/api/pay/phonePePayment", {
-                    amount: Math.round(totalPayAmount),
-                    cartId: cart.cartId,
+                const { data } = await axios.post('http://localhost:8080/api/putUserAddress', {
+                    userId: user._id,
+                    street: formData.Address,
+                    landmark: formData.Address2,
+                    city: formData.City,
+                    country: formData.Country,
+                    state: formData.State,
+                    zipCode: formData.PinCode
                 });
+                if (data.success) {
+                    const totalPayAmount = cart.totalPrice + shipCharge;
+                    await axios.post("http://localhost:8080/api/pay/phonePePayment", {
+                        amount: Math.round(totalPayAmount),
+                        cartId: cart.cartId,
+                    });
+                } else {
+                    toast.error(`${data.message}`, {
+                        position: "bottom-right",
+                        autoClose: 8000,
+                        pauseOnHover: true,
+                        draggable: true,
+                        theme: "dark",
+                    });
+                }
             }
         } catch (error) {
             console.error('Failed to submit form', error);

@@ -7,13 +7,14 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    trim: true,
   },
   phone: {
     type: String,
     required: true,
   },
-  DOB:{
-    type:Date
+  dob: {
+    type: Date
   },
   role: {
     type: mongoose.Types.ObjectId,

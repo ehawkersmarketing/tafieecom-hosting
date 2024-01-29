@@ -1,6 +1,7 @@
 const orderModel = require("../../models/orderModel/orderModel.js");
 const orderCountModel = require("../../models/orderModel/orderCountModel.js");
 const cartModel = require("../../models/cartModel/cartModel.js");
+const userAddress = require("../../models/userModel/userAddress.js");
 
 module.exports.getAllOrders = async (req, res, next) => {
     try {
@@ -56,15 +57,15 @@ module.exports.getAllOrderByUser = async (req, res, next) => {
 
 module.exports.placeOrder = async (req, res, next) => {
     try {
-        const { cartId, transactionId, amount, transactionStatus, userAddress } = req.body;
+        const { cartId, transactionId, amount, transactionStatus } = req.body;
         console.log(`${cartId} - ${transactionId} - ${amount} - ${transactionStatus}`);
         const cart = await cartModel.findOne({ _id: cartId }).populate('products.productId');
         if (cart) {
-            let shipCharge = 0;
             let totalAmount = 0;
             for (let i = 0; i < cart.products.length; i++) {
                 totalAmount += cart.products[i].productId.price * cart.products[i].units;
             }
+            const address = await userAddress.findOne({ userId: cart.userId });
             const newOrder = new orderModel({
                 products: cart.products,
                 user: cart.userId,
@@ -72,7 +73,7 @@ module.exports.placeOrder = async (req, res, next) => {
                 shipment_charge: amount - totalAmount,
                 transactionId: transactionId,
                 transactionStatus: transactionStatus,
-                userAddress: userAddress,
+                userAddress: address._id,
             });
             await newOrder.save();
 

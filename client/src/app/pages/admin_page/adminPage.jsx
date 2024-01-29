@@ -6,6 +6,7 @@ import { Chart } from "react-google-charts";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import Header from '../header/header'
 const AdminPage = () => {
@@ -17,6 +18,8 @@ const AdminPage = () => {
   const { data: orders } = useFetch("/api/getAllOrders");
   const { data: services, setData: setServices } = useFetch("/api/getAllService");
   const { data: users } = useFetch("/auth/users");
+  console.log(orders);
+
   const [searchField, setSearchField] = useState({
     product: "",
     order: "",
@@ -609,18 +612,9 @@ const AdminPage = () => {
                                 <td className="td table-center">
                                   {order.createdAt}
                                 </td>
-                                <td className="td table-center">
-                                  {/* <div className="action-dropdown">
-                                    <select
-                                      type="text"
-                                      name="input"
-                                      id="input"
-                                      placeholder="Short by:Newest "
-                                    >
-                                      <option>op1</option>
-                                      <option>op2</option>
-                                    </select>
-                                  </div> */}
+                                <td className="td table-center" >
+                                  <Link  to={`/adminprocessorder/${order._id}`}> <i class="bi bi-vector-pen" style={{fontSize:"2rem" , textAlign:"center"}}></i>
+</Link>
                                 </td>
                               </tr>
                             );

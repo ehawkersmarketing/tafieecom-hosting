@@ -1,6 +1,5 @@
 import "./blog_grid_page.css";
 import { Link } from "react-router-dom";
-import resourcepage1 from "../../assets/resourcecenter1.png";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
@@ -161,7 +160,7 @@ const BlogPage = () => {
                 searchBlogs && searchBlogs.length !== 0 ? searchBlogs?.map((blog) => {
                   return <div className="card-main col-md-4">
                     <div class="card">
-                      <img src={resourcepage1} class="card-img-top" alt="..." />
+                      <img src={blog.image} class="card-img-top" alt="..." />
                       <div class="card-body">
                         <h5 class="card-title">
                           {blog.title}
@@ -194,7 +193,7 @@ const BlogPage = () => {
               recentBlogs && recentBlogs?.map((blog) => {
                 return <div className="card-main col-md-4">
                   <div class="card">
-                    <img src={resourcepage1} class="card-img-top" alt="..." />
+                    <img src={blog.image} class="card-img-top" alt="..." />
                     <div class="card-body">
                       <h5 class="card-title">
                         {blog.title}
@@ -227,7 +226,7 @@ const BlogPage = () => {
                 blogs && blogs.slice(0, 3)?.map((blog) => {
                   return <div className="card-main col-md-4">
                     <div class="card">
-                      <img src={resourcepage1} class="card-img-top" alt="..." />
+                      <img src={blog.image} class="card-img-top" alt="..." />
                       <div class="card-body">
                         <h5 class="card-title">
                           {blog.title}
@@ -260,7 +259,7 @@ const BlogPage = () => {
               blogs && blogs?.map((blog) => {
                 return <div className="card-main col-md-4">
                   <div class="card">
-                    <img src={resourcepage1} class="card-img-top" alt="..." />
+                    <img src={blog.image} class="card-img-top" alt="..." />
                     <div class="card-body">
                       <h5 class="card-title">
                         {blog.title}
