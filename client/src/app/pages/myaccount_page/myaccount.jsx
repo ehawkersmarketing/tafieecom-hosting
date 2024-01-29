@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "../header/header";
 import logoImage from "../../assets/Tafi_logo_white.png";
 import { useFetch  } from "../../hooks/api_hook";
+import dayjs from 'dayjs';
 
 const Myaccount = () => {
   const [value, setValue] = useState(0);
@@ -18,8 +19,8 @@ const Myaccount = () => {
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
   const { data: userData } = useFetch(`/auth/user/${id}`);
-  const {data:locationData} = useFetch(`/api/getUserAddress/${id}`);
-  console.log(userData?._id);
+  const {data:locationData} = useFetch(`/api/getUserAddress/${user?._id}`);
+  console.log(userData);
 
 
   useEffect(() => {
@@ -122,7 +123,7 @@ const Myaccount = () => {
                       <tr>
                         <td>Date of Birth :</td>
                         <td>
-                          <span>{userData?.DOB}</span>
+                          <span>{dayjs(userData?.dob).format('MMM D, YYYY')}</span>
                         </td>
                       </tr>
                       <tr>
