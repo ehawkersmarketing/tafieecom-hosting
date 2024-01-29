@@ -31,7 +31,7 @@ const Product = () => {
   const [rated , setRated]=useState(0)
   const [inCart, setInCart] = useState(false);
   const [quantity, setQuantity] = useState(0);
-  const { data: cart } = useFetch(`/api/getCartByUser/${user._id}`);
+  const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const navigate = useNavigate();
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;

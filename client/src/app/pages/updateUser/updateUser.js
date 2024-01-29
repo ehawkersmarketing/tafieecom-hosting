@@ -10,30 +10,36 @@ const UpdateUser = () => {
     id: id,
     userName: "",
     phone: "",
-    email:"",
-    DOB:"" ,
-    location:""
+    email: "",
+    DOB: "",
+    street: "",
+    landMark: "",
+    city: "",
+    country: "",
+    state: "",
+    zipCode: "",
   });
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
     if (user) {
-      if (user.role.role !== "User" ) {
+      if (user.role.role !== "User") {
         history("/auth/login");
       } else {
-      history(`/updateUser/${id}`);
+        history(`/updateUser/${id}`);
       }
-    }else {
+    } else {
       history("/auth/login");
     }
   }, []);
 
   const getOneUser = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8080/auth/user/${id}`)
+      const { data } = await axios.get(`http://localhost:8080/auth/user/${id}`);
       setInputHandler({
         userName: data.data[0].userName,
         phone: data.data[0].phone,
+        email: data.dataa[0].email,
       });
     } catch (err) {
       console.log(err);
@@ -44,30 +50,21 @@ const UpdateUser = () => {
     getOneUser();
   }, []);
   useEffect(() => {
-    axios.put(`http://localhost:8080/auth/updateUser/${id}`)
+    axios
+      .put(`http://localhost:8080/auth/updateUser/${id}`)
       .then((res) => {
-        console.log(res.data.data)
+        console.log(res.data.data);
         setInputHandler({
           ...inputHandler,
-         userName: res.data.data.userName,
-          phone: res.data.data.phone,     
+          userName: res.data.data.userName,
+          phone: res.data.data.phone,
+          email: res.data.data.email,
+          DOB: res.data.data.DOB,
         });
       })
       .catch((err) => {
         console.log(err);
       });
-      axios.put(`http://localhost:8080/api/updateUserAddress/${id}`)
-      .then((res) => {
-        console.log(res)
-        setInputHandler({
-          ...inputHandler,
-         location: res?.data?.data.city    
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      
   }, []);
 
   const onChangeInputHandler = (e) => {
@@ -77,44 +74,32 @@ const UpdateUser = () => {
     });
   };
 
-  const backToDashboard = () =>{
-    history(`/myaccount/${id}`)
-  }
+  const backToDashboard = () => {
+    history(`/myaccount/${id}`);
+  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-      axios
-      .put(`http://localhost:8080/auth/updateUser/${id}`, {
-        userName: inputHandler.userName,
-        phone: inputHandler.phone,
-      })
-      .then((res) => {
-        console.log(res.data);
-        history(`/myaccount/${id}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      axios.put(`http://localhost:8080/api/updateUserAddress/${id}`, {
-        city: inputHandler.location,
-      })
-      .then((res) => {
-        console.log(res.data);
-        // history(`/myaccount/${id}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    }
-  
+    await axios.post(`http://localhost:8080/api/putUserAddress`, {
+      userId: id,
+      email: inputHandler.email,
+      street: inputHandler.street,
+      landmark: inputHandler.landMark,
+      city: inputHandler.city,
+      userName: inputHandler.userName,
+      country: inputHandler.country,
+      state: inputHandler.state,
+      zipCode: inputHandler.zipCode,
+    });
+    backToDashboard();
+  };
 
   return (
     <section>
       <div className="form_data">
-      <div className="cross" onClick={backToDashboard}>
-           <i class="bi bi-file-x-fill"></i>
-            </div>
+        <div className="cross" onClick={backToDashboard}>
+          <i class="bi bi-file-x-fill"></i>
+        </div>
         <div className="form_heading">
           <h1>Update User</h1>
         </div>
@@ -154,17 +139,83 @@ const UpdateUser = () => {
             />
           </div>
           <div className="form_input">
-            <label htmlFor="phone">Location</label>
+            <label htmlFor="DOB">DOB</label>
+            <input
+              type="date"
+              onChange={onChangeInputHandler}
+              id="DOB"
+              name="DOB"
+              value={inputHandler.DOB}
+              placeholder="Date ..."
+            />
+          </div>
+          <div className="form_input">
+            <label htmlFor="phone">Street</label>
             <input
               type="text"
               onChange={onChangeInputHandler}
-              id="location"
-              name="location"
-              value={inputHandler.location}
-              placeholder="Location..."
+              id="street"
+              name="street"
+              value={inputHandler.street}
+              placeholder="Street..."
             />
           </div>
-         
+          <div className="form_input">
+            <label htmlFor="landMark">landMark</label>
+            <input
+              type="text"
+              onChange={onChangeInputHandler}
+              id="landMark"
+              name="landMark"
+              value={inputHandler.landMark}
+              placeholder="Land Mark..."
+            />
+          </div>
+          <div className="form_input">
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              onChange={onChangeInputHandler}
+              id="city"
+              name="city"
+              value={inputHandler.city}
+              placeholder="City..."
+            />
+          </div>
+          <div className="form_input">
+            <label htmlFor="country">Country</label>
+            <input
+              type="text"
+              onChange={onChangeInputHandler}
+              id="country"
+              name="country"
+              value={inputHandler.country}
+              placeholder="Country..."
+            />
+          </div>
+          <div className="form_input">
+            <label htmlFor="zipCode">zipCode</label>
+            <input
+              type="text"
+              onChange={onChangeInputHandler}
+              id="zipCode"
+              name="zipCode"
+              value={inputHandler.zipCode}
+              placeholder="zipCode..."
+            />
+          </div>
+          <div className="form_input">
+            <label htmlFor="state">State</label>
+            <input
+              type="text"
+              onChange={onChangeInputHandler}
+              id="state"
+              name="state"
+              value={inputHandler.state}
+              placeholder="State..."
+            />
+          </div>
+
           <button className="btn" onClick={onSubmitHandler}>
             update User
           </button>

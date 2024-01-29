@@ -57,34 +57,3 @@ module.exports.getUserAddress = async (req, res, next) => {
         next(error);
     }
 };
-
-module.exports.updateUserAddress = async(req,res) =>{
-        try {
-          const { id } = req.params;
-          console.log(id)
-          const {street , landmark , city ,state ,  country , zipCode} = req.body;
-          const userId = id;
-          console.log(userId)
-
-          const updatedUserAddress = await userAddress.findOneAndUpdate({userId:id},
-            {
-                street , landmark , city ,state ,  country , zipCode
-            }
-          );
-        console.log(updatedUserAddress)
-          res.status(200).json({
-            success: true,
-            data: updatedUserAddress,
-            message: "User Updated Successfully",
-          });
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({
-            success: false,
-            data: error,
-            message: "Error while updating the User Address",
-          });
-        }
-      
-      
-}

@@ -18,8 +18,8 @@ const Myaccount = () => {
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
   const { data: userData } = useFetch(`/auth/user/${id}`);
-  const {data:locationData} = useFetch(`/api/getUserAddress/${id}`);
-  console.log(userData?._id);
+  const {data:locationData} = useFetch(`/api/getUserAddress/${user?._id}`);
+  console.log(userData);
 
 
   useEffect(() => {
@@ -125,12 +125,12 @@ const Myaccount = () => {
                           <span>{userData?.DOB}</span>
                         </td>
                       </tr>
-                      <tr>
+                      {/* <tr>
                         <td>Location :</td>
                         <td>
                           <span>{locationData?.city}</span>
                         </td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                 </div>
