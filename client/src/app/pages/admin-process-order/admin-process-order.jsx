@@ -17,7 +17,7 @@ const AdminProcessOrder = () => {
   const backHandler = () => setValue(0);
   const { data: order } = useFetch(`/api/getOrderById/${id}`);
   const products = order?.products;
-  const user = order?.user;
+  const user = JSON.parse(localStorage.getItem('user'));
   const userAddress = order?.userAddress;
   const [formData, setFormData] = useState({
     length: 0,
@@ -25,6 +25,12 @@ const AdminProcessOrder = () => {
     height: 0,
     weight: 0
   });
+
+  useEffect(() => {
+    if (!user || user.role.role === 'User' || user.role.role === 'Editor') {
+      navigate('/auth/login');
+    }
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({

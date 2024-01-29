@@ -139,12 +139,12 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 10;
-    let status = statusCall(n, options, cartId);
-    console.log(`This is the status ${status}`);
-    if (status) {
-      return res.redirect("http://localhost:8080/");
+    let status = await statusCall(n, options, cartId);
+    console.log(`This is the status ${status.success}`);
+    if (status.success) {
+      return res.redirect(`http://localhost:3000/OrderConfirmationPage/${status.orderId}`);
     } else {
-      return res.status(500).semd({
+      return res.status(500).send({
         success: false,
         message: "Check status returned failed status of transaction",
       });
@@ -162,7 +162,7 @@ async function statusCall(n, options, cartId) {
         if (n === 0) {
           return false;
         } else {
-          return setTimeout(statusCall(--n, options, null), 3000);
+          return await setTimeout(await statusCall(--n, options, null), 3000);
         }
       }
     } else {
@@ -174,28 +174,31 @@ async function statusCall(n, options, cartId) {
             cartId: cartId,
             transactionId: response.data.data.transactionId,
             amount: response.data.data.amount,
-            transactionStatus: response.data.data.transactionStatus,
+            transactionStatus: response.data.data.state,
           });
           if (data.success) {
-            const { data } = await axios.post("http://localhost:8080/api/requestApproval", {
+            const { data: request } = await axios.post("http://localhost:8080/api/ship/requestApproval", {
               orderId: data.data._id
             });
-            if (data.success) {
-              return true;
+            if (request.success) {
+              return {
+                success: true,
+                orderId: data.data._id
+              };
             } else {
-              return false;
+              return { success: false };
             }
           }
         } catch (error) {
           console.log(error);
           console.log("failure in saving new transaction");
-          return false;
+          return { success: false };
         }
       } else {
         if (n === 0) {
-          return false;
+          return { success: false };
         } else {
-          return setTimeout(statusCall(--n, options, cartId), 3000);
+          return await setTimeout(await statusCall(--n, options, cartId), 3000);
         }
       }
     }
