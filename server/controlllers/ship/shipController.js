@@ -38,7 +38,7 @@ exports.requestApproval = async (req, res) => {
 exports.approveRequest = async (req, res) => {
   try {
     const { requestId, length, breadth, height, weight } = req.body;
-    const request = await requestModel.findOne({ _id: requestId });
+    const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
       const data = await requestModel.findOneAndUpdate(
         { _id: requestId },

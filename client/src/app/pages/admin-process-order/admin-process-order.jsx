@@ -52,7 +52,7 @@ const AdminProcessOrder = () => {
       } else {
         console.log(formData.length + formData.breadth + formData.height + formData.weight);
         const { data } = await axios.post("http://locahost:8080/api/ship/approveRequest", {
-          requestId: "65b4f0ea153375c918b97d92",
+          orderId: id,
           length: formData.length,
           breadth: formData.breadth,
           height: formData.height,
@@ -131,12 +131,12 @@ const AdminProcessOrder = () => {
                     return (
                       <tr>
                         <td>{index + 1}</td>
-                        <td>{item.productId.title}</td>
-                        <td>{item.productId.price}</td>
-                        <td>{item.units}</td>
-                        <td>{item.productId.price}</td>
+                        <td>{item.productId?.title}</td>
+                        <td>{item.productId?.price}</td>
+                        <td>{item?.units}</td>
+                        <td>{item.productId?.price}</td>
 
-                        <td>{item.productId.price * item.units}</td>
+                        <td>{item.productId?.price * item?.units}</td>
                       </tr>
                     );
                   })
