@@ -26,11 +26,11 @@ const ExclusiveStore = () => {
                     <h1 className="franchise-heading">PARTNER</h1>
                   </div>
                   <div className="franchise-content-para">
-                    <h2 className="subheading-franchise">with TAFI Today!</h2>
+                    <h2 className="subheading-franchise">With TAFI Today!</h2>
                   </div>
                   <button className="franchise-content-para-bt" onClick={footerHandler}>
-                    <h5 className="h5-btn">Unlock Your Potential</h5>
-                    <p style={{ marginBottom: "0px" }}>(with कृषक वाटिका)</p>
+                    <h5 className="h5-btn">Unlock Your Potential with</h5>
+                    <p style={{ marginBottom: "0px", fontSize:"20px"}}><b> कृषक वाटिका</b></p>
                   </button>
                 </div>
               </div>

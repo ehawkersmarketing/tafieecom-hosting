@@ -110,9 +110,7 @@ const Dashboard = () => {
               <h1>EMPOWER</h1>
             </div>
             <div className="div3SubHead">
-              <h4>YOUR</h4>
-              <h4 style={{ color: "#44A98B" }}>FARMING</h4>
-              <h4>VENTURES</h4>
+              <h4><span>YOUR</span> <span style={{ color: "#44A98B" }}>FARMING</span> <span>VENTURES</span></h4>
             </div>
           </div>
           <div className="servicesDiv">

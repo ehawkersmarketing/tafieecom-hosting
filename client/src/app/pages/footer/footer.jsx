@@ -24,13 +24,13 @@ const Footer = () => {
             <div className="middle-container">
               <div className="full-form">
                 <div className="in-image row">
-                  <div className="form-img col-7">
+                  <div className="form-img col-6">
                     <div className="headingMainText aao-baat-kre">
                       <h1><span>आओ,</span> </h1>
                       <h1>बात करें</h1>
                     </div>
                   </div>
-                  <div className="form-content col-5">
+                  <div className="form-content col-6">
                     <div className="form">
                       <div className="input-columns">
                         <div className="name">

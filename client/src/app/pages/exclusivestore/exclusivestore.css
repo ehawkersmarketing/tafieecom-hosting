@@ -326,7 +326,9 @@ justify-content: space-evenly;
 
 .map-section-card{
       width: 50%;
-      padding: 15%;
+      padding-top: 20%;
+      padding-bottom: 15%;
+      padding-left: 15%;
 }
 .text-fan{
     font-weight: bold;
@@ -335,18 +337,18 @@ justify-content: space-evenly;
 .map-number-70 {
     font-weight: bold;
     background-color: #C8A33D;
-    width: 5rem;
+    width: fit-content;
     padding: 0.2rem;
-    font-size: 37px;
+    font-size: 50px;
     color: white;
 }
 .h3-content {
     color: #19443F;
     background-color: #44A98B;
-    width: 23rem;
+    width: 30rem;
     text-align: center;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 32px;
 }
 
 .search-container{
@@ -361,4 +363,8 @@ border: 1px solid #44A98B;
 }
 .row{
     --bs-gutter-x:0;
+}
+.map-section .map-para{
+    width: 30rem;
+    font-size: 20px;
 }
