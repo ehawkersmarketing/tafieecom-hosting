@@ -3,19 +3,19 @@ import "./admin-process-order.css";
 import TafiLogo from "../../assets/Tafi_logo_white.png";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import { useFetch } from "../../hooks/api_hook";
 import { toast, ToastContainer } from 'react-toastify';
 
 
 const AdminProcessOrder = () => {
-  //Here I have to pass id
+  const { id } = useParams();
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const acceptHandler = () => setValue(1);
   const backHandler = () => setValue(0);
-  const { data: order } = useFetch(`/api/getOrderById/65b4f0c8153375c918b97d87`);
+  const { data: order } = useFetch(`/api/getOrderById/${id}`);
   const products = order?.products;
   const user = order?.user;
   const userAddress = order?.userAddress;
