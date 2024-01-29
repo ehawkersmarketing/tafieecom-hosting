@@ -30,7 +30,7 @@
     margin-bottom: 5%;
     color: black;
 }
-.component-main::before{
+.filter-name::before{
     content: '';
     width: 0px;
     height: 0px;

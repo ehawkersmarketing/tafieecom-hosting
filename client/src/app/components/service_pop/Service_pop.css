@@ -9,6 +9,9 @@
 }
 .service-pop-submain  .service-pop-text {
     margin-top: 2rem;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
 }
 .service-pop-main .service-pop-heading-text {
     color: var(--light-base-green-2, #EBF6F5);

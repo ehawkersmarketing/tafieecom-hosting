@@ -260,11 +260,11 @@
 .sign_in .welcome-text {
     background-color: #fff;
     color: #19443f;
-    display: block;
+    display: fit-content;
   }
   .sign_in   .back-text{
     background-color:#19443f;
-    display: block;
+    display: fit-content;
     width: fit-content;
     margin-left: auto;
 }
