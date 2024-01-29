@@ -113,31 +113,6 @@ module.exports.verifyOtp = async (req, res) => {
   }
 };
 
-exports.user = async (req, res) => {
-  try {
-    const { phone, email, userName, role } = req.body;
-    let user = await userModel.find({}).populate("role");
-
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: "User is not found",
-      });
-    }
-    res.json({
-      success: true,
-      data: user,
-      message: "User found",
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "error",
-    });
-  }
-};
-
 exports.searchUser = async (req, res) => {
   try {
     const { search } = req.body;
@@ -178,3 +153,80 @@ exports.addRole = async (req, res) => {
     return res.send({ code: 500, message: "server err" });
   }
 };
+
+exports.user = async (req, res) => {
+  try {
+    const { phone, email, userName, role } = req.body;
+    let user = await userModel.find({}).populate("role");
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User is not found",
+      });
+    }
+    res.json({
+      success: true,
+      data: user,
+      message: "User found",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "error",
+    });
+  }
+};
+
+
+exports.getUserById = async(req,res) =>{
+    try {
+      const user = await userModel.findById({ _id: req.params.id });
+      if (!user) {
+        return res.status(500).send({
+          success: false,
+          message: "No User found",
+        });
+      }
+      return res.status(200).send({
+        success: true,
+        message: "User fetched !!",
+        data: user,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        success: false,
+        message: "Error While fetching the user",
+        error,
+      });
+    }
+  };
+
+exports.updateUserById = async(req,res) => {
+  try {
+    const { id } = req.params;
+    const {userName , phone} = req.body;
+    const updatedUser = await userModel.findByIdAndUpdate(
+      { _id: id },
+      {
+        userName , phone
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      data: updatedUser,
+      message: "User Updated Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      data: error,
+      message: "Error while updating the User",
+    });
+  }
+
+}

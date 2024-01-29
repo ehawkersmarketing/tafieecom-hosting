@@ -8,17 +8,19 @@ import { useFetch } from "../../hooks/api_hook";
 import axios from "axios";
 
 const OurServices = () => {
-
-  const [searchField, setSearchField] = useState('');
-  const { data: services } = useFetch('/api/getAllService');
+  const [searchField, setSearchField] = useState("");
+  const { data: services } = useFetch("/api/getAllService");
   const [searchService, setSearchService] = useState(undefined);
   const [openIndex, setIndex] = useState(0);
 
   const search = async (text) => {
-    if (text !== '') {
-      const { data } = await axios.post(`http://localhost:8080/api/searchService`, {
-        search: text
-      });
+    if (text !== "") {
+      const { data } = await axios.post(
+        `http://localhost:8080/api/searchService`,
+        {
+          search: text,
+        }
+      );
       setSearchService(data.data);
     } else {
       setIndex(0);
@@ -42,9 +44,7 @@ const OurServices = () => {
                   <span>OUR</span> <span>SERVICES</span>
                 </h1>
                 <p>Define your agriculture in a whole different way</p>
-                <a href="#allservice">
-                  Learn More
-                </a>
+                <a href="#allservice">Learn More</a>
               </div>
             </div>
           </div>
@@ -77,9 +77,7 @@ const OurServices = () => {
         </div>
         <div className="services-card-outer" id="allservice">
           <div className="services-card row">
-
-            {
-              searchField !== '' &&
+            {searchField !== "" && (
               <div className="blog-latest-post">
                 <div>
                   <h4>Search Posts</h4>
@@ -89,35 +87,66 @@ const OurServices = () => {
                   <div className="below-post-1"></div>
                 </div>
                 <div className="latest-post-card row">
-                  {
-                    searchService && searchService.length !== 0 ? searchService?.map((service, index) => {
-                      return <div className="col-4" key={index}>
-                        <div className="service-block d-flex">
-                          <div className="block-text col-7">
-                            <div>
-                              <h5><button type="button" class="card-button" data-bs-toggle="modal" onClick={() => setIndex(index)} data-bs-target="#service-about">{service.title}</button></h5>
-                              <p>{service.description}</p>
+                  {searchService && searchService.length !== 0 ? (
+                    searchService?.map((service, index) => {
+                      return (
+                        <>
+                          <div className="col-4" key={index}>
+                            <div className="service-block d-flex">
+                              <div className="block-text col-7">
+                                <div>
+                                  <h5>
+                                    <button
+                                      type="button"
+                                      class="card-button"
+                                      data-bs-toggle="modal"
+                                      onClick={() => setIndex(index)}
+                                      data-bs-target="#service-about"
+                                    >
+                                      {service.title}
+                                    </button>
+                                  </h5>
+                                  <p>{service.description}</p>
+                                </div>
+                              </div>
+                              <div className="block-img col-5">
+                                <img src={service.image} alt="" />
+                              </div>
                             </div>
                           </div>
-                          <div className="block-img col-5">
-                            <img src={service.image} alt="" />
-                          </div>
-                        </div>
-                      </div>
-                    }) : <div><h4>No Results Found</h4></div>
-                  }
+                          
+                        </>
+                      );
+                    })
+                  ) : (
+                    <div>
+                      <h4>No Results Found</h4>
+                    </div>
+                  )}
+                  
                 </div>
               </div>
-            }
+            )}
 
-            {
-              services && searchField === '' && services.map((service, index) => {
+            {services &&
+              searchField === "" &&
+              services.map((service, index) => {
                 return (
                   <div className="col-4" key={index}>
                     <div className="service-block d-flex">
                       <div className="block-text col-7">
                         <div>
-                          <h5><button type="button" class="card-button" data-bs-toggle="modal" onClick={() => setIndex(index)} data-bs-target="#service-about">{service.title}</button></h5>
+                          <h5>
+                            <button
+                              type="button"
+                              class="card-button"
+                              data-bs-toggle="modal"
+                              onClick={() => setIndex(index)}
+                              data-bs-target="#service-about"
+                            >
+                              {service.title}
+                            </button>
+                          </h5>
                           <p>{service.description}</p>
                         </div>
                       </div>
@@ -127,33 +156,89 @@ const OurServices = () => {
                     </div>
                   </div>
                 );
-              })
-            }
+              })}
+            <div className="col-4 missing-card">
+              <div className="service-block d-flex">
+                <div className="block-text">
+                  
+                    <h5>
+                      <button type="button" class="card-button">
+                        Missing Something?
+                      </button>
+                    </h5>
+                    <p>Tell us your requirements below</p>
+                  
+                </div>
+                
+              </div>
+            </div>
 
             {/* <--Modal--/> */}
-            {services && <div class="modal fade" id="service-about" tabindex="-1" aria-labelledby="servicemodalpop" aria-hidden="true">
-              <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <div>
-                      <h1 class="modal-title fs-5" id="servicemodalpop">{searchField === '' ? services[openIndex].title : (searchService && searchService.length > 0) && searchService[openIndex].title}</h1>
-                      <p>{services[openIndex].description}</p>
+            {services && (
+              <div
+                class="modal fade"
+                id="service-about"
+                tabindex="-1"
+                aria-labelledby="servicemodalpop"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div>
+                        <h1 class="modal-title fs-5" id="servicemodalpop">
+                          {searchField === ""
+                            ? services[openIndex].title
+                            : searchService &&
+                              searchService.length > 0 &&
+                              searchService[openIndex].title}
+                        </h1>
+                        <p>{services[openIndex].description}</p>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <Service_pop item={searchField === '' ? services[openIndex] : (searchService && searchService.length > 0) && searchService[openIndex]} />
-                  </div>
-                  <div class="modal-footer">
-                    <div className='service-pop'>
-                      <button className="d-flex" type="button" data-bs-dismiss="modal"> <div><strong>Show Interest</strong></div><i class="bi bi-whatsapp"></i></button>
+                    <div class="modal-body">
+                      <Service_pop
+                        item={
+                          searchField === ""
+                            ? services[openIndex]
+                            : searchService &&
+                              searchService.length > 0 &&
+                              searchService[openIndex]
+                        }
+                      />
                     </div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer">
+                      <div className="service-pop">
+                        <button
+                          className="d-flex"
+                          type="button"
+                          data-bs-dismiss="modal"
+                        >
+                          {" "}
+                          <div>
+                            <strong>Show Interest</strong>
+                          </div>
+                          <i class="bi bi-whatsapp"></i>
+                        </button>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
                   </div>
-
                 </div>
               </div>
-            </div>}
+            )}
           </div>
         </div>
       </div>

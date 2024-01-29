@@ -30,7 +30,7 @@ const ExclusiveStore = () => {
                   </div>
                   <button className="franchise-content-para-bt" onClick={footerHandler}>
                     <h5 className="h5-btn">Unlock Your Potential</h5>
-                    <p style={{ marginBottom: "0px" }}>(with Krishak Vatika)</p>
+                    <p style={{ marginBottom: "0px" }}>(with कृषक वाटिका)</p>
                   </button>
                 </div>
               </div>

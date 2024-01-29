@@ -10,7 +10,7 @@ import Tafi_logo_white from "../../../assets/Tafi_logo_white.png";
 import { Link } from "react-router-dom";
 import Header from "../../header/header";
 import { useParams } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 
 var token;
 
@@ -36,25 +36,29 @@ const SignIn = () => {
     phone: "",
     otp: "",
     name: "",
-    checkbox: 0
+    checkbox: 0,
   });
 
   const handleChangeFormField = (e) => {
     console.log(token);
     if (e.target.name === "phone" || e.target.name === "otp") {
-      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
     }
     setFormField({ ...formField, [e.target.name]: e.target.value });
 
   }
 
+
   const onSendOtp = async (event) => {
     try {
       event.preventDefault();
       if (formField.phone.length == 10) {
-        const { data } = await axios.post("http://localhost:8080/auth/sendOtp", {
-          phone: formField.phone,
-        });
+        const { data } = await axios.post(
+          "http://localhost:8080/auth/sendOtp",
+          {
+            phone: formField.phone,
+          }
+        );
         token = data.token;
         if (data.success) {
           toast.success("OTP Sent successfully", {
@@ -97,11 +101,14 @@ const SignIn = () => {
           }
         );
         if (data.success) {
-          const { data } = await axios.post("http://localhost:8080/auth/signup", {
-            phone: formField.phone,
-            userName: formField.name,
-            email: formField.email,
-          });
+          const { data } = await axios.post(
+            "http://localhost:8080/auth/signup",
+            {
+              phone: formField.phone,
+              userName: formField.name,
+              email: formField.email,
+            }
+          );
           if (data.success) {
             localStorage.setItem("auth_token", token);
             localStorage.setItem("user_id", data.data._id);
@@ -150,8 +157,8 @@ const SignIn = () => {
   const forgotOnClose = () => {
     window.onbeforeunload = function (e) {
       localStorage.clear();
-    }
-  }
+    };
+  };
 
   const onTogglePage = (path) => {
     setPath(path);
@@ -183,8 +190,9 @@ const SignIn = () => {
             theme: "dark",
           });
         }
-      }
-      else {
+
+      } else {
+
         toast.error("Please enter a valid phone number", {
           position: "bottom-right",
           autoClose: 8000,
@@ -212,7 +220,7 @@ const SignIn = () => {
   return (
     <>
       <Header />
-      {path === 'login' && (
+      {path === "login" && (
         <div className="div sign_in">
           <div className="div-8">
             <div className="div-9">
@@ -228,10 +236,10 @@ const SignIn = () => {
                       />
                       <div className="div-12">
                         <div>
-                          <span className="welcome-text">Welcome</span>
+                          <span className="welcome-text">Enter the </span>
                         </div>
                         <div>
-                          <span className="back-text">Back!</span>
+                          <span className="back-text">Agro-Tech World!</span>
                         </div>
                       </div>
                     </span>
@@ -273,7 +281,12 @@ const SignIn = () => {
                     </div>
                   </span>
                   <div className="checkbox">
-                    <input type="checkbox" value="checkbox" onChange={handleCheckBox} style={{ marginRight: "5px" }} />
+                    <input
+                      type="checkbox"
+                      value="checkbox"
+                      onChange={handleCheckBox}
+                      style={{ marginRight: "5px" }}
+                    />
                     Keep me signed in
                   </div>
                   <button className="span-9" onClick={onLogin}>
@@ -285,7 +298,7 @@ const SignIn = () => {
                       Haven’t registered yet?{" "}
                     </span>
                     <Link
-                      onClick={(e) => onTogglePage('register')}
+                      onClick={(e) => onTogglePage("register")}
                       className="create-account-text"
                     >
                       Create an account
@@ -297,7 +310,7 @@ const SignIn = () => {
           </div>
         </div>
       )}
-      {path === 'register' && (
+      {path === "register" && (
         <div className="div sign_up">
           <div className="div-8">
             <div className="div-9">
@@ -346,7 +359,11 @@ const SignIn = () => {
                     </div>
                   </span>
                   <div className="checkbox">
-                    <input type="checkbox" onChange={handleCheckBox} style={{ marginRight: "5px" }} />
+                    <input
+                      type="checkbox"
+                      onChange={handleCheckBox}
+                      style={{ marginRight: "5px" }}
+                    />
                     Keep me signed in
                   </div>
                   <div className="register">
@@ -358,7 +375,7 @@ const SignIn = () => {
                   <div className="div-20">
                     <span className="register-text">Already a user? </span>
                     <Link
-                      onClick={(e) => onTogglePage('login')}
+                      onClick={(e) => onTogglePage("login")}
                       className="create-account-text"
                     >
                       Login
@@ -377,11 +394,15 @@ const SignIn = () => {
                         className="img-3"
                       />
                       <div className="div-12">
-                        {/* <span className="welcome-text">Welcome</span> */}
-                        <br />
+                        <div>
+                          <span className="welcome-text">Grow</span>
+                        </div>
+                        <div>
+                          <span className="back-text">With Us!</span>
+                        </div>
                       </div>
                     </span>
-                    {/* <img loading="lazy" src={photo} className="img-4" /> */}
+                    <img loading="lazy" src={photo} className="img-4" />
                   </div>
                 </div>
               </div>

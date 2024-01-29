@@ -12,15 +12,15 @@ const FeatureCarouselCard = ({ items }) => {
                     className="owl-theme"
                     loop
                     nav
+                    dots={false}
                     margin={5}
-
                     autoplayTimeout={5000}
                     navText={[
                         '<span class="arrow prev">‹</span>',
                         '<span class="arrow next">›</span>'
                     ]}
                     autoplayHoverPause={true}
-                    autoplay={false} >{items?.map((item) => {
+                    autoplay={true} >{items?.map((item) => {
                         return <FeaturedProductCard item={item} className='productItem' />
                     })}
                 </OwlCarousel>

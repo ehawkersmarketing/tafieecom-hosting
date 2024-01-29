@@ -11,16 +11,17 @@ const CarouselCard = ({ cart, items }) => {
                 <OwlCarousel items={4}
                     className="owl-theme"
                     loop
-                    margin={8}
+                    margin={6}
                     nav
-                    autoplayTimeout={5000}
+                    dots={false}
+                    autoplayTimeout={2000}
                     autoplayHoverPause={true}
                     navText={[
                         '<span class="arrow prev">‹</span>',
                         '<span class="arrow next">›</span>'
                     ]}
                     autoplay={true} >{items?.map((item, index) => {
-                        return <ProductCard item={item} cart={cart} className='productItem' key={index} />
+                        return <ProductCard item={item} className='productItem' key={index} />
                     })}
                 </OwlCarousel>
             </div>

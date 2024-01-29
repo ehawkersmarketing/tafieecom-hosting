@@ -49,6 +49,13 @@ const BlogPage = () => {
       }
     }
   };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
 
   const search = async (text) => {
     if (text !== '') {
@@ -163,7 +170,7 @@ const BlogPage = () => {
                           {blog.content}
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                        <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                        <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                           Read More
                         </Link>
                       </div>
@@ -196,7 +203,7 @@ const BlogPage = () => {
                         {blog.content.substring(0, 80)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                      <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                         Read More
                       </Link>
                     </div>
@@ -229,7 +236,7 @@ const BlogPage = () => {
                           {blog.content.substring(0, 80)}....
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                        <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                        <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                           Read More
                         </Link>
                       </div>
@@ -262,7 +269,7 @@ const BlogPage = () => {
                         {blog.content.substring(0, 80)}....
                       </p>
                       <p class="blog-date">{`${dayjs(blog.createdAt).format('MMMM D, YYYY')}`}</p>
-                      <Link to={`/singleBlog/${blog._id}`} class="btn btn-read">
+                      <Link to={`/singleBlog/${blog._id}`} onClick={scrollToTop} class="btn btn-read">
                         Read More
                       </Link>
                     </div>

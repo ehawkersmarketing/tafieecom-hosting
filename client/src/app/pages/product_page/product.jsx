@@ -1,17 +1,18 @@
-import react, { useEffect, useState } from "react";
+import  { useState ,useEffect} from "react";
 import "./product.css";
-import ProductImage from "../../assets/fertilizers.png";
+// import ProductImage from "../../assets/fertilizers.png";
 import Carousal from "../../components/carousal/carousal";
 import Header from "../../pages/header/header";
 
 import Footer from "../footer/footer";
 
-import { useParams } from "react-router-dom";
-import { useFetch } from "../../hooks/api_hook";
-import { useNavigate } from "react-router-dom";
+import { useParams ,useNavigate} from "react-router-dom";
+import { useFetch  } from "../../hooks/api_hook";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import $ from "jquery";
+
 
 const Product = () => {
 
@@ -27,6 +28,7 @@ const Product = () => {
     reviewContent: " ",
     rating: " ",
   });
+  const [rated , setRated]=useState(0)
   const [inCart, setInCart] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const { data: cart } = useFetch(`/api/getCartByUser/${user._id}`);
@@ -79,23 +81,31 @@ const Product = () => {
 
   const ReviewAddHandler = async (e) => {
     e.preventDefault();
+     if(!user){
+      alert("You can't Add review  untill you are login")
+     }
+else{
+  const { reviewContent, rating } = inputHandler;
 
-    const { reviewContent, rating } = inputHandler;
-
-    const { data } = await axios.post("http://localhost:8080/api/addReview", {
-      reviewContent: reviewContent,
-      rating: rating,
-      productId: id,
-      userId: userUniqueId
+  const { data } = await axios.post("http://localhost:8080/api/addReview", {
+    reviewContent: reviewContent,
+    rating: rated,
+    productId: id,
+    userId: userUniqueId
+  });
+  console.log(data)
+  if (data.success) {
+    fetchReviews();
+    setInputHandler({
+      ...inputHandler,
+      reviewContent: " ",
+      rating: " ",
     });
-    if (data.success) {
-      fetchReviews();
-      setInputHandler({
-        ...inputHandler,
-        reviewContent: " ",
-        rating: " ",
-      });
-    }
+  }
+}
+   
+
+
   }
 
   $(document).ready(function () {
@@ -195,7 +205,7 @@ const Product = () => {
             <div className="container">
               <div className="inner-container row">
                 <div className="product-image col-7">
-                  <img src={product?.image} />
+                  <img src={product?.image} alt="product-img" />
                 </div>
                 <card className="card card-design col-5">
                   <div className="inner-card">
@@ -237,7 +247,7 @@ const Product = () => {
           <div className="wrapper-about">
             <div className="about-product">
               <h1 className="about-title">About Product</h1>
-              <div>
+              <div className="about-desc">
                 <p className="description">{product?.description}</p>
               </div>
             </div>
@@ -263,16 +273,19 @@ const Product = () => {
             <div className="review-heading">
               <div className="review-main-title">
                 <h1 className="review-title">Reviews</h1>
+              
+                
                 <sup>
-                  <button className="review-btn">128</button>
-                </sup>
+                <button className="review-btn">0</button>
+              </sup>
+             
               </div>
               <div className="ratingAndReview">
                 <ul class="rating">
                   {Array.apply(null, { length: 5 }).map(
                     (e, i) => (
                       <li>
-                        <i class={i >= product?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                        <i class={i >= rated ? `bi bi-star` : `bi bi-star-fill`} id="review-icon" onClick={() => setRated(i+1)}></i>
                       </li>
                     )
                   )}
@@ -299,6 +312,7 @@ const Product = () => {
             <div className="review-description">
               <ul className="list">
                 {reviews?.reviews.map((item) => {
+                  console.log(item?.userId?.userName)
                   return (
                     <li>
                       <div className="user-review">
@@ -306,9 +320,16 @@ const Product = () => {
                           <span className="user-icon">
                             <i class="bi bi-person-circle"></i>
                           </span>
-                          <h3 className="personName">{item.userId.userName}</h3>
+                          {/* <h3 className="personName">{item?.userId.userName}</h3> */}
                         </div>
                         <p>{item.review}</p>
+                        {/* <span> {Array.apply(null, { length: 5 }).map(
+                          (e, i) => (
+                            <li>
+                              <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                            </li>
+                          )
+                        )}</span> */}
                       </div>
                     </li>
                   );

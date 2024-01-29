@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(undefined);
-
+  const userId = localStorage.getItem("user_id")
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
@@ -52,10 +52,13 @@ const Header = () => {
           {!user && <Link className="signin" to={`/auth/login`}>
             Sign In
           </Link>}
-          {user && <Link className="signin" onClick={onLogout}>
+          {user && (user.role.role ==="Admin" || user.role.role ==='Editor') &&  <Link className="signin" to={`/adminPage`} >
+            Dashboard
+          </Link>}
+          {user && <Link className="signin" to={`/auth/login`} onClick={onLogout}>
             Logout
           </Link>}
-          {user && user.role.role === 'User' && <Link className="register myaccount" to={"/myaccount"}>
+          {user && user.role.role === 'User' && <Link className="register myaccount" to={`/myaccount/${userId}`}>
             My account
           </Link>}
         </div>

@@ -13,6 +13,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  DOB: {
+    type: Date
+  },
   role: {
     type: mongoose.Types.ObjectId,
     ref: "role",

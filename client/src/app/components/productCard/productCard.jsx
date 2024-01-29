@@ -30,9 +30,12 @@ const ProductCard = ({ cart, item }) => {
     navigate('/cart')
   }
 
+  
+
   return (
-    <div key={item._id} className="carouselItem" interval="500">
-      <div className="textBlock">
+    <div key={item._id} className="carouselItem col-3" interval="500">
+      <div className="col-gapping">
+        <div className="textBlock">
         <div className="product-image">
           <img src={item.image} alt="" />
         </div>
@@ -63,6 +66,8 @@ const ProductCard = ({ cart, item }) => {
           }</button>
         </div>
       </div>
+      </div>
+      
     </div>
   );
 };

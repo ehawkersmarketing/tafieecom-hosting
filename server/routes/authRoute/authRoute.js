@@ -11,6 +11,8 @@ const {
   verifyOtp,
   googleAuth,
   searchUser,
+  getUserById,
+  updateUserById,
 } = require("../../controlllers/auth/authController");
 
 router.post("/addrole", addRole);
@@ -20,6 +22,8 @@ router.post("/verifyOtp", verifyOtp);
 router.post("/login", login);
 router.post("/searchUser", searchUser);
 router.get("/users", user);
+router.get("/user/:id" , getUserById)
+router.put("/updateUser/:id",updateUserById)
 
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 

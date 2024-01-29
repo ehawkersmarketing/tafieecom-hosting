@@ -45,14 +45,16 @@ module.exports.getReviewsById = async (req, res) => {
 };
 module.exports.addReview = async (req, res) => {
     try {
-        const { userId, reviewContent, rating, productId } = req.body;
+        let { userId, reviewContent, rating, productId , count } = req.body;
+
         let review = await reviewModel.findOne({ productId: productId });
         if (review) {
             review = review.toObject();
             review.reviews.push({
                 userId: userId,
                 review: reviewContent,
-                rating: rating
+                rating: rating,
+                // count:++count
             });
             const updatedReview = await reviewModel.findOneAndUpdate(
                 { productId: productId },

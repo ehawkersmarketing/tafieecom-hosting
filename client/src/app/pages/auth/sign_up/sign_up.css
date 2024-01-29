@@ -257,6 +257,15 @@
     font: 700 44px/46px Montserrat, -apple-system, Roboto, Helvetica,
         sans-serif;
 }
+.sign_up .welcome-text {
+    background-color: #fff;
+    color: #19443f;
+  }
+  .sign_up   .back-text{
+    background-color:#19443f;
+    width: fit-content;
+    margin-left: auto;
+}
 
 .sign_up .img-4 {
     aspect-ratio: 0.97;

@@ -29,7 +29,7 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductsById = async (req, res) => {
   try {
     const products = await productModel.findOne({ _id: req.params.id }).populate('category');
-    console.log(products);
+    // console.log(products);
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -262,7 +262,7 @@ exports.CreateCategory = async (req, res) => {
 exports.getAllCategory = async (req, res) => {
   try {
     const category = await categoryModel.find({});
-    console.log(category);
+    // console.log(category);
     if (!category) {
       return res.status(500).send({
         success: false,

@@ -91,13 +91,13 @@ const About = () => {
                   <div className="col">
                     <div>
                       <div className="num">1</div>
-                      <p className="block1">Smart Irrigation Systems</p>
+                      <p className="block1">Drones and UAVs</p>
                     </div>
                   </div>
                   <div className="col">
                     <div>
                       <div className="num">2</div>
-                      <p className="block2">Drones and UAVs</p>
+                      <p className="block2">Precision Agriculture</p>
                     </div>
                   </div>
                   <div className="col">
@@ -109,25 +109,25 @@ const About = () => {
                   <div className="col">
                     <div>
                       <div className="num">4</div>
-                      <p className="block4">Greenhouse</p>
+                      <p className="block4">Smart Greenhouse</p>
                     </div>
                   </div>
                   <div className="col">
                     <div>
                       <div className="num">5</div>
-                      <p className="block5">Climate Monitoring</p>
+                      <p className="block5">High Tech Machinery</p>
                     </div>
                   </div>
                   <div className="col">
                     <div>
                       <div className="num">6</div>
-                      <p className="block6">High Tech Machinery</p>
+                      <p className="block6">Climate Monitoring</p>
                     </div>
                   </div>
                   <div className="col">
                     <div>
                       <div className="num">7</div>
-                      <p className="block7">Precision Agriculture</p>
+                      <p className="block7">Smart Irrigation Systems</p>
                     </div>
                   </div>
                   <div className="col">

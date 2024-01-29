@@ -112,10 +112,10 @@ exports.getBlogById = async (req, res) => {
 exports.updateBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
-    const { title, content, readingTime } = req.body;
+    const { title, content, readingTime ,image} = req.body;
     const updatedBlog = await blogModel.findByIdAndUpdate(
       { _id: blogId },
-      { title, content, readingTime }
+      { title, content, readingTime , image }
     );
     await updatedBlog.save();
     return res.status(200).send({

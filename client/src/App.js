@@ -13,13 +13,10 @@ import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition
 import ReturnAndRefund from "./app/pages/return_refund_policy/ReturnAndRefund.jsx";
 import PrivacyPolicy from "./app/pages/privacy_policy/PrivacyPolicy.jsx";
 import OrderConformationPage from "./app/pages/order_conformation_page/OrderConformationPage.jsx";
-import Invoice from "./app/pages/invoice/Invoice.jsx";
 import "./App.css";
 import BlogPage from "./app/pages/blog_grid_page/blog_grid_page.jsx";
 import ShopPage from "./app/pages/shop_page/shop_page.jsx";
 import AdminPage from "./app/pages/admin_page/adminPage.jsx";
-import Header from "./app/pages/header/header.jsx";
-import Footer from "./app/pages/footer/footer.jsx";
 import About from "./app/pages/about_page/about.jsx";
 import Myaccount from "./app/pages/myaccount_page/myaccount.jsx";
 import ExclusiveStore from "./app/pages/exclusivestore/exclusivestore.jsx";
@@ -31,6 +28,7 @@ import AdminProcessOrder from "./app/pages/admin-process-order/admin-process-ord
 import CreateService from "./app/pages/createService/createService.js";
 import UpdateService from "./app/pages/updateService/updateService.js";
 import 'react-toastify/dist/ReactToastify.css';
+import UpdateUser from "./app/pages/updateUser/updateUser.js";
 
 
 
@@ -87,12 +85,11 @@ function App() {
             element={<OrderConformationPage />}
           />
           <Route path="/about" exact element={<About />} />
-          <Route path="/Invoice" exact element={<Invoice />} />
           <Route path="/Cart" exact element={<Cart />} />
-          <Route path="/myaccount" exact element={<Myaccount />} />
+          <Route path="/myaccount/:id" exact element={<Myaccount />} />
           <Route path="/exclusivestore" exact element={<ExclusiveStore />} />
           <Route path="/checkout" exact element={<Checkout />} />
-
+          <Route path="/updateUser/:id" exact element={<UpdateUser />} />
           <Route path="/services" exact element={<Services />} />
           <Route path="/createService" exact element={<CreateService />} />
           <Route path="/updateService/:id" exact element={<UpdateService />} />
