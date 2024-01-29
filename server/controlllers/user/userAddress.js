@@ -3,11 +3,11 @@ const userModel = require("../../models/userModel/userModel");
 
 module.exports.putUserAddress = async (req, res, next) => {
     try {
-        const { userId, street, landmark, city, country, state, zipCode, email } = req.body;
+        const { userId, street, landmark, city, country, state, zipCode, email, userName } = req.body;
         const user = await userModel.findOne({ _id: userId });
         if (user) {
             if (email) {
-                await userModel.findOneAndUpdate({ _id: userId }, { email: email });
+                await userModel.findOneAndUpdate({ _id: userId }, { email: email, userName: userName });
             }
             const address = await userAddress.findOne({ userId: user._id });
             if (address) {
@@ -55,8 +55,8 @@ module.exports.putUserAddress = async (req, res, next) => {
 };
 module.exports.getUserAddress = async (req, res, next) => {
     try {
-        const  {id } = req.params;
-        const user = await userAddress.findOne({userId:id});
+        const { id } = req.params;
+        const user = await userAddress.findOne({ userId: id });
         if (user) {
             return res.status(200).json({
                 success: true,
@@ -77,33 +77,33 @@ module.exports.getUserAddress = async (req, res, next) => {
     }
 };
 
-module.exports.updateUserAddress = async(req,res) =>{
-        try {
-          const { id } = req.params;
-          console.log(id)
-          const {street , landmark , city ,state ,  country , zipCode} = req.body;
-          const userId = id;
-          console.log(userId)
+module.exports.updateUserAddress = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id)
+        const { street, landmark, city, state, country, zipCode } = req.body;
+        const userId = id;
+        console.log(userId)
 
-          const updatedUserAddress = await userAddress.findOneAndUpdate({userId:id},
+        const updatedUserAddress = await userAddress.findOneAndUpdate({ userId: id },
             {
-                street , landmark , city ,state ,  country , zipCode
+                street, landmark, city, state, country, zipCode
             }
-          );
+        );
         console.log(updatedUserAddress)
-          res.status(200).json({
+        res.status(200).json({
             success: true,
             data: updatedUserAddress,
             message: "User Updated Successfully",
-          });
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
             success: false,
             data: error,
             message: "Error while updating the User Address",
-          });
-        }
-      
-      
+        });
+    }
+
+
 }
