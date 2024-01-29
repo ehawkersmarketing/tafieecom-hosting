@@ -51,7 +51,7 @@ const UpdateUser = () => {
   }, []);
   useEffect(() => {
     axios
-      .put(`http://localhost:8080/auth/updateUser/${id}`)
+      .put(`http://localhost:8080/auth/user/${id}`)
       .then((res) => {
         console.log(res.data.data);
         setInputHandler({
