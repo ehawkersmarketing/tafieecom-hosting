@@ -19,8 +19,7 @@ const About = () => {
             <div className="about-hero-text col-7">
               <div className="about-hero-head">
                 <h2>
-                  <span className="about-text">About</span>
-                  <span className="tafi-text">Tafi</span>
+                  <span className="about-text">About</span><span className="tafi-text">Tafi</span>
                 </h2>
                 <p>
                   Established in 2022,<b> TAFI </b>is a comprehensive ecosystem
@@ -43,7 +42,7 @@ const About = () => {
                 <span className="vision-head">
                   <h4>
                     <span className="our-text">Our </span>
-                    <span className="vision-text">Vision</span>
+                    <span className="vision-text"> Vision</span>
                   </h4>
                 </span>
                 <span className="vision-description">
@@ -59,7 +58,7 @@ const About = () => {
                 <span className="mission-head">
                   <h4>
                     <span className="our-text">Our </span>
-                    <span className="mission-text">Mission</span>
+                    <span className="mission-text"> Mission</span>
                   </h4>
                 </span>
                 <span className="mission-description">
@@ -78,7 +77,7 @@ const About = () => {
             <div className="tech-head">
               <h4>
                 <span className="tech-text">Technologies </span>{" "}
-                <span className="vision-text">We Offer</span>
+                <span className="we-offer-text">We Offer</span>
               </h4>
             </div>
             <div className="tech-img tech-back-img">

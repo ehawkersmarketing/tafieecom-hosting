@@ -1227,7 +1227,7 @@ const AdminPage = () => {
                           <th scope="col" className="th">
                             Description
                           </th>
-                          <th scope="col" className="th">
+                          <th scope="col" className="th ">
                             Action
                           </th>
                         </tr>
@@ -1249,10 +1249,10 @@ const AdminPage = () => {
                                     {service.title}
                                   </td>
                                   <td className="td table-center">
-                                    {service.description}
+                                    {service.description.substring(0, 40)}
                                   </td>
 
-                                  <td className="td table-center">
+                                  <td className="td table-center ">
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
@@ -1293,9 +1293,9 @@ const AdminPage = () => {
                                   {service.title}
                                 </td>
                                 <td className="td table-center">
-                                  {service.description}
+                                  {service.description.substring(0, 40)}
                                 </td>
-                                <td className="td table-center">
+                                <td className="td table-center actions">
                                   <span className="td-edit-icon ">
                                     <i
                                       class="bi bi-pencil-square"

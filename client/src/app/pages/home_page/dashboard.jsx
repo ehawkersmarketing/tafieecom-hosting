@@ -6,7 +6,6 @@ import punchline from "../../assets/punchline.png";
 import "./home_page.css";
 import CategoryCarousel from "../../pages/shop_page/component/categoryCarousel/categoryCarousel.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
-import FeaturedProductCard from "./components/feature_product.jsx";
 import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
 import { useNavigate } from "react-router-dom";
 import homehero from "../../assets/homepage-main.png";

@@ -1,7 +1,7 @@
 import react from "react";
 import "./exclusivestore.css";
 import Header from "../header/header";
-import img from "../../assets/image 2.png";
+import img from "../../assets/image 2.png"; 
 import sideImg from "../../assets/Group 358.png";
 import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
@@ -158,7 +158,7 @@ const ExclusiveStore = () => {
                 </div>
                 <div className="map-para">
                   <span className="para-unevil">
-                    <i>Unveil unique products & services not found</i>
+                    <i>Unveil unique products & services not found <b> elsewhere</b></i>
                   </span>
                 </div>
                 {/* <div className="content-map-fan">

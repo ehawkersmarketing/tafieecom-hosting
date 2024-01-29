@@ -106,13 +106,13 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24">
-          <ul>
+        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  fiter-name">
+          <ul className="">
             {
               filter.map((item, index) => {
                 return (
                   <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100" key={index} onClick={(e) => applyFilter(e, index)}>
-                    <span className="">{item.title}</span>
+                    <span className="">{item}</span>
                   </li>
                 )
               })
@@ -201,7 +201,7 @@ const ShopPage = () => {
               </div>
             </div>
           </div>}
-          <div className="all-products-card">
+          <div className="all-products-card row">
             {(activeFilter.filter === '' && searchField === '') && products && products?.map((item, index) => {
               return (
                 <ProductCard item={item} key={index} cart={cart} className='productItem' />

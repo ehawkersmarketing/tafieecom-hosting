@@ -35,7 +35,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
             '<span class="arrow prev">‹</span>',
             '<span class="arrow next">›</span>',
           ]}
-          autoplay={false}
+          autoplay={true}
         >
           {items?.map((item, index) => {
             const inCart = cart?.products.find((product) => {

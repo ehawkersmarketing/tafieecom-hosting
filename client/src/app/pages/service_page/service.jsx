@@ -106,7 +106,7 @@ const OurServices = () => {
                                       {service.title}
                                     </button>
                                   </h5>
-                                  <p>{service.description}</p>
+                                  <p>{service.description.substring(0, 80)}</p>
                                 </div>
                               </div>
                               <div className="block-img col-5">
@@ -147,7 +147,7 @@ const OurServices = () => {
                               {service.title}
                             </button>
                           </h5>
-                          <p>{service.description}</p>
+                          <p>{service.description.substring(0, 80)}</p>
                         </div>
                       </div>
                       <div className="block-img col-5">
@@ -193,7 +193,7 @@ const OurServices = () => {
                               searchService.length > 0 &&
                               searchService[openIndex].title}
                         </h1>
-                        <p>{services[openIndex].description}</p>
+                        {/* <p>{services[openIndex].description}</p> */}
                       </div>
                       <button
                         type="button"
