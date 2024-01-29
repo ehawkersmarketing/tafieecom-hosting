@@ -347,3 +347,15 @@
 .feature-textBlock .rating{
   margin-left: -2rem
 }
+.product-bg .inner-card .rating{
+  margin-left: -2rem;
+}
+.product-page-carousal .rating{
+  margin-left: -2rem;
+}
+.single-product .rating{
+  margin-left: -2rem;
+}
+.review-main-title .review-btn{
+  height: 20px;
+}
