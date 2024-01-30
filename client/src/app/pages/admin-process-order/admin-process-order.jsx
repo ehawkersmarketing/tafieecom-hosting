@@ -208,7 +208,7 @@ const AdminProcessOrder = () => {
           >
             Accept
           </button>
-          <button type="button" class="btn btn-secondary reject-button m-2">
+          <button type="button" class="btn btn-secondary reject-button m-2" onClick={cancelShipment}>
             Reject
           </button>
         </div>
