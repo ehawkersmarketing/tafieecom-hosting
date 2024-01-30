@@ -37,11 +37,11 @@ exports.requestApproval = async (req, res) => {
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
-    const { requestId, length, breadth, height, weight } = req.body;
-    const request = await requestModel.findOne({ _id: requestId });
+    const { orderId, length, breadth, height, weight } = req.body;
+    const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
       const data = await requestModel.findOneAndUpdate(
-        { _id: requestId },
+        { orderId: orderId },
         {
           approvalStatus: "APPROVED",
         }
@@ -67,11 +67,12 @@ exports.approveRequest = async (req, res) => {
             tax: 0
           })
         }
-        console.log(orderItems);
+        console.log(request);
         let time = order.timestamps.toISOString();
         axios.post("http://localhost:8080/api/ship/createOrder",
           {
             order_id: `${order._id}`,
+            // order_id: `dfdrgses`,
             order_date: `${time.substring(0, 10)}`,
             pickup_location: "Primary",
             billing_customer_name: `${order.user.userName}`,
@@ -560,6 +561,7 @@ exports.generateAWBFunction = async (req, res) => {
   console.log(getToken);
 
   let paramers = "shipment_id=" + shipment_id;
+  console.log(shipment_id);
   if (getToken.status) {
     let options = {
       method: "post",
@@ -572,7 +574,7 @@ exports.generateAWBFunction = async (req, res) => {
         "https://apiv2.shiprocket.in/v1/external/courier/assign/awb?" +
         paramers,
     };
-    await axios(options)
+    await axios.post(options)
       .then(function (response) {
         return res.json({
           success: true,
@@ -612,7 +614,7 @@ exports.generateAWBFunction = async (req, res) => {
             status_code: error.response.data.status_code,
           });
         } else {
-          res.status(500).send({
+          res.status(error.response.data.status_code).send({
             success: false,
             status_code: error.response.data.status_code,
             error,

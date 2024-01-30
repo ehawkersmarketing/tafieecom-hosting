@@ -27,7 +27,7 @@ export const getRequestWithAuth = async (url) => {
             return null;
         }
     } catch (error) {
-        toast.error(`${error.message}`, {
+        toast.error(`${error.response.data.message}`, {
             position: "bottom-right",
             autoClose: 8000,
             pauseOnHover: true,
@@ -55,7 +55,7 @@ export const getRequest = async (url) => {
             return null;
         }
     } catch (error) {
-        toast.error(`${error.message}`, {
+        toast.error(`${error.response.data.message}`, {
             position: "bottom-right",
             autoClose: 8000,
             pauseOnHover: true,

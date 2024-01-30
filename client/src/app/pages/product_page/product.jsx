@@ -1,4 +1,4 @@
-import  { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import "./product.css";
 // import ProductImage from "../../assets/fertilizers.png";
 import Carousal from "../../components/carousal/carousal";
@@ -6,8 +6,8 @@ import Header from "../../pages/header/header";
 
 import Footer from "../footer/footer";
 
-import { useParams ,useNavigate} from "react-router-dom";
-import { useFetch  } from "../../hooks/api_hook";
+import { useParams, useNavigate } from "react-router-dom";
+import { useFetch } from "../../hooks/api_hook";
 // import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -28,7 +28,7 @@ const Product = () => {
     reviewContent: " ",
     rating: " ",
   });
-  const [rated , setRated]=useState(0)
+  const [rated, setRated] = useState(0)
   const [inCart, setInCart] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
@@ -81,29 +81,29 @@ const Product = () => {
 
   const ReviewAddHandler = async (e) => {
     e.preventDefault();
-     if(!user){
+    if (!user) {
       alert("You can't Add review  untill you are login")
-     }
-else{
-  const { reviewContent, rating } = inputHandler;
+    }
+    else {
+      const { reviewContent, rating } = inputHandler;
 
-  const { data } = await axios.post("http://localhost:8080/api/addReview", {
-    reviewContent: reviewContent,
-    rating: rated,
-    productId: id,
-    userId: userUniqueId
-  });
-  console.log(data)
-  if (data.success) {
-    fetchReviews();
-    setInputHandler({
-      ...inputHandler,
-      reviewContent: " ",
-      rating: " ",
-    });
-  }
-}
-   
+      const { data } = await axios.post("http://localhost:8080/api/addReview", {
+        reviewContent: reviewContent,
+        rating: rated,
+        productId: id,
+        userId: userUniqueId
+      });
+      if (data.success) {
+        setRated(0);
+        fetchReviews();
+        setInputHandler({
+          ...inputHandler,
+          reviewContent: " ",
+          rating: " ",
+        });
+      }
+    }
+
 
 
   }
@@ -273,19 +273,19 @@ else{
             <div className="review-heading">
               <div className="review-main-title">
                 <h1 className="review-title">Reviews</h1>
-              
-                
+
+
                 <sup>
-                <button className="review-btn">0</button>
-              </sup>
-             
+                  <button className="review-btn">0</button>
+                </sup>
+
               </div>
               <div className="ratingAndReview">
                 <ul class="rating">
                   {Array.apply(null, { length: 5 }).map(
                     (e, i) => (
                       <li>
-                        <i class={i >= rated ? `bi bi-star` : `bi bi-star-fill`} id="review-icon" onClick={() => setRated(i+1)}></i>
+                        <i class={i >= rated ? `bi bi-star` : `bi bi-star-fill`} id="review-icon" onClick={() => setRated(i + 1)}></i>
                       </li>
                     )
                   )}
@@ -310,7 +310,7 @@ else{
               </div>
             </div>
             <div className="review-description">
-              <ul className="list">
+              <div className="list">
                 {reviews?.reviews.map((item) => {
                   console.log(item?.userId?.userName)
                   return (
@@ -320,21 +320,22 @@ else{
                           <span className="user-icon">
                             <i class="bi bi-person-circle"></i>
                           </span>
-                          {/* <h3 className="personName">{item?.userId.userName}</h3> */}
+                          <h3 className="personName">{item?.userId.userName}</h3>
                         </div>
                         <p>{item.review}</p>
-                        {/* <span> {Array.apply(null, { length: 5 }).map(
+                        <ul className="rating"> {Array.apply(null, { length: 5 }).map(
                           (e, i) => (
                             <li>
                               <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
                             </li>
                           )
-                        )}</span> */}
+                        )}</ul>
                       </div>
                     </li>
                   );
                 })}
-              </ul>
+
+              </div>
               <button className="load-more" id="next">
                 Load More<i class="bi bi-chevron-down"></i>{" "}
               </button>

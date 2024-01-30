@@ -17,7 +17,7 @@ const AdminProcessOrder = () => {
   const backHandler = () => setValue(0);
   const { data: order } = useFetch(`/api/getOrderById/${id}`);
   const products = order?.products;
-  const user = order?.user;
+  const user = JSON.parse(localStorage.getItem('user'));
   const userAddress = order?.userAddress;
   const [formData, setFormData] = useState({
     length: 0,
@@ -25,6 +25,12 @@ const AdminProcessOrder = () => {
     height: 0,
     weight: 0
   });
+
+  useEffect(() => {
+    if (!user || user.role.role === 'User' || user.role.role === 'Editor') {
+      navigate('/auth/login');
+    }
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -45,8 +51,8 @@ const AdminProcessOrder = () => {
         });
       } else {
         console.log(formData.length + formData.breadth + formData.height + formData.weight);
-        const { data } = await axios.post("http://locahost:8080/api/ship/approveRequest", {
-          requestId: "65b4f0ea153375c918b97d92",
+        const { data } = await axios.post("http://localhost:8080/api/ship/approveRequest", {
+          orderId: id,
           length: formData.length,
           breadth: formData.breadth,
           height: formData.height,
@@ -99,7 +105,7 @@ const AdminProcessOrder = () => {
           <div class="section col-6">
             <div class="section-title">Shipping To</div>
             <div class="details row">
-              <p>Address: {userAddress?.landmark}</p>
+              <p>Address: {userAddress?.street}</p>
               <p>Pin: {userAddress?.zipCode}</p>
               <p>City: {userAddress?.city}</p>
             </div>
@@ -125,12 +131,12 @@ const AdminProcessOrder = () => {
                     return (
                       <tr>
                         <td>{index + 1}</td>
-                        <td>{item.productId.title}</td>
-                        <td>{item.productId.price}</td>
-                        <td>{item.units}</td>
-                        <td>{item.productId.price}</td>
+                        <td>{item.productId?.title}</td>
+                        <td>{item.productId?.price}</td>
+                        <td>{item?.units}</td>
+                        <td>{item.productId?.price}</td>
 
-                        <td>{item.productId.price * item.units}</td>
+                        <td>{item.productId?.price * item?.units}</td>
                       </tr>
                     );
                   })
@@ -166,7 +172,8 @@ const AdminProcessOrder = () => {
             <div class="section-bottom">Shipping From:</div>
             <div class="details row">
               <p>
-                {userAddress?.street}, {userAddress?.city}
+                204, Princess Business SkyPark, Opp. Orbito Mall, A.B. Road,
+                Indore
               </p>
               <p>Phone: +91 81200 00506</p>
               <p>Email: support@twicks.in</p>

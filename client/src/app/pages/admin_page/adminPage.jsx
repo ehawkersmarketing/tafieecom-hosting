@@ -7,18 +7,21 @@ import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
-import Header from '../header/header'
+import { toast, ToastContainer } from "react-toastify";
+import Header from "../header/header";
+import GraphRevenue from "./components/graphRevenue";
 const AdminPage = () => {
+  
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const { data: blogs, setData: setBlogs } = useFetch("/api/blogs");
   const { data: products } = useFetch("/api/allProducts");
   const { data: orders } = useFetch("/api/getAllOrders");
-  const { data: services, setData: setServices } = useFetch("/api/getAllService");
+  const { data: graphData } = useFetch("/api/getAllGraph");
+  const { data: services, setData: setServices } =
+    useFetch("/api/getAllService");
   const { data: users } = useFetch("/auth/users");
-  console.log(orders);
 
   const [searchField, setSearchField] = useState({
     product: "",
@@ -33,43 +36,90 @@ const AdminPage = () => {
   const [searchService, setSearchService] = useState([]);
   const [searchUsers, setSearchUser] = useState([]);
   const [deletedBlogId, setDeletedBlogId] = useState(null);
-  const data = [
-    ["x", "dogs", "cats"],
-    [0, 0, 0],
-    [1, 10, 5],
-    [2, 23, 15],
-    [3, 17, 9],
-    [4, 18, 10],
-    [5, 9, 5],
-    [6, 11, 3],
-    [7, 27, 19],
-  ];
   const options = {
     hAxis: {
       title: "Time",
     },
     vAxis: {
-      title: "Popularity",
+      title: "Revenue",
     },
     series: {
       1: { curveType: "function" },
     },
   };
-  const dataOld = [
-    ["Name", "Popularity"],
-    ["Cesar", 250],
-    ["Rachel", 4200],
-    ["Patrick", 2900],
-    ["Eric", 8200],
-  ];
-  const dataNew = [
-    ["Name", "Popularity"],
-    ["Cesar", 370],
-    ["Rachel", 600],
-    ["Patrick", 700],
-    ["Eric", 1500],
-  ];
-  const diffdata = { old: dataOld, new: dataNew };
+  let processed,
+    rejected,
+    Approved,
+    countApproved = 0,
+    countRejected = 0,
+    countProcessing = 0;
+  let currentOrder,
+    previousApprovedCount = 0,
+    previousRejectedCount = 0,
+    previousProcessingCount = 0;
+
+  function diff_months(dt2, dt1) {
+    var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= 60 * 60 * 24 * 7 * 4;
+    return Math.abs(Math.round(diff));
+  }
+
+  useEffect(() => {
+    graphData?.map((dataSet, index) => {
+      currentOrder = new Date();
+      let previousOrder = new Date(dataSet.timestamps);
+      // console.log(dataSet?.timestamps)
+      var diff = currentOrder.getMonth() - previousOrder.getMonth();
+      console.log(diff_months(currentOrder, previousOrder));
+
+      // console.log(diff_months)
+      if (diff_months(currentOrder, previousOrder) !== 0) {
+        if (dataSet?.orderStatus === "PROCESSING") {
+          previousProcessingCount = previousProcessingCount + 1;
+          // console.log(previousProcessingCount )
+        }
+        if (dataSet?.orderStatus === "REJECTED") {
+          previousRejectedCount = previousRejectedCount + 1;
+          console.log(previousRejectedCount);
+        }
+        if (dataSet?.orderStatus === "APPROVED") {
+          previousApprovedCount = previousApprovedCount + 1;
+          // console.log(countApproved )
+        }
+      }
+
+      if (diff_months(currentOrder, previousOrder) === 0) {
+        if (dataSet?.orderStatus === "PROCESSING") {
+          countProcessing = countProcessing + 1;
+          // console.log(countProcessing)
+        }
+        if (dataSet?.orderStatus === "REJECTED") {
+          countRejected = countRejected + 1;
+          // console.log(countRejected)
+        }
+        if (dataSet?.orderStatus === "APPROVED") {
+          countApproved = countApproved + 1;
+          // console.log(countApproved )
+        }
+      }
+    });
+    setDiffData({
+      old: [
+        ["Name", "orderStatus"],
+        ["approved", previousApprovedCount],
+        ["rejected", previousRejectedCount],
+        ["processing", previousProcessingCount],
+      ],
+      new: [
+        ["Name", "orderStatus"],
+        ["approved", countApproved],
+        ["rejected", countRejected],
+        ["processing", countProcessing],
+      ],
+    });
+  }, [graphData]);
+
+  const [diffdata, setDiffData] = useState({ old: [], new: [] });
 
   const dashboardHandler = () => setValue(1);
   const storeHandler = () => setValue(0);
@@ -77,6 +127,24 @@ const AdminPage = () => {
   const blogHandler = () => setValue(4);
   const userHandler = () => setValue(2);
   const serviceHandler = () => setValue(5);
+  const [currentRevenue, setCurrentRevenue] = useState(0);
+  const [previousMonothRevenue, setPreviousMonthRevenue] = useState(0);
+
+  useEffect(() => {
+    if (orders) {
+      let total = 0;
+      let previousRevenue = 0;
+      for (let i = 0; i < orders?.length; i++) {
+        if(diff_months(new Date(), new Date(orders[i].timestamps)) === 0){
+          total = orders[i]?.amount;
+        }else if(diff_months(new Date(), new Date(orders[i].timestamps)) === 1){
+          previousRevenue += orders[i].amount;
+        }
+      }
+      setCurrentRevenue(total);
+      setPreviousMonthRevenue(previousRevenue);
+    }
+  }, [orders]);
 
   useEffect(() => {
     if (user) {
@@ -94,9 +162,9 @@ const AdminPage = () => {
 
   function deleteResourceHandler(id) {
     try {
-      fetch(`http://localhost:8080/api/deleteBlog/${id}`, { method: 'DELETE' })
-        .then(response => response.json())
-        .then(data => {
+      fetch(`http://localhost:8080/api/deleteBlog/${id}`, { method: "DELETE" })
+        .then((response) => response.json())
+        .then((data) => {
           if (data.message === "Blog deleted!!") {
             fetchDeleted();
           }
@@ -112,47 +180,41 @@ const AdminPage = () => {
     }
   }
 
-
-   function onDelete(id) {
-    if (window.confirm('Are you sure you want to delete this resource?')) {
-       deleteResourceHandler(id);
+  function onDelete(id) {
+    if (window.confirm("Are you sure you want to delete this resource?")) {
+      deleteResourceHandler(id);
     }
   }
 
   const fetchDeleted = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/blogs`);
-    console.log(data)
+    console.log(data);
     setBlogs(data.data);
-  }
-
+  };
 
   const deleteServiceHandler = (id) => {
-    console.log("id", id)
-    fetch(`http://localhost:8080/api/deleteService/${id}`, { method: 'DELETE' })
-      .then(response => response.json())
-      .then(data => {
+    console.log("id", id);
+    fetch(`http://localhost:8080/api/deleteService/${id}`, { method: "DELETE" })
+      .then((response) => response.json())
+      .then((data) => {
         if (data.message === "service deleted!!") {
-          console.log("deleted")
+          console.log("deleted");
           fetchDeletedService();
         }
       });
-  }
+  };
 
   function onDeleteService(id) {
-    if (window.confirm('Are you sure you want to delete this Service?')) {
+    if (window.confirm("Are you sure you want to delete this Service?")) {
       deleteServiceHandler(id);
     }
   }
 
-
   const fetchDeletedService = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/getAllService`);
-    console.log(data)
+    console.log(data);
     setServices(data.data);
-  }
-
-
-
+  };
 
   const search = async (text) => {
     if (text !== "") {
@@ -268,60 +330,50 @@ const AdminPage = () => {
               <div className="sidebar">
                 {user.role.role === "Admin" && (
                   <div>
-                    <div className="sidebar-title">
+                    <div className="sidebar-title" onClick={dashboardHandler}>
                       <div className="icon">
                         <i class="bi bi-bar-chart-fill"></i>
                       </div>
-                      <div className="title" onClick={dashboardHandler}>
-                        Dashboard
-                      </div>
+                      <div className="title">Dashboard</div>
                     </div>
                   </div>
                 )}
 
                 {user.role.role === "Admin" && (
                   <div>
-                    <div className="sidebar-title">
+                    <div className="sidebar-title" onClick={storeHandler}>
                       <div className="icon">
                         <i class="bi bi-shop"></i>
                       </div>
-                      <div className="title" onClick={storeHandler}>
-                        All Orders
-                      </div>
+                      <div className="title">All Orders</div>
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <div className="sidebar-title">
+                  <div className="sidebar-title" onClick={blogHandler}>
                     <div className="icon">
                       <i class="bi bi-layout-text-window-reverse"></i>
                     </div>
-                    <div className="title" onClick={blogHandler}>
-                      Blogs
-                    </div>
+                    <div className="title">Blogs</div>
                   </div>
                 </div>
 
                 <div>
-                  <div className="sidebar-title">
+                  <div className="sidebar-title" onClick={productHandler}>
                     <div className="icon">
                       <i class="bi bi-box"></i>
                     </div>
-                    <div className="title" onClick={productHandler}>
-                      Products
-                    </div>
+                    <div className="title">Products</div>
                   </div>
                 </div>
 
                 <div>
-                  <div className="sidebar-title">
+                  <div className="sidebar-title" onClick={serviceHandler}>
                     <div className="icon">
                       <i class="bi bi-box"></i>
                     </div>
-                    <div className="title" onClick={serviceHandler}>
-                      Services
-                    </div>
+                    <div className="title">Services</div>
                   </div>
                 </div>
 
@@ -333,13 +385,11 @@ const AdminPage = () => {
 
                 {user.role.role === "Admin" && (
                   <div>
-                    <div className="sidebar-title">
+                    <div className="sidebar-title " onClick={userHandler}>
                       <div className="icon">
                         <i class="bi bi-person-circle"></i>
                       </div>
-                      <div className="title" onClick={userHandler}>
-                        User
-                      </div>
+                      <div className="title">User</div>
                     </div>
                   </div>
                 )}
@@ -375,7 +425,6 @@ const AdminPage = () => {
                               <i class="bi bi-person"></i>
                             </span>
                             <span>Logout</span>
-                           
                           </div>
                         </div>
                       </div>
@@ -406,7 +455,6 @@ const AdminPage = () => {
                               <i class="bi bi-person"></i>
                             </span>
                             <span>Logout</span>
-                           
                           </div>
                         </div>
                       </div>
@@ -437,7 +485,6 @@ const AdminPage = () => {
                               <i class="bi bi-person"></i>
                             </span>
                             <span>Logout</span>
-                            
                           </div>
                         </div>
                       </div>
@@ -469,7 +516,6 @@ const AdminPage = () => {
                             <i class="bi bi-person"></i>
                           </span>
                           <span>Logout</span>
-                          
                         </div>
                       </div>
                     </div>
@@ -500,7 +546,6 @@ const AdminPage = () => {
                             <i class="bi bi-person"></i>
                           </span>
                           <span>Logout</span>
-                          
                         </div>
                       </div>
                     </div>
@@ -531,7 +576,6 @@ const AdminPage = () => {
                             <i class="bi bi-person"></i>
                           </span>
                           <span>Logout</span>
-                          
                         </div>
                       </div>
                     </div>
@@ -576,7 +620,7 @@ const AdminPage = () => {
                             Sr.No.
                           </th>
                           <th scope="col" className="th">
-                            Name
+                            OrderId
                           </th>
                           <th scope="col" className="th">
                             Price
@@ -588,10 +632,10 @@ const AdminPage = () => {
                             No of Orders
                           </th>
                           <th scope="col" className="th">
-                            Last Order On
+                            Order On
                           </th>
                           <th scope="col" className="th">
-                            Action
+                            Process Order
                           </th>
                         </tr>
                       </thead>
@@ -610,11 +654,21 @@ const AdminPage = () => {
                                 </td>
                                 <td className="td table-center">10</td>
                                 <td className="td table-center">
-                                  {order.createdAt}
+                                  {`${dayjs(order.createdAt).format(
+                                    "MMMM D, YYYY"
+                                  )}`}
                                 </td>
-                                <td className="td table-center" >
-                                  <Link  to={`/adminprocessorder/${order._id}`}> <i class="bi bi-vector-pen" style={{fontSize:"2rem" , textAlign:"center"}}></i>
-</Link>
+                                <td className="td table-center">
+                                  <Link to={`/adminprocessorder/${order._id}`}>
+                                    <i
+                                      class="bi bi-check2-square"
+                                      style={{
+                                        fontSize: "2rem",
+                                        textAlign: "center",
+                                        textDecoration: "none",
+                                      }}
+                                    ></i>
+                                  </Link>
                                 </td>
                               </tr>
                             );
@@ -669,7 +723,7 @@ const AdminPage = () => {
                             </span>
                             <span className="dash-order-no">No. of Orders</span>
                           </div>
-                          <div className="dash-number">150</div>
+                          <div className="dash-number">{orders?.length}</div>
                           <span className="progress-bar"></span>
                         </div>
                         <div className="no-of-order">
@@ -679,7 +733,13 @@ const AdminPage = () => {
                             </span>
                             <span className="dash-order-no">Processed</span>
                           </div>
-                          <div className="dash-number">142</div>
+                          <div className="dash-number">
+                            {
+                              orders?.filter(
+                                (item) => item.orderStatus === "PROCESSING"
+                              )?.length
+                            }
+                          </div>
                           <span className="progress-bar"></span>
                         </div>
                         <div className="no-of-order">
@@ -689,7 +749,13 @@ const AdminPage = () => {
                             </span>
                             <span className="dash-order-no">Completed</span>
                           </div>
-                          <div className="dash-number">132</div>
+                          <div className="dash-number">
+                            {
+                              orders?.filter(
+                                (item) => item.orderStatus === "APPROVED"
+                              )?.length
+                            }
+                          </div>
                           <span className="progress-bar"></span>
                         </div>
                       </div>
@@ -714,15 +780,7 @@ const AdminPage = () => {
                         <span> in 2024</span>
                       </div>
                     </div>
-                    <div style={{ marginTop: "0px" }}>
-                      <Chart
-                        chartType="LineChart"
-                        width="100%"
-                        height="200px"
-                        data={data}
-                        options={options}
-                      />
-                    </div>
+                   <GraphRevenue/>
                   </div>
                 </div>
                 <div className="orders-dash-card-format">
@@ -733,19 +791,31 @@ const AdminPage = () => {
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span class>No. of Orders</span>
-                          <span>150</span>
+                          <span>{orders?.length}</span>
                         </div>
                       </div>
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span>Orders Processed</span>
-                          <span>142</span>
+                          <span>
+                            {
+                              orders?.filter(
+                                (item) => item.orderStatus === "PROCESSING"
+                              )?.length
+                            }
+                          </span>
                         </div>
                       </div>
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span>Orders Completed</span>
-                          <span>132</span>
+                          <span>
+                            {
+                              orders?.filter(
+                                (item) => item.orderStatus === "APPROVED"
+                              )?.length
+                            }
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -759,19 +829,25 @@ const AdminPage = () => {
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span class>This Month</span>
-                          <span>15,000</span>
+                          {currentRevenue}
                         </div>
                       </div>
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span>Previous Month</span>
-                          <span>11,000</span>
+                          <span>{previousMonothRevenue}</span>
                         </div>
                       </div>
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span>Orders Completed</span>
-                          <span>132</span>
+                          <span>
+                            {
+                              orders?.filter(
+                                (item) => item.orderStatus === "APPROVED"
+                              )?.length
+                            }
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -892,7 +968,8 @@ const AdminPage = () => {
                             </div>
                           )
                         ) : (
-                          products && products.map((product, index) => {
+                          products &&
+                          products.map((product, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
@@ -1036,7 +1113,7 @@ const AdminPage = () => {
                           blogs &&
                           blogs?.map((blog, index) => {
                             if (blog._id === deletedBlogId) {
-                              console.log(blog.title)
+                              console.log(blog.title);
                               return null;
                             } else
                               return (
@@ -1250,15 +1327,15 @@ const AdminPage = () => {
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
-                                      // onClick={(e) =>
-                                      // navigate(`/updateService/${service._id}`)
-                                      // }
+                                        // onClick={(e) =>
+                                        // navigate(`/updateService/${service._id}`)
+                                        // }
                                       ></i>
                                     </span>
                                     <span className="td-delete-icon">
                                       <i
                                         class="bi bi-trash3-fill"
-                                      // onClick={(e) => onDelete(e, service._id)}
+                                        // onClick={(e) => onDelete(e, service._id)}
                                       ></i>
                                     </span>
                                   </td>
@@ -1273,7 +1350,7 @@ const AdminPage = () => {
                         ) : (
                           services &&
                           services.map((service, index) => {
-                            console.log(service._id)
+                            console.log(service._id);
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
@@ -1294,14 +1371,19 @@ const AdminPage = () => {
                                     <i
                                       class="bi bi-pencil-square"
                                       onClick={(e) =>
-                                        navigate(`/updateService/${service._id}`)
+                                        navigate(
+                                          `/updateService/${service._id}`
+                                        )
                                       }
                                     ></i>
                                   </span>
                                   <span className="td-delete-icon">
                                     <i
                                       class="bi bi-trash3-fill"
-                                      onClick={(e) => onDeleteService(service._id)}                                    ></i>
+                                      onClick={(e) =>
+                                        onDeleteService(service._id)
+                                      }
+                                    ></i>
                                   </span>
                                 </td>
                               </tr>
