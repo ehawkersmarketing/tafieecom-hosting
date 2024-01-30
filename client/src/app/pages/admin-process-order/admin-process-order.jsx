@@ -51,7 +51,7 @@ const AdminProcessOrder = () => {
         });
       } else {
         console.log(formData.length + formData.breadth + formData.height + formData.weight);
-        const { data } = await axios.post("http://locahost:8080/api/ship/approveRequest", {
+        const { data } = await axios.post("http://localhost:8080/api/ship/approveRequest", {
           orderId: id,
           length: formData.length,
           breadth: formData.breadth,
@@ -105,7 +105,7 @@ const AdminProcessOrder = () => {
           <div class="section col-6">
             <div class="section-title">Shipping To</div>
             <div class="details row">
-              <p>Address: {userAddress?.landmark}</p>
+              <p>Address: {userAddress?.street}</p>
               <p>Pin: {userAddress?.zipCode}</p>
               <p>City: {userAddress?.city}</p>
             </div>
@@ -172,7 +172,8 @@ const AdminProcessOrder = () => {
             <div class="section-bottom">Shipping From:</div>
             <div class="details row">
               <p>
-                {userAddress?.street}, {userAddress?.city}
+                204, Princess Business SkyPark, Opp. Orbito Mall, A.B. Road,
+                Indore
               </p>
               <p>Phone: +91 81200 00506</p>
               <p>Email: support@twicks.in</p>

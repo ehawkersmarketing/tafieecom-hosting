@@ -28,9 +28,9 @@ const ProductCard = ({ cart, item }) => {
 
   return (
     <div key={item._id} className="carouselItem col-3" interval="500">
-      <div className="col-gapping">
+      <div className="col-gapping" >
         <div className="textBlock">
-          <div className="product-image">
+          <div className="product-image" onClick={() => viewproductHandler(item._id)}>
             <img src={item.image} alt="" />
           </div>
           <div className="text-fields">

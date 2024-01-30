@@ -63,11 +63,13 @@ module.exports.addReview = async (req, res) => {
                 { new: true }
             );
             if (updatedReview) {
+                console.log(updatedReview);
                 let sum = 0;
-                for (let i = 0; updatedReview.reviews.length; i++) {
+                for (let i = 0; i < updatedReview.reviews.length; i++) {
                     sum += updatedReview.reviews[i].rating;
                 }
                 sum = sum / updatedReview.reviews.length;
+                console.log(sum);
                 await productModel.findOneAndUpdate({ _id: productId }, {
                     rating: sum,
                     reviews: updatedReview.reviews.length,
