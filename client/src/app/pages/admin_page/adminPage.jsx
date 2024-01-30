@@ -9,14 +9,16 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Header from "../header/header";
-
+import GraphRevenue from "./components/graphRevenue";
 const AdminPage = () => {
+  
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const { data: blogs, setData: setBlogs } = useFetch("/api/blogs");
   const { data: products } = useFetch("/api/allProducts");
   const { data: orders } = useFetch("/api/getAllOrders");
+  const { data: graphData } = useFetch("/api/getAllGraph");
   const { data: services, setData: setServices } =
     useFetch("/api/getAllService");
   const { data: users } = useFetch("/auth/users");
@@ -34,43 +36,90 @@ const AdminPage = () => {
   const [searchService, setSearchService] = useState([]);
   const [searchUsers, setSearchUser] = useState([]);
   const [deletedBlogId, setDeletedBlogId] = useState(null);
-  const data = [
-    ["x", "dogs", "cats"],
-    [0, 0, 0],
-    [1, 10, 5],
-    [2, 23, 15],
-    [3, 17, 9],
-    [4, 18, 10],
-    [5, 9, 5],
-    [6, 11, 3],
-    [7, 27, 19],
-  ];
   const options = {
     hAxis: {
       title: "Time",
     },
     vAxis: {
-      title: "Popularity",
+      title: "Revenue",
     },
     series: {
       1: { curveType: "function" },
     },
   };
-  const dataOld = [
-    ["Name", "Popularity"],
-    ["Cesar", 250],
-    ["Rachel", 4200],
-    ["Patrick", 2900],
-    ["Eric", 8200],
-  ];
-  const dataNew = [
-    ["Name", "Popularity"],
-    ["Cesar", 370],
-    ["Rachel", 600],
-    ["Patrick", 700],
-    ["Eric", 1500],
-  ];
-  const diffdata = { old: dataOld, new: dataNew };
+  let processed,
+    rejected,
+    Approved,
+    countApproved = 0,
+    countRejected = 0,
+    countProcessing = 0;
+  let currentOrder,
+    previousApprovedCount = 0,
+    previousRejectedCount = 0,
+    previousProcessingCount = 0;
+
+  function diff_months(dt2, dt1) {
+    var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= 60 * 60 * 24 * 7 * 4;
+    return Math.abs(Math.round(diff));
+  }
+
+  useEffect(() => {
+    graphData?.map((dataSet, index) => {
+      currentOrder = new Date();
+      let previousOrder = new Date(dataSet.timestamps);
+      // console.log(dataSet?.timestamps)
+      var diff = currentOrder.getMonth() - previousOrder.getMonth();
+      console.log(diff_months(currentOrder, previousOrder));
+
+      // console.log(diff_months)
+      if (diff_months(currentOrder, previousOrder) !== 0) {
+        if (dataSet?.orderStatus === "PROCESSING") {
+          previousProcessingCount = previousProcessingCount + 1;
+          // console.log(previousProcessingCount )
+        }
+        if (dataSet?.orderStatus === "REJECTED") {
+          previousRejectedCount = previousRejectedCount + 1;
+          console.log(previousRejectedCount);
+        }
+        if (dataSet?.orderStatus === "APPROVED") {
+          previousApprovedCount = previousApprovedCount + 1;
+          // console.log(countApproved )
+        }
+      }
+
+      if (diff_months(currentOrder, previousOrder) === 0) {
+        if (dataSet?.orderStatus === "PROCESSING") {
+          countProcessing = countProcessing + 1;
+          // console.log(countProcessing)
+        }
+        if (dataSet?.orderStatus === "REJECTED") {
+          countRejected = countRejected + 1;
+          // console.log(countRejected)
+        }
+        if (dataSet?.orderStatus === "APPROVED") {
+          countApproved = countApproved + 1;
+          // console.log(countApproved )
+        }
+      }
+    });
+    setDiffData({
+      old: [
+        ["Name", "orderStatus"],
+        ["approved", previousApprovedCount],
+        ["rejected", previousRejectedCount],
+        ["processing", previousProcessingCount],
+      ],
+      new: [
+        ["Name", "orderStatus"],
+        ["approved", countApproved],
+        ["rejected", countRejected],
+        ["processing", countProcessing],
+      ],
+    });
+  }, [graphData]);
+
+  const [diffdata, setDiffData] = useState({ old: [], new: [] });
 
   const dashboardHandler = () => setValue(1);
   const storeHandler = () => setValue(0);
@@ -79,27 +128,23 @@ const AdminPage = () => {
   const userHandler = () => setValue(2);
   const serviceHandler = () => setValue(5);
   const [currentRevenue, setCurrentRevenue] = useState(0);
-  const [previousMonothRevenue, setPreviousMonthRevenue] = useState(0)
+  const [previousMonothRevenue, setPreviousMonthRevenue] = useState(0);
 
   useEffect(() => {
-    if (products) {
+    if (orders) {
       let total = 0;
-      let previousTotal = 0;
-      products &&
-        products?.map((product) => {
-          total += product.price;
-          let date = new Date(product.createdAt)
-          let currentDate = new Date();
-          if (currentDate.getMonth() === date.getMonth()) {
-            total += product.price;
-          } else if (currentDate.getMonth() - 1 === date.getMonth()) {
-            previousTotal += product.price
-          }
-        });
+      let previousRevenue = 0;
+      for (let i = 0; i < orders?.length; i++) {
+        if(diff_months(new Date(), new Date(orders[i].timestamps)) === 0){
+          total = orders[i]?.amount;
+        }else if(diff_months(new Date(), new Date(orders[i].timestamps)) === 1){
+          previousRevenue += orders[i].amount;
+        }
+      }
       setCurrentRevenue(total);
-      setPreviousMonthRevenue(previousTotal)
+      setPreviousMonthRevenue(previousRevenue);
     }
-  }, [products]);
+  }, [orders]);
 
   useEffect(() => {
     if (user) {
@@ -615,13 +660,14 @@ const AdminPage = () => {
                                 </td>
                                 <td className="td table-center">
                                   <Link to={`/adminprocessorder/${order._id}`}>
-
-                                    <i class="bi bi-check2-square" style={{
-                                      fontSize: "2rem",
-                                      textAlign: "center",
-                                      textDecoration: "none"
-                                    }}></i>
-
+                                    <i
+                                      class="bi bi-check2-square"
+                                      style={{
+                                        fontSize: "2rem",
+                                        textAlign: "center",
+                                        textDecoration: "none",
+                                      }}
+                                    ></i>
                                   </Link>
                                 </td>
                               </tr>
@@ -734,15 +780,7 @@ const AdminPage = () => {
                         <span> in 2024</span>
                       </div>
                     </div>
-                    <div style={{ marginTop: "0px" }}>
-                      <Chart
-                        chartType="LineChart"
-                        width="100%"
-                        height="200px"
-                        data={data}
-                        options={options}
-                      />
-                    </div>
+                   <GraphRevenue/>
                   </div>
                 </div>
                 <div className="orders-dash-card-format">
@@ -1289,15 +1327,15 @@ const AdminPage = () => {
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
-                                      // onClick={(e) =>
-                                      // navigate(`/updateService/${service._id}`)
-                                      // }
+                                        // onClick={(e) =>
+                                        // navigate(`/updateService/${service._id}`)
+                                        // }
                                       ></i>
                                     </span>
                                     <span className="td-delete-icon">
                                       <i
                                         class="bi bi-trash3-fill"
-                                      // onClick={(e) => onDelete(e, service._id)}
+                                        // onClick={(e) => onDelete(e, service._id)}
                                       ></i>
                                     </span>
                                   </td>
