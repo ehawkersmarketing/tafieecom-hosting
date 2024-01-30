@@ -20,7 +20,7 @@ const FeatureCarouselCard = ({ items }) => {
                         '<span class="arrow next">›</span>'
                     ]}
                     autoplayHoverPause={true}
-                    autoplay={true} >{items?.map((item) => {
+                    autoplay={false} >{items?.map((item) => {
                         return <FeaturedProductCard item={item} className='productItem' />
                     })}
                 </OwlCarousel>

@@ -6,7 +6,6 @@ import punchline from "../../assets/punchline.png";
 import "./home_page.css";
 import CategoryCarousel from "../../pages/shop_page/component/categoryCarousel/categoryCarousel.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
-import FeaturedProductCard from "./components/feature_product.jsx";
 import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
 import { useNavigate } from "react-router-dom";
 import homehero from "../../assets/homepage-main.png";
@@ -110,9 +109,7 @@ const Dashboard = () => {
               <h1>EMPOWER</h1>
             </div>
             <div className="div3SubHead">
-              <h4>YOUR</h4>
-              <h4 style={{ color: "#44A98B" }}>FARMING</h4>
-              <h4>VENTURES</h4>
+              <h4><span>YOUR</span> <span style={{ color: "#44A98B" }}>FARMING</span> <span>VENTURES</span></h4>
             </div>
           </div>
           <div className="servicesDiv">

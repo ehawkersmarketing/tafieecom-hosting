@@ -118,7 +118,7 @@
 .footer .form{
   padding: 50px;
   background-color: #0a3834bc;
-  width: 90%;
+  width: 95%;
   border-radius: 20px;
 }
 .footer .circle-image{
@@ -145,6 +145,7 @@
   background-color: #D9EAE8;
   padding: 5px;
   border-radius: 3px;
+  width: 100%;
 }
 .footer .headingMainText {
   width: fit-content;

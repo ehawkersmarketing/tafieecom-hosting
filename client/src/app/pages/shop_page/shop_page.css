@@ -120,12 +120,14 @@
                         display: flex;
                         gap: 2rem;
                         align-items: center;
+                        margin-bottom: 1rem;
                     }
 
                     .rating {
                         list-style-type: none;
                         display: flex;
                         gap: 0.7rem;
+                        margin-bottom: 0;
                     }
                 }
             }
@@ -269,6 +271,7 @@
             }
         }
     }
+   
 
     .product-category {
         display: flex;
@@ -492,4 +495,20 @@
 
 .shop-page-card-content .rating{
     margin-left: -2rem;
+}
+.main-container .fiter-name{
+    width: 30rem;
+    border-radius: 5px;
+    padding: 1%;
+    margin: 1%;
+}
+.filter-name::before{
+    content: '';
+    width: 0px;
+    height: 0px;
+    border: 20px solid;
+    border-color: transparent transparent #EBF6F5 transparent;
+    position: absolute;
+    top: -2rem;
+
 }

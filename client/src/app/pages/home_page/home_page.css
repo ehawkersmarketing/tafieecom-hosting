@@ -1,5 +1,6 @@
 .home-page {
   padding-bottom: 8%;
+  background-color: #DAECE9;
 }
 
 .product-container {
@@ -147,7 +148,7 @@
   width: fit-content;
   text-align: center;
   font-weight: 500;
-  font-size: 6rem;
+  font-size: 6.5rem;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   background-image: -webkit-linear-gradient(20deg,
       #e8cd82 10.01%,

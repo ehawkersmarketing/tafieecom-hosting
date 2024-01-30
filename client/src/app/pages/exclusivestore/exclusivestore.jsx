@@ -1,7 +1,7 @@
 import react from "react";
 import "./exclusivestore.css";
 import Header from "../header/header";
-import img from "../../assets/image 2.png";
+import img from "../../assets/image 2.png"; 
 import sideImg from "../../assets/Group 358.png";
 import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
@@ -26,11 +26,11 @@ const ExclusiveStore = () => {
                     <h1 className="franchise-heading">PARTNER</h1>
                   </div>
                   <div className="franchise-content-para">
-                    <h2 className="subheading-franchise">with TAFI Today!</h2>
+                    <h2 className="subheading-franchise">With TAFI Today!</h2>
                   </div>
                   <button className="franchise-content-para-bt" onClick={footerHandler}>
-                    <h5 className="h5-btn">Unlock Your Potential</h5>
-                    <p style={{ marginBottom: "0px" }}>(with कृषक वाटिका)</p>
+                    <h5 className="h5-btn">Unlock Your Potential with</h5>
+                    <p style={{ marginBottom: "0px", fontSize:"20px"}}><b> कृषक वाटिका</b></p>
                   </button>
                 </div>
               </div>
@@ -158,7 +158,7 @@ const ExclusiveStore = () => {
                 </div>
                 <div className="map-para">
                   <span className="para-unevil">
-                    <i>Unveil unique products & services not found</i>
+                    <i>Unveil unique products & services not found <b> elsewhere</b></i>
                   </span>
                 </div>
                 {/* <div className="content-map-fan">
