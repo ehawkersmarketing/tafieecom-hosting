@@ -46,6 +46,7 @@
         color: white;
         display: inline-flex;
         /* padding: 6.202px 24.81px; */
+        margin: 0;
         justify-content: center;
         align-items: center;
         background: var(--primary-gradient-light, linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%));
@@ -128,7 +129,7 @@
         img{
             width: 100%;
             margin: auto;
-            height: 250px;
+            height: 230px;
             
         }
     
@@ -158,6 +159,7 @@
             color: white;
             display: inline-flex;
             /* padding: 6.202px 24.81px; */
+            margin: 0;
             justify-content: center;
             align-items: center;
             background: var(--primary-gradient-light, linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%));

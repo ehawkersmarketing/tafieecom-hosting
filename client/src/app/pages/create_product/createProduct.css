@@ -24,7 +24,7 @@ section .form_data {
 
 .form_data h1 {
     font-size: 34px;
-    color: #2a4365;
+    color: #225142;
 }
 
 .form_data p {
@@ -95,7 +95,7 @@ form .btn {
     border: none;
     outline: none;
     border-radius: 5px;
-    background-color: #1a365d;
+    background-color: #225142;
     color: #fff;
     font-weight: 600;
     font-size: 18px;

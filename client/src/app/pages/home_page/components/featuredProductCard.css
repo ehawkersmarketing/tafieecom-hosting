@@ -17,6 +17,9 @@
         right: 0;
         background-size: cover;
     }
+    img{
+        height: 100%;
+    }
 
     .category-name {
         color: var(--bright-green-primary, #44A98B);
@@ -53,12 +56,20 @@
         border: none;
         color: white;
         display: inline-flex;
-        padding: 6.202px 24.81px;
+        /* padding: 6.202px 24.81px; */
+        /* padding-left: 0.6rem; */
         justify-content: center;
         align-items: center;
+        margin-bottom: 1%;
+        margin-left: 0.6rem;
+        font-size: 0.9rem;
         background: var(--primary-gradient-light, linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%));
         box-shadow: 0px 8.683px 24.81px 0px rgba(21, 60, 56, 0.00), 0px 3.721px 8.683px 0px rgba(21, 60, 56, 0.30);
     }
+    .know-more-but{
+        padding-left: 0.6rem;
+    }
+
 
     #review-icon {
         color: #C8A33D;
@@ -93,10 +104,23 @@
 
     .carousel-image {
         mask-image: linear-gradient(-90deg, black 0%, transparent 95%);
+        height: 13.63rem;
     }
 }
 
 .feature-text-fields {
     /* position: absolute; */
     padding: 0.6rem 1.2rem 0.2rem;
+}
+.text-of-card{
+    display: flex;
+    flex-direction: column;
+}
+.feature-textBlock img{
+    height: auto;
+    padding-top: 20%;
+}
+.product-page-carousal .cart-btn{
+    /* padding: 0; */
+    margin: 0;
 }

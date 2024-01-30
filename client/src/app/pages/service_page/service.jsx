@@ -6,12 +6,14 @@ import Footer from "../footer/footer";
 import Service_pop from "../../components/service_pop/Service_pop";
 import { useFetch } from "../../hooks/api_hook";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const OurServices = () => {
   const [searchField, setSearchField] = useState("");
   const { data: services } = useFetch("/api/getAllService");
   const [searchService, setSearchService] = useState(undefined);
   const [openIndex, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   const search = async (text) => {
     if (text !== "") {
@@ -106,7 +108,7 @@ const OurServices = () => {
                                       {service.title}
                                     </button>
                                   </h5>
-                                  <p>{service.description.substring(0, 80)}</p>
+                                  <p>{service.description.substring(0, 40)}...</p>
                                 </div>
                               </div>
                               <div className="block-img col-5">
@@ -147,7 +149,7 @@ const OurServices = () => {
                               {service.title}
                             </button>
                           </h5>
-                          <p>{service.description.substring(0, 80)}</p>
+                          <p>{service.description.substring(0, 40)}...</p>
                         </div>
                       </div>
                       <div className="block-img col-5">
@@ -162,9 +164,8 @@ const OurServices = () => {
                 <div className="block-text">
                   
                     <h5>
-                      <button type="button" class="card-button">
-                        Missing Something?
-                      </button>
+                    <button type="button" class="card-button" onClick={() => window.location.hash = "#bottom"}>Missing something?</button>
+
                     </h5>
                     <p>Tell us your requirements below</p>
                   

@@ -107,7 +107,7 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  fiter-name">
+        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  filter-name">
           <ul className="">
             {
               filter.map((item, index) => {
