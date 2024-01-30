@@ -39,6 +39,24 @@ const AdminProcessOrder = () => {
     });
   };
 
+  const cancelShipment = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
+        orderId: id,
+      });
+      if (data.success) {
+        navigate("/adminPage");
+      }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  };
   const dashboardHandler = async () => {
     try {
       if (formData.length == 0 || formData.breadth == 0 || formData.height == 0 || formData.weight == 0) {

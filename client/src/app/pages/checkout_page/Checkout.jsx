@@ -111,8 +111,8 @@ const Checkout = () => {
                                 <label htmlFor="Name">Name</label>
                                 <input
                                     type="text"
-                                    id="Name"
-                                    name="Name"
+                                    id="name"
+                                    name="name"
                                     placeholder="Name"
                                     required
                                     onChange={handleInputChange}

@@ -66,58 +66,57 @@ const GraphRevenue = () => {
         switch (new Date(orders[i].timestamps).getMonth()) {
           case 0:
             console.log("setting data", `${jan + total}`);
-            jan+=total;
+            jan += total;
             break;
           case 1:
-            feb+=total;
+            feb += total;
             break;
           case 2:
-            mar+=total;
+            mar += total;
             break;
           case 3:
-            
-              apr+=total
+            apr += total
             break;
           case 4:
-            may+=total;
+            may += total;
             break;
           case 5:
-            jun+=total
+            jun += total
             break;
           case 6:
-            jul+=total
+            jul += total
             break;
           case 7:
-            aug+=total
+            aug += total
             break;
           case 8:
-            sep+=total
+            sep += total
             break;
           case 9:
-            oct+=total
+            oct += total
             break;
           case 10:
-            nov+=total
+            nov += total
             break;
           case 11:
-            dec+=total
+            dec += total
             break;
           default:
             break;
         }
         setRevenueState({
-            Jan: jan,
-            Feb: feb,
-            Mar: mar,
-            Apr:apr,
-            May:may,
-            Jun:jun,
-            Jul:jul,
-            Aug:aug,
-            Sep:sep,
-            Oct:oct,
-            Nov:nov,
-            Dec:dec
+          Jan: jan,
+          Feb: feb,
+          Mar: mar,
+          Apr: apr,
+          May: may,
+          Jun: jun,
+          Jul: jul,
+          Aug: aug,
+          Sep: sep,
+          Oct: oct,
+          Nov: nov,
+          Dec: dec
         });
         console.log(revenueMap);
       }
@@ -137,18 +136,18 @@ const GraphRevenue = () => {
         ["Dec", revenueMap.Dec],
       ]);
     }
-  }, [orders]);
+  });
 
   return (
     <div style={{ marginTop: "0px" }}>
-    <Chart
-      chartType="LineChart"
-      width="100%"
-      height="200px"
-      data={data}
-      options={options}
-    />
-  </div>
+      <Chart
+        chartType="LineChart"
+        width="100%"
+        height="200px"
+        data={data}
+        options={options}
+      />
+    </div>
   );
 };
 export default GraphRevenue;
