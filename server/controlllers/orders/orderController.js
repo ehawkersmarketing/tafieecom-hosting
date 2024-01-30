@@ -5,7 +5,7 @@ const userAddress = require("../../models/userModel/userAddress.js");
 
 module.exports.getAllOrders = async (req, res, next) => {
     try {
-        const orders = await orderModel.find({});
+        const orders = await orderModel.find({}).populate('products.productId');
         res.status(200).json({
             success: true,
             data: orders
