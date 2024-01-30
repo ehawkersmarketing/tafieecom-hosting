@@ -5,22 +5,40 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import PosterCardBackground from "../../../../assets/poster_card_background.svg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import {toast} from 'react-toastify';
 const ShopPageCarouselCard = ({ cart, items }) => {
   const navigate = useNavigate();
 
   const onCartTap = async (id, inCart) => {
-    if (inCart) {
+
+    try{if (inCart) {
       navigate(`/Cart`);
-    } else {
-      await axios.put("http://localhost:8080/api/addToCart", {
+    } else if(localStorage.getItem('user_id')){
+      await axios.put('http://localhost:8080/api/addToCart', {
         productId: id,
-        userId: localStorage.getItem("user_id"),
-        units: 1,
-      });
+        userId: localStorage.getItem('user_id'),
+        units: 1
+      })
       navigate(`/Cart`);
+    }else{
+      toast.error("Please login to add this item to your cart", {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+    });
     }
-  };
+  }catch(error){
+      toast.error(`${error.response.data.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+    });
+    }
+    };
 
   return (
     <div>

@@ -13,22 +13,22 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import $ from "jquery";
 
-
 const Product = () => {
-
   const { id } = useParams();
 
-  const userUniqueId = localStorage.getItem("user_id")
+  const userUniqueId = localStorage.getItem("user_id");
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(userUniqueId)
+  console.log(userUniqueId);
   const { data: product } = useFetch(`/api/getProduct/${id}`);
   const { data: allProducts } = useFetch("/api/allProducts");
-  const { data: reviews, setData: setReviews } = useFetch(`/api/getReviewById/${id}`);
+  const { data: reviews, setData: setReviews } = useFetch(
+    `/api/getReviewById/${id}`
+  );
   const [inputHandler, setInputHandler] = useState({
     reviewContent: " ",
     rating: " ",
   });
-  const [rated, setRated] = useState(0)
+  const [rated, setRated] = useState(0);
   const [inCart, setInCart] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
@@ -44,25 +44,35 @@ const Product = () => {
     if (cart) {
       setInCart(
         cart?.products.find((product) => {
-          return product.productId._id === id
+          return product.productId._id === id;
         })
       );
       setQuantity(
         cart?.products.find((product) => {
-          return product.productId._id === id
+          return product.productId._id === id;
         })?.units
       );
     }
-  }, [cart, id])
+  }, [cart, id]);
 
   const onCartClick = async () => {
     try {
-      await axios.put('http://localhost:8080/api/addToCart', {
-        productId: id,
-        userId: localStorage.getItem('user_id'),
-        units: 1
-      })
-      navigate(`/Cart`);
+      if (localStorage.getItem("user_id")) {
+        await axios.put("http://localhost:8080/api/addToCart", {
+          productId: id,
+          userId: localStorage.getItem("user_id"),
+          units: 1,
+        });
+        navigate(`/Cart`);
+      } else {
+        toast.error("Please login to add this item to your cart", {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
     } catch (error) {
       toast.error(`${error.message}`, {
         position: "bottom-right",
@@ -75,23 +85,24 @@ const Product = () => {
   };
 
   const fetchReviews = async () => {
-    const { data } = await axios.get(`http://localhost:8080/api/getReviewById/${id}`);
+    const { data } = await axios.get(
+      `http://localhost:8080/api/getReviewById/${id}`
+    );
     setReviews(data.data);
-  }
+  };
 
   const ReviewAddHandler = async (e) => {
     e.preventDefault();
     if (!user) {
-      alert("You can't Add review  untill you are login")
-    }
-    else {
+      alert("You can't Add review  untill you are login");
+    } else {
       const { reviewContent, rating } = inputHandler;
 
       const { data } = await axios.post("http://localhost:8080/api/addReview", {
         reviewContent: reviewContent,
         rating: rated,
         productId: id,
-        userId: userUniqueId
+        userId: userUniqueId,
       });
       if (data.success) {
         setRated(0);
@@ -103,10 +114,7 @@ const Product = () => {
         });
       }
     }
-
-
-
-  }
+  };
 
   $(document).ready(function () {
     var list = $(".list li");
@@ -140,11 +148,14 @@ const Product = () => {
           theme: "dark",
         });
       } else {
-        const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
-          "userId": user._id,
-          "productId": id,
-          "units": 1
-        });
+        const { data } = await axios.put(
+          `http://localhost:8080/api/addToCart`,
+          {
+            userId: user._id,
+            productId: id,
+            units: 1,
+          }
+        );
         if (data.success) {
           setQuantity(quantity + 1);
         } else {
@@ -170,7 +181,9 @@ const Product = () => {
 
   const decreaseValueHandler = async () => {
     try {
-      const { data } = await axios.delete(`http://localhost:8080/api/dropFromCart/${user._id}/${id}`);
+      const { data } = await axios.delete(
+        `http://localhost:8080/api/dropFromCart/${user._id}/${id}`
+      );
       if (data.success) {
         if (quantity != 1) {
           setQuantity(quantity - 1);
@@ -198,7 +211,8 @@ const Product = () => {
   };
 
   return (
-    <><Header />
+    <>
+      <Header />
       <div className="single-product bg">
         <div className="product-bg">
           <div className="wrapper">
@@ -215,29 +229,47 @@ const Product = () => {
                     <h1 className="product-name">{product?.title}</h1>
                     <div className="ratingAndReview">
                       <ul class="rating">
-                        {Array.apply(null, { length: 5 }).map(
-                          (e, i) => (
-                            <li>
-                              <i class={i >= product?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
-                            </li>
-                          )
-                        )}
+                        {Array.apply(null, { length: 5 }).map((e, i) => (
+                          <li>
+                            <i
+                              class={
+                                i >= product?.rating
+                                  ? `bi bi-star`
+                                  : `bi bi-star-fill`
+                              }
+                              id="review-icon"
+                            ></i>
+                          </li>
+                        ))}
                       </ul>
                       <span className="review">{product?.reviews} Reviews</span>
                     </div>
                     <div className="price">Rs.{product?.price} /-</div>
                     <div className="wishlistAndAddCart">
-                      {
-                        inCart ? <div>
-                          <button class="minus" onClick={(e) => decreaseValueHandler()}>
+                      {inCart ? (
+                        <div>
+                          <button
+                            class="minus"
+                            onClick={(e) => decreaseValueHandler()}
+                          >
                             -
                           </button>
                           <span id="number">{quantity}</span>
-                          <button class="plus" onClick={(e) => increaseValueHandler()}>
+                          <button
+                            class="plus"
+                            onClick={(e) => increaseValueHandler()}
+                          >
                             +
                           </button>
-                        </div> : <button className="cart-btn" onClick={(e) => onCartClick()}>Add To Cart</button>
-                      }
+                        </div>
+                      ) : (
+                        <button
+                          className="cart-btn"
+                          onClick={(e) => onCartClick()}
+                        >
+                          Add To Cart
+                        </button>
+                      )}
                     </div>
                   </div>
                 </card>
@@ -262,7 +294,9 @@ const Product = () => {
                 <h2 className="foryou">For You</h2>
               </div>
               <div className="product-page-carousal">
-                {allProducts && cart && <Carousal items={allProducts} cart={cart} />}
+                {allProducts && cart && (
+                  <Carousal items={allProducts} cart={cart} />
+                )}
               </div>
             </div>
           </div>
@@ -274,21 +308,21 @@ const Product = () => {
               <div className="review-main-title">
                 <h1 className="review-title">Reviews</h1>
 
-
                 <sup>
                   <button className="review-btn">0</button>
                 </sup>
-
               </div>
               <div className="ratingAndReview">
                 <ul class="rating">
-                  {Array.apply(null, { length: 5 }).map(
-                    (e, i) => (
-                      <li>
-                        <i class={i >= rated ? `bi bi-star` : `bi bi-star-fill`} id="review-icon" onClick={() => setRated(i + 1)}></i>
-                      </li>
-                    )
-                  )}
+                  {Array.apply(null, { length: 5 }).map((e, i) => (
+                    <li>
+                      <i
+                        class={i >= rated ? `bi bi-star` : `bi bi-star-fill`}
+                        id="review-icon"
+                        onClick={() => setRated(i + 1)}
+                      ></i>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -312,7 +346,7 @@ const Product = () => {
             <div className="review-description">
               <div className="list">
                 {reviews?.reviews.map((item) => {
-                  console.log(item?.userId?.userName)
+                  console.log(item?.userId?.userName);
                   return (
                     <li>
                       <div className="user-review">
@@ -320,21 +354,30 @@ const Product = () => {
                           <span className="user-icon">
                             <i class="bi bi-person-circle"></i>
                           </span>
-                          <h3 className="personName">{item?.userId.userName}</h3>
+                          <h3 className="personName">
+                            {item?.userId.userName}
+                          </h3>
                         </div>
                         <p>{item.review}</p>
-                        <ul className="rating"> {Array.apply(null, { length: 5 }).map(
-                          (e, i) => (
+                        <ul className="rating">
+                          {" "}
+                          {Array.apply(null, { length: 5 }).map((e, i) => (
                             <li>
-                              <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                              <i
+                                class={
+                                  i >= item?.rating
+                                    ? `bi bi-star`
+                                    : `bi bi-star-fill`
+                                }
+                                id="review-icon"
+                              ></i>
                             </li>
-                          )
-                        )}</ul>
+                          ))}
+                        </ul>
                       </div>
                     </li>
                   );
                 })}
-
               </div>
               <button className="load-more" id="next">
                 Load More<i class="bi bi-chevron-down"></i>{" "}
@@ -347,7 +390,6 @@ const Product = () => {
       <ToastContainer />
     </>
   );
-
 };
 
 export default Product;
