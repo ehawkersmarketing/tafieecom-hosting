@@ -12,6 +12,7 @@ const {
   getOrderDetsFunction,
   requestApproval,
   approveRequest,
+  cancelApprovalRequest,
 } = require("../../controlllers/ship/shipController");
 
 const express = require("express");
@@ -21,6 +22,7 @@ const router = express.Router();
 router.post("/requestApproval", requestApproval);
 
 router.post("/approveRequest", approveRequest);
+router.post("/cancelRequest", cancelApprovalRequest);
 
 router.post("/calcShipment", calcShipment);
 

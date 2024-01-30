@@ -4,11 +4,12 @@
 }
 
 .shop-page-container {
-    
+
     margin-bottom: 7%;
 
     .shop-page-card {
-        height: 35rem;;
+        height: 35rem;
+        ;
         background: linear-gradient(89.83deg, rgba(41, 100, 94, 0.1) -0.43%, rgba(68, 169, 139, 0.1) 99.93%);
         border-radius: 1rem;
         position: relative;
@@ -44,12 +45,13 @@
                     background-color: white;
                     padding: 1.4rem 1.2rem 1rem 1.4rem;
                     border-radius: 0.5rem;
-                    .poster-card{
+
+                    .poster-card {
                         max-height: 250px;
                         position: relative;
                         min-width: 5rem;
 
-                        img{
+                        img {
                             /* height: 100%; */
                             width: 20rem;
                             position: absolute;
@@ -204,7 +206,17 @@
 
             .bi-funnel-fill {
                 font-size: 1.5rem;
-                margin: 0 1rem 0 1.4rem;
+                margin: 0 0rem 0 0;
+            }
+
+            .filter-text {
+                color: white;
+                padding: 0 0.5rem;
+            }
+
+            .bi-filter {
+                font-size: 1.5rem;
+                margin: 0 0rem 0 1rem;
             }
 
             .bi-caret-down-fill {
@@ -272,7 +284,7 @@
             }
         }
     }
-   
+
 
     .product-category {
         display: flex;
@@ -481,7 +493,8 @@
 
     }
 }
-.shop-page-container{
+
+.shop-page-container {
     position: relative;
 }
 
@@ -497,10 +510,11 @@
     display: block;
 }
 
-.shop-page-card-content .rating{
+.shop-page-card-content .rating {
     margin-left: -2rem;
 }
-.main-container .filter-name{
+
+.main-container .filter-name {
     width: 30rem;
     border-radius: 5px;
     padding: 1%;
@@ -509,7 +523,7 @@
     z-index: 8;
 }
 
-.main-container .filter-name::before{
+.main-container .filter-name::before {
     content: '';
     width: 0px;
     height: 0px;
@@ -518,6 +532,6 @@
     position: absolute;
     display: block;
     left: 6rem;
-    z-index:10 ;
+    z-index: 10;
 
 }

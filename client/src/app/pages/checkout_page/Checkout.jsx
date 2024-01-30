@@ -21,108 +21,103 @@ const Checkout = () => {
         }
     }, []);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    Contact: "",
-    Email: "",
-    Address: "",
-    Address2: "",
-    City: "",
-    State: "",
-    PinCode: "",
-    Country: "",
-  });
-
-  const handleInputChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
+    const [formData, setFormData] = useState({
+        name: "",
+        Contact: "",
+        Email: "",
+        Address: "",
+        Address2: "",
+        City: "",
+        State: "",
+        PinCode: "",
+        Country: "",
     });
-  };
 
-  const shipChargeFunction = async (event) => {
-    event.preventDefault();
-    try {
-      if (formData.name === "") {
-        alert("Enter your Name");
-      } else if (formData.Email === "") {
-        alert("Enter your email");
-      } else if (formData.Contact === "") {
-        alert("Enter your number");
-      } else if (formData.Address === "") {
-        alert("Enter your address");
-      } else if (formData.City === "") {
-        alert("Enter your City");
-      } else if (formData.State === "") {
-        alert("Enter your State");
-      } else if (formData.PinCode === "") {
-        alert("Enter your Pin Code");
-      } else if (formData.Country === "") {
-        alert("Enter your Country");
-      } else {
-        const response = await axios.post(
-          "http://localhost:8080/api/ship/calcShipment",
-          {
-            shipping_postcode: formData.PinCode,
-            weight: cart.totalWeight,
-            declared_value: cart.totalPrice,
-            is_return: 0,
-          }
-        );
-        setShipCharge(response.data.shipPrice);
-        console.log(shipCharge);
-      }
-    } catch (error) {
-      console.error("Failed to fetch ship details", error);
-    }
-  };
+    const handleInputChange = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value,
+        });
+    };
 
-  const handleOrderFunction = async (event) => {
-    event.preventDefault();
-    try {
-      if (shipCharge === undefined) {
-        alert(
-          "Submit adress details and calculate shipment before placing order"
-        );
-      } else {
-        const { data } = await axios.post(
-          "http://localhost:8080/api/putUserAddress",
-          {
-            userId: user._id,
-            street: formData.Address,
-            landmark: formData.Address2,
-            city: formData.City,
-            country: formData.Country,
-            state: formData.State,
-            zipCode: formData.PinCode,
-          }
-        );
-        if (data.success) {
-          const totalPayAmount = cart.totalPrice + shipCharge;
-          const { data } = await axios.post(
-            "http://localhost:8080/api/pay/phonePePayment",
-            {
-              amount: Math.round(totalPayAmount),
-              cartId: cart.cartId,
+    const shipChargeFunction = async (event) => {
+        event.preventDefault();
+        try {
+            if (formData.name === "") {
+                alert("Enter your Name");
+            } else if (formData.Email === "") {
+                alert("Enter your email");
+            } else if (formData.Contact === "") {
+                alert("Enter your number");
+            } else if (formData.Address === "") {
+                alert("Enter your address");
+            } else if (formData.City === "") {
+                alert("Enter your City");
+            } else if (formData.State === "") {
+                alert("Enter your State");
+            } else if (formData.PinCode === "") {
+                alert("Enter your Pin Code");
+            } else if (formData.Country === "") {
+                alert("Enter your Country");
+            } else {
+                const response = await axios.post(
+                    "http://localhost:8080/api/ship/calcShipment",
+                    {
+                        shipping_postcode: formData.PinCode,
+                        weight: cart.totalWeight,
+                        declared_value: cart.totalPrice,
+                        is_return: 0,
+                    }
+                );
+                setShipCharge(response.data.shipPrice);
+                console.log(shipCharge);
             }
-          );
-          if (data.success) {
-            window.location.replace(data.data);
-          }
-        } else {
-          toast.error(`${data.message}`, {
-            position: "bottom-right",
-            autoClose: 8000,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "dark",
-          });
+        } catch (error) {
+            console.error("Failed to fetch ship details", error);
         }
-      }
-    } catch (error) {
-      console.error("Failed to submit form", error);
-    }
-  };
+    };
+
+    const handleOrderFunction = async (event) => {
+        event.preventDefault();
+        try {
+            if (shipCharge === undefined) {
+                alert("Submit adress details and calculate shipment before placing order");
+            }
+            else {
+                const { data } = await axios.post('http://localhost:8080/api/putUserAddress', {
+                    userId: user._id,
+                    street: formData.Address,
+                    landmark: formData.Address2,
+                    email: formData.Email,
+                    userName: formData.name,
+                    city: formData.City,
+                    country: formData.Country,
+                    state: formData.State,
+                    zipCode: formData.PinCode
+                });
+                if (data.success) {
+                    const totalPayAmount = cart.totalPrice + shipCharge;
+                    const { data } = await axios.post("http://localhost:8080/api/pay/phonePePayment", {
+                        amount: Math.round(totalPayAmount),
+                        cartId: cart.cartId,
+                    });
+                    if (data.success) {
+                        window.location.replace(data.data);
+                    }
+                } else {
+                    toast.error(`${data.message}`, {
+                        position: "bottom-right",
+                        autoClose: 8000,
+                        pauseOnHover: true,
+                        draggable: true,
+                        theme: "dark",
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Failed to submit form', error);
+        }
+    };
 
     return (
         <div>
@@ -270,20 +265,20 @@ const Checkout = () => {
                                     </table>
                                 </div>
 
-                <button
-                  className="checkout-btn"
-                  onClick={(e) => handleOrderFunction(e)}
-                >
-                  Place Order
-                </button>
-              </div>
-            </div>
-          </div>
+                                <button
+                                    className="checkout-btn"
+                                    onClick={(e) => handleOrderFunction(e)}
+                                >
+                                    Place Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <Footer />
         </div>
-      </section>
-      <Footer />
-    </div>
-  );
+    );
 };
 
 export default Checkout;

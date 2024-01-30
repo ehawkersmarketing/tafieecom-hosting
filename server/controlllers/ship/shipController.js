@@ -68,6 +68,7 @@ exports.approveRequest = async (req, res) => {
           })
         }
         console.log(request);
+        console.log();
         let time = order.timestamps.toISOString();
         axios.post("http://localhost:8080/api/ship/createOrder",
           {
@@ -139,8 +140,8 @@ exports.approveRequest = async (req, res) => {
 //POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
-    const { requestId } = req.body;
-    const request = await requestModel.findOne({ _id: requestId });
+    const { orderId } = req.body;
+    const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
       const data = await requestModel.findOneAndUpdate(
         { _id: requestId },
@@ -254,6 +255,7 @@ exports.calcShipment = async (req, res) => {
               console.log(
                 "Following are the delivery companies available for the delivery service: "
               );
+              console.log(response.data.data);
               let minRateObject =
                 response.data.data.available_courier_companies.reduce(
                   (prev, curr) => {
@@ -574,7 +576,7 @@ exports.generateAWBFunction = async (req, res) => {
         "https://apiv2.shiprocket.in/v1/external/courier/assign/awb?" +
         paramers,
     };
-    await axios.post(options)
+    await axios.request(options)
       .then(function (response) {
         return res.json({
           success: true,
@@ -582,6 +584,7 @@ exports.generateAWBFunction = async (req, res) => {
         });
       })
       .catch(function (error) {
+        console.log(error);
         if (
           error.response.data.status_code == 500 ||
           error.response.data.status_code == 502 ||

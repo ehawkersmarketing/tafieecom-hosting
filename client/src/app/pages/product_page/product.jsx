@@ -309,7 +309,7 @@ const Product = () => {
                 <h1 className="review-title">Reviews</h1>
 
                 <sup>
-                  <button className="review-btn">0</button>
+                  <button className="review-btn">{product?.reviews}</button>
                 </sup>
               </div>
               <div className="ratingAndReview">
@@ -358,22 +358,14 @@ const Product = () => {
                             {item?.userId.userName}
                           </h3>
                         </div>
-                        <p>{item.review}</p>
-                        <ul className="rating">
-                          {" "}
-                          {Array.apply(null, { length: 5 }).map((e, i) => (
+                        <ul className="rating"> {Array.apply(null, { length: 5 }).map(
+                          (e, i) => (
                             <li>
-                              <i
-                                class={
-                                  i >= item?.rating
-                                    ? `bi bi-star`
-                                    : `bi bi-star-fill`
-                                }
-                                id="review-icon"
-                              ></i>
+                              <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
                             </li>
-                          ))}
-                        </ul>
+                          )
+                        )}</ul>
+                        <p>{item.review}</p>
                       </div>
                     </li>
                   );
