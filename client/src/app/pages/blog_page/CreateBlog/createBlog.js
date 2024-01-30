@@ -1,6 +1,7 @@
-import react, { useState ,useEffect } from "react";
+import react, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate  } from "react-router-dom";
+import './createBlog.css';
+import { useNavigate } from "react-router-dom";
 
 const CreateBlog = () => {
   const [inputHandler, setInputHandler] = useState({
@@ -11,7 +12,8 @@ const CreateBlog = () => {
   const [image, setImage] = useState();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-   const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -20,7 +22,7 @@ const CreateBlog = () => {
       } else {
         navigate("/auth/login");
       }
-    }else {
+    } else {
       navigate("/auth/login");
     }
   }, []);
@@ -32,11 +34,20 @@ const CreateBlog = () => {
     });
   };
   const history = useNavigate();
-  const backToDashboard = () =>{
+  const backToDashboard = () => {
     history('/adminPage')
   }
 
+  const addTags = event => {
+    if (event.key === "Enter" && event.target.value !== "") {
+      setTags([...tags, event.target.value]);
+      event.target.value = "";
+    }
+  };
 
+  const removeTags = index => {
+    setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
+  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -46,11 +57,11 @@ const CreateBlog = () => {
       alert("Add Title");
     } else if (content === " ") {
       alert(" Add Content");
-    }else if (readingTime === " ") {
+    } else if (readingTime === " ") {
       alert(" Add reading time");
-    }else if (!image) {
+    } else if (!image) {
       alert(" Add Image");
-    }else{
+    } else {
       const formData = new FormData();
       formData.append("image", image);
 
@@ -68,6 +79,7 @@ const CreateBlog = () => {
               content: content,
               readingTime: readingTime,
               image: imageUrl.data.url,
+              tags: tags,
             }
           );
           if (data.success) {
@@ -89,9 +101,9 @@ const CreateBlog = () => {
     <section>
       {
         <div className="form_data">
-                    <div className="cross" onClick={backToDashboard}>
-           <i class="bi bi-file-x-fill"></i>
-            </div>
+          <div className="cross" onClick={backToDashboard}>
+            <i class="bi bi-file-x-fill"></i>
+          </div>
           <div className="form_heading">
             <h1>Create Resource Center</h1>
           </div>
@@ -142,14 +154,22 @@ const CreateBlog = () => {
                 required
               />
             </div>
-
-            <button
+            <div className="tags-input-container">
+              {tags.map((tag, index) => (
+                <div className="tag-item" key={index}>
+                  <span className="text">{tag}</span>
+                  <span className="close" onClick={() => removeTags(index)}>&times;</span>
+                </div>
+              ))}
+              <input onKeyDown={event => addTags(event)} type="text" className="tags-input" placeholder="Please enter your tags here" />
+            </div>
+            <div
               className="btn"
               onClick={onSubmitHandler}
               style={{ backgroundColor: "#005C4B" }}
             >
               Create Resource Center
-            </button>
+            </div>
           </form>
         </div>
       }

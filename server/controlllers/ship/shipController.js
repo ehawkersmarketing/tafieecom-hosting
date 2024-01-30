@@ -255,6 +255,7 @@ exports.calcShipment = async (req, res) => {
               console.log(
                 "Following are the delivery companies available for the delivery service: "
               );
+              console.log(response.data.data);
               let minRateObject =
                 response.data.data.available_courier_companies.reduce(
                   (prev, curr) => {

@@ -276,7 +276,7 @@ const Product = () => {
 
 
                 <sup>
-                  <button className="review-btn">0</button>
+                  <button className="review-btn">{product?.reviews}</button>
                 </sup>
 
               </div>
@@ -322,14 +322,14 @@ const Product = () => {
                           </span>
                           <h3 className="personName">{item?.userId.userName}</h3>
                         </div>
-                        <p>{item.review}</p>
                         <ul className="rating"> {Array.apply(null, { length: 5 }).map(
                           (e, i) => (
-                            <li>
+                            <div>
                               <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
-                            </li>
+                            </div>
                           )
                         )}</ul>
+                        <p>{item.review}</p>
                       </div>
                     </li>
                   );
