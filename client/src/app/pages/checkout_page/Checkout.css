@@ -53,7 +53,7 @@ section {
     padding-top: 2.5rem;
 }
 
-.checkout-page-payment-details .checkout-btn {
+.checkout-page-payment-details .checkout-btn,.checkout-page-form .checkout-btn {
     display: block;
     width: 100%;
     padding: 15px;

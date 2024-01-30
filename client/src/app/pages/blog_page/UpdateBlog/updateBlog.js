@@ -3,7 +3,8 @@ import "../CreateBlog/createBlog";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import Header from "../../header/header";
+import Footer from "../../footer/footer";
 const UpdateBlog = () => {
   const history = useNavigate();
   const [image, setImage] = useState();
@@ -22,9 +23,9 @@ const UpdateBlog = () => {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // history("/adminPage");
       } else {
-      history("/auth/login");
+        history("/auth/login");
       }
-    }else {
+    } else {
       history("/auth/login");
     }
   }, []);
@@ -51,13 +52,13 @@ const UpdateBlog = () => {
     axios
       .put("http://localhost:8080/api/updateBlog/" + id)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setInputHandler({
           ...inputHandler,
           title: res.data.updatedBlog.title,
           content: res.data.updatedBlog.content,
           readingTime: res.data.updatedBlog.readingTime,
-          image:res.data.updatedBlog.image,
+          image: res.data.updatedBlog.image,
           UpdateBlog,
         });
       })
@@ -66,9 +67,9 @@ const UpdateBlog = () => {
       });
   }, []);
 
-  const backToDashboard = () =>{
-    history('/adminPage')
-  }
+  const backToDashboard = () => {
+    history("/adminPage");
+  };
 
   const onChangeInputHandler = (e) => {
     const { name, value } = e.target;
@@ -80,19 +81,20 @@ const UpdateBlog = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-      formData.append("image", image);
+    formData.append("image", image);
 
-      var imageUrl = await axios.post(
-        "http://localhost:8080/api/uploadBlogImage",
-        formData
-      );
-      console.log(imageUrl)
-      if(imageUrl.data.success){
-        axios.put("http://localhost:8080/api/updateBlog/" + id, {
+    var imageUrl = await axios.post(
+      "http://localhost:8080/api/uploadBlogImage",
+      formData
+    );
+    console.log(imageUrl);
+    if (imageUrl.data.success) {
+      axios
+        .put("http://localhost:8080/api/updateBlog/" + id, {
           title: inputHandler.title,
           content: inputHandler.content,
           readingTime: inputHandler.readingTime,
-          image: imageUrl.data.url
+          image: imageUrl.data.url,
         })
         .then((res) => {
           console.log(res.data);
@@ -101,35 +103,36 @@ const UpdateBlog = () => {
         .catch((err) => {
           console.log(err);
         });
-      }
-    
+    }
   };
 
   return (
-    <section>
-      <div className="form_data">
-      <div className="cross" onClick={backToDashboard}>
-           <i class="bi bi-file-x-fill"></i>
-            </div>
-        <div className="form_heading">
-          <h1>Update Resource Center</h1>
-        </div>
-
-        <form>
-          <div className="form_input">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="title"
-              name="title"
-              value={inputHandler.title}
-              placeholder="Title"
-            />
+    <>
+      <Header />
+      <section>
+        <div className="form_data">
+          <div className="cross" onClick={backToDashboard}>
+            <i class="bi bi-file-x-fill"></i>
           </div>
-          <div className="form_input">
-            <label htmlFor="title">Content</label>
-            <textarea
+          <div className="form_heading">
+            <h1>Update Resource Center</h1>
+          </div>
+
+          <form>
+            <div className="form_input">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="title"
+                name="title"
+                value={inputHandler.title}
+                placeholder="Title"
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="title">Content</label>
+              <textarea
                 style={{ width: "100%" }}
                 rows={10}
                 type="text"
@@ -139,19 +142,19 @@ const UpdateBlog = () => {
                 name="content"
                 placeholder="Content ...."
               />
-          </div>
-          <div className="form_input">
-            <label htmlFor="readingTime"> Estimate Reading Time</label>
-            <input
-              type="readingTime"
-              onChange={onChangeInputHandler}
-              value={inputHandler.readingTime}
-              id="readingTime"
-              name="readingTime"
-              placeholder="readingTime"
-            />
-          </div>
-          <div className="form_input">
+            </div>
+            <div className="form_input">
+              <label htmlFor="readingTime"> Estimate Reading Time</label>
+              <input
+                type="readingTime"
+                onChange={onChangeInputHandler}
+                value={inputHandler.readingTime}
+                id="readingTime"
+                name="readingTime"
+                placeholder="readingTime"
+              />
+            </div>
+            <div className="form_input">
               <label for="productImage">Resource Image</label>
               <input
                 type="file"
@@ -162,12 +165,14 @@ const UpdateBlog = () => {
                 required
               />
             </div>
-          <button className="btn" onClick={onSubmitHandler}>
-            Update Resource Center
-          </button>
-        </form>
-      </div>
-    </section>
+            <button className="btn" onClick={onSubmitHandler}>
+              Update Resource Center
+            </button>
+          </form>
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 };
 

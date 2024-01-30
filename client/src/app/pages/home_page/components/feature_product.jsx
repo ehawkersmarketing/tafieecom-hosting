@@ -1,13 +1,18 @@
-import React from 'react';
-import './featuredProductCard.css';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import "./featuredProductCard.css";
+import { useNavigate } from "react-router-dom";
 
 const FeaturedProductCard = ({ item }) => {
-    const navigate = useNavigate();
-    const knowmoreHandler = (id) => {
-        navigate(`/product/${id}`);
-    }
-
+  const navigate = useNavigate();
+  const knowmoreHandler = (id) => {
+    navigate(`/product/${id}`);
+  };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
     return (
         <div key={item._id} className="carouselItem" interval="500" >

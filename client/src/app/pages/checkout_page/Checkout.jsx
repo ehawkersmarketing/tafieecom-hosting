@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import './Checkout.css';
-import axios from 'axios';
+import "./Checkout.css";
+import axios from "axios";
+
 import { useFetch } from "../../hooks/api_hook";
-import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Checkout = () => {
     const navigate = useNavigate();
@@ -42,16 +43,37 @@ const Checkout = () => {
     const shipChargeFunction = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/ship/calcShipment', {
-                shipping_postcode: formData.PinCode,
-                weight: cart.totalWeight,
-                declared_value: cart.totalPrice,
-                is_return: 0
-            });
-            setShipCharge(response.data.shipPrice);
-            console.log(shipCharge);
+            if (formData.name === "") {
+                alert("Enter your Name");
+            } else if (formData.Email === "") {
+                alert("Enter your email");
+            } else if (formData.Contact === "") {
+                alert("Enter your number");
+            } else if (formData.Address === "") {
+                alert("Enter your address");
+            } else if (formData.City === "") {
+                alert("Enter your City");
+            } else if (formData.State === "") {
+                alert("Enter your State");
+            } else if (formData.PinCode === "") {
+                alert("Enter your Pin Code");
+            } else if (formData.Country === "") {
+                alert("Enter your Country");
+            } else {
+                const response = await axios.post(
+                    "http://localhost:8080/api/ship/calcShipment",
+                    {
+                        shipping_postcode: formData.PinCode,
+                        weight: cart.totalWeight,
+                        declared_value: cart.totalPrice,
+                        is_return: 0,
+                    }
+                );
+                setShipCharge(response.data.shipPrice);
+                console.log(shipCharge);
+            }
         } catch (error) {
-            console.error('Failed to fetch ship details', error);
+            console.error("Failed to fetch ship details", error);
         }
     };
 
@@ -121,7 +143,7 @@ const Checkout = () => {
                             <div className="checkout-page-input col-6">
                                 <label htmlFor="contact">Contact No.</label>
                                 <input
-                                    type="number"
+                                    type="tel"
                                     id="Contact"
                                     name="Contact"
                                     placeholder="Contact Number"
@@ -228,7 +250,7 @@ const Checkout = () => {
                                         })}
                                         <tr>
                                             <td>Subtotal</td>
-                                            <td>{cart?.totalPrice?.toLocaleString("en-IN")}</td>
+                                            <td>{(cart?.totalPrice + shipCharge ?? 0)?.toLocaleString("en-IN")}</td>
                                         </tr>
                                         {
                                             shipCharge && <tr>
@@ -238,23 +260,25 @@ const Checkout = () => {
                                         }
                                         <tr>
                                             <th>Total</th>
-                                            <th>{(cart?.totalPrice + shipCharge ?? 0)?.toLocaleString("en-IN")}</th>
+                                            <th>{cart?.totalPrice + shipCharge ?? 0}</th>
                                         </tr>
                                     </table>
                                 </div>
 
-                                <button className="checkout-btn" onClick={(e) => handleOrderFunction(e)}>
+                                <button
+                                    className="checkout-btn"
+                                    onClick={(e) => handleOrderFunction(e)}
+                                >
                                     Place Order
                                 </button>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
             <Footer />
         </div>
-    )
-}
+    );
+};
 
-export default Checkout
+export default Checkout;

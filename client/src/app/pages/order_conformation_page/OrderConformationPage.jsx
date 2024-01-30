@@ -26,7 +26,7 @@ const OrderConformationPage = () => {
   };
 
   const orderHandler = () => {
-    navigate('/myaccount')
+    navigate(`/myaccount/${user?._id}`)
   };
 
   useEffect(() => {

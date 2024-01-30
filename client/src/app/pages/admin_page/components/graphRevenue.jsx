@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useFetch } from "../../../hooks/api_hook";
 import { Chart } from "react-google-charts";
+
 const GraphRevenue = () => {
   const { data: orders } = useFetch("/api/getAllOrders");
   const [revenueMap, setRevenueState] = useState({

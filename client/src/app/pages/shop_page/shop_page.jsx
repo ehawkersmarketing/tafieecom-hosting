@@ -111,7 +111,7 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  fiter-name">
+        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  filter-name">
           <ul className="">
             <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
               <select

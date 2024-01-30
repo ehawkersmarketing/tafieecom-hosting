@@ -21,9 +21,9 @@
 .topDiv .headingimage {
   display: flex;
   justify-content: end;
-  width: 60%;
+  /* width: 60%; */
   text-align: center;
-  mask-image: radial-gradient(circle, white 40%, rgba(254, 254, 254, 0) 70%);
+  mask-image: radial-gradient(ellipse, white 40%, rgba(254, 254, 254, 0) 75%);
 }
 
 .topDiv .headingimage img {
@@ -49,7 +49,7 @@
 
 .topDiv .headingDiv .headingMainText .punchImg {
   text-align: left;
-  width: 18.625rem;
+  width: 22.625rem;
 }
 
 .topDiv .headingDiv .iconDiv .socialsLink {
@@ -92,6 +92,7 @@
   padding-top: 9px;
   padding-bottom: 9px;
   padding-left: 80px;
+  font-size: 18px;
   padding-right: 80px;
 }
 
@@ -106,7 +107,7 @@
   -webkit-text-fill-color: transparent;
   line-height: 1.5;
   font-family: "Eczar", serif;
-  font-size: 60px;
+  font-size: 70px;
   margin-bottom: 0;
 }
 
@@ -191,6 +192,7 @@
 
 .div3 .servicesDiv .singleServiceDiv h5 {
   padding-top: 1.5rem;
+  font-weight: 600;
 }
 
 .div3 .servicesDiv .singleServiceDiv .serviceCircle {
@@ -240,7 +242,7 @@
 .div4 .soilDiv .soilTestInfo .soilHeading h1 {
   width: fit-content;
   color: white;
-  font-size: 3.8rem;
+  font-size: 4.2rem;
   font-weight: 700;
 }
 
@@ -252,6 +254,7 @@
   padding-right: 8px;
   font-weight: 700;
   width: fit-content;
+  font-size: 1.65rem;
 }
 
 .div4 .soilDiv .soilTestInfo .soilHeading .soilSubHead2 {
@@ -261,6 +264,7 @@
   padding-left: 8px;
   padding-right: 8px;
   width: fit-content;
+  font-size: 1.3rem;
 }
 
 .div4 .soilDiv .soilTestInfo button {
@@ -281,8 +285,8 @@
 .div4 .soilDiv .soilTestInfo p {
   color: white;
   font-weight: 300;
-  font-size: 1.2rem;
-  width: 23rem;
+  font-size: 1.3rem;
+  width: 27rem;
 }
 
 .div4 .soilDiv .soilTestInfo .rightIcon {
@@ -315,11 +319,12 @@
   background-color: #c8a33d;
   width: fit-content;
   font-weight: 800;
+  font-size: 3.1rem;
 }
 
 .div4 .franDiv .franchiseInfo .franchHeading h3 {
   margin: auto;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 200;
   margin-top: 0.5rem;
   padding-left: 8px;
@@ -331,6 +336,7 @@
 .div4 .franDiv .franchiseInfo .franchHeading h6 {
   color: #19443f;
   font-weight: 400;
+  font-size: 22px;
 }
 
 .div4 .franDiv .franchiseInfo .franchHeading .franchSubHead {
@@ -350,10 +356,11 @@
 
 .div4 .franDiv .franInfoDiv2 {
   color: #19443f;
-  font-size: 1rem;
+  font-size: 1.2rem;
   width: 26rem;
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 1.5%;
+  margin-left: 21%;
 }
 
 .div4 .franDiv .franInfoDiv2 button {
@@ -366,6 +373,7 @@
   padding-bottom: 5px;
   padding-left: 25px;
   padding-right: 25px;
+  font-size: 22px;
 }
 
 .home-page .product-category {

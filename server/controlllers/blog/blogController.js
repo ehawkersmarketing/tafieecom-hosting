@@ -61,7 +61,7 @@ exports.getAllBlogs = async (req, res) => {
 exports.getRecentBlogs = async (req, res) => {
   try {
     const blogs = await blogModel
-      .find({}, [], { $orderby: { createdAt: -1 } })
+      .find({}).sort({createdAt: -1})
       .limit(3);
     console.log(blogs);
     if (!blogs) {

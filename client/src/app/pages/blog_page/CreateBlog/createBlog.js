@@ -1,7 +1,9 @@
 import react, { useState, useEffect } from "react";
 import axios from "axios";
-import './createBlog.css';
 import { useNavigate } from "react-router-dom";
+import './createBlog.css';
+import Header from "../../header/header";
+import Footer from "../../footer/footer";
 
 const CreateBlog = () => {
   const [inputHandler, setInputHandler] = useState({
@@ -48,6 +50,7 @@ const CreateBlog = () => {
   const removeTags = index => {
     setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
   };
+
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -98,82 +101,93 @@ const CreateBlog = () => {
   };
 
   return (
-    <section>
-      {
-        <div className="form_data">
-          <div className="cross" onClick={backToDashboard}>
-            <i class="bi bi-file-x-fill"></i>
-          </div>
-          <div className="form_heading">
-            <h1>Create Resource Center</h1>
-          </div>
+    <>
+      <Header />
+      <section>
+        {
+          <div className="form_data">
+            <div className="cross" onClick={backToDashboard}>
+              <i class="bi bi-file-x-fill"></i>
+            </div>
+            <div className="form_heading">
+              <h1>Create Resource Center</h1>
+            </div>
 
-          <form>
-            <div className="form_input">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                onChange={onChangeInputHandler}
-                value={inputHandler.title}
-                id="title"
-                name="title"
-                placeholder="Title"
-              />
-            </div>
-            <div className="form_input">
-              <label htmlFor="Content">Content</label>
-              <textarea
-                style={{ width: "100%" }}
-                rows={10}
-                type="text"
-                onChange={onChangeInputHandler}
-                value={inputHandler.content}
-                id="content"
-                name="content"
-                placeholder="Content ...."
-              />
-            </div>
-            <div className="form_input">
-              <label htmlFor="readingTime">Estimate Reading Time</label>
-              <input
-                type="readingTime"
-                onChange={onChangeInputHandler}
-                value={inputHandler.readingTime}
-                id="readingTime"
-                name="readingTime"
-                placeholder="readingTime"
-              />
-            </div>
-            <div className="form_input">
-              <label for="productImage">Resource Image</label>
-              <input
-                type="file"
-                id="productImage"
-                onChange={(e) => setImage(e.target.files[0])}
-                name="productImage"
-                required
-              />
-            </div>
-            <div className="tags-input-container">
-              {tags.map((tag, index) => (
-                <div className="tag-item" key={index}>
-                  <span className="text">{tag}</span>
-                  <span className="close" onClick={() => removeTags(index)}>&times;</span>
-                </div>
-              ))}
-              <input onKeyDown={event => addTags(event)} type="text" className="tags-input" placeholder="Please enter your tags here" />
-            </div>
-            <div
-              className="btn"
-              onClick={onSubmitHandler}
-              style={{ backgroundColor: "#005C4B" }}
-            >
-              Create Resource Center
-            </div>
-          </form>
-        </div>
-      }
-    </section>
+            <form>
+              <div className="form_input">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  onChange={onChangeInputHandler}
+                  value={inputHandler.title}
+                  id="title"
+                  name="title"
+                  placeholder="Title"
+                />
+              </div>
+              <div className="form_input">
+                <label htmlFor="Content">Content</label>
+                <textarea
+                  style={{ width: "100%" }}
+                  rows={10}
+                  type="text"
+                  onChange={onChangeInputHandler}
+                  value={inputHandler.content}
+                  id="content"
+                  name="content"
+                  placeholder="Content ...."
+                />
+              </div>
+              <div className="form_input">
+                <label htmlFor="readingTime">Estimate Reading Time</label>
+                <input
+                  type="readingTime"
+                  onChange={onChangeInputHandler}
+                  value={inputHandler.readingTime}
+                  id="readingTime"
+                  name="readingTime"
+                  placeholder="readingTime"
+                />
+              </div>
+              <div className="form_input">
+                <label for="productImage">Resource Image</label>
+                <input
+                  type="file"
+                  id="productImage"
+                  onChange={(e) => setImage(e.target.files[0])}
+                  name="productImage"
+                  required
+                />
+              </div>
+              <div className="tags-input-container">
+                {tags.map((tag, index) => (
+                  <div className="tag-item" key={index}>
+                    <span className="text">{tag}</span>
+                    <span className="close" onClick={() => removeTags(index)}>&times;</span>
+                  </div>
+                ))}
+                <input onKeyDown={event => addTags(event)} type="text" className="tags-input" placeholder="Please enter your tags here" />
+              </div>
+              <button
+                className="btn"
+                onClick={onSubmitHandler}
+                style={{ backgroundColor: "#005C4B" }}
+              >
+                Create Resource Center
+              </button>
+            </form>
+            {inputHandler.content.split("\n").map((item, index) => (
+              <React.Fragment key={index}>
+                {item}
+                <br />
+              </React.Fragment>
+            ))}
+
+          </div>
+        }
+      </section>
+      <Footer />
+    </>
   );
 };
 

@@ -193,7 +193,9 @@
 .about .buttons .col:nth-child(1):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #19443f;
+  background-color: white;
+  color: #19443f;
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(1):hover .block1 {
   transform: scale(1.3);
@@ -204,12 +206,14 @@
   display: none;
   position: absolute;
   left: 68%;
-  top: 65%;
+  top: 63%;
 }
 .about .buttons .col:nth-child(2):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #42a487;
+  background-color: white;
+  color: #19443f;
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(2):hover .block2 {
   transform: scale(1.3);
@@ -225,7 +229,9 @@
 .about .buttons .col:nth-child(3):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #19443f;
+  background-color: white;
+  color: #19443f;
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(3):hover .block3 {
   transform: scale(1.3);
@@ -241,7 +247,9 @@
 .about .buttons .col:nth-child(4):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #42a487;
+  background-color: white;
+  color: #19443f;
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(4):hover .block4 {
   transform: scale(1.3);
@@ -257,7 +265,9 @@
 .about .buttons .col:nth-child(5):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #19443f;
+  background-color: white;
+  color: #19443f;
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(5):hover .block5 {
   transform: scale(1.3);
@@ -273,7 +283,9 @@
 .about .buttons .col:nth-child(6):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #19443f;
+  background-color: white;
+  color: #19443f;
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(6):hover .block6 {
   transform: scale(1.3);
@@ -284,12 +296,14 @@
   display: none;
   position: absolute;
   left: 37%;
-  top: 65%;
+  top: 63%;
 }
 .about .buttons .col:nth-child(7):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #42a487;
+  background-color: white;
+  color: #19443f;
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(7):hover .block7 {
   transform: scale(1.3);
@@ -306,12 +320,16 @@
 .about .buttons .col:nth-child(8):hover .num {
   display: flex;
   transform: scale(1.2);
-  background-color: #19443f;
+  background-color: white;
+  color: #19443f;
+  
+  border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(8):hover .block8 {
   transform: scale(1.3);
   display: block;
 }
 .about-tech-we-have img{
-  width: 65rem;
+  width: 100%;
+  height: 100%;
 }
