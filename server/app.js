@@ -18,6 +18,7 @@ const reviewRoute = require('./routes/review/reviewRoute');
 const orderRoute = require("./routes/orderRoute/orderRoute");
 const googleAuthRoute = require("./routes/googleAuthRoute/googleAuthRoute");
 const path = require("path");
+const graphRoute = require('./routes/graphRoute/graphRoute')
 // require('./middleware/passport')(passport);
 
 app.use(express.json());
@@ -74,6 +75,7 @@ app.use("/api", orderRoute);
 app.use("/api/ship", shipRoute);
 app.use("/api", serviceRoute);
 app.use("/api", reviewRoute);
+app.use("/api" , graphRoute)
 
 app.use(express.static("public"));
 app.get("/:file", (req, res) => {
