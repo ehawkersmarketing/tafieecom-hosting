@@ -95,12 +95,12 @@ exports.searchServices = async (req, res) => {
         searchRes.push(services[i]);
       }
     }
-    if (!searchRes.length == 0) {
-      return res.status(500).send({
-        success: false,
-        message: "No service found",
-      });
-    }
+    // if (searchRes.length == 0) {
+    //   return res.status(500).send({
+    //     success: false,
+    //     message: "No service found",
+    //   });
+    // }
     return res.status(200).send({
       success: true,
       message: "All service list",
