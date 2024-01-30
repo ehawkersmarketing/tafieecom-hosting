@@ -2,7 +2,8 @@ import react, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import Header from "../header/header";
+import Footer from "../footer/footer";
 const UpdateUser = () => {
   const history = useNavigate();
   const { id } = useParams();
@@ -43,14 +44,14 @@ const UpdateUser = () => {
       );
       let date = new Date(user.data.dob);
       let day = date.getDay();
-          if (day < 10) {
-              day = "0" + day;
-          }
-          let month = date.getMonth() + 1;
-          if (month < 10) {
-              month = "0" + month;
-          }
-          let year = date.getFullYear();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      let month = date.getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month;
+      }
+      let year = date.getFullYear();
       setInputHandler({
         ...inputHandler,
         ["street"]: userAddress.data.street,
@@ -62,13 +63,13 @@ const UpdateUser = () => {
         ["userName"]: user.data.userName,
         ["phone"]: user.data.phone,
         ["email"]: user.data.email,
-        ["dob"]: `${year}-${month}-${day}`
+        ["dob"]: `${year}-${month}-${day}`,
       });
     } catch (err) {
       console.log(err);
     }
   };
-  
+
   useEffect(() => {
     getOneUser();
   }, []);
@@ -103,133 +104,137 @@ const UpdateUser = () => {
   };
 
   return (
-    <section>
-      <div className="form_data">
-        <div className="cross" onClick={backToDashboard}>
-          <i class="bi bi-file-x-fill"></i>
-        </div>
-        <div className="form_heading">
-          <h1>Update User</h1>
-        </div>
-
-        <form>
-          <div className="form_input">
-            <label htmlFor="title">User Name</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="userName"
-              name="userName"
-              value={inputHandler.userName}
-              placeholder="userName"
-            />
+    <>
+      <Header />
+      <section>
+        <div className="form_data">
+          <div className="cross" onClick={backToDashboard}>
+            <i class="bi bi-file-x-fill"></i>
           </div>
-          <div className="form_input">
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="phone"
-              name="phone"
-              value={inputHandler.phone}
-              placeholder="phone"
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              onChange={onChangeInputHandler}
-              id="email"
-              name="email"
-              value={inputHandler.email}
-              placeholder="Email ..."
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="DOB">DOB</label>
-            <input
-              type="date"
-              onChange={onChangeInputHandler}
-              id="dob"
-              name="dob"
-              value={inputHandler.dob}
-              placeholder="Date ..."
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="phone">Street</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="street"
-              name="street"
-              value={inputHandler.street}
-              placeholder="Street..."
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="landMark">landMark</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="landMark"
-              name="landMark"
-              value={inputHandler.landMark}
-              placeholder="Land Mark..."
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="city"
-              name="city"
-              value={inputHandler.city}
-              placeholder="City..."
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="country">Country</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="country"
-              name="country"
-              value={inputHandler.country}
-              placeholder="Country..."
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="zipCode">zipCode</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="zipCode"
-              name="zipCode"
-              value={inputHandler.zipCode}
-              placeholder="zipCode..."
-            />
-          </div>
-          <div className="form_input">
-            <label htmlFor="state">State</label>
-            <input
-              type="text"
-              onChange={onChangeInputHandler}
-              id="state"
-              name="state"
-              value={inputHandler.state}
-              placeholder="State..."
-            />
+          <div className="form_heading">
+            <h1>Update User</h1>
           </div>
 
-          <button className="btn" onClick={onSubmitHandler}>
-            update User
-          </button>
-        </form>
-      </div>
-    </section>
+          <form>
+            <div className="form_input">
+              <label htmlFor="title">User Name</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="userName"
+                name="userName"
+                value={inputHandler.userName}
+                placeholder="userName"
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="phone">Phone</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="phone"
+                name="phone"
+                value={inputHandler.phone}
+                placeholder="phone"
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                onChange={onChangeInputHandler}
+                id="email"
+                name="email"
+                value={inputHandler.email}
+                placeholder="Email ..."
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="DOB">DOB</label>
+              <input
+                type="date"
+                onChange={onChangeInputHandler}
+                id="dob"
+                name="dob"
+                value={inputHandler.dob}
+                placeholder="Date ..."
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="phone">Street</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="street"
+                name="street"
+                value={inputHandler.street}
+                placeholder="Street..."
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="landMark">landMark</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="landMark"
+                name="landMark"
+                value={inputHandler.landMark}
+                placeholder="Land Mark..."
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="city">City</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="city"
+                name="city"
+                value={inputHandler.city}
+                placeholder="City..."
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="country">Country</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="country"
+                name="country"
+                value={inputHandler.country}
+                placeholder="Country..."
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="zipCode">zipCode</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="zipCode"
+                name="zipCode"
+                value={inputHandler.zipCode}
+                placeholder="zipCode..."
+              />
+            </div>
+            <div className="form_input">
+              <label htmlFor="state">State</label>
+              <input
+                type="text"
+                onChange={onChangeInputHandler}
+                id="state"
+                name="state"
+                value={inputHandler.state}
+                placeholder="State..."
+              />
+            </div>
+
+            <button className="btn" onClick={onSubmitHandler}>
+              update User
+            </button>
+          </form>
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 };
 

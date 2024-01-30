@@ -1,17 +1,16 @@
 import react from "react";
 import "./exclusivestore.css";
 import Header from "../header/header";
-import img from "../../assets/image 2.png"; 
+import img from "../../assets/image 2.png";
 import sideImg from "../../assets/Group 358.png";
 import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
 import Footer from "../footer/footer";
 
-
 const ExclusiveStore = () => {
   const footerHandler = () => {
-    document.getElementById('bottom').scrollIntoView({ behavior: 'smooth' });
-  }
+    document.getElementById("bottom").scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div>
@@ -28,9 +27,14 @@ const ExclusiveStore = () => {
                   <div className="franchise-content-para">
                     <h2 className="subheading-franchise">With TAFI Today!</h2>
                   </div>
-                  <button className="franchise-content-para-bt" onClick={footerHandler}>
+                  <button
+                    className="franchise-content-para-bt"
+                    onClick={footerHandler}
+                  >
                     <h5 className="h5-btn">Unlock Your Potential with</h5>
-                    <p style={{ marginBottom: "0px", fontSize:"20px"}}><b> कृषक वाटिका</b></p>
+                    <p style={{ marginBottom: "0px", fontSize: "20px" }}>
+                      <b> कृषक वाटिका</b>
+                    </p>
                   </button>
                 </div>
               </div>
@@ -96,37 +100,79 @@ const ExclusiveStore = () => {
                         className="img-lining-section"
                       />
                     </div>
-
                     <div className="card-fran-section">
-                      <div className="single-fanchise-card">
-                        <p className="section-franchise-card-section">
-                          Help in choosing the best location
-                        </p>
-                      </div>
+                      <div className="animation">
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Help in choosing the best location
+                          </p>
+                        </div>
 
-                      <div className="single-fanchise-card">
-                        <p className="section-franchise-card-section">
-                          Startup Kit
-                        </p>
-                      </div>
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Startup Kit
+                          </p>
+                        </div>
 
-                      <div className="single-fanchise-card">
-                        <p className="section-franchise-card-section">
-                          Process Service Book
-                        </p>
-                      </div>
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Process Service Book
+                          </p>
+                        </div>
 
-                      <div className="single-fanchise-card">
-                        <p className="section-franchise-card-section">
-                          Stock Management System
-                        </p>
-                      </div>
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Stock Management System
+                          </p>
+                        </div>
 
-                      {/* <div className="arrow-btn">
-                        <span className="arrow-fran">
-                          <i class="bi bi-caret-down-fill"></i>
-                        </span>
-                      </div> */}
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Staff Education & Training
+                          </p>
+                        </div>
+
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Support & Expert Guidance
+                          </p>
+                        </div>
+
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Logistic Support
+                          </p>
+                        </div>
+
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Long-Term Agreement
+                          </p>
+                        </div>
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Help in choosing the best location
+                          </p>
+                        </div>
+
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Startup Kit
+                          </p>
+                        </div>
+
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Process Service Book
+                          </p>
+                        </div>
+
+                        <div className="single-fanchise-card">
+                          <p className="section-franchise-card-section">
+                            Stock Management System
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -158,7 +204,10 @@ const ExclusiveStore = () => {
                 </div>
                 <div className="map-para">
                   <span className="para-unevil">
-                    <i>Unveil unique products & services not found <b> elsewhere</b></i>
+                    <i>
+                      Unveil unique products & services not found{" "}
+                      <b> elsewhere</b>
+                    </i>
                   </span>
                 </div>
                 {/* <div className="content-map-fan">

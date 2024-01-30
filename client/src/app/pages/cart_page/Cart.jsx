@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
-
+import Header from "../header/header";
+import Footer from "../footer/footer";
 import "./Cart.css";
 import { useFetch } from "../../hooks/api_hook";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
-  const user = JSON.parse(localStorage.getItem('user'));
-  let { data: cart, setData: updateCart } = useFetch(`/api/getCartByUser/${user._id}`)
+  const user = JSON.parse(localStorage.getItem("user"));
+  let { data: cart, setData: updateCart } = useFetch(
+    `/api/getCartByUser/${user._id}`
+  );
 
   useEffect(() => {
     if (!user) {
-      navigate('/auth/login');
+      navigate("/auth/login");
     }
   }, []);
 
@@ -30,7 +33,10 @@ const Cart = () => {
 
   const increaseValueHandler = async (index) => {
     try {
-      if (cart.products[index].units == cart.products[index].productId.units.maxQuantity) {
+      if (
+        cart.products[index].units ==
+        cart.products[index].productId.units.maxQuantity
+      ) {
         toast.error(`You have reached product max limit`, {
           position: "bottom-right",
           autoClose: 8000,
@@ -39,11 +45,14 @@ const Cart = () => {
           theme: "dark",
         });
       } else {
-        const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
-          "userId": user._id,
-          "productId": cart.products[index].productId._id,
-          "units": 1
-        });
+        const { data } = await axios.put(
+          `http://localhost:8080/api/addToCart`,
+          {
+            userId: user._id,
+            productId: cart.products[index].productId._id,
+            units: 1,
+          }
+        );
         if (data.success) {
           window.location.reload();
         } else {
@@ -69,7 +78,9 @@ const Cart = () => {
 
   const decreaseValueHandler = async (index) => {
     try {
-      const { data } = await axios.delete(`http://localhost:8080/api/dropFromCart/${user._id}/${cart.products[index].productId._id}`);
+      const { data } = await axios.delete(
+        `http://localhost:8080/api/dropFromCart/${user._id}/${cart.products[index].productId._id}`
+      );
       if (data.success) {
         window.location.reload();
       } else {
@@ -92,63 +103,72 @@ const Cart = () => {
     }
   };
   return (
-    <div className="cart-page">
-      <div className="cart-header">
-        <h2 className="page-header">Cart</h2>
-      </div>
-      <div className="cart-overall">
-        <table className="cartTable">
-          <thead className="table-head">
-            <tr className="table-row">
-              <th>Product Name</th>
-              <th>Price (INR)</th>
-              <th>Quantity</th>
-              <th>Total Amount</th>
-            </tr>
-          </thead>
-          <tbody className="table-body">
-            {
-              cart && cart.products.map((item, index) => {
-                return (
-                  <tr className="table-row" key={index}>
-                    <td>{item.productId.title}</td>
-                    <td>{item.productId.price}</td>
-                    <td>
-                      <button class="minus" onClick={(e) => decreaseValueHandler(index)}>
-                        -
-                      </button>
-                      <span id="number">{item.units}</span>
-                      <button class="plus" onClick={(e) => increaseValueHandler(index)}>
-                        +
-                      </button>
-                    </td>
-                    <td>{item.productId.price * item.units}</td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-          <tfoot className="table-footer">
-            <tr className="table-row">
-              <td>Total Gross</td>
-              <td></td>
-              <td></td>
-              <td>{total}</td>
-            </tr>
-          </tfoot>
-        </table>
+    <>
+      <Header />
+      <div className="cart-page">
+        <div className="cart-header">
+          <h2 className="page-header">Cart</h2>
+        </div>
+        <div className="cart-overall">
+          <table className="cartTable">
+            <thead className="table-head">
+              <tr className="table-row">
+                <th>Product Name</th>
+                <th>Price (INR)</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+              </tr>
+            </thead>
+            <tbody className="table-body">
+              {cart &&
+                cart.products.map((item, index) => {
+                  return (
+                    <tr className="table-row" key={index}>
+                      <td>{item.productId.title}</td>
+                      <td>{item.productId.price}</td>
+                      <td>
+                        <button
+                          class="minus"
+                          onClick={(e) => decreaseValueHandler(index)}
+                        >
+                          -
+                        </button>
+                        <span id="number">{item.units}</span>
+                        <button
+                          class="plus"
+                          onClick={(e) => increaseValueHandler(index)}
+                        >
+                          +
+                        </button>
+                      </td>
+                      <td>{item.productId.price * item.units}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+            <tfoot className="table-footer">
+              <tr className="table-row">
+                <td>Total Gross</td>
+                <td></td>
+                <td></td>
+                <td>{total}</td>
+              </tr>
+            </tfoot>
+          </table>
 
-        <div className="checkout-subtotal">
-          <div className="subtotal">
-            <p>Subtotal: {total}</p>
-          </div>
-          <div className="checkout" onClick={() => navigate('/checkout')}>
-            <button>Proceed To Checkout</button>
+          <div className="checkout-subtotal">
+            <div className="subtotal">
+              <p>Subtotal: {total}</p>
+            </div>
+            <div className="checkout" onClick={() => navigate("/checkout")}>
+              <button>Proceed To Checkout</button>
+            </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
-      <ToastContainer />
-    </div>
+      <Footer />
+    </>
   );
 };
 
