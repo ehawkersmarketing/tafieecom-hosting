@@ -88,13 +88,14 @@ exports.getServicesById = async (req, res) => {
 
 exports.searchServices = async (req, res) => {
   try {
-    const services = await serviceModel.find({
-      $or: [
-        { title: { $regex: req.body.search, } },
-        { description: { $regex: req.body.search } },
-      ]
-    });
-    if (!services) {
+    const services = await serviceModel.find({});
+    let searchRes = [];
+    for (let i = 0; i < services.length; i++) {
+      if (services[i].title.toLowerCase().includes(req.body.search.toLowerCase()) || services[i].description.toLowerCase().includes(req.body.search.toLowerCase())) {
+        searchRes.push(services[i]);
+      }
+    }
+    if (!searchRes.length == 0) {
       return res.status(500).send({
         success: false,
         message: "No service found",
@@ -103,7 +104,7 @@ exports.searchServices = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "All service list",
-      data: services,
+      data: searchRes,
     });
   } catch (error) {
     console.log(error);
@@ -152,7 +153,7 @@ exports.updateService = async (req, res) => {
 
 exports.deleteService = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     console.log(id)
     const service = await serviceModel.findByIdAndDelete(id);
     if (service) {

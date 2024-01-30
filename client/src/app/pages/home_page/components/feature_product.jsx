@@ -11,7 +11,7 @@ const FeaturedProductCard = ({ item }) => {
 
     return (
         <div key={item._id} className="carouselItem" interval="500" >
-            <div className="feature-textBlock row">
+            <div className="feature-textBlock row" onClick={() => knowmoreHandler(item._id)}>
                 <div className='feature-text-fields col-6'>
                     <h3 className='category-name'>{item.category.category}</h3>
                     <h1 className='product-name'>{item.title}</h1>

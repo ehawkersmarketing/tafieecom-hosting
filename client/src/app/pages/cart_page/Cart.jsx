@@ -10,7 +10,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const user = JSON.parse(localStorage.getItem('user'));
-  let { data: cart, setData: updateCart } = useFetch(`/api/getCartByUser/${user._id}`)
+  let { data: cart } = useFetch(`/api/getCartByUser/${user._id}`)
 
   useEffect(() => {
     if (!user) {
@@ -22,7 +22,7 @@ const Cart = () => {
     if (cart) {
       let totalPrice = 0;
       for (let i = 0; i < cart.products.length; i++) {
-        totalPrice += cart.products[i].productId.price * cart.products[i].units;
+        totalPrice += cart.products[i]?.productId?.price * cart.products[i]?.units;
       }
       setTotal(totalPrice);
     }
@@ -111,18 +111,18 @@ const Cart = () => {
               cart && cart.products.map((item, index) => {
                 return (
                   <tr className="table-row" key={index}>
-                    <td>{item.productId.title}</td>
-                    <td>{item.productId.price}</td>
+                    <td>{item?.productId?.title}</td>
+                    <td>{item?.productId?.price}</td>
                     <td>
                       <button class="minus" onClick={(e) => decreaseValueHandler(index)}>
                         -
                       </button>
-                      <span id="number">{item.units}</span>
+                      <span id="number">{item?.units}</span>
                       <button class="plus" onClick={(e) => increaseValueHandler(index)}>
                         +
                       </button>
                     </td>
-                    <td>{item.productId.price * item.units}</td>
+                    <td>{(item?.productId?.price * item?.units)?.toLocaleString("en-IN")}</td>
                   </tr>
                 );
               })
@@ -140,7 +140,7 @@ const Cart = () => {
 
         <div className="checkout-subtotal">
           <div className="subtotal">
-            <p>Subtotal: {total}</p>
+            <p>Subtotal: {total?.toLocaleString("en-IN")}</p>
           </div>
           <div className="checkout" onClick={() => navigate('/checkout')}>
             <button>Proceed To Checkout</button>

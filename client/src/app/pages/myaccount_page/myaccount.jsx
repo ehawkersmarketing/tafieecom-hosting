@@ -1,11 +1,13 @@
 import "./myaccount.css";
 import React, { useState, useEffect } from "react";
-import { useNavigate , useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "../header/header";
 import logoImage from "../../assets/Tafi_logo_white.png";
-import { useFetch  } from "../../hooks/api_hook";
+import { useFetch } from "../../hooks/api_hook";
 import dayjs from 'dayjs';
+
+
 
 const Myaccount = () => {
   const [value, setValue] = useState(0);
@@ -19,8 +21,8 @@ const Myaccount = () => {
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
   const { data: userData } = useFetch(`/auth/user/${id}`);
-  const {data:locationData} = useFetch(`/api/getUserAddress/${user?._id}`);
-  console.log(userData);
+  const { data: locationData } = useFetch(`/api/getUserAddress/${user?._id}`);
+  const { data: orders } = useFetch(`/api/getAllOrderByUser/${user?._id}`);
 
 
   useEffect(() => {
@@ -32,11 +34,11 @@ const Myaccount = () => {
       navigate("/auth/login");
     }
   }, [user]);
-  
-  const submitHandler = () =>{
+
+  const submitHandler = () => {
     navigate(`/updateUser/${userData?._id}`)
   }
-  
+
   return (
     <div>
       <Header />
@@ -137,7 +139,7 @@ const Myaccount = () => {
                 </div>
                 <div className="edit-button">
                   <button type="submit" className="edit">
-                   <Link style={{ color: "white" , outline:"none", textDecoration:"none" }} to={`/updateUser/${userData?._id}`}>EDIT</Link> 
+                    <Link style={{ color: "white", outline: "none", textDecoration: "none" }} to={`/updateUser/${userData?._id}`}>EDIT</Link>
                   </button>
                 </div>
               </div>
@@ -159,47 +161,34 @@ const Myaccount = () => {
                             Sr.No.
                           </th>
                           <th scope="col" className="th">
-                            Featured Image
-                          </th>
-                          <th scope="col" className="th">
-                            Product Name
+                            Order Id
                           </th>
                           <th scope="col" className="th">
                             Price
                           </th>
                           <th scope="col" className="th">
-                            Delivered on
+                            Status
+                          </th>
+                          <th scope="col" className="th">
+                            Order On
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row table-center">1.</th>
-                          <td className="td ">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td">Fertilizer</td>
-                          <td className="td">199</td>
-                          <td className="td ">17/01/2024</td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">2.</th>
-                          <td className="td">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td">Seeds</td>
-                          <td className="td">199</td>
-                          <td className="td ">17/01/2024</td>
-                        </tr>
-                        <tr>
-                          <th scope="row table-center">3.</th>
-                          <td className="td">
-                            <img src="/image.com" />
-                          </td>
-                          <td className="td ">Anmol sir</td>
-                          <td className="td">199</td>
-                          <td className="td ">17/01/2024</td>
-                        </tr>
+                        {
+                          orders && orders.map((order, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}.</th>
+                                <td className="td "> {order._id}
+                                </td>
+                                <td className="td">{order.amount}</td>
+                                <td className="td">{order.orderStatus}</td>
+                                <td className="td "> {`${dayjs(order.createdAt).format('MMMM D, YYYY')}`}</td>
+                              </tr>
+                            );
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>

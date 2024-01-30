@@ -1,3 +1,4 @@
+const productModel = require("../../models/productModel/productModel");
 const reviewModel = require("../../models/reviewModel/reviewModel");
 
 module.exports.getAllReviews = async (req, res) => {
@@ -24,7 +25,7 @@ module.exports.getAllReviews = async (req, res) => {
 
 module.exports.getReviewsById = async (req, res) => {
     try {
-        const reviews = await reviewModel.findOne({productId: req.params.id}).populate("reviews.userId")
+        const reviews = await reviewModel.findOne({ productId: req.params.id }).populate("reviews.userId")
         if (reviews) {
             res.status(200).json({
                 success: true,
@@ -45,7 +46,7 @@ module.exports.getReviewsById = async (req, res) => {
 };
 module.exports.addReview = async (req, res) => {
     try {
-        let { userId, reviewContent, rating, productId , count } = req.body;
+        let { userId, reviewContent, rating, productId, count } = req.body;
 
         let review = await reviewModel.findOne({ productId: productId });
         if (review) {
@@ -62,6 +63,17 @@ module.exports.addReview = async (req, res) => {
                 { new: true }
             );
             if (updatedReview) {
+                console.log(updatedReview);
+                let sum = 0;
+                for (let i = 0; i < updatedReview.reviews.length; i++) {
+                    sum += updatedReview.reviews[i].rating;
+                }
+                sum = sum / updatedReview.reviews.length;
+                console.log(sum);
+                await productModel.findOneAndUpdate({ _id: productId }, {
+                    rating: sum,
+                    reviews: updatedReview.reviews.length,
+                });
                 res.status(200).json({
                     success: true,
                     data: updatedReview

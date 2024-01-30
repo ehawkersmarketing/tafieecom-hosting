@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import './Checkout.css';
 import axios from 'axios';
 import { useFetch } from "../../hooks/api_hook";
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
+    const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
     let { data: cart } = useFetch(`/api/getProductsInCart/${user._id}`)
     const products = cart?.products;
     const [shipCharge, setShipCharge] = useState(undefined);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/auth/login');
+        }
+    }, []);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -212,13 +220,13 @@ const Checkout = () => {
                                             return (
                                                 <tr>
                                                     <td>{product.productId.title} x {product.units}</td>
-                                                    <td>{product.productId.price * product.units}</td>
+                                                    <td>{(product.productId.price * product.units)?.toLocaleString("en-IN")}</td>
                                                 </tr>
                                             );
                                         })}
                                         <tr>
                                             <td>Subtotal</td>
-                                            <td>{cart?.totalPrice}</td>
+                                            <td>{cart?.totalPrice?.toLocaleString("en-IN")}</td>
                                         </tr>
                                         {
                                             shipCharge && <tr>
@@ -228,7 +236,7 @@ const Checkout = () => {
                                         }
                                         <tr>
                                             <th>Total</th>
-                                            <th>{cart?.totalPrice + shipCharge ?? 0}</th>
+                                            <th>{(cart?.totalPrice + shipCharge ?? 0)?.toLocaleString("en-IN")}</th>
                                         </tr>
                                     </table>
                                 </div>

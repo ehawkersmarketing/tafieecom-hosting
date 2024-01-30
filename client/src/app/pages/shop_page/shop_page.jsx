@@ -53,6 +53,7 @@ const ShopPage = () => {
   }, [searchField]);
 
   const { data: categories } = useFetch("/api/allCategory");
+
   const applyFilter = (e, index) => {
     if (index == 2) {
       if (e.target.value === 'select the Category') {

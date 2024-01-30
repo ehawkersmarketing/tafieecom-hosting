@@ -29,7 +29,7 @@ import CreateService from "./app/pages/createService/createService.js";
 import UpdateService from "./app/pages/updateService/updateService.js";
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateUser from "./app/pages/updateUser/updateUser.js";
-
+import Invoice from "./app/pages/invoice/invoice.jsx";
 
 
 function App() {
@@ -80,10 +80,11 @@ function App() {
           <Route path="/adminPage" exact element={<AdminPage />} />
 
           <Route
-            path="/OrderConformationPage"
+            path="/OrderConfirmationPage/:id"
             exact
             element={<OrderConformationPage />}
           />
+          <Route path="/invoice/:id" exact element={<Invoice />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/Cart" exact element={<Cart />} />
           <Route path="/myaccount/:id" exact element={<Myaccount />} />

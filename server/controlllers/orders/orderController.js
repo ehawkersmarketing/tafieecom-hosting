@@ -94,6 +94,7 @@ module.exports.placeOrder = async (req, res, next) => {
                     await newOrderCount.save();
                 }
             }
+            await cartModel.findOneAndDelete({ _id: cartId });
             res.status(200).json({
                 success: true,
                 data: newOrder
