@@ -66,6 +66,8 @@ const Checkout = () => {
                     userId: user._id,
                     street: formData.Address,
                     landmark: formData.Address2,
+                    email: formData.Email,
+                    userName: formData.name,
                     city: formData.City,
                     country: formData.Country,
                     state: formData.State,

@@ -52,7 +52,7 @@ const ProductCard = ({ cart, item }) => {
                     )
                   )}
                 </ul></div>
-              <div className="review">345 Reviews</div>
+              <div className="review">{item.reviews} Reviews</div>
             </div>
             <div className="price">{`Rs ${item.price}/-`}</div>
             <button className='cart-btn' onClick={(e) => onCartTap(item._id, inCart)}>{

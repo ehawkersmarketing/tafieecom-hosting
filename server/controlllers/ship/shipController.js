@@ -68,6 +68,7 @@ exports.approveRequest = async (req, res) => {
           })
         }
         console.log(request);
+        console.log();
         let time = order.timestamps.toISOString();
         axios.post("http://localhost:8080/api/ship/createOrder",
           {
@@ -574,7 +575,7 @@ exports.generateAWBFunction = async (req, res) => {
         "https://apiv2.shiprocket.in/v1/external/courier/assign/awb?" +
         paramers,
     };
-    await axios.post(options)
+    await axios.request(options)
       .then(function (response) {
         return res.json({
           success: true,
@@ -582,6 +583,7 @@ exports.generateAWBFunction = async (req, res) => {
         });
       })
       .catch(function (error) {
+        console.log(error);
         if (
           error.response.data.status_code == 500 ||
           error.response.data.status_code == 502 ||
