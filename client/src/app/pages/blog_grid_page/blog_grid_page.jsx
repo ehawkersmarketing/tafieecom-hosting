@@ -121,6 +121,7 @@ const BlogPage = () => {
             <div className="search-bar">
               <input
                 type="text"
+                placeholder="Search your blogs"
                 name="search"
                 onChange={(e) => setSearchField(e.target.value)}
                 className="search_container"
@@ -188,7 +189,7 @@ const BlogPage = () => {
                           </h5>
 
                           <p class="card-text">
-                            {blog.content.substring(0, 80)}...
+                            {blog.content.substring(0, 60)}...
                           </p>
                           <p class="blog-date">{`${dayjs(blog.createdAt).format(
                             "MMMM D, YYYY"
@@ -236,7 +237,7 @@ const BlogPage = () => {
                         </h5>
 
                         <p class="card-text">
-                          {blog.content.substring(0, 80)}....
+                          {blog.content.substring(0, 60)}....
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format(
                           "MMMM D, YYYY"
@@ -279,7 +280,7 @@ const BlogPage = () => {
                           </h5>
 
                           <p class="card-text">
-                            {blog.content.substring(0, 80)}....
+                            {blog.content.substring(0, 60)}....
                           </p>
                           <p class="blog-date">{`${dayjs(blog.createdAt).format(
                             "MMMM D, YYYY"
@@ -322,7 +323,7 @@ const BlogPage = () => {
                         </h5>
 
                         <p class="card-text">
-                          {blog.content.substring(0, 80)}....
+                          {blog.content.substring(0, 60)}....
                         </p>
                         <p class="blog-date">{`${dayjs(blog.createdAt).format(
                           "MMMM D, YYYY"

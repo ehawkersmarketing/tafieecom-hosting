@@ -56,9 +56,6 @@ const ShopPage = () => {
 
   const { data: categories } = useFetch("/api/allCategory");
 
-  const filterHandlerNav = () => {
-    // document.getElementById("app-products").scrollIntoView({ behavior: "smooth" });
-  };
 
   const applyFilter = (e, index) => {
     if (index == 2) {
@@ -78,6 +75,10 @@ const ShopPage = () => {
           })
         );
         setActiveFilter({ ['filter']: `` });
+
+        document.getElementById('allproduct').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
       } else {
         setProducts(
           products.sort(function (a, b) {
@@ -85,12 +86,17 @@ const ShopPage = () => {
           })
         );
         setActiveFilter({ ['filter']: `` });
+
+        document.getElementById('allproduct').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
       }
       setOpen(false);
     }
     setOpenForSort(false);
     setOpen(false);
-    filterHandlerNav()
+
+
   };
 
   return (
@@ -143,7 +149,7 @@ const ShopPage = () => {
           </ul>
         </div>}
         {openForSort &&
-          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24 fiter-name">{
+          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24 filter-name-sort">{
             <ul>{
               filter.map((item, index) => {
                 return (
@@ -208,7 +214,8 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        <div className="all-products" id="all-products">
+        <div className="all-products" id="allproduct">
+
           {searchField === '' && <div className="all-product-text">
             <div className="product-all-text">
               <div className="tafi-product-text1">

@@ -3,6 +3,7 @@ section {
     padding: 10px;
     min-height: calc(100vh - 80px);
     margin-top: 5rem;
+    margin-bottom: 6rem;
 }
 
 section .form_data {
