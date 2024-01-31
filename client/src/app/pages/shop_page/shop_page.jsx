@@ -57,7 +57,6 @@ const ShopPage = () => {
   const { data: categories } = useFetch("/api/allCategory");
 
 
-
   const applyFilter = (e, index) => {
     if (index == 2) {
       if (e.target.value === 'select the Category') {
@@ -76,7 +75,9 @@ const ShopPage = () => {
           })
         );
         setActiveFilter({ ['filter']: `` });
+
         document.getElementById('allproduct').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
 
       } else {
         setProducts(
@@ -85,13 +86,17 @@ const ShopPage = () => {
           })
         );
         setActiveFilter({ ['filter']: `` });
+
         document.getElementById('allproduct').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
 
       }
       setOpen(false);
     }
     setOpenForSort(false);
     setOpen(false);
+
+
   };
 
   return (
@@ -210,6 +215,7 @@ const ShopPage = () => {
           </div>
         </div>
         <div className="all-products" id="allproduct">
+
           {searchField === '' && <div className="all-product-text">
             <div className="product-all-text">
               <div className="tafi-product-text1">
