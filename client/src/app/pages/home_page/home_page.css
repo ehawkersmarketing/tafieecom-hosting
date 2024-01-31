@@ -16,21 +16,21 @@
   padding-bottom: 8%;
   justify-content: space-between;
   --bs-gutter-x: 0;
+  height: 40rem;
 }
 
 .topDiv .headingimage {
   display: flex;
   justify-content: end;
-  /* width: 60%; */
-  text-align: center;
-  mask-image: radial-gradient(ellipse, white 40%, rgba(254, 254, 254, 0) 75%);
+  mask-image: radial-gradient(ellipse, white 50%, rgba(254, 254, 254, 0) 80%);
 }
 
 .topDiv .headingimage img {
-  /* width: 20%; */
-  max-width: 120%;
-  margin: auto;
-  /* max-height: 100%; */
+  margin: 0;
+  height: 115%;
+  width: 100%;
+  margin-top: -2rem;
+  margin-right: -1.5rem;
 }
 
 .topDiv .headingDiv {

@@ -8,7 +8,7 @@ import CategoryCarousel from "../../pages/shop_page/component/categoryCarousel/c
 import { useFetch } from "../../hooks/api_hook.js";
 import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
 import { useNavigate } from "react-router-dom";
-import homehero from "../../assets/homepage-main1.png";
+import homehero from "../../assets/homepage-main.png";
 import { Link } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 

@@ -1,9 +1,10 @@
-import react, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Header from "../header/header";
 import Footer from "../footer/footer";
+import "../create_product/createProduct.css";
 const UpdateUser = () => {
   const history = useNavigate();
   const { id } = useParams();
@@ -193,7 +194,8 @@ const UpdateUser = () => {
                name="dob"
                value={inputHandler.dob}
                placeholder="Date ..."
-               maxLength={Date.now()}
+              //  maxLength={Date.now()}
+              max={new Date().toISOString().split('T')[0]}
               />
             </div>
             <div className="form_input">
