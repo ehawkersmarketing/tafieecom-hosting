@@ -168,13 +168,13 @@ const CreateBlog = () => {
                 ))}
                 <input onKeyDown={event => addTags(event)} type="text" className="tags-input" placeholder="Please enter your tags here" />
               </div>
-              <button
+              <div
                 className="btn"
                 onClick={onSubmitHandler}
                 style={{ backgroundColor: "#005C4B" }}
               >
                 Create Resource Center
-              </button>
+              </div>
             </form>
             {inputHandler.content.split("\n").map((item, index) => (
               <React.Fragment key={index}>

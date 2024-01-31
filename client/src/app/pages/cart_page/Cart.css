@@ -1,3 +1,5 @@
+
+
 .cart-page {
     color: white;
     width: 100%;
@@ -16,13 +18,13 @@
     margin: 0;
     font-weight: 700;
     line-height: 1.2;
-    color: black;
+    color: var(--darkgreen-primary, #19443F);
     text-align: center;
 }
 
 .cartTable {
     width: 100%;
-    color: black;
+    color: var(--darkgreen-primary, #19443F);
     margin-top: 4rem;
     margin-bottom: 4rem;
 }
@@ -49,8 +51,10 @@ hr.solid {
 .checkout-subtotal .checkout button {
     width: 100%;
     color: white;
-    background: var(--Dark-Green-Gradient, linear-gradient(34deg, #29645E 1.8%, #188479 105.45%));
+    background: var(--darkgreen-primary, #19443F);
     border: none;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .checkout-address {
@@ -77,5 +81,11 @@ hr.solid {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
+
+div.emptyDiv{
+    border: 1px solid var(--darkgreen-primary, #19443F);
+    width: 100%;
+    margin-bottom: 4rem;
+   }
 
  

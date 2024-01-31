@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 const FeaturedProductCard = ({ item }) => {
   const navigate = useNavigate();
   const knowmoreHandler = (id) => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     navigate(`/product/${id}`);
   };
   const scrollToTop = () => {

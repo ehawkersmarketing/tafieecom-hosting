@@ -144,7 +144,7 @@ exports.cancelApprovalRequest = async (req, res) => {
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
       const data = await requestModel.findOneAndUpdate(
-        { _id: requestId },
+        { orderId: orderId },
         {
           status: "REJECTED",
         }
