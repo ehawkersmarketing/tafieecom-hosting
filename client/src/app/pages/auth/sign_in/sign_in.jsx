@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import Header from "../../header/header";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useFetch } from "../../../hooks/api_hook";
 
 var token;
 
@@ -19,7 +20,7 @@ const SignIn = () => {
 
   const { id } = useParams();
   const [path, setPath] = useState(id);
-
+  const { data: users } = useFetch("/auth/users");
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
@@ -40,7 +41,7 @@ const SignIn = () => {
   });
 
   const handleChangeFormField = (e) => {
-    console.log(token);
+    // console.log(token);
     if (e.target.name === "phone" || e.target.name === "otp") {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     }
@@ -48,46 +49,111 @@ const SignIn = () => {
 
   }
 
+let signedUser
+  // const onSendOtp = async (event) => {
+  //   try {
+  //     event.preventDefault();
+  //     if (formField.phone.length == 10) {
+  //     users?.forEach(item => {
+  //       signedUser = (item?.phone === formField.phone)
+  //       //  console.log(item?.phone , formField.phone)
+  //        return console.log(signedUser)
+  //     })
+  //       console.log(signedUser)
+  //       if(signedUser===false){
+  //         alert('login sirji')
+  //       }else{
+  //         const { data } = await axios.post(
+  //           "http://localhost:8080/auth/sendOtp",
+  //           {
+  //             phone: formField.phone,
+  //           }
+  //         );
+  //         token = data.token;
+  //         if (data.success) {
+  //           toast.success("OTP Sent successfully", {
+  //             position: "bottom-right",
+  //             autoClose: 8000,
+  //             pauseOnHover: true,
+  //             draggable: true,
+  //             theme: "dark",
+  //           });
+  //         }}
+  //       }
+  //      else {
+  //       toast.error("Please enter a valid phone number", {
+  //         position: "bottom-right",
+  //         autoClose: 8000,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         theme: "dark",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     toast.error("error", {
+  //       position: "bottom-right",
+  //       autoClose: 8000,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       theme: "dark",
+  //     });
+  //   }
+  // };
+
 
   const onSendOtp = async (event) => {
     try {
-      event.preventDefault();
-      if (formField.phone.length == 10) {
-        const { data } = await axios.post(
-          "http://localhost:8080/auth/sendOtp",
-          {
-            phone: formField.phone,
-          }
-        );
-        token = data.token;
-        if (data.success) {
-          toast.success("OTP Sent successfully", {
+       event.preventDefault();
+       if (formField.phone.length == 10) {
+         const userExists = users?.some(item => item?.phone === formField.phone);
+         if(!userExists){
+          toast.error(`User is not Registered`, {
             position: "bottom-right",
             autoClose: 8000,
             pauseOnHover: true,
             draggable: true,
             theme: "dark",
           });
-        }
-      } else {
-        toast.error("Please enter a valid phone number", {
-          position: "bottom-right",
-          autoClose: 8000,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "dark",
-        });
-      }
+         } else {
+           const { data } = await axios.post(
+             "http://localhost:8080/auth/sendOtp",
+             {
+               phone: formField.phone,
+             }
+           );
+           token = data.token;
+           if (data.success) {
+             toast.success("OTP Sent successfully", {
+               position: "bottom-right",
+               autoClose: 8000,
+               pauseOnHover: true,
+               draggable: true,
+               theme: "dark",
+             });
+           }
+         }
+       } else {
+         toast.error("Please enter a valid phone number", {
+           position: "bottom-right",
+           autoClose: 8000,
+           pauseOnHover: true,
+           draggable: true,
+           theme: "dark",
+         });
+       }
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
-        position: "bottom-right",
-        autoClose: 8000,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-      });
+       toast.error(`${error.response.data.message}`, {
+         position: "bottom-right",
+         autoClose: 8000,
+         pauseOnHover: true,
+         draggable: true,
+         theme: "dark",
+       });
     }
-  };
+   };
+   
+   
+
 
   const onSignUp = async (event) => {
     try {
@@ -260,6 +326,7 @@ const SignIn = () => {
                         name="phone"
                         onChange={handleChangeFormField}
                         placeholder="Enter your phone number"
+                        maxLength={10}
                       />
                       <button className="button_otp" onClick={onSendOtp}>
                         Generate otp
@@ -340,6 +407,7 @@ const SignIn = () => {
                         name="phone"
                         onChange={handleChangeFormField}
                         placeholder="Enter your phone number"
+                        maxLength={10}
                       />
                       <button className="button_otp" onClick={onSendOtp}>
                         Generate otp

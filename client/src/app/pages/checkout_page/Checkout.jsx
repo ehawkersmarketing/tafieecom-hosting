@@ -9,17 +9,18 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
-  let { data: cart } = useFetch(`/api/getProductsInCart/${user._id}`);
-  const products = cart?.products;
-  const [shipCharge, setShipCharge] = useState(undefined);
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/auth/login");
-    }
-  }, []);
+    const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('user'));
+    useEffect(() => {
+        if (user) {
+               navigate('/checkout')
+        } else {
+          navigate("/auth/login");
+        }
+      }, []);
+    let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
+    const products = cart?.products;
+    const [shipCharge, setShipCharge] = useState(undefined);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,6 +34,7 @@ const Checkout = () => {
     Country: "",
   });
 
+
   const [contact, setContact] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -45,6 +47,40 @@ const Checkout = () => {
 
     
   };
+
+
+    const shipChargeFunction = async (event) => {
+        event.preventDefault();
+        try {
+             if (formData.Email === "") {
+                alert("Enter your email");
+            }  else if (formData.Address === "") {
+                alert("Enter your address");
+            } else if (formData.City === "") {
+                alert("Enter your City");
+            } else if (formData.State === "") {
+                alert("Enter your State");
+            } else if (formData.PinCode === "") {
+                alert("Enter your Pin Code");
+            } else if (formData.Country === "") {
+                alert("Enter your Country");
+            } else {
+                const response = await axios.post(
+                    "http://localhost:8080/api/ship/calcShipment",
+                    {
+                        shipping_postcode: formData.PinCode,
+                        weight: cart.totalWeight,
+                        declared_value: cart.totalPrice,
+                        is_return: 0,
+                    }
+                );
+                setShipCharge(response.data.shipPrice);
+                console.log(shipCharge);
+            }
+        } catch (error) {
+            console.error("Failed to fetch ship details", error);
+        }
+    };
 
   const secondHandler=(event)=>{
     if (event.target.value.length < 10) {
@@ -143,7 +179,6 @@ const Checkout = () => {
       console.error("Failed to submit form", error);
     }
   };
-
   return (
     <div>
       <Header />
@@ -164,6 +199,7 @@ const Checkout = () => {
                       type="text"
                       id="name"
                       name="name"
+value={user?.userName}
                       placeholder="Name"
                       required
                       onChange={handleInputChange}
@@ -178,6 +214,7 @@ const Checkout = () => {
                       id="Contact"
                       name="Contact"
                       placeholder="Contact Number"
+value={user?.phone}
                       required
                       onChange={(event) => {
                         handleInputChange(event);
@@ -186,6 +223,7 @@ const Checkout = () => {
                     />
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                   </div>
+
 
                 </div>
               </div>
