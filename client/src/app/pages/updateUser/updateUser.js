@@ -21,7 +21,7 @@ const UpdateUser = () => {
     zipCode: "",
   });
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-
+  const [maxDate, setMaxDate] = useState('');
   useEffect(() => {
     if (user) {
       if (user.role.role !== "User") {
@@ -75,11 +75,24 @@ const UpdateUser = () => {
   }, []);
 
   const onChangeInputHandler = (e) => {
+    if (e.target.name === "phone" ) {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    }
     const { name, value } = e.target;
+
     setInputHandler(() => {
       return { ...inputHandler, [name]: value };
     });
   };
+  useEffect(() => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    setMaxDate(today);
+}, []);
 
   const backToDashboard = () => {
     history(`/myaccount/${id}`);
@@ -87,20 +100,41 @@ const UpdateUser = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:8080/api/putUserAddress`, {
-      userId: id,
-      email: inputHandler.email,
-      dob: inputHandler.dob,
-      phone: inputHandler.phone,
-      street: inputHandler.street,
-      landmark: inputHandler.landMark,
-      city: inputHandler.city,
-      userName: inputHandler.userName,
-      country: inputHandler.country,
-      state: inputHandler.state,
-      zipCode: inputHandler.zipCode,
-    });
-    backToDashboard();
+    if(inputHandler.email === ""){
+      alert("Enter Email")
+    }else if(inputHandler.userName===""){
+      alert("Enter the UserName")
+    }else if(inputHandler.phone===""){
+      alert("Enter the phone number")
+    }else if(inputHandler.street===""){
+      alert("Enter the Street")
+    }else if(inputHandler.zipCode===""){
+      alert("Enter the zipcode")
+    }else if(inputHandler.landMark===""){
+      alert("Enter the landmark")
+    }else if(inputHandler.city===""){
+      alert("Enter city")
+    }else if(inputHandler.country===""){
+      alert("Enter country")
+    }else if(inputHandler.state===""){
+      alert("Enter State")
+    }else{
+      await axios.post(`http://localhost:8080/api/putUserAddress`, {
+        userId: id,
+        email: inputHandler.email,
+        dob: inputHandler.dob,
+        phone: inputHandler.phone,
+        street: inputHandler.street,
+        landmark: inputHandler.landMark,
+        city: inputHandler.city,
+        userName: inputHandler.userName,
+        country: inputHandler.country,
+        state: inputHandler.state,
+        zipCode: inputHandler.zipCode,
+      });
+      backToDashboard();
+    }
+    
   };
 
   return (
@@ -136,6 +170,7 @@ const UpdateUser = () => {
                 name="phone"
                 value={inputHandler.phone}
                 placeholder="phone"
+                maxLength={10}
               />
             </div>
             <div className="form_input">
@@ -152,12 +187,13 @@ const UpdateUser = () => {
             <div className="form_input">
               <label htmlFor="DOB">DOB</label>
               <input
-                type="date"
-                onChange={onChangeInputHandler}
-                id="dob"
-                name="dob"
-                value={inputHandler.dob}
-                placeholder="Date ..."
+               type="date"
+               onChange={onChangeInputHandler}
+               id="dob"
+               name="dob"
+               value={inputHandler.dob}
+               placeholder="Date ..."
+               maxLength={Date.now()}
               />
             </div>
             <div className="form_input">
