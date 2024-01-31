@@ -61,7 +61,7 @@
         justify-content: center;
         align-items: center;
         margin-bottom: 1%;
-        margin-left: 0.6rem;
+        /* margin-left: 0.6rem; */
         font-size: 0.9rem;
         background: var(--primary-gradient-light, linear-gradient(79deg, #36914B 0.36%, #44A95C 58.15%, #7BF197 117.12%));
         box-shadow: 0px 8.683px 24.81px 0px rgba(21, 60, 56, 0.00), 0px 3.721px 8.683px 0px rgba(21, 60, 56, 0.30);

@@ -209,9 +209,10 @@
                 margin: 0 0rem 0 0;
             }
 
-            .filter-text {
+            .filter-text , .sort-text{
                 color: white;
                 padding: 0 0.5rem;
+                margin: 0 0.6rem 0;
             }
 
             .bi-filter {
@@ -233,9 +234,6 @@
                 color: white;
             }
 
-            .filter-text {
-                margin: 0 0.6rem 0;
-            }
         }
 
         .search-bar {
@@ -514,7 +512,7 @@
     margin-left: -2rem;
 }
 
-.main-container .filter-name {
+.main-container .filter-name ,.main-container .filter-name-sort{
     width: 30rem;
     border-radius: 5px;
     padding: 1%;
@@ -533,5 +531,19 @@
     display: block;
     left: 6rem;
     z-index: 10;
+    top:-2rem
+
+}
+.main-container .filter-name-sort::before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border: 20px solid;
+    border-color: transparent transparent white transparent;
+    position: absolute;
+    display: block;
+    left: 12rem;
+    z-index: 10;
+    top:-2rem
 
 }

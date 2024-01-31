@@ -8,7 +8,8 @@ import ProductCard from "../../components/productCard/productCard.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
 import ShopPageCarouselCard from "./component/shop_card_carousal/shop_card_carousal.jsx";
 import axios from "axios";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ShopPage = () => {
   const [open, setOpen] = useState(false);
@@ -44,7 +45,7 @@ const ShopPage = () => {
       }
     } else {
       setSearchProducts(undefined);
-      setActiveFilter({ ['filter']: '' });
+      setActiveFilter({ ["filter"]: "" });
     }
   };
 
@@ -54,11 +55,13 @@ const ShopPage = () => {
 
   const { data: categories } = useFetch("/api/allCategory");
 
+  const navigate = useNavigate();
+
   const applyFilter = (e, index) => {
     if (index == 2) {
-      if (e.target.value === 'select the Category') {
-        setSearchField('');
-        setActiveFilter({ [e.target.name]: '' });
+      if (e.target.value === "select the Category") {
+        setSearchField("");
+        setActiveFilter({ [e.target.name]: "" });
       } else {
         setSearchField(e.target.value);
         setActiveFilter({ [e.target.name]: e.target.value });
@@ -71,39 +74,83 @@ const ShopPage = () => {
             return b.price - a.price;
           })
         );
-        setActiveFilter({ ['filter']: `` });
+        setActiveFilter({ ["filter"]: `` });
+        document
+          .getElementById("allproduct")
+          .scrollIntoView({ behavior: "smooth" });
       } else {
         setProducts(
           products.sort(function (a, b) {
             return a.price - b.price;
           })
         );
-        setActiveFilter({ ['filter']: `` });
+        setActiveFilter({ ["filter"]: `` });
+        document
+          .getElementById("allproduct")
+          .scrollIntoView({ behavior: "smooth" });
       }
       setOpen(false);
     }
     setOpenForSort(false);
-
   };
+
+  // const hideHandler = () => {
+  //   const filterElement = document.getElementById("filter");
+  //   if (filterElement.style.display !== "none") {
+  //      filterElement.style.display = "none";
+  //   }
+  //  };
+
+
+
+  // const hidefilterHandler = () => {
+  //   const sortElement = document.getElementById("sort");
+  //   if (sortElement.style.display !== "none") {
+  //      sortElement.style.display = "none";
+  //   }
+  //  };
+   
+
+  //   const footerHandler = () => {
+
+  //   };
 
   return (
     <div className="main-container">
-
       <Header />
       <div className="shop-page-container">
-        {
-          products && <ShopPageCarouselCard cart={cart} items={products} />
-        }
+        {products && <ShopPageCarouselCard cart={cart} items={products} />}
         <div className="filter-region">
           <div className="filter">
+          
             <i class="bi bi-funnel-fill" onClick={(e) => setOpen(!open)}></i>
-            <span className="filter-text" onClick={(e) => setOpen(!open)}>Filters</span>
+            <span className="filter-text" onClick={(e) => setOpen(!open)}>
+              Filters
+            </span>
+            
             <span>|</span>
-            <i class="bi bi-filter" onClick={() => setOpenForSort(!openForSort)}></i>
-            <span className="sort-text" onClick={(e) => setOpenForSort(!openForSort)}>Sort</span>
+            
+              <i
+                class="bi bi-filter"
+                onClick={() => setOpenForSort(!openForSort)}
+              ></i>
+
+              <span
+                className="sort-text"
+                onClick={(e) => setOpenForSort(!openForSort)}
+              >
+                Sort
+              </span>
+            
           </div>
           <div className="search-bar">
-            <input type="text" name="search" placeholder='Search your products' onChange={(e) => setSearchField(e.target.value)} className="search_container" />
+            <input
+              type="text"
+              name="search"
+              placeholder="Search your products"
+              onChange={(e) => setSearchField(e.target.value)}
+              className="search_container"
+            />
             <div className="search-button">
               <button className="search-icon">
                 <i class="bi bi-search"></i>
@@ -111,44 +158,55 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  filter-name">
-          <ul className="">
-            <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
-              <select
-                onChange={(e) => applyFilter(e, 2)}
-                value={activeFilter.filter}
-                name="filter"
-                style={{
-                  width: "20rem",
-                  height: "2rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                <option>select the Category</option>
+        {open && (
+          <div
+            className="bg-white w-2 shadow-lg absolute -left-14 top-24  filter-name"
+            
+          >
+            <ul className="">
+              <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
+                <select
+                  onChange={(e) => applyFilter(e, 2)}
+                  value={activeFilter.filter}
+                  name="filter"
+                  style={{
+                    width: "20rem",
+                    height: "2rem",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <option>select the Category</option>
 
-                {categories?.map((item) => (
-                  <option key={item._id} name="category" value={item.category}>
-                    {item.category}
-                  </option>
-                ))}
-              </select>
-            </li>
-          </ul>
-        </div>}
-        {openForSort &&
-          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  fiter-name">{
-            filter.map((item, index) => {
+                  {categories?.map((item) => (
+                    <option
+                      key={item._id}
+                      name="category"
+                      value={item.category}
+                    >
+                      {item.category}
+                    </option>
+                  ))}
+                </select>
+              </li>
+            </ul>
+          </div>
+        )}
+        {openForSort && (
+          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  filter-name-sort" >
+            {filter.map((item, index) => {
               return (
-                <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100" key={index} onClick={(e) => applyFilter(e, index)}>
+                <li
+                  className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100"
+                  key={index}
+                  onClick={(e) => applyFilter(e, index)}
+                >
                   <span className="">{item}</span>
                 </li>
-              )
-            })
-          }
+              );
+            })}
           </div>
-        }
-        {
-          (activeFilter.filter !== '' || searchField !== '') &&
+        )}
+        {(activeFilter.filter !== "" || searchField !== "") && (
           <div className="blog-latest-post">
             <div>
               <h4>Search Posts</h4>
@@ -158,14 +216,25 @@ const ShopPage = () => {
               <div className="below-post-1"></div>
             </div>
             <div className="latest-post-card row">
-              {
-                searchProducts && searchProducts.length !== 0 ? searchProducts?.map((item, index) => {
-                  return <ProductCard item={item} cart={cart} key={index} className='productItem' />
-                }) : <div><h4>No Results Found</h4></div>
-              }
+              {searchProducts && searchProducts.length !== 0 ? (
+                searchProducts?.map((item, index) => {
+                  return (
+                    <ProductCard
+                      item={item}
+                      cart={cart}
+                      key={index}
+                      className="productItem"
+                    />
+                  );
+                })
+              ) : (
+                <div>
+                  <h4>No Results Found</h4>
+                </div>
+              )}
             </div>
           </div>
-        }
+        )}
         <div className="product-region">
           <div className="best-seller-text">
             <div className="tafi-product-text1">
@@ -198,30 +267,40 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        <div className="all-products">
-          {searchField === '' && <div className="all-product-text">
-            <div className="product-all-text">
-              <div className="tafi-product-text1">
-                <span>All</span>
-              </div>
-              <div className="tafi-product-text2">
-                <span>PRODUCTS</span>
+        <div className="all-products" id="allproduct">
+          {searchField === "" && (
+            <div className="all-product-text">
+              <div className="product-all-text">
+                <div className="tafi-product-text1">
+                  <span>All</span>
+                </div>
+                <div className="tafi-product-text2">
+                  <span>PRODUCTS</span>
+                </div>
               </div>
             </div>
-          </div>}
+          )}
           <div className="all-products-card row">
-            {(activeFilter.filter === '' && searchField === '') && products && products?.map((item, index) => {
-              return (
-                <ProductCard item={item} key={index} cart={cart} className='productItem' />
-              );
-            })}
+            {activeFilter.filter === "" &&
+              searchField === "" &&
+              products &&
+              products?.map((item, index) => {
+                return (
+                  <ProductCard
+                    item={item}
+                    key={index}
+                    cart={cart}
+                    className="productItem"
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
       <Footer />
       <ToastContainer />
-    </div >
-  )
-}
+    </div>
+  );
+};
 
 export default ShopPage;
