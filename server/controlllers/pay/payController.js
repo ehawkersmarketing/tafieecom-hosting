@@ -225,12 +225,12 @@ exports.refundFunction = async (req, res) => {
   try {
     const { transactionId, orderId } = req.body;
     const refundTransId = giveUniqueId(16);
-    const refundEntry = await transactionModel.findOne({
-      transactionId: transactionId,
-      status: "COMPLETE",
+    const refundEntry = await orderModel.findOne({
+      _id: orderId,
+    
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
     console.log(refundEntry);
-    const refundAmount = refundEntry.amount;
+    const refundAmount = refundEntry.amount + refundEntry.shipment_charge;
     const data = {
       merchantId: process.env.MERCHANT_ID,
       merchantUserId: process.env.MERCHANT_USER_ID,

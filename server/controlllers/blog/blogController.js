@@ -17,7 +17,7 @@ exports.composeBlog = async (req, res) => {
       tags: tags,
     });
     await newBlog.save();
-    console.log("image =>", image);
+    // console.log("image =>", image);
     return res.status(200).send({
       success: true,
       message: "New blog uploaded",
@@ -36,7 +36,7 @@ exports.composeBlog = async (req, res) => {
 exports.getAllBlogs = async (req, res) => {
   try {
     const blogs = await blogModel.find({});
-    console.log(blogs);
+    // console.log(blogs);
     if (!blogs) {
       return res.status(200).send({
         success: false,
@@ -63,7 +63,7 @@ exports.getRecentBlogs = async (req, res) => {
     const blogs = await blogModel
       .find({}).sort({ createdAt: -1 })
       .limit(3);
-    console.log(blogs);
+    // console.log(blogs);
     if (!blogs) {
       return res.status(200).send({
         success: false,

@@ -62,7 +62,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
               top: 0,
               behavior: 'smooth',
             });
-              return product.productId._id === item._id;
+              return product?.productId?._id === item._id;
 
             });
             return (

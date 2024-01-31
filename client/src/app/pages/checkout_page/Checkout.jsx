@@ -11,15 +11,17 @@ import { toast, ToastContainer } from 'react-toastify';
 const Checkout = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
-    let { data: cart } = useFetch(`/api/getProductsInCart/${user._id}`)
+    useEffect(() => {
+        if (user) {
+               navigate('/checkout')
+        } else {
+          navigate("/auth/login");
+        }
+      }, []);
+    let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
     const products = cart?.products;
     const [shipCharge, setShipCharge] = useState(undefined);
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/auth/login');
-        }
-    }, []);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -43,13 +45,9 @@ const Checkout = () => {
     const shipChargeFunction = async (event) => {
         event.preventDefault();
         try {
-            if (formData.name === "") {
-                alert("Enter your Name");
-            } else if (formData.Email === "") {
+             if (formData.Email === "") {
                 alert("Enter your email");
-            } else if (formData.Contact === "") {
-                alert("Enter your number");
-            } else if (formData.Address === "") {
+            }  else if (formData.Address === "") {
                 alert("Enter your address");
             } else if (formData.City === "") {
                 alert("Enter your City");
@@ -136,6 +134,7 @@ const Checkout = () => {
                                     id="name"
                                     name="name"
                                     placeholder="Name"
+                                    value={user?.userName}
                                     required
                                     onChange={handleInputChange}
                                 />
@@ -147,6 +146,7 @@ const Checkout = () => {
                                     id="Contact"
                                     name="Contact"
                                     placeholder="Contact Number"
+                                    value={user?.phone}
                                     required
                                     onChange={handleInputChange}
                                 />

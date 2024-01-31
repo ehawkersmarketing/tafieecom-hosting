@@ -42,7 +42,7 @@ const ProductCard = ({ cart, item }) => {
   };
   const inCart = cart?.products.find((product) => {
 
-    return product.productId._id === item._id
+    return product?.productId?._id === item._id
 
     
   })

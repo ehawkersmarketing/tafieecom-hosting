@@ -141,14 +141,18 @@ exports.approveRequest = async (req, res) => {
 exports.cancelApprovalRequest = async (req, res) => {
   try {
     const { orderId } = req.body;
+    console.log(orderId)
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
+      console.log(request)
       const data = await requestModel.findOneAndUpdate(
-        { orderId: orderId },
+        { orderId:orderId}, 
         {
-          status: "REJECTED",
+          approvalStatus: "REJECTED",
         }
+        , { new: true }
       );
+      console.log(data)  
       if (data) {
         const order = await orderModel.findOneAndUpdate(
           { _id: data.orderId },
@@ -181,7 +185,7 @@ exports.cancelApprovalRequest = async (req, res) => {
             message: "Order Rejection Failed",
           });
         }
-      } else {
+      } else { 
         res.json({
           success: false,
           message: "Request Rejection Failed",
@@ -196,7 +200,7 @@ exports.cancelApprovalRequest = async (req, res) => {
   } catch (err) {
     res.json({
       success: false,
-      message: err,
+      message: "Error in cancel request approval",
     });
   }
 };
