@@ -165,11 +165,11 @@ const Dashboard = () => {
                   soil testing.
                 </p>
               </div>
-            {!user && <div className="registerSoilBTN">
-              <button onClick={(e) => navigate(`/auth/register`)}>
-                Register Now<i class="bi bi-chevron-right rigthIcon"></i>
-              </button>
-            </div>}
+              <div className="registerSoilBTN">
+                <button >
+                  Register Now<i class="bi bi-chevron-right rigthIcon"></i>
+                </button>
+              </div>
             </div>
           </div>
           <div className="franDiv col-7">

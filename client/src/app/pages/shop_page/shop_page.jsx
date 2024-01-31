@@ -9,8 +9,10 @@ import { useFetch } from "../../hooks/api_hook.js";
 import ShopPageCarouselCard from "./component/shop_card_carousal/shop_card_carousal.jsx";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const ShopPage = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState({
     filter: "",
@@ -54,6 +56,10 @@ const ShopPage = () => {
 
   const { data: categories } = useFetch("/api/allCategory");
 
+  const filterHandlerNav = () => {
+    // document.getElementById("app-products").scrollIntoView({ behavior: "smooth" });
+  };
+
   const applyFilter = (e, index) => {
     if (index == 2) {
       if (e.target.value === 'select the Category') {
@@ -83,7 +89,8 @@ const ShopPage = () => {
       setOpen(false);
     }
     setOpenForSort(false);
-
+    setOpen(false);
+    filterHandlerNav()
   };
 
   return (
@@ -96,11 +103,11 @@ const ShopPage = () => {
         }
         <div className="filter-region">
           <div className="filter">
-            <i class="bi bi-funnel-fill" onClick={(e) => setOpen(!open)}></i>
-            <span className="filter-text" onClick={(e) => setOpen(!open)}>Filters</span>
+            <i class="bi bi-funnel-fill" onClick={(e) => { setOpenForSort(false); setOpen(!open) }}></i>
+            <span className="filter-text" onClick={(e) => { setOpenForSort(false); setOpen(!open) }}>Filters</span>
             <span>|</span>
-            <i class="bi bi-filter" onClick={() => setOpenForSort(!openForSort)}></i>
-            <span className="sort-text" onClick={(e) => setOpenForSort(!openForSort)}>Sort</span>
+            <i class="bi bi-filter" onClick={() => { setOpen(false); setOpenForSort(!openForSort) }}></i>
+            <span className="sort-text" onClick={(e) => { setOpen(false); setOpenForSort(!openForSort) }}>Sort</span>
           </div>
           <div className="search-bar">
             <input type="text" name="search" placeholder='Search your products' onChange={(e) => setSearchField(e.target.value)} className="search_container" />
@@ -111,7 +118,7 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  filter-name">
+        {open && <div className="bg-white w-2 shadow-lg absolute -left-14 top-24 filter-name">
           <ul className="">
             <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
               <select
@@ -136,14 +143,17 @@ const ShopPage = () => {
           </ul>
         </div>}
         {openForSort &&
-          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24  fiter-name">{
-            filter.map((item, index) => {
-              return (
-                <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100" key={index} onClick={(e) => applyFilter(e, index)}>
-                  <span className="">{item}</span>
-                </li>
-              )
-            })
+          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24 fiter-name">{
+            <ul>{
+              filter.map((item, index) => {
+                return (
+                  <li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100" key={index} onClick={(e) => applyFilter(e, index)}>
+                    <span className="">{item}</span>
+                  </li>
+                )
+              })
+            }
+            </ul>
           }
           </div>
         }
@@ -198,7 +208,7 @@ const ShopPage = () => {
             </div>
           </div>
         </div>
-        <div className="all-products">
+        <div className="all-products" id="all-products">
           {searchField === '' && <div className="all-product-text">
             <div className="product-all-text">
               <div className="tafi-product-text1">
