@@ -61,7 +61,7 @@ exports.getAllBlogs = async (req, res) => {
 exports.getRecentBlogs = async (req, res) => {
   try {
     const blogs = await blogModel
-      .find({}).sort({createdAt: -1})
+      .find({}).sort({ createdAt: -1 })
       .limit(3);
     console.log(blogs);
     if (!blogs) {
@@ -112,10 +112,10 @@ exports.getBlogById = async (req, res) => {
 exports.updateBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
-    const { title, content, readingTime ,image} = req.body;
+    const { title, content, readingTime, image } = req.body;
     const updatedBlog = await blogModel.findByIdAndUpdate(
       { _id: blogId },
-      { title, content, readingTime , image }
+      { title, content, readingTime, image }
     );
     await updatedBlog.save();
     return res.status(200).send({
@@ -156,10 +156,13 @@ exports.deleteBlog = async (req, res) => {
 exports.searchBlog = async (req, res) => {
   try {
     const { search } = req.body;
-    const blog = await blogModel.find({
-      $or: [{ title: { $regex: search } }, { content: { $regex: search } }],
-    });
-    console.log(blog);
+    const blog = await blogModel.find({});
+    let searchedBlog = [];
+    for (let i = 0; i < blog.length; i++) {
+      if (blog[i].title.toLowerCase().includes(search) || blog[i].content.toLowerCase().includes(search)) {
+        searchedBlog.push(blog[i]);
+      }
+    }
     if (!blog) {
       return res.status(500).send({
         success: false,
@@ -169,7 +172,7 @@ exports.searchBlog = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "All blogs list",
-      data: blog,
+      data: searchedBlog,
     });
   } catch (error) {
     console.log(error);

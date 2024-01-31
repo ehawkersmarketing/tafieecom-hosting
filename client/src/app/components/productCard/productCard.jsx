@@ -8,6 +8,10 @@ const ProductCard = ({ cart, item }) => {
   const navigate = useNavigate();
 
   const onCartTap = async (id, inCart) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     try{if (inCart) {
       navigate(`/Cart`);
     } else if(localStorage.getItem('user_id')){
@@ -37,8 +41,12 @@ const ProductCard = ({ cart, item }) => {
     }
   };
   const inCart = cart?.products.find((product) => {
+
     return product.productId._id === item._id
-  });
+
+    
+  })
+  ;
 
   const viewproductHandler = (id) => {
     navigate(`/product/${id}`);
