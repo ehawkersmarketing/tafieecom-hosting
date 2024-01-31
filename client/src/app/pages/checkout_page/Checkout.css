@@ -76,3 +76,11 @@ section {
 .checkout-table {
     width: 100%;
 }
+
+.checkout-page .firstinput .checkout1{
+    margin-right: 1%;
+}
+
+.checkout-page .firstinput .checkout2{
+    margin-left: 1%;
+}
