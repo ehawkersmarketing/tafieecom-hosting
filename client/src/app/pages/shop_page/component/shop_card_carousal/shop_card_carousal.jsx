@@ -10,7 +10,10 @@ const ShopPageCarouselCard = ({ cart, items }) => {
   const navigate = useNavigate();
 
   const onCartTap = async (id, inCart) => {
-
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     try{if (inCart) {
       navigate(`/Cart`);
     } else if(localStorage.getItem('user_id')){

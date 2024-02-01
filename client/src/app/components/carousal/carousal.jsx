@@ -20,7 +20,7 @@ const CarouselCard = ({ cart, items }) => {
                         '<span class="arrow prev">‹</span>',
                         '<span class="arrow next">›</span>'
                     ]}
-                    autoplay={true} >{items?.map((item, index) => {
+                    autoplay={false} >{items?.map((item, index) => {
                         return <ProductCard item={item} cart={cart} className='productItem' key={index} />
                     })}
                 </OwlCarousel>

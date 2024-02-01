@@ -1,6 +1,8 @@
 .categoryCarouselItem {
     border-radius: 1rem;
     margin: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
 }
 .categoryCarouselItem .service-block {
   width: 400px;
