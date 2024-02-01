@@ -78,6 +78,7 @@ exports.payFunction = async (req, res) => {
 
 exports.checkStatusFunction = async (req, res) => {
   const { transactionId, cartId, isRefund } = req.query;
+  console.log("data",transactionId , cartId , isRefund)
   if (isRefund) {
     const string = `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` + process.env.PHONEPE_API_SALT_KEY;
     const sha256 = crypto.createHash("sha256").update(string).digest("hex");
@@ -229,7 +230,6 @@ exports.refundFunction = async (req, res) => {
       _id: orderId,
     
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
-    console.log(refundEntry);
     const refundAmount = refundEntry.amount + refundEntry.shipment_charge;
     const data = {
       merchantId: process.env.MERCHANT_ID,
@@ -240,11 +240,16 @@ exports.refundFunction = async (req, res) => {
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog",
     };
     const payload = JSON.stringify(data);
+
     const payloadMain = Buffer.from(payload).toString("base64");
+    console.log(payloadMain)
     const string =
-      payloadMain + "/pg/v1/pay" + process.env.PHONEPE_API_SALT_KEY;
+      payloadMain + "/pg/v1/refund" + process.env.PHONEPE_API_SALT_KEY;
+      //  console.log( "payload string",string)
     const sha256 = crypto.createHash("sha256").update(string).digest("hex");
-    const checksum = sha256 + "###" + process.env.KEY_INDEX;
+    const checksum = sha256 + "###" + process.env.KEY_INDEX;  
+// console.log(checksum)
+    // SHA256(base64 encoded payload + “/pg/v1/refund” + salt key) + ### + salt index
 
     // HEADER STRUCTURE AND OPTIONS MANDATORY FOR REFUND PAYMENT
     const options = {
@@ -262,9 +267,10 @@ exports.refundFunction = async (req, res) => {
     await axios
       .request(options)
       .then(async function (response) {
-        console.log(response.data); //RESPONSE FROM THE REFUND PROCESS API
+        // console.log("data found",response.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(`http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`);
+          console.log("data",data)
           if (data.success) {
             res.status(500).send({
               success: true,

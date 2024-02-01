@@ -22,6 +22,7 @@ const CreateProduct = () => {
     productType: "",
     maxQuantity: maxValue,
     minQuantity: value,
+    weight:""
   });
   const [dropdown, setDropdown] = useState({
     category: " ",
@@ -71,7 +72,7 @@ const CreateProduct = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const { title, description, maxQuantity, minQuantity, price, quantity } =
+    const { title, description, maxQuantity, minQuantity, price,weight, quantity } =
       inputHandler;
     const { category } = dropdown;
     const categoryList = data.filter((item) => item.category === category);
@@ -86,6 +87,8 @@ const CreateProduct = () => {
       alert("Add image");
     } else if (price === "") {
       alert("Add Price");
+    }else if (weight === "") {
+      alert("Add weight");
     }
     if (!categoryList.length) {
       alert("Select category");
@@ -113,6 +116,7 @@ const CreateProduct = () => {
 
             price: price,
             quantity: quantity,
+            weight:weight,
             category: categoryList[0]._id,
             image: imageUrl.data.url,
           }
@@ -127,6 +131,7 @@ const CreateProduct = () => {
             description: " ",
             price: "",
             quantity: "",
+            weight:""
           });
           setDropdown({ category: "" });
           history("/adminPage");
@@ -192,6 +197,17 @@ const CreateProduct = () => {
                   id="price"
                   name="price"
                   placeholder="Price"
+                />
+              </div>
+              <div className="form_input">
+                <label htmlFor="weight">Weight</label>
+                <input
+                  type="text"
+                  onChange={onChangeInputHandler}
+                  value={inputHandler.weight}
+                  id="weight"
+                  name="weight"
+                  placeholder="weight"
                 />
               </div>
 
