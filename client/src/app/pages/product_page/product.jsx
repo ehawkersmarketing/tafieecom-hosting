@@ -358,22 +358,33 @@ const Product = () => {
                             {item?.userId.userName}
                           </h3>
                         </div>
-                        <ul className="rating"> {Array.apply(null, { length: 5 }).map(
-                          (e, i) => (
+                        <ul className="rating">
+                          {" "}
+                          {Array.apply(null, { length: 5 }).map((e, i) => (
                             <li>
-                              <i class={i >= item?.rating ? `bi bi-star` : `bi bi-star-fill`} id="review-icon"></i>
+                              <i
+                                class={
+                                  i >= item?.rating
+                                    ? `bi bi-star`
+                                    : `bi bi-star-fill`
+                                }
+                                id="review-icon"
+                              ></i>
                             </li>
-                          )
-                        )}</ul>
+                          ))}
+                        </ul>
                         <p>{item.review}</p>
                       </div>
                     </li>
                   );
                 })}
               </div>
-              <button className="load-more" id="next">
-                Load More<i class="bi bi-chevron-down"></i>{" "}
-              </button>
+
+              {product && product.reviews.length > 3 && (
+                <button className="load-more" id="next">
+                  Load More<i className="bi bi-chevron-down"></i>{" "}
+                </button>)}
+              
             </div>
           </div>
         </div>

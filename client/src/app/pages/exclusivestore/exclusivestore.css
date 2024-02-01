@@ -126,21 +126,26 @@
   margin: auto;
   margin-top: 1%;
 }
-.franchise-wrapper .h3-franchise-tag {
-  font-size: 19px;
-  font-weight: 700;
+
+.franchise-wrapper .franchise-block-card .block-card .content-card{
+  width: 14rem;
+  height: 3rem;
   line-height: 23px;
   letter-spacing: 0em;
   text-align: center;
   background: linear-gradient(140deg, #19443f 82%, white 106%);
   color: white;
-  width: 15rem;
-  /* box-shadow: 0px 4px 8px 0px #29645E66; */
-  padding: 6px;
-  /* background: linear-gradient(0deg, #19443F, #19443F), linear-gradient(283.53deg, #96FFF4 -8.72%, rgba(0, 112, 100, 0) 21.44%); */
-  border-radius: 12px;
+  border-radius: 7px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.franchise-wrapper h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
 }
 .franchise-block-card {
   padding: 4rem;
@@ -165,9 +170,10 @@
   background-color: #44a98b;
   color: white;
   width: 28%;
-  margin: 6rem 0px 0px 6rem;
+  margin: 6rem 0px 1rem 6rem;
   padding: 4px;
   font-size: 25px;
+  font-weight: 600;
 }
 .krishak-section {
   padding: 0.1rem 0.2rem;
@@ -269,8 +275,8 @@
   text-align: center;
 }
 .card-fran-section {
-  height: 240px;
-  margin-top: 2rem;
+  height: 15rem;
+  margin-top: 3rem;
   overflow: hidden;
 }
 
@@ -282,6 +288,7 @@
 
 .right-div-section-part {
   display: flex;
+  margin-top: 2rem;
   /* justify-content: space-evenly; */
 }
 .lineImg {
@@ -290,9 +297,10 @@
   align-items: center;
   margin-left: 10rem;
   margin-top: 1rem;
+  margin-right: 3rem;
 }
 .img-lining-section {
-  width: 60%;
+  width: 70%;
 }
 
 .btn-knowing-more-fran {
@@ -352,6 +360,9 @@
 }
 .para-unevil {
   color: #19443f;
+  width: 40rem;
+  font-size: 1.3rem;
+  margin-top: 1rem;
 }
 
 /* searc */
@@ -396,6 +407,8 @@
 .map-section-card {
   width: 50%;
   padding: 15%;
+  padding-left: 10% !important;
+  margin-left: -6rem;
 }
 .text-fan {
   font-weight: bold;
@@ -404,20 +417,23 @@
 .map-number-70 {
   font-weight: bold;
   background-color: #c8a33d;
-  width: 5rem;
-  padding: 0.2rem;
-  font-size: 37px;
+  width: 7rem;
+  padding: 0.2rem 0.2rem 0.2rem 0.6rem;
+  margin-bottom: 1rem;
+  font-size: 3rem;
   color: white;
 }
 .h3-content {
   color: #19443f;
   background-color: #44a98b;
-  width: 23rem;
+  width: 28rem;
   text-align: center;
   font-weight: bold;
-  font-size: 25px;
+  /* font-size: 1.8rem; */
 }
-
+.map-content h3{
+  font-size: 1.8rem;
+}
 .search-container {
   border: 1px solid #44a98b;
   border-radius: 25px;

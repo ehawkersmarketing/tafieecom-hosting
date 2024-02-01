@@ -56,24 +56,6 @@ const ShopPage = () => {
 
   const { data: categories } = useFetch("/api/allCategory");
 
-  // const [allProducts, setallProducts] = useState([]);
-
-  // const sortProducts = (category) => {
-  //   let sortedProducts = [...products];
-
-  //   sortedProducts.sort((a, b) => {
-  //     if (a[category] < b[category]) {
-  //       return -1;
-  //     }
-  //     if (a[category] > b[category]) {
-  //       return 1;
-  //     }
-  //     return 0;
-  //   });
-
-  //   setProducts(sortedProducts);
-  // };
-
   const applyFilter = (e, index) => {
     if (index == 2) {
       if (e.target.value === "select the Category") {
@@ -82,18 +64,20 @@ const ShopPage = () => {
       } else {
         setSearchField(e.target.value);
         setActiveFilter({ [e.target.name]: e.target.value });
-        // sortProducts(e.target.value);
       }
       setOpen(false);
     } else {
       if (index == 1) {
-        if (activeFilter.filter === "") {
+        if (activeFilter.filter === "" ) {
           setProducts(
             products.sort(function (a, b) {
               return a.price - b.price;
             })
           );
           setActiveFilter({ ["filter"]: `` });
+          document
+            .getElementById("allproduct")
+            .scrollIntoView({ behavior: "smooth", block: "start" });
         } else {
           setProducts(
             searchProducts.sort(function (a, b) {
@@ -101,33 +85,49 @@ const ShopPage = () => {
             })
           );
           setActiveFilter({ ["filter"]: `` });
-          document.getElementById('allproduct').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       } else {
         if (activeFilter.filter === "") {
-        setProducts(
-          products.sort(function (a, b) {
-            return b.price - a.price;
-          })
-        );
+          setProducts(
+            products.sort(function (a, b) {
+              return b.price - a.price;
+            })
+          );
 
-        setActiveFilter({ ["filter"]: `` });}
-        else{
-        setProducts(
-          searchProducts.sort(function (a, b) {
-            return b.price-a.price;
-          })
-        );
-        setActiveFilter({ ["filter"]: `` });
-        document.getElementById('allproduct').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setActiveFilter({ ["filter"]: `` });
+          document
+            .getElementById("allproduct")
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          setProducts(
+            searchProducts.sort(function (a, b) {
+              return b.price - a.price;
+            })
+          );
+          setActiveFilter({ ["filter"]: `` });
+        }
       }
-    }
       setOpen(false);
     }
     setOpenForSort(false);
     setOpen(false);
   };
 
+
+  const categoriesHandler = (item)=>{
+    console.log("hello")
+  }
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const handleCallback = (item) => {
+    console.log(item);
+    setSelectedCategory(item)
+    // Now you can use childData to filter your data
+ }
+
+ const scrollToTop =()=>{
+  document.getElementById('productCategory').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
   return (
     <div className="main-container">
       <Header />
@@ -169,7 +169,7 @@ const ShopPage = () => {
               Sort
             </span>
           </div>
-          <div className="search-bar">
+          <div className="search-bar" id='productCategory'>
             <input
               type="text"
               name="search"
@@ -215,7 +215,7 @@ const ShopPage = () => {
           </div>
         )}
         {openForSort && (
-          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24 filter-name">
+          <div className="bg-white w-2 shadow-lg absolute -left-14 top-24 filter-name-sort">
             {
               <ul>
                 {filter.map((item, index) => {
@@ -288,8 +288,8 @@ const ShopPage = () => {
               </div>
             </div>
             <div className="category-region">
-              <div className="category-carousel">
-                {categories && <CategoryCarousel items={categories} />}
+              <div className="category-carousel" onClick={scrollToTop}>
+                {categories && <CategoryCarousel items={categories} data={handleCallback}/>}
               </div>
             </div>
           </div>
@@ -299,7 +299,7 @@ const ShopPage = () => {
             <div className="all-product-text">
               <div className="product-all-text">
                 <div className="tafi-product-text1">
-                  <span>All</span>
+                  <span>ALL</span>
                 </div>
                 <div className="tafi-product-text2">
                   <span>PRODUCTS</span>

@@ -24,10 +24,16 @@
 
 .next {
     right: 10px;
+    color: #44A98B;
+    font-size: 5rem;
+    font-weight: 500;
 }
 
 .prev {
     left: 10px;
+    color: #44A98B;
+    font-size: 5rem;
+    font-weight: 500;
 }
 
 /* New CSS */
@@ -41,4 +47,16 @@
 
 .item img {
     width: 100%;
+}
+.product-category .next {
+    right: 10px;
+    color: #44A98B;
+    font-size: 6rem;
+    top: 1rem;
+}
+.product-category .prev {
+    right: 10px;
+    color: #44A98B;
+    font-size: 6rem;
+    top: 1rem;
 }

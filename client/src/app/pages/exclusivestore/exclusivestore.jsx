@@ -203,12 +203,12 @@ const ExclusiveStore = () => {
                   <h3 className="h3-content">FRENCHISE OVER INDIA</h3>
                 </div>
                 <div className="map-para">
-                  <span className="para-unevil">
+                  <div className="para-unevil">
                     <i>
                       Unveil unique products & services not found{" "}
                       <b> elsewhere</b>
                     </i>
-                  </span>
+                  </div>
                 </div>
                 {/* <div className="content-map-fan">
                   <p

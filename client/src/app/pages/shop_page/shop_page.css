@@ -1,5 +1,5 @@
 .main-container {
-    background-color: #c3dad7;
+    background-color: #D9EBE8;
     width: 100%;
 }
 
@@ -162,7 +162,7 @@
                 }
 
                 .signin {
-                    border: 1px solid white;
+                    border: 2px solid white;
                     border-radius: 5px;
                     margin-top: 2rem;
                     width: fit-content;
@@ -542,7 +542,7 @@
     border-color: transparent transparent white transparent;
     position: absolute;
     display: block;
-    left: 12rem;
+    left: 11rem;
     z-index: 10;
     top:-2rem
 
