@@ -49,6 +49,15 @@
   color: white;
 }
 
+.admin-wrapper .sidebar-title:hover .title {
+  background-color:white;
+  font-weight: 600;
+  color: rgb(15, 37, 26);
+}
+.active-link-admin:after {
+  background-color: #44a98b;
+  color: white;
+}
 .admin-wrapper .sidebar-title {
   display: flex;
   margin-bottom: 1rem;
@@ -69,7 +78,13 @@
   margin-top: 0.5rem;
   margin-left: 0.8rem;
 }
-
+.admin-wrapper .dash-number 
+{
+  font-size: 18px;
+}
+.dash-order-no{
+  font-size: 18px;
+}
 .admin-wrapper .icon {
   width: 2.5rem;
   text-align: center;
@@ -289,7 +304,7 @@
   letter-spacing: -0.01em;
   text-align: left;
   color: #44a98b;
-  padding: 0.7rem;
+  padding-top: 0.7rem;
   margin-left: 2rem;
 }
 
@@ -445,6 +460,14 @@
 }
 
 .admin-wrapper .sidebar-title:hover{
+  color:#06130f;
+  background-color: white;
+  border-radius: 12px;
+   
+  box-shadow: 0px 3.500000238418579px 5.500000476837158px 0px #00000014;
+
+}
+.admin-wrapper .sidebar-title:active{
   background-color: white;
   border-radius: 12px;
    color:#285a4b;

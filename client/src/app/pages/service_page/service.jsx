@@ -46,7 +46,7 @@ const OurServices = () => {
                   <span>OUR</span> <span>SERVICES</span>
                 </h1>
                 <p>Define your agriculture in a whole different way</p>
-                <a href="#allservice">Learn More</a>
+                <a className="learn-more-service">Learn More <i class="bi bi-whatsapp"></i></a>
               </div>
             </div>
           </div>
@@ -65,6 +65,7 @@ const OurServices = () => {
                   type="text"
                   id="text-blog"
                   name="search"
+                  placeholder="Type here to search"
                   onChange={(e) => setSearchField(e.target.value)}
                   className="search_container"
                 />

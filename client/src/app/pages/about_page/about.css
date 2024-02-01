@@ -309,6 +309,9 @@
   transform: scale(1.3);
   display: block;
 }
+.bold-para{
+  font-weight: 700;
+}
 
 .about .buttons .col:nth-child(8) .num {
   display: none;

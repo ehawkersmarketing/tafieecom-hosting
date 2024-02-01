@@ -121,7 +121,8 @@ const AdminPage = () => {
 
   const [diffdata, setDiffData] = useState({ old: [], new: [] });
 
-  const dashboardHandler = () => setValue(1);
+  const dashboardHandler = () => { 
+    setValue(1)} ;
   const storeHandler = () => setValue(0);
   const productHandler = () => setValue(3);
   const blogHandler = () => setValue(4);
@@ -330,7 +331,7 @@ const AdminPage = () => {
               <div className="sidebar">
                 {user.role.role === "Admin" && (
                   <div>
-                    <div className="sidebar-title" onClick={dashboardHandler}>
+                    <div className="sidebar-title active-link-admin" onClick={dashboardHandler}>
                       <div className="icon">
                         <i class="bi bi-bar-chart-fill"></i>
                       </div>
@@ -351,7 +352,7 @@ const AdminPage = () => {
                 )}
 
                 <div>
-                  <div className="sidebar-title" onClick={blogHandler}>
+                  <div className="sidebar-title"  onClick={blogHandler}>
                     <div className="icon">
                       <i class="bi bi-layout-text-window-reverse"></i>
                     </div>

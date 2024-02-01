@@ -22,9 +22,9 @@ const About = () => {
                   <span className="about-text">About</span><span className="tafi-text">Tafi</span>
                 </h2>
                 <p>
-                  Established in 2022,<b> TAFI </b>is a comprehensive ecosystem
+                  Established in 2022,<b className="bold-para"> TAFI </b>is a comprehensive ecosystem
                   of agro-tech products designed to serve the agricultural
-                  sector. As a <b>one-stop platform</b>, TAFI offers tailored
+                  sector. As a <b className="bold-para">one-stop platform</b>, TAFI offers tailored
                   solutions and convenient services to address the unique needs
                   of our customers. We aim to enhance the farming experience by
                   providing agriculture-related services that are customized and

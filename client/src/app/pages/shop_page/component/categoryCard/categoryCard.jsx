@@ -1,8 +1,9 @@
 import React from "react";
 import "./categoryCard.css";
-const CategoryCard = ({ item }) => {
+const CategoryCard = ({ item , data }) => {
+
   return (
-    <div key={item._id} className="categoryCarouselItem">
+    <div key={item._id} className="categoryCarouselItem" onClick={() => data(item)}>
       <div className="service-block d-flex">
         <div className="block-text col-6">
           <div className="title-desc-card">
