@@ -9,18 +9,20 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
-  useEffect(() => {
-    if (user) {
-      navigate("/checkout");
-    } else {
-      navigate("/auth/login");
-    }
-  }, []);
-  let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`);
-  const products = cart?.products;
-  const [shipCharge, setShipCharge] = useState(undefined);
+    const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('user'));
+    useEffect(() => {
+        if (user) {
+               navigate('/checkout')
+        } else {
+          navigate("/auth/login");
+        }
+      }, []);
+    let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
+    console.log(cart)
+    const products = cart?.products;
+    console.log("hyyyy",products)
+    const [shipCharge, setShipCharge] = useState(undefined);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,6 +36,7 @@ const Checkout = () => {
     Country: "",
   });
 
+
   const [contact, setContact] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -43,51 +46,53 @@ const Checkout = () => {
       [event.target.name]: event.target.value,
     });
     setContact(event.target.value);
+
+    
   };
 
-  const shipChargeFunction = async (event) => {
-    event.preventDefault();
-    try {
-      if (formData.Email === "") {
-        alert("Enter your email");
-      } else if (formData.Address === "") {
-        alert("Enter your address");
-      } else if (formData.City === "") {
-        alert("Enter your City");
-      } else if (formData.State === "") {
-        alert("Enter your State");
-      } else if (formData.PinCode === "") {
-        alert("Enter your Pin Code");
-      } else if (formData.Country === "") {
-        alert("Enter your Country");
-      } else {
-        const response = await axios.post(
-          "http://localhost:8080/api/ship/calcShipment",
-          {
-            shipping_postcode: formData.PinCode,
-            weight: cart.totalWeight,
 
-            declared_value: cart.totalPrice,
-            is_return: 0,
-          }
-        );
-        setShipCharge(response.data.shipPrice);
-        console.log(shipCharge);
-      }
-    } catch (error) {
-      console.error("Failed to fetch ship details", error);
-      alert("cant able to fetch");
-    }
-  };
+    const shipChargeFunction = async (event) => {
+        event.preventDefault();
+        try {
+            //  if (formData.Email === "") {
+            //     alert("Enter your email");
+            // }  else if (formData.Address === "") {
+            //     alert("Enter your address");
+            // } else if (formData.City === "") {
+            //     alert("Enter your City");
+            // } else if (formData.State === "") {
+            //     alert("Enter your State");
+            // } else if (formData.PinCode === "") {
+            //     alert("Enter your Pin Code");
+            // } else if (formData.Country === "") {
+            //     alert("Enter your Country");
+            // } else {
+                const response = await axios.post(
+                    "http://localhost:8080/api/ship/calcShipment",
+                    {
+                        shipping_postcode: formData.PinCode,
+                        weight: cart.totalWeight,
+                        declared_value: cart.totalPrice,
+                        is_return: 0,
+                    }
+                );
+                setShipCharge(response.data.shipPrice);
+                console.log(shipCharge);
+            }
+        catch (error) {
+            console.error("Failed to fetch ship details", error);
+        }
+    };
 
-  const secondHandler = (event) => {
+  const secondHandler=(event)=>{
     if (event.target.value.length < 10) {
       setErrorMessage("Please enter a valid number.");
     } else {
       setErrorMessage("");
     }
-  };
+  }
 
+  
   const handleOrderFunction = async (event) => {
     event.preventDefault();
     try {
@@ -156,7 +161,7 @@ const Checkout = () => {
                       type="text"
                       id="name"
                       name="name"
-                      value={user?.userName}
+value={user?.userName}
                       placeholder="Name"
                       required
                       onChange={handleInputChange}
@@ -171,18 +176,17 @@ const Checkout = () => {
                       id="Contact"
                       name="Contact"
                       placeholder="Contact Number"
-                      value={user?.phone}
+value={user?.phone}
                       required
                       onChange={(event) => {
                         handleInputChange(event);
                         // Call the second handler here
-                        secondHandler(event);
-                      }}
+                        secondHandler(event);}}
                     />
-                    {errorMessage && (
-                      <p className="error-message">{errorMessage}</p>
-                    )}
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                   </div>
+
+
                 </div>
               </div>
               <div className="checkout-page-input">
@@ -194,6 +198,7 @@ const Checkout = () => {
                   placeholder="Email Address"
                   onChange={handleInputChange}
                 />
+                
               </div>
               <div className="row col-12 firstinput">
                 <div className="col-6">
