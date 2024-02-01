@@ -44,12 +44,12 @@ const Product = () => {
     if (cart) {
       setInCart(
         cart?.products.find((product) => {
-          return product.productId._id === id;
+          return product?.productId?._id === id;
         })
       );
       setQuantity(
         cart?.products.find((product) => {
-          return product.productId._id === id;
+          return product?.productId?._id === id;
         })?.units
       );
     }

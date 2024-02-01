@@ -8,10 +8,7 @@ import footer_img from "../../assets/Footer_mask group.png";
 const Footer = () => {
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    document.getElementById("head").scrollIntoView({ behavior: "smooth" });
   };
 
   return (

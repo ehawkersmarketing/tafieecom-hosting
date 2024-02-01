@@ -17,10 +17,7 @@ const SingleBlog = () => {
     navigate("/blog");
   };
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    document.getElementById("head").scrollIntoView({ behavior: "smooth" });
   };
 
   return (

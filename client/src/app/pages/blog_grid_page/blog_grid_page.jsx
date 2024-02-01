@@ -54,10 +54,7 @@ const BlogPage = () => {
     }
   };
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    document.getElementById("head").scrollIntoView({ behavior: "smooth" });
   };
 
   const search = async (text) => {
