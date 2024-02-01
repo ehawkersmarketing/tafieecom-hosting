@@ -64,6 +64,7 @@ exports.createProduct = async (req, res) => {
       metric,
       companyName,
       category,
+      weight
     } = req.body;
 
     const product = await productModel.create({
@@ -77,6 +78,7 @@ exports.createProduct = async (req, res) => {
       metric,
       companyName,
       category,
+      weight
     });
 
     const categoryData = await categoryModel.find({ category });
@@ -112,10 +114,12 @@ exports.updateProduct = async (req, res) => {
       description,
       image,
       price,
+      weight,
       quantity,
       metric,
       companyName,
-      category
+      category,
+      
     } = req.body;
     const updatedProduct = await productModel.findByIdAndUpdate(
       { _id: id },
@@ -124,10 +128,12 @@ exports.updateProduct = async (req, res) => {
         description,
         image,
         price,
+        weight,
         quantity,
         metric,
         companyName,
         category,
+        
       }
     );
 

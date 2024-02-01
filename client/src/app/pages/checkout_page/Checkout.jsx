@@ -19,7 +19,9 @@ const Checkout = () => {
         }
       }, []);
     let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
+    console.log(cart)
     const products = cart?.products;
+    console.log("hyyyy",products)
     const [shipCharge, setShipCharge] = useState(undefined);
 
   const [formData, setFormData] = useState({
@@ -52,19 +54,19 @@ const Checkout = () => {
     const shipChargeFunction = async (event) => {
         event.preventDefault();
         try {
-             if (formData.Email === "") {
-                alert("Enter your email");
-            }  else if (formData.Address === "") {
-                alert("Enter your address");
-            } else if (formData.City === "") {
-                alert("Enter your City");
-            } else if (formData.State === "") {
-                alert("Enter your State");
-            } else if (formData.PinCode === "") {
-                alert("Enter your Pin Code");
-            } else if (formData.Country === "") {
-                alert("Enter your Country");
-            } else {
+            //  if (formData.Email === "") {
+            //     alert("Enter your email");
+            // }  else if (formData.Address === "") {
+            //     alert("Enter your address");
+            // } else if (formData.City === "") {
+            //     alert("Enter your City");
+            // } else if (formData.State === "") {
+            //     alert("Enter your State");
+            // } else if (formData.PinCode === "") {
+            //     alert("Enter your Pin Code");
+            // } else if (formData.Country === "") {
+            //     alert("Enter your Country");
+            // } else {
                 const response = await axios.post(
                     "http://localhost:8080/api/ship/calcShipment",
                     {
@@ -77,7 +79,7 @@ const Checkout = () => {
                 setShipCharge(response.data.shipPrice);
                 console.log(shipCharge);
             }
-        } catch (error) {
+        catch (error) {
             console.error("Failed to fetch ship details", error);
         }
     };
@@ -90,47 +92,7 @@ const Checkout = () => {
     }
   }
 
-  const shipChargeFunction = async (event) => {
-    event.preventDefault();
-    try {
-      if (formData.name === "") {
-        alert("Enter your Name");
-      } else if (formData.Email === "") {
-        alert("Enter your email");
-      } else if (formData.Contact === "") {
-        alert("Enter your number");
-      } else if (formData.Address === "") {
-        alert("Enter your address");
-      } else if (formData.City === "") {
-        alert("Enter your City");
-      } else if (formData.State === "") {
-        alert("Enter your State");
-      } else if (formData.PinCode === "") {
-        alert("Enter your Pin Code");
-      } else if (formData.Country === "") {
-        alert("Enter your Country");
-      } else {
-        const response = await axios.post(
-          "http://localhost:8080/api/ship/calcShipment",
-          {
-            shipping_postcode: formData.PinCode,
-            weight: cart.totalWeight,
-            declared_value: cart.totalPrice,
-            is_return: 0,
-          }
-        );
-        setShipCharge(response.data.shipPrice);
-        console.log(shipCharge);
-      }
-      document
-        .getElementById("shipment")
-        .scrollIntoView({ behavior: "smooth" });
-    } catch (error) {
-      console.error("Failed to fetch ship details", error);
-      alert("Failed to fetch ship details");
-    }
-  };
-
+  
   const handleOrderFunction = async (event) => {
     event.preventDefault();
     try {

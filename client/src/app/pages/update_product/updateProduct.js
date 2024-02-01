@@ -22,6 +22,7 @@ const UpdateProduct = () => {
     quantity: "",
     minQuantity: "",
     maxQuantity: "",
+    weight:""
   });
 
   const [dropdown, setDropdown] = useState({
@@ -57,15 +58,17 @@ const UpdateProduct = () => {
     axios
       .get("http://localhost:8080/api/getProduct/" + id)
       .then((res) => {
-        console.log(res.data.data.category.category);
+        console.log(res.data.data.weight);
         setInputHandler({
           ...inputHandler,
           title: res.data.data.title,
           description: res.data.data.description,
           price: res.data.data.price,
+          weight:res.data.data.weight,
           quantity: res.data.data.quantity,
           maxQuantity: res.data.data.units.maxQuantity,
           minQuantity: res.data.data.units.minQuantity,
+
         });
         setDropdown({
           category: res.data.data.category.category,
@@ -105,9 +108,11 @@ const UpdateProduct = () => {
           title: inputHandler.title,
           description: inputHandler.description,
           price: inputHandler.price,
+          weight:inputHandler.weight,
           quantity: inputHandler.quantity,
           maxQuantity: inputHandler.maxQuantity,
           minQuantity: inputHandler.minQuantity,
+          weight:inputHandler.weight,
           category: categoryList[0]._id,
           image: imageUrl.data.url,
         })
@@ -179,6 +184,17 @@ const UpdateProduct = () => {
                 placeholder="Price"
               />
             </div>
+            <div className="form_input">
+                <label htmlFor="weight">Weight</label>
+                <input
+                  type="text"
+                  onChange={onChangeInputHandler}
+                  value={inputHandler.weight}
+                  id="weight"
+                  name="weight"
+                  placeholder="weight"
+                />
+              </div>
 
             <div className="form_input">
               <label htmlFor="quantity">Quantity</label>
