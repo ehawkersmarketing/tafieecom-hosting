@@ -82,7 +82,7 @@ const ProductCard = ({ cart, item }) => {
             </div>
             <div className="price">{`Rs ${item.price}/-`}</div>
             <button className='cart-btn' onClick={(e) => onCartTap(item._id, inCart)}>{
-              inCart ? 'Update Cart' : 'Add To Cart'
+              inCart ? 'View Cart' : 'Add To Cart'
             }</button>
           </div>
         </div>
