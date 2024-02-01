@@ -1,11 +1,19 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import './categoryCarousel.css';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import CategoryCard from "../categoryCard/categoryCard";
 
-const CategoryCarousel = ({ items }) => {
+const CategoryCarousel = ({ items ,  }) => {
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const handleCallback = (item) => {
+      console.log(item);
+      setSelectedCategory(item)
+      // Now you can use childData to filter your data
+   }
     return (
         <div className='carousal'>
             <div class='container-fluid' >
@@ -23,7 +31,7 @@ const CategoryCarousel = ({ items }) => {
                     autoplayHoverPause={true}
                     autoplay={true} >{items?.map((item, index) => {
                         return (
-                            <CategoryCard item={item} key={index} />
+                            <CategoryCard item={item} key={index} data={handleCallback}  />
                         );
                     })}
                 </OwlCarousel>

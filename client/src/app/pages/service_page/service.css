@@ -48,6 +48,7 @@
   color: white;
   border-radius: 8px;
   background-color: #29645e;
+  cursor: pointer;
 }
 .filter-region {
   background-color: var(--darkgreen-primary, #19443f);
@@ -77,6 +78,10 @@
 
     .bi-caret-down-fill {
       font-size: 0.8rem;
+    }
+    .learn-more-service:hover{
+   color: white;
+   cursor: pointer;
     }
 
     .category-text {
@@ -164,6 +169,7 @@ align-items: center;
   flex-direction: column;
   padding: 7%;
   justify-content: center;
+  align-items: center;
 }
 .services .block-text p{
 font-size: 14px;
@@ -186,7 +192,8 @@ line-height: 15px;
   padding: 0%;
   height: 170px;
   box-shadow: 0px 14px 34px 0px rgba(68, 169, 139, 0.40), 0px 4px 10px 0px rgba(68, 169, 139, 0.40), 0px 4px 24px 0px rgba(25, 68, 63, 0.50);
-
+  border-left:1px solid white;
+  border-bottom:1px solid white ;
   
 }
 .services .services-card .col-4:nth-child(7n) .service-block{
@@ -217,8 +224,8 @@ line-height: 15px;
   background-image: linear-gradient(
     109.58deg,
     #0e8bb1 -7.21%,
-    #0d3e7a 22.45%,
-    #0a8fb7 100%
+    #1c487e 22.45%,
+    #c0cdd1 100%
   );
 }
 .services .services-card .col-4:nth-child(7n + 4) .service-block {
@@ -280,6 +287,9 @@ line-height: 15px;
   box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.30), 0px 3px 7px 0px rgba(21, 60, 56, 0.30);
   width: fit-content;
 }
+.p-service-block{
+  color: black;
+}
 .services .card-button{
   background-color: transparent;
   border: none;
@@ -293,4 +303,7 @@ line-height: 15px;
 }
 .missing-card .service-block .block-text{
   display: flex; 
+}
+.card-serivce-btn-service{
+  color: black;
 }

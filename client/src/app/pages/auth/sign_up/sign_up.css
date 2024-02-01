@@ -17,6 +17,11 @@
     padding-bottom: 50px;
     flex-direction: column;
 }
+.create-account-text{
+    text-decoration: none;
+    color: black;
+}
+
 
 .sign_up .div-2 {
     background-color: var(--darkgreen-primary, #19443f);

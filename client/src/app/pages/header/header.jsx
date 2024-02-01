@@ -79,7 +79,7 @@ const Header = () => {
           )}
           {user &&
             (user.role.role === "Admin" || user.role.role === "Editor") && (
-              <Link className="signin" to={`/adminPage`}>
+              <Link className="register" to={`/adminPage`}>
                 Dashboard
               </Link>
             )}
