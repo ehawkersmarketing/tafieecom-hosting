@@ -30,7 +30,7 @@
   height: 115%;
   width: 100%;
   margin-top: -2rem;
-  margin-right: -1.5rem;
+  /* margin-right: -1.5rem; */
 }
 
 .topDiv .headingDiv {
@@ -250,8 +250,7 @@
   align-items: center;
   color: white;
   background-color: #19443f;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 0.2rem 0.3rem 0.2rem 0.3rem;
   font-weight: 700;
   width: fit-content;
   font-size: 1.65rem;
@@ -261,8 +260,8 @@
   align-items: center;
   color: white;
   background-color: #c8a33d;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 0.4rem 0.3rem 0.2rem 0.3rem;
+  /* padding-right: 1rem; */
   width: fit-content;
   font-size: 1.3rem;
 }

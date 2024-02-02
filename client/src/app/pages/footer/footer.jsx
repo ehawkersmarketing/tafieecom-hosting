@@ -78,9 +78,9 @@ const Footer = () => {
                       <Link to="https://www.linkedin.com/company/twicks-agro-farm-industries-pvt-ltd/">
                         <i class="bi bi-linkedin"></i>
                       </Link>
-                      <Link to="https://twitter.com/TwicksA">
+                      {/* <Link to="https://twitter.com/TwicksA">
                         <i class="bi bi-twitter"></i>
-                      </Link>
+                      </Link> */}
                       <Link to="https://www.youtube.com/channel/UCFZ7_wK9cZUNZzMzteUSTTA">
                         <i class="bi bi-youtube"></i>
                       </Link>
@@ -92,18 +92,21 @@ const Footer = () => {
                   <div className="row">
                     <div className="column201 col-4">
                       <h5>LEGAL</h5>
-                      <div>
+                      <div className="inside-column">
                         <div>
                           <Link to="/PrivacyPolicy" onClick={scrollToTop}>Privacy Policy</Link>
                         </div>
                         <div>
-                          <Link to="/TermsAndCondition" onClick={scrollToTop}>T&C</Link>
+                          <Link to="/TermsAndCondition" onClick={scrollToTop}>Terms  & Conditions</Link>
+                        </div>
+                        <div>
+                          <Link to="/ReturnAndRefund" onClick={scrollToTop}>Return and Refund</Link>
                         </div>
                       </div>
                     </div>
                     <div className="column202 col-4">
                       <h5>PAGES</h5>
-                      <div>
+                      <div className="inside-column">
                         <div>
                           <Link to="/exclusivestore" onClick={scrollToTop}>Exclusive Store</Link>
                         </div>

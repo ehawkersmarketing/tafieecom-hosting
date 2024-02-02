@@ -43,9 +43,9 @@ const Dashboard = () => {
                 <Link to="https://www.linkedin.com/company/twicks-agro-farm-industries-pvt-ltd/">
                   <i class="bi bi-linkedin"></i>
                 </Link>
-                <Link to="https://twitter.com/TwicksA">
+                {/* <Link to="https://twitter.com/TwicksA">
                   <i class="bi bi-twitter"></i>
-                </Link>
+                </Link> */}
                 <Link to="https://www.youtube.com/channel/UCFZ7_wK9cZUNZzMzteUSTTA">
                   <i class="bi bi-youtube"></i>
                 </Link>

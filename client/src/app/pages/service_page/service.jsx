@@ -46,7 +46,7 @@ const OurServices = () => {
                   <span>OUR</span> <span>SERVICES</span>
                 </h1>
                 <p>Define your agriculture in a whole different way</p>
-                <a className="learn-more-service">Learn More <i class="bi bi-whatsapp"></i></a>
+                <Link className="learn-more-service" to="https://wa.me/917987206373">Learn More <i class="bi bi-whatsapp"></i></Link>
               </div>
             </div>
           </div>
