@@ -20,7 +20,7 @@ exports.payFunction = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount,
-      redirectUrl: `http://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
+      redirectUrl: `https://twicks-backend.onrender.com/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
@@ -119,7 +119,7 @@ exports.checkStatusFunction = async (req, res) => {
       })
     }
     if (status) {
-      return res.redirect("http://localhost:8080/");
+      return res.redirect("https://twicks-backend.onrender.com/");
     } else {
       return res.status(500).semd({
         success: false,
@@ -143,7 +143,7 @@ exports.checkStatusFunction = async (req, res) => {
     let status = await statusCall(n, options, cartId);
     console.log(`This is the status ${status.success}`);
     if (status.success) {
-      return res.redirect(`http://localhost:3000/OrderConfirmationPage/${status.orderId}`);
+      return res.redirect(`https://tafieecom-hosting.vercel.app/OrderConfirmationPage/${status.orderId}`);
     } else {
       return res.status(500).send({
         success: false,
@@ -171,14 +171,14 @@ async function statusCall(n, options, cartId) {
       if (response.data.success === true) {
         console.log(response.data.data);
         try {
-          const { data } = await axios.post("http://localhost:8080/api/placeOrder", {
+          const { data } = await axios.post("https://twicks-backend.onrender.com/api/placeOrder", {
             cartId: cartId,
             transactionId: response.data.data.transactionId,
             amount: response.data.data.amount,
             transactionStatus: response.data.data.state,
           });
           if (data.success) {
-            const { data: request } = await axios.post("http://localhost:8080/api/ship/requestApproval", {
+            const { data: request } = await axios.post("https://twicks-backend.onrender.com/api/ship/requestApproval", {
               orderId: data.data._id
             });
             if (request.success) {
@@ -269,7 +269,7 @@ exports.refundFunction = async (req, res) => {
       .then(async function (response) {
         // console.log("data found",response.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
-          const { data } = await axios.get(`http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`);
+          const { data } = await axios.get(`https://twicks-backend.onrender.com/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`);
           console.log("data",data)
           if (data.success) {
             res.status(500).send({

@@ -43,7 +43,7 @@ const Cart = () => {
           theme: "dark",
         });
       } else {
-        const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
+        const { data } = await axios.put(`https://twicks-backend.onrender.com/api/addToCart`, {
           "userId": user._id,
           "productId": cart.products[index].productId._id,
           "units": 1
@@ -73,7 +73,7 @@ const Cart = () => {
 
   const decreaseValueHandler = async (index) => {
     try {
-      const { data } = await axios.delete(`http://localhost:8080/api/dropFromCart/${user._id}/${cart.products[index].productId._id}`);
+      const { data } = await axios.delete(`https://twicks-backend.onrender.com/api/dropFromCart/${user._id}/${cart.products[index].productId._id}`);
       if (data.success) {
         window.location.reload();
       } else {

@@ -41,7 +41,7 @@ const AdminProcessOrder = () => {
 
   const cancelShipment = async () => {
     try {
-      const { data } = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
+      const { data } = await axios.post("https://twicks-backend.onrender.com/api/ship/cancelRequest", {
         orderId: id,
       });
       if (data.success) {
@@ -69,7 +69,7 @@ const AdminProcessOrder = () => {
         });
       } else {
         console.log(formData.length + formData.breadth + formData.height + formData.weight);
-        const { data } = await axios.post("http://localhost:8080/api/ship/approveRequest", {
+        const { data } = await axios.post("https://twicks-backend.onrender.com/api/ship/approveRequest", {
           orderId: id,
           length: formData.length,
           breadth: formData.breadth,

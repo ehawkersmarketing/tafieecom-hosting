@@ -67,7 +67,7 @@ let signedUser
   //         alert('login sirji')
   //       }else{
   //         const { data } = await axios.post(
-  //           "http://localhost:8080/auth/sendOtp",
+  //           "https://twicks-backend.onrender.com/auth/sendOtp",
   //           {
   //             phone: formField.phone,
   //           }
@@ -119,7 +119,7 @@ let signedUser
           });
          } else {
            const { data } = await axios.post(
-             "http://localhost:8080/auth/sendOtp",
+             "https://twicks-backend.onrender.com/auth/sendOtp",
              {
                phone: formField.phone,
              }
@@ -163,7 +163,7 @@ let signedUser
       event.preventDefault();
       if (token) {
         const { data } = await axios.post(
-          "http://localhost:8080/auth/verifyOtp",
+          "https://twicks-backend.onrender.com/auth/verifyOtp",
           {
             otp: formField.otp,
             token: token,
@@ -171,7 +171,7 @@ let signedUser
         );
         if (data.success) {
           const { data } = await axios.post(
-            "http://localhost:8080/auth/signup",
+            "https://twicks-backend.onrender.com/auth/signup",
             {
               phone: formField.phone,
               userName: formField.userName,
@@ -237,7 +237,7 @@ let signedUser
     try {
       event.preventDefault();
       if (token) {
-        const { data } = await axios.post("http://localhost:8080/auth/login", {
+        const { data } = await axios.post("https://twicks-backend.onrender.com/auth/login", {
           phone: formField.phone,
           otp: formField.otp,
           token: token,

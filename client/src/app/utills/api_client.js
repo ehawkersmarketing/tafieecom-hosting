@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const baseUrl = "http://localhost:8080";
+const baseUrl = "https://twicks-backend.onrender.com";
 
 export const getRequestWithAuth = async (url) => {
 

@@ -61,7 +61,7 @@ const BlogPage = () => {
     if (text !== "") {
       try {
         const { data } = await axios.post(
-          `http://localhost:8080/api/searchBlog`,
+          `https://twicks-backend.onrender.com/api/searchBlog`,
           {
             search: text,
           }

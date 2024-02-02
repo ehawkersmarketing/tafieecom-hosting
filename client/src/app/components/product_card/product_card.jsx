@@ -17,7 +17,7 @@ const ProductCard = () => {
   const [image , setImage] = useState('https://www.ugaoo.com/cdn/shop/articles/shutterstock_301313486.jpg?v=1661870861&width=1100')
   const addToCart = async (event, id) => {
     event.preventDefault();
-    const res = await axios.put(`http://localhost:8080/api/addToCart`, {
+    const res = await axios.put(`https://twicks-backend.onrender.com/api/addToCart`, {
       userId: userId,
       productId: id,
       units: 1,

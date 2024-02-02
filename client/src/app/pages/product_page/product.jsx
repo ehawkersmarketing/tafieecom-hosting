@@ -58,7 +58,7 @@ const Product = () => {
   const onCartClick = async () => {
     try {
       if (localStorage.getItem("user_id")) {
-        await axios.put("http://localhost:8080/api/addToCart", {
+        await axios.put("https://twicks-backend.onrender.com/api/addToCart", {
           productId: id,
           userId: localStorage.getItem("user_id"),
           units: 1,
@@ -86,7 +86,7 @@ const Product = () => {
 
   const fetchReviews = async () => {
     const { data } = await axios.get(
-      `http://localhost:8080/api/getReviewById/${id}`
+      `https://twicks-backend.onrender.com/api/getReviewById/${id}`
     );
     setReviews(data.data);
   };
@@ -98,7 +98,7 @@ const Product = () => {
     } else {
       const { reviewContent, rating } = inputHandler;
 
-      const { data } = await axios.post("http://localhost:8080/api/addReview", {
+      const { data } = await axios.post("https://twicks-backend.onrender.com/api/addReview", {
         reviewContent: reviewContent,
         rating: rated,
         productId: id,
@@ -149,7 +149,7 @@ const Product = () => {
         });
       } else {
         const { data } = await axios.put(
-          `http://localhost:8080/api/addToCart`,
+          `https://twicks-backend.onrender.com/api/addToCart`,
           {
             userId: user._id,
             productId: id,
@@ -182,7 +182,7 @@ const Product = () => {
   const decreaseValueHandler = async () => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:8080/api/dropFromCart/${user._id}/${id}`
+        `https://twicks-backend.onrender.com/api/dropFromCart/${user._id}/${id}`
       );
       if (data.success) {
         if (quantity != 1) {

@@ -70,7 +70,7 @@ exports.approveRequest = async (req, res) => {
         console.log(request);
         console.log();
         let time = order.timestamps.toISOString();
-        axios.post("http://localhost:8080/api/ship/createOrder",
+        axios.post("https://twicks-backend.onrender.com/api/ship/createOrder",
           {
             order_id: `${order._id}`,
             // order_id: `dfdrgses`,
@@ -162,7 +162,7 @@ exports.cancelApprovalRequest = async (req, res) => {
         );
         if (order) {
           const { data: payRefund } = await axios.post(
-            "http://localhost:8080/api/pay/refund",
+            "https://twicks-backend.onrender.com/api/pay/refund",
             {
               transactionId: order.transactionId,
               orderId: order._id,
@@ -410,14 +410,14 @@ exports.createOrder = async (req, res) => {
           console.log(response.data.order_id);
           console.log(response.data.shipment_id);
           const { data: awb } = await axios.post(
-            "http://localhost:8080/api/ship/generateAWB",
+            "https://twicks-backend.onrender.com/api/ship/generateAWB",
             {
               shipment_id: response.data.shipment_id,
             }
           );
           if (awb.success) {
             const { data: pickUp } = await axios.post(
-              "http://localhost:8080/api/ship/pickup",
+              "https://twicks-backend.onrender.com/api/ship/pickup",
               {
                 shipment_id: response.data.shipment_id,
                 // pickup_date: ,
@@ -425,7 +425,7 @@ exports.createOrder = async (req, res) => {
             );
             if (pickUp.success) {
               const { data: manifest } = await axios.post(
-                "http://localhost:8080/api/ship/manifest",
+                "https://twicks-backend.onrender.com/api/ship/manifest",
                 {
                   shipment_id: response.data.shipment_id,
                 }
@@ -436,7 +436,7 @@ exports.createOrder = async (req, res) => {
                   { manifest: manifest.data }
                 );
                 const { data: shipmentDetails } = await axios.post(
-                  "http://localhost:8080/api/ship/shipDets",
+                  "https://twicks-backend.onrender.com/api/ship/shipDets",
                   {
                     shipment_id: response.data.shipment_id,
                   }
@@ -451,7 +451,7 @@ exports.createOrder = async (req, res) => {
                     }
                   );
                   const { data: invoice } = await axios.post(
-                    "http://localhost:8080/api/ship/generateInvoice",
+                    "https://twicks-backend.onrender.com/api/ship/generateInvoice",
                     {
                       order_ids: shipmentDetails.order_id,
                     }
