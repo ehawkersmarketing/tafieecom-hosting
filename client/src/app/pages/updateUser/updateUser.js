@@ -22,6 +22,7 @@ const UpdateUser = () => {
     zipCode: "",
   });
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  console.log(user)
   const [maxDate, setMaxDate] = useState('');
   useEffect(() => {
     if (user) {
@@ -120,7 +121,7 @@ const UpdateUser = () => {
     }else if(inputHandler.state===""){
       alert("Enter State")
     }else{
-      await axios.post(`http://localhost:8080/api/putUserAddress`, {
+   const {data} =  await axios.post(`http://localhost:8080/api/putUserAddress`, {
         userId: id,
         email: inputHandler.email,
         dob: inputHandler.dob,
@@ -133,6 +134,9 @@ const UpdateUser = () => {
         state: inputHandler.state,
         zipCode: inputHandler.zipCode,
       });
+      if(data.success){
+        // localStorage.setItem('user', data.userName )
+      }
       backToDashboard();
     }
     
