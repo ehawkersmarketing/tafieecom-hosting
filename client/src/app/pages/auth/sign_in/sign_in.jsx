@@ -21,6 +21,7 @@ const SignIn = () => {
   const { id } = useParams();
   const [path, setPath] = useState(id);
   const { data: users } = useFetch("/auth/users");
+  console.log(users)
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
@@ -36,16 +37,18 @@ const SignIn = () => {
   const [formField, setFormField] = useState({
     phone: "",
     otp: "",
-    name: "",
+    userName: "",
     checkbox: 0,
   });
 
   const handleChangeFormField = (e) => {
     // console.log(token);
-    if (e.target.name === "phone" || e.target.name === "otp") {
-      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+
+     let { name, value } = e.target;
+    if (name === "phone" || name === "otp") {
+      value = value.replace(/[^0-9]/g, "");
     }
-    setFormField({ ...formField, [e.target.name]: e.target.value });
+    setFormField({ ...formField, [e.target.name]: value });
 
   }
 
@@ -171,7 +174,7 @@ let signedUser
             "http://localhost:8080/auth/signup",
             {
               phone: formField.phone,
-              userName: formField.name,
+              userName: formField.userName,
               email: formField.email,
             }
           );
@@ -391,7 +394,7 @@ let signedUser
                     <div className="div-15">
                       <input
                         type="text"
-                        name="name"
+                        name="userName"
                         onChange={handleChangeFormField}
                         placeholder="Enter your username"
                       />

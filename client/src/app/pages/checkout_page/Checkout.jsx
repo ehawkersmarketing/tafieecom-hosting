@@ -11,6 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 const Checkout = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user.userName)
     useEffect(() => {
         if (user) {
                navigate('/checkout')
@@ -25,7 +26,7 @@ const Checkout = () => {
     const [shipCharge, setShipCharge] = useState(undefined);
 
   const [formData, setFormData] = useState({
-    name: "",
+    userName: "",
     Contact: "",
     Email: "",
     Address: "",
@@ -84,13 +85,13 @@ const Checkout = () => {
         }
     };
 
-  const secondHandler=(event)=>{
-    if (event.target.value.length < 10) {
-      setErrorMessage("Please enter a valid number.");
-    } else {
-      setErrorMessage("");
-    }
-  }
+  // const secondHandler=(event)=>{
+  //   if (event.target.value.length < 10) {
+
+  //   } else {
+  //     setErrorMessage("");
+  //   }
+  // }
 
   
   const handleOrderFunction = async (event) => {
@@ -108,7 +109,7 @@ const Checkout = () => {
             street: formData.Address,
             landmark: formData.Address2,
             email: formData.Email,
-            userName: formData.name,
+            userName: formData.userName,
             city: formData.City,
             country: formData.Country,
             state: formData.State,
@@ -160,7 +161,7 @@ const Checkout = () => {
                     <input
                       type="text"
                       id="name"
-                      name="name"
+                      name="userName"
 value={user?.userName}
                       placeholder="Name"
                       required
@@ -178,10 +179,7 @@ value={user?.userName}
                       placeholder="Contact Number"
 value={user?.phone}
                       required
-                      onChange={(event) => {
-                        handleInputChange(event);
-                        // Call the second handler here
-                        secondHandler(event);}}
+                     onChange={handleInputChange}
                     />
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                   </div>
