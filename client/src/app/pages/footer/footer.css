@@ -184,3 +184,6 @@ input:focus, textarea:focus {
 .footer-desc {
   width: 14rem;
 }
+.footer .column201 .inside-column{
+  line-height: 1.7;
+}

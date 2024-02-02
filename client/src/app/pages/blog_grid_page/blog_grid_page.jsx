@@ -177,7 +177,13 @@ const BlogPage = () => {
                   return (
                     <div className="card-main col-md-4">
                       <div class="card">
-                        <img src={blog.image} class="card-img-top" alt="..." />
+                        <div className="cardimg">
+                          <img
+                            src={blog.image}
+                            class="card-img-top"
+                            alt="..."
+                          />
+                        </div>
                         <div class="card-body">
                           <h5 class="card-title">
                             {blog.title.length > 30
@@ -225,7 +231,9 @@ const BlogPage = () => {
                 return (
                   <div className="card-main col-md-4">
                     <div class="card">
-                      <img src={blog.image} class="card-img-top" alt="..." />
+                      <div className="cardimg">
+                        <img src={blog.image} class="card-img-top" alt="..." />
+                      </div>
                       <div class="card-body">
                         <h5 class="card-title">
                           {blog.title.length > 30
@@ -268,7 +276,13 @@ const BlogPage = () => {
                   return (
                     <div className="card-main col-md-4">
                       <div class="card">
-                        <img src={blog.image} class="card-img-top" alt="..." />
+                        <div className="cardimg">
+                          <img
+                            src={blog.image}
+                            class="card-img-top"
+                            alt="..."
+                          />
+                        </div>
                         <div class="card-body">
                           <h5 class="card-title">
                             {blog.title.length > 30
@@ -311,7 +325,9 @@ const BlogPage = () => {
                 return (
                   <div className="card-main col-md-4">
                     <div class="card">
-                      <img src={blog.image} class="card-img-top" alt="..." />
+                      <div className="cardimg">
+                        <img src={blog.image} class="card-img-top" alt="..." />
+                      </div>
                       <div class="card-body">
                         <h5 class="card-title">
                           {blog.title.length > 30

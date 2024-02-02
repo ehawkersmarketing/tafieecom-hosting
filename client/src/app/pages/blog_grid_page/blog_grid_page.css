@@ -182,6 +182,7 @@
 .blogpage .latest-post-card{
   width: 97%;
   margin: auto;
+  height: 100%;
   padding-bottom: 30px;
 }
 .blogpage .latest-post-card .card-main{
@@ -234,6 +235,9 @@ margin-top: 30px;
 .blogpage .all-post-card .card-main{
   padding: 10px;
 }
+.blogpage .card-main .card{
+  height: 100%;
+}
 .blogpage .blog-all-post .view-more{
   width: 100%;
   padding: 50px ;
@@ -265,4 +269,12 @@ margin-top: 30px;
 }
 .most-viewed-post-card .card-main{
   padding: 10px;
+}
+.blogpage .cardimg{
+  width: 100%;
+  height: 100%;
+}
+.blogpage .cardimg img{
+  /* width: 100%; */
+  height: 100%;
 }
