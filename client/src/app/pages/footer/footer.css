@@ -8,7 +8,7 @@
 .footer .main-footer .bottom-container {
   background-color: rgba(41, 100, 94, 1);
   min-height: 402px;
-  padding: 100px 75px;
+  padding: 4% 3% 3% 3%;
   display: flex;
   align-items: end;
   flex-direction: column;
@@ -56,7 +56,7 @@
   text-align: right;
 }
 .footer .middle-container{
-  width:70%;
+  width:80%;
   margin: auto;
 }
 .footer .full-form{
@@ -186,4 +186,21 @@ input:focus, textarea:focus {
 }
 .footer .column201 .inside-column{
   line-height: 1.7;
+}
+
+.footer .credits{
+  background-color: rgb(29, 84, 78);
+  padding: 2% 3%;
+  color: white;
+}
+.footer .credits a{
+  color:white;
+  text-decoration: none;
+}
+.footer .credits .footer-credit{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
