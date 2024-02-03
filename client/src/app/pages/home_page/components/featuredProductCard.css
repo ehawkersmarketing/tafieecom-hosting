@@ -1,19 +1,27 @@
 .featured-product .carouselItem {
     border-radius: 0.7rem;
-    background-color: white;
+    /* background-color: white; */
     margin: 2%;
-    overflow: hidden;
-
+    /* overflow: hidden; */
+    
+    .col-gapping{
+        background-color: #EBF6F5;
+        height: 13.4rem;
+        box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.120);
+        border-radius: 0.7rem;
+    }
     .feature-textBlock {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
         padding-left: 0.5rem;
+        height: 100%;
+        
     }
 
     .feature-product-image {
-        height: 13.5rem;
+        /* height: 13.5rem; */
         right: 0;
         background-size: cover;
     }
@@ -104,24 +112,31 @@
 
     .carousel-image {
         mask-image: linear-gradient(-90deg, black 0%, transparent 95%);
-        height: 13.63rem;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        max-width: 70%;
+        width: 60%;
+        z-index: 2;
     }
 }
 
 .feature-text-fields {
     /* position: absolute; */
     padding: 0.6rem 1.2rem 0.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 .text-of-card{
     display: flex;
     flex-direction: column;
 }
-.carouselItem .textBlock{
-    /* box-shadow: 0px 10px 60px 0px #19443F33; */
-}
 .feature-textBlock img{
     height: auto;
-    padding-top: 20%;
+    /* padding-top: 20%; */
 }
 .product-page-carousal .cart-btn{
     /* padding: 0; */

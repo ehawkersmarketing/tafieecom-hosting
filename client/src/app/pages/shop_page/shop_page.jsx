@@ -135,39 +135,43 @@ const ShopPage = () => {
         {products && <ShopPageCarouselCard cart={cart} items={products} />}
         <div className="filter-region">
           <div className="filter">
-            <i
-              class="bi bi-funnel-fill"
-              onClick={(e) => {
-                setOpenForSort(false);
-                setOpen(!open);
-              }}
-            ></i>
-            <span
-              className="filter-text"
-              onClick={(e) => {
-                setOpenForSort(false);
-                setOpen(!open);
-              }}
-            >
-              Filters
-            </span>
+            <div onClick={(e) => { setOpenForSort(false); setOpen(!open); }}>
+              <i
+                class="bi bi-funnel-fill"
+                onClick={(e) => {
+                  setOpenForSort(false);
+                  setOpen(!open);
+                }}
+              ></i>
+              <span className="filter-text" onClick={(e) => { setOpenForSort(false); setOpen(!open); }}
+              >
+                Filters
+              </span>
+            </div>
+            
             <span>|</span>
-            <i
-              class="bi bi-filter"
-              onClick={() => {
-                setOpen(false);
-                setOpenForSort(!openForSort);
-              }}
-            ></i>
-            <span
-              className="sort-text"
-              onClick={(e) => {
-                setOpen(false);
-                setOpenForSort(!openForSort);
-              }}
-            >
-              Sort
-            </span>
+            <div onClick={(e) => {
+                  setOpen(false);
+                  setOpenForSort(!openForSort);
+                }}>
+              <i
+                class="bi bi-filter"
+                onClick={() => {
+                  setOpen(false);
+                  setOpenForSort(!openForSort);
+                }}
+              ></i>
+              <span
+                className="sort-text"
+                onClick={(e) => {
+                  setOpen(false);
+                  setOpenForSort(!openForSort);
+                }}
+              >
+                Sort
+              </span>
+            </div>
+            
           </div>
           <div className="search-bar" id='productCategory'>
             <input
@@ -198,7 +202,7 @@ const ShopPage = () => {
                     marginBottom: "1rem",
                   }}
                 >
-                  <option>select the Category</option>
+                  <option>Select the Category</option>
 
                   {categories?.map((item) => (
                     <option

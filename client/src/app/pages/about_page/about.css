@@ -104,7 +104,7 @@
 }
 .about .card-vision,
 .about .card-mission {
-  background-color: #19443f;
+  background-image: radial-gradient(at bottom right,white -10%, #19443f 24% );
   padding: 4%;
   border-radius: 15px;
   padding-top: 50px;
