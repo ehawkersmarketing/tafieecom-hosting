@@ -1,5 +1,5 @@
 .home-page {
-  padding-bottom: 8%;
+  /* padding-bottom: 8%; */
   background-color: white;
 }
 
@@ -17,6 +17,7 @@
   justify-content: space-between;
   --bs-gutter-x: 0;
   height: 40rem;
+  /* margin-bottom: ; */
 }
 
 .topDiv .headingimage {
@@ -107,7 +108,7 @@
   -webkit-text-fill-color: transparent;
   line-height: 1.5;
   font-family: "Eczar", serif;
-  font-size: 70px;
+  font-size: 5rem;
   margin-bottom: 0;
 }
 
@@ -518,4 +519,10 @@
 
 .home-page .service100 {
   min-height: 280px;
+}
+
+.blankbox{
+  height: 8rem;
+  width: 100%;
+  background-color: #44a98b;
 }
