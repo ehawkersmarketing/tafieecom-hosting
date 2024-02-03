@@ -134,6 +134,16 @@ const Footer = () => {
               </div>
             </div>
           </div>
+          <div className="credits">
+            <div className="footer-credit">
+              <div>
+                Powered by : <b><Link to="https://www.ehawkersmarketing.in" target="_blank">e-Hawkers Marketing LLP, Indore</Link></b> 
+              </div>
+              <div>
+                Made in India
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
