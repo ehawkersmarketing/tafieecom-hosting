@@ -23,8 +23,8 @@ const Footer = () => {
                 <div className="in-image row">
                   <div className="form-img col-6">
                     <div className="headingMainText aao-baat-kre">
-                      <h1><span>आओ,</span> </h1>
-                      <h1>साथ बढ़ें</h1>
+                      <h1>आओ,</h1>
+                      <h1><span>साथ</span> बढ़ें</h1>
                       <p className="footer-desc"><b><span>Interested in openeing</span> <span>your own franchise?</span></b></p>
                     </div>
                   </div>
@@ -38,7 +38,7 @@ const Footer = () => {
                         </div>
                         <div className="email">
                           <div className="input-sec">
-                            <input type="text" name="email" placeholder="Email/Mobile No" />
+                            <input type="text" name="email" placeholder="Mobile No" />
                           </div>
                         </div>
                         <div className="message">
@@ -63,10 +63,12 @@ const Footer = () => {
             <div className="footer-nav">
               <div className="row">
                 {/* column 1 */}
-                <div className="column1 col-4">
+                <div className="column1 col-3">
                   <div className="col-12">
-                    <div>
-                      <h5>All Copyrights Reserver @ TAFI</h5>
+                    <div className="contactus">
+                      <h5> Contact Us</h5>
+                      <p>E-Mail: <Link to="mailto:info@twicks.in">info@twicks.in</Link></p>
+                      <p>Mobile no. : <Link to="tel:918120000506">+91 8120000506</Link></p>
                     </div>
                     <div className="website-icons">
                       <Link to="https://www.instagram.com/twicks_agro/">
@@ -88,7 +90,7 @@ const Footer = () => {
                   </div>
                 </div>
                 {/* column 2 */}
-                <div className="column2 col-6">
+                <div className="column2 col-7">
                   <div className="row">
                     <div className="column201 col-4">
                       <h5>LEGAL</h5>
@@ -137,13 +139,13 @@ const Footer = () => {
           <div className="credits">
             <div className="footer-credit">
               <div>
-                Powered by : <b><Link to="https://www.ehawkersmarketing.in" target="_blank">e-Hawkers Marketing LLP, Indore</Link></b> 
+              All Copyrights Reserved @ TAFI || Powered by : <b><Link to="https://www.ehawkersmarketing.in" target="_blank">e-Hawkers Marketing LLP, Indore</Link></b> 
               </div>
               <div>
                 Made in India
               </div>
             </div>
-          </div>
+          </div>
         </div>
       </div>
     </>

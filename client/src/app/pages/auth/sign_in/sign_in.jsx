@@ -4,7 +4,7 @@ import "./sign_in.css";
 import "../sign_up/sign_up.css";
 import axios from "axios";
 import photo from "../../../assets/photo.png";
-import google_icon from "../../../assets/google.png";
+// import google_icon from "../../../assets/google.png";
 import Mask_group from "../../../assets/Mask_group.png";
 import Tafi_logo_white from "../../../assets/Tafi_logo_white.png";
 import { Link } from "react-router-dom";
@@ -396,7 +396,7 @@ let signedUser
                         type="text"
                         name="userName"
                         onChange={handleChangeFormField}
-                        placeholder="Enter your username"
+                        placeholder="Enter your Full Name"
                       />
                     </div>
                   </span>

@@ -134,8 +134,8 @@
 }
 .footer .aao-baat-kre h1{
   color: white;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   align-items: center;
   padding-left: 110px;
   font-size: 60px;
@@ -160,12 +160,13 @@
   line-height: 1.5;
   font-family: "Eczar", serif;
   font-size: 60px;
-  margin-bottom: 0;
+  margin-bottom: 5px;
+  overflow-y: hidden;
   
 }
 .footer .headingMainText h1 span{
   background-color: #C8A33D;
-  padding: 1px 5px;
+  padding: 1px 8px;
   font-family: "Eczar", serif;
 }
 .footer .form-img{
@@ -203,4 +204,7 @@ input:focus, textarea:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.footer .contactus p a{
+  color: white !important;
 }

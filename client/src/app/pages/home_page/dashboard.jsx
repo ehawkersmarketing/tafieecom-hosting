@@ -194,6 +194,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        <div className="blankbox"></div>
       </div>
       <Footer />
       <ToastContainer />

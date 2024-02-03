@@ -235,7 +235,9 @@
             }
 
         }
-
+        .filter div:hover{
+            cursor:pointer;
+        }
         .search-bar {
             width: 35%;
             background-color: white;
@@ -365,6 +367,9 @@
             .productItem {
                 margin: 0 2rem;
             }
+            .container-fluid{
+                padding-bottom: 2%;
+            }
         }
 
         .best-seller-text {
@@ -427,7 +432,7 @@
 
     .all-products {
         width: 100%;
-        /* padding: 2rem 1.5rem; */
+        padding: 2rem 2.2rem;
         /* margin-bottom: 8rem; */
 
         .all-product-text {
@@ -479,7 +484,7 @@
         .all-products-card {
             grid-template-columns: auto auto auto auto;
             margin: 0 0.5rem 0;
-            display: flex;
+            /* display: grid; */
 
 
             .productItem {
@@ -545,5 +550,4 @@
     left: 11rem;
     z-index: 10;
     top:-2rem
-
 }
