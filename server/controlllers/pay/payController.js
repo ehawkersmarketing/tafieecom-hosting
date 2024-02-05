@@ -22,7 +22,7 @@ exports.payFunction = async (req, res) => {
       amount: amount,
       redirectUrl: `https://twicks-backend.onrender.com/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
-      callbackUrl: "https://localhost:8080/api/pay/getOrderLog", //url to post complete transaction response by API
+      callbackUrl: "https://twicks-backend.onrender.com/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
       paymentInstrument: {
         type: "PAY_PAGE",
@@ -237,7 +237,7 @@ exports.refundFunction = async (req, res) => {
       originalTransactionId: transactionId,
       merchantTransactionId: refundTransId,
       amount: refundAmount, //change this to the value from the payments model
-      callbackUrl: "https://localhost:8080/api/pay/getOrderLog",
+      callbackUrl: "https://twicks-backend.onrender.com/api/pay/getOrderLog",
     };
     const payload = JSON.stringify(data);
 
