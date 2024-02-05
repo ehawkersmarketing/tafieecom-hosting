@@ -30,7 +30,10 @@ const Dashboard = () => {
             <div className="headingMainText">
               <h1>उच्च खेती,</h1>
               <h1>उन्नत विकास</h1>
-              <img className="punchImg" src={punchline} />
+              <div className="herosub">
+                <p>From Fields to Future!</p>
+              </div>
+              
             </div>
             <div className="iconDiv">
               <div className="socialsLink">
