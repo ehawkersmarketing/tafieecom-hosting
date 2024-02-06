@@ -526,3 +526,12 @@
   width: 100%;
   background-color: #44a98b;
 }
+.topDiv .herosub p{
+  background-color: white;
+  color: #19443f;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
