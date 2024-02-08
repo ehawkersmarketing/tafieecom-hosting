@@ -162,7 +162,7 @@ const Checkout = () => {
                       type="text"
                       id="name"
                       name="userName"
-value={user?.userName}
+                      value={user?.userName}
                       placeholder="Name"
                       required
                       onChange={handleInputChange}

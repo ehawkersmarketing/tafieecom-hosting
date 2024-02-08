@@ -242,13 +242,13 @@ exports.refundFunction = async (req, res) => {
     const payload = JSON.stringify(data);
 
     const payloadMain = Buffer.from(payload).toString("base64");
-    console.log(payloadMain)
+    console.log("payloadMain",payloadMain)
     const string =
       payloadMain + "/pg/v1/refund" + process.env.PHONEPE_API_SALT_KEY;
       //  console.log( "payload string",string)
     const sha256 = crypto.createHash("sha256").update(string).digest("hex");
     const checksum = sha256 + "###" + process.env.KEY_INDEX;  
-// console.log(checksum)
+console.log("checksum",checksum)
     // SHA256(base64 encoded payload + “/pg/v1/refund” + salt key) + ### + salt index
 
     // HEADER STRUCTURE AND OPTIONS MANDATORY FOR REFUND PAYMENT
@@ -264,9 +264,11 @@ exports.refundFunction = async (req, res) => {
         request: payloadMain,
       },
     };
+    console.log("data found thorugh the api ")
     await axios
       .request(options)
       .then(async function (response) {
+        console.log("data found here??")
         // console.log("data found",response.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(`http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`);
@@ -296,7 +298,7 @@ exports.refundFunction = async (req, res) => {
           // console.log(error.response.status);
           res.status(500).send({
             success: false,
-            message: "ERROR IN REFUNDING THE PAYMENT",
+            message: "ERROR IN REFUNDING THE PAYMENT status 500",
           });
         }
       });
