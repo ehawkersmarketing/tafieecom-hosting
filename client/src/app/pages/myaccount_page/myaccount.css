@@ -337,3 +337,25 @@
  .user-account .admin-product-card table th{
   border: none;
 }
+@media (max-width: 768px) {
+  .user-account .profile-head h2{
+    font-size: 22px;
+    margin: 0;
+  }
+  .user-account .profile-detail{
+    padding-top: .2rem;
+  }
+  .user-account .profile-detail tr{
+    font-size: 13px;
+  }
+  .user-account .edit-button{
+    font-size: 13px;
+    padding: .4rem;
+  }
+  .user-account .edit-button a{
+    padding: .4rem;
+  }
+  .user-account .profile-head h2{
+    padding: .4rem;
+  }
+}

@@ -92,7 +92,7 @@ const BlogPage = () => {
         <div className="blog-tile">
           <div className="blog-grid-page row">
             <div className="tile-circle"></div>
-            <div className="tile_title col-6">
+            <div className="tile_title col-md-6">
               <div className="title-text">
                 <div>
                   <h3>Welcome to</h3>
@@ -109,7 +109,7 @@ const BlogPage = () => {
                 </div>
               </div>
             </div>
-            <div className="tile_image col-6"></div>
+            <div className="tile_image col-md-6"></div>
           </div>
         </div>
         <div className="below-blog-tile-header">

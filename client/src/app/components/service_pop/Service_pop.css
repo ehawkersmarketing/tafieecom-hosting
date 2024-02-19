@@ -45,3 +45,20 @@
 .service-pop-main .service-pop-image img{
     width: 100%;
 }
+@media (max-width: 767px) {
+    .service-pop-main .service-pop-subtext{
+        font-size: 15px;
+    }
+    .service-pop-main .service-pop-heading-text{
+        font-size: 23px;
+    }
+    .service-pop-submain .service-pop-text {
+        padding: 1rem;
+    }
+    .service-pop-submain {
+        border-radius: 1rem;
+    }
+    .service-pop-submain .service-pop-text {
+        margin-top: 1rem;
+    }
+}

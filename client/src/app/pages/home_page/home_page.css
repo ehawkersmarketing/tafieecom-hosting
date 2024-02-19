@@ -17,7 +17,6 @@
   justify-content: space-between;
   --bs-gutter-x: 0;
   height: 40rem;
-  /* margin-bottom: ; */
 }
 
 .topDiv .headingimage {
@@ -25,13 +24,16 @@
   justify-content: end;
   width: 60%;
   text-align: center;
-  mask-image: radial-gradient(ellipse 72% 94% at 50% 46%, white 41%, rgba(254, 254, 254, 0) 55%);
+  mask-image: radial-gradient(
+    ellipse 72% 94% at 50% 46%,
+    white 41%,
+    rgba(254, 254, 254, 0) 55%
+  );
   height: 100%;
 }
 
 .topDiv .headingimage img {
   margin: auto;
-  /* height: 115%; */
   width: 80%;
   max-width: 100%;
   max-height: 100% !important;
@@ -62,7 +64,6 @@
   width: 100%;
 }
 
-
 .topDiv .headingDiv .iconDiv .socialsLink i {
   font-size: larger;
   color: white;
@@ -82,10 +83,12 @@
 }
 
 .topDiv .headingDiv .shopBTN button {
-  background-image: linear-gradient(79deg,
-      #36914b 0.36%,
-      #44a95c 58.15%,
-      #7bf197 117.12%);
+  background-image: linear-gradient(
+    79deg,
+    #36914b 0.36%,
+    #44a95c 58.15%,
+    #7bf197 117.12%
+  );
   border-radius: 6px;
   border: none;
   color: white;
@@ -100,10 +103,12 @@
 .headingDiv h1 {
   font-weight: 900;
   background-clip: text;
-  background-image: -webkit-linear-gradient(45deg,
-      #e8cd82 10.01%,
-      #c8a33d 55.34%,
-      #887234 109.07%);
+  background-image: -webkit-linear-gradient(
+    45deg,
+    #e8cd82 10.01%,
+    #c8a33d 55.34%,
+    #887234 109.07%
+  );
   background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.5;
@@ -121,6 +126,7 @@
 
 .div3 .div3Heading {
   margin: auto;
+  width: 100%;
   align-items: center;
   padding-top: 12.5rem;
   width: fit-content;
@@ -129,8 +135,9 @@
 }
 
 .div3 .div3SubHead {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: auto;
   font-size: xx-large;
   color: var(--light-base-green-2, #ebf6f5);
@@ -152,10 +159,12 @@
   font-weight: 500;
   font-size: 6.5rem;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  background-image: -webkit-linear-gradient(20deg,
-      #e8cd82 10.01%,
-      #c8a33d 55.34%,
-      #887234 109.07%);
+  background-image: -webkit-linear-gradient(
+    20deg,
+    #e8cd82 10.01%,
+    #c8a33d 55.34%,
+    #887234 109.07%
+  );
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -164,8 +173,8 @@
   display: flex;
   margin: auto;
   padding-top: 5.2rem;
-  width: fit-content;
-  gap: 3.8rem;
+  width: 90%;
+  gap: 0;
   padding-bottom: 8.6rem;
 }
 
@@ -181,7 +190,11 @@
   color: white;
   padding: 20px;
 }
-
+.div3 .servicesDiv .service100 {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
 .div3 .servicesDiv .service100:hover {
   background-color: #d7e8e6;
   border-radius: 5px;
@@ -234,6 +247,7 @@
 
 .div4 .soilDiv {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: end;
@@ -268,10 +282,12 @@
 }
 
 .div4 .soilDiv .soilTestInfo button {
-  background-image: linear-gradient(79deg,
-      #36914b 0.36%,
-      #44a95c 58.15%,
-      #7bf197 117.12%);
+  background-image: linear-gradient(
+    79deg,
+    #36914b 0.36%,
+    #44a95c 58.15%,
+    #7bf197 117.12%
+  );
   border-radius: 6px;
   border: none;
   color: white;
@@ -286,7 +302,7 @@
   color: white;
   font-weight: 300;
   font-size: 1.3rem;
-  width: 27rem;
+  width: 100%;
 }
 
 .div4 .soilDiv .soilTestInfo .rightIcon {
@@ -453,7 +469,6 @@
   align-items: center;
   margin-bottom: -8%;
 
-
   .product-category-text {
     width: 100%;
     display: flex;
@@ -516,17 +531,16 @@
   }
 }
 
-
 .home-page .service100 {
   min-height: 280px;
 }
 
-.blankbox{
+.blankbox {
   height: 8rem;
   width: 100%;
   background-color: #44a98b;
 }
-.topDiv .herosub p{
+.topDiv .herosub p {
   background-color: white;
   color: #19443f;
   align-items: center;
@@ -534,4 +548,81 @@
   display: flex;
   flex-direction: column;
   font-size: 18px;
+}
+
+@media (max-width: 767px) {
+  .topDiv {
+    height: 22rem;
+  }
+  .topDiv .headingDiv h1 {
+    font-size: 3.2rem;
+  }
+  .topDiv .headingDiv .shopBTN button {
+    font-size: 1rem;
+    padding: 0.4rem 2rem;
+    /* margin-top: 0; */
+  }
+  .topDiv .headingimage {
+    display: none;
+  }
+  .div3 h1 {
+    font-size: 4.8rem;
+    margin: 0;
+  }
+  .div3SubHead h4 {
+    font-size: 17.5px;
+    display: flex;
+    align-items: center;
+  }
+  .home-page .product-category {
+    background-size: 199% 92%;
+    padding-top: 0; 
+    padding-bottom: 0;
+  }
+  .home-page .div3 {
+    background-size: 160% 100%;
+    margin-top: -7rem;
+    background-position: center center;
+  }
+  .div3 .servicesDiv {
+    padding-top: 1rem;
+  }
+  .div3 .servicesDiv .singleServiceDiv h5 {
+    font-size: 16px;
+  }
+  .home-page .service100 {
+    min-height: 160px;
+  }
+  .div3 .servicesDiv .serviceCircle {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+  .div3 .servicesDiv .singleServiceDiv h5 {
+    font-size: 13px;
+  }
+  .home-page .product-category .product-category-text .category-text .tafi-product-text1, 
+  .home-page .product-category .product-category-text .category-text .tafi-product-text2,
+  .home-page .featured-product .product-category-text .category-text .tafi-product-text1,
+  .home-page .featured-product .product-category-text .category-text .tafi-product-text2  {
+    font-size: 1.3rem;
+  }
+  .home-page .featured-product
+.product-category-text
+.category-text {
+  margin-top:0 !important;
+}
+.home-page .featured-product {
+  padding: 0%;
+}
+.div3 .div3Heading {
+  padding-top: 8.5rem;
+
+}
+.home-page .featured-product
+.category-region
+.category-carousel
+.feature-carousal {
+  height: 15rem;
+}
+ 
 }

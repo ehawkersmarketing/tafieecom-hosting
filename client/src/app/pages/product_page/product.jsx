@@ -218,10 +218,10 @@ const Product = () => {
           <div className="wrapper">
             <div className="container">
               <div className="inner-container row">
-                <div className="product-image col-7">
+                <div className="product-image col-md-7">
                   <img src={product?.image} alt="product-img" />
                 </div>
-                <card className="card card-design col-5">
+                <card className="card card-design col-md-5">
                   <div className="inner-card">
                     <h3 className="category-name">
                       {product?.category?.category}
