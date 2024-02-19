@@ -107,8 +107,13 @@ exports.approveRequest = async (req, res) => {
             height: height,
             weight: weight
           }
-        ).then((shipment) => {
+        ).then(async(shipment) => {
           if (shipment) {
+            await orderModel.findOneAndUpdate({
+              _id: request.orderId,
+            }, {      
+              orderStatus: "COMPLETED"
+            });
             res.json({
               success: true,
               message: "Request Approved",
@@ -140,19 +145,19 @@ exports.approveRequest = async (req, res) => {
 //POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
+    // console.log("yes sir")
     const { orderId } = req.body;
-    console.log(orderId)
+    // console.log("heelo",orderId)
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
-      console.log(request)
+      // console.log(request)
       const data = await requestModel.findOneAndUpdate(
         { orderId:orderId}, 
         {
           approvalStatus: "REJECTED",
         }
         , { new: true }
-      );
-      console.log(data)  
+      ); 
       if (data) {
         const order = await orderModel.findOneAndUpdate(
           { _id: data.orderId },
@@ -415,6 +420,7 @@ exports.createOrder = async (req, res) => {
               shipment_id: response.data.shipment_id,
             }
           );
+          // console.log("awb",);
           if (awb.success) {
             const { data: pickUp } = await axios.post(
               "http://localhost:8080/api/ship/pickup",
@@ -423,6 +429,7 @@ exports.createOrder = async (req, res) => {
                 // pickup_date: ,
               }
             );
+            console.log(pickUp,"pickup")
             if (pickUp.success) {
               const { data: manifest } = await axios.post(
                 "http://localhost:8080/api/ship/manifest",
@@ -446,14 +453,14 @@ exports.createOrder = async (req, res) => {
                     { _id: order_id },
                     {
                       shipment_id: response.data.shipment_id,
-                      awb: shipmentDetails.awb,
-                      orderId: shipmentDetails.order_id,
+                      awb: shipmentDetails.data.awb,
+                      orderId: shipmentDetails.data.order_id,
                     }
                   );
                   const { data: invoice } = await axios.post(
                     "http://localhost:8080/api/ship/generateInvoice",
                     {
-                      order_ids: shipmentDetails.order_id,
+                      order_ids: shipmentDetails.data.order_id,
                     }
                   );
                   if (invoice.success) {
@@ -582,10 +589,19 @@ exports.generateAWBFunction = async (req, res) => {
     };
     await axios.request(options)
       .then(function (response) {
-        return res.json({
-          success: true,
-          message: "AWB generated successfully",
-        });
+        console.log("awwwwb",response)
+        if(response.data.awb_assign_status !== 0){
+          return res.json({
+            success: true,
+            message: "AWB generated successfully",
+          });
+        }else {
+          return res.json({
+            success: false,
+            message: response.data.message,
+          });
+        }
+       
       })
       .catch(function (error) {
         console.log(error);
@@ -726,6 +742,7 @@ exports.setPickupFunction = async (req, res) => {
       )
       .then(function (response) {
         let data = response.data.response;
+        console.log("response")
         console.log(response);
         if (response.data.pickup_status == 1) {
           return res.status(200).send({
@@ -742,10 +759,11 @@ exports.setPickupFunction = async (req, res) => {
         }
       })
       .catch(function (error) {
+        console.log("heelo error")
         console.log(error);
         res.status(error.response.data.status).send({
           success: false,
-          message: "error.response.data.message",
+          message: error.response.data.message,
         });
       });
   }
@@ -826,7 +844,8 @@ exports.shipmentDetsFunction = async (req, res) => {
             message: "No shipment found",
           });
         }
-        let shipDets = response.data.shipDets.data;
+        let shipDets = response.data.data;
+        console.log(shipDets)
         return res.status(200).send({
           success: true,
           message: "Shipment details",
