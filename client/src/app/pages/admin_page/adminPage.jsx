@@ -11,7 +11,6 @@ import { toast, ToastContainer } from "react-toastify";
 import Header from "../header/header";
 import GraphRevenue from "./components/graphRevenue";
 const AdminPage = () => {
-  
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -121,8 +120,9 @@ const AdminPage = () => {
 
   const [diffdata, setDiffData] = useState({ old: [], new: [] });
 
-  const dashboardHandler = () => { 
-    setValue(1)} ;
+  const dashboardHandler = () => {
+    setValue(1);
+  };
   const storeHandler = () => setValue(0);
   const productHandler = () => setValue(3);
   const blogHandler = () => setValue(4);
@@ -136,9 +136,11 @@ const AdminPage = () => {
       let total = 0;
       let previousRevenue = 0;
       for (let i = 0; i < orders?.length; i++) {
-        if(diff_months(new Date(), new Date(orders[i].timestamps)) === 0){
+        if (diff_months(new Date(), new Date(orders[i].timestamps)) === 0) {
           total = orders[i]?.amount;
-        }else if(diff_months(new Date(), new Date(orders[i].timestamps)) === 1){
+        } else if (
+          diff_months(new Date(), new Date(orders[i].timestamps)) === 1
+        ) {
           previousRevenue += orders[i].amount;
         }
       }
@@ -318,96 +320,120 @@ const AdminPage = () => {
       <Header />
       {user && (
         <div className="row row-wrapper">
-          <div className="col-3 admin-sub-wrapper">
-            <div className="div-admin">
-              <div>
-                <div className="top-div"></div>
-                <div className="logo">
-                  <div className="image">
-                    <img src={logoImage} className="img-logo" alt="tafi-logo" />
+          <div className="col-md-3 p-2 admin-sub-wrapper navbar navbar-expand-md bg-body-tertiary">
+            <button
+              class="d-flex d-md-none justify-content-around w-100 sticky navbar-toggler mt-2 align-item-center"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <p className="mb-0">View Admin Menu</p>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+            <div
+              className="div-admin collapse  w-100 navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <div className="w-100">
+                <div className="admin-logo-section">
+                  <div className="top-div"></div>
+                  <div className="logo">
+                    <div className="image">
+                      <img
+                        src={logoImage}
+                        className="img-logo"
+                        alt="tafi-logo"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="sidebar">
-                {user.role.role === "Admin" && (
-                  <div>
-                    <div className="sidebar-title active-link-admin" onClick={dashboardHandler}>
-                      <div className="icon">
-                        <i class="bi bi-bar-chart-fill"></i>
+                <div className="sidebar">
+                  {user.role.role === "Admin" && (
+                    <div>
+                      <div
+                        className="sidebar-title active-link-admin"
+                        onClick={dashboardHandler}
+                      >
+                        <div className="icon">
+                          <i class="bi bi-bar-chart-fill"></i>
+                        </div>
+                        <div className="title">Dashboard</div>
                       </div>
-                      <div className="title">Dashboard</div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {user.role.role === "Admin" && (
-                  <div>
-                    <div className="sidebar-title" onClick={storeHandler}>
-                      <div className="icon">
-                        <i class="bi bi-shop"></i>
+                  {user.role.role === "Admin" && (
+                    <div>
+                      <div className="sidebar-title" onClick={storeHandler}>
+                        <div className="icon">
+                          <i class="bi bi-shop"></i>
+                        </div>
+                        <div className="title">All Orders</div>
                       </div>
-                      <div className="title">All Orders</div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                <div>
-                  <div className="sidebar-title"  onClick={blogHandler}>
-                    <div className="icon">
-                      <i class="bi bi-layout-text-window-reverse"></i>
-                    </div>
-                    <div className="title">Blogs</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="sidebar-title" onClick={productHandler}>
-                    <div className="icon">
-                      <i class="bi bi-box"></i>
-                    </div>
-                    <div className="title">Products</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="sidebar-title" onClick={serviceHandler}>
-                    <div className="icon">
-                      <i class="bi bi-box"></i>
-                    </div>
-                    <div className="title">Services</div>
-                  </div>
-                </div>
-
-                <div>
                   <div>
-                    <div className="h3-title">ACCOUNT PAGES</div>
-                  </div>
-                </div>
-
-                {user.role.role === "Admin" && (
-                  <div>
-                    <div className="sidebar-title " onClick={userHandler}>
+                    <div className="sidebar-title" onClick={blogHandler}>
                       <div className="icon">
-                        <i class="bi bi-person-circle"></i>
+                        <i class="bi bi-layout-text-window-reverse"></i>
                       </div>
-                      <div className="title">User</div>
+                      <div className="title">Blogs</div>
                     </div>
                   </div>
-                )}
 
-                <div>
-                  <div className="sidebar-title" onClick={onLogOut}>
-                    <div className="icon">
-                      <i class="bi bi-person"></i>
+                  <div>
+                    <div className="sidebar-title" onClick={productHandler}>
+                      <div className="icon">
+                        <i class="bi bi-box"></i>
+                      </div>
+                      <div className="title">Products</div>
                     </div>
-                    <div className="title">Logout</div>
+                  </div>
+
+                  <div>
+                    <div className="sidebar-title" onClick={serviceHandler}>
+                      <div className="icon">
+                        <i class="bi bi-box"></i>
+                      </div>
+                      <div className="title">Services</div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div>
+                      <div className="h3-titlfe">ACCOUNT PAGES</div>
+                    </div>
+                  </div>
+
+                  {user.role.role === "Admin" && (
+                    <div>
+                      <div className="sidebar-title " onClick={userHandler}>
+                        <div className="icon">
+                          <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div className="title">User</div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div>
+                    <div className="sidebar-title" onClick={onLogOut}>
+                      <div className="icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                      <div className="title">Logout</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="col-9 admin-suber-wrapper">
+          <div className="col-md-9 admin-suber-wrapper">
             {value == 0 && (
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
@@ -614,7 +640,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -683,7 +709,7 @@ const AdminPage = () => {
             {value == 1 && (
               <div className=" card admin-table-card dashboardCard">
                 <div className="admin-dashboard-card subHeading row">
-                  <div className="admin-dashboard-graph-cart card col-6">
+                  <div className="admin-dashboard-graph-cart card col-md-6">
                     <Chart
                       chartType="ColumnChart"
                       width="100%"
@@ -716,8 +742,8 @@ const AdminPage = () => {
                           <span>than last week</span>
                         </div>
                       </div>
-                      <div className="dash-desc-content">
-                        <div className="no-of-order">
+                      <div className="dash-desc-content row">
+                        <div className="no-of-order col-md-4 col-4">
                           <div className="order-dash-title">
                             <span className="order-bar-icon">
                               <i class="bi bi-cart"></i>
@@ -727,7 +753,7 @@ const AdminPage = () => {
                           <div className="dash-number">{orders?.length}</div>
                           <span className="progress-bar"></span>
                         </div>
-                        <div className="no-of-order">
+                        <div className="no-of-order col-md-4 col-4">
                           <div className="order-dash-title">
                             <span className="order-bar-icon">
                               <i class="bi bi-rocket-takeoff-fill"></i>
@@ -743,7 +769,7 @@ const AdminPage = () => {
                           </div>
                           <span className="progress-bar"></span>
                         </div>
-                        <div className="no-of-order">
+                        <div className="no-of-order col-md-4 col-4">
                           <div className="order-dash-title">
                             <span className="order-bar-icon">
                               <i class="bi bi-check"></i>
@@ -763,7 +789,7 @@ const AdminPage = () => {
                     </div>
                   </div>
 
-                  <div className="product-requirement col-6">
+                  <div className="product-requirement col-md-6">
                     <div className="product-dashboard-heading">
                       <h4
                         style={{
@@ -781,13 +807,13 @@ const AdminPage = () => {
                         <span> in 2024</span>
                       </div>
                     </div>
-                   <GraphRevenue/>
+                    <GraphRevenue />
                   </div>
                 </div>
-                <div className="orders-dash-card-format">
-                  <div className="order-analysis-card order-color-revenue">
+                <div className="orders-dash-card-format row">
+                  <div className="order-analysis-card order-color-revenue col-md-6">
                     <div className="analysis">
-                      <h2 className="order-analysis-title">ORDERS Analysis</h2>
+                      <h2 className="order-analysis-title">Orders Analysis</h2>
 
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
@@ -821,7 +847,7 @@ const AdminPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="order-analysis-card order-color-analysis">
+                  <div className="order-analysis-card order-color-analysis col-md-6">
                     <div className="analysis">
                       <h2 className="order-analysis-title">
                         Revenue Generated
@@ -830,7 +856,7 @@ const AdminPage = () => {
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span class>This Month</span>
-                          {currentRevenue}
+                          <span>{currentRevenue}</span>
                         </div>
                       </div>
                       <div className="dash-order-analysis">
@@ -888,7 +914,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -1053,7 +1079,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -1086,7 +1112,7 @@ const AdminPage = () => {
                                   <td className="td table-center">
                                     {blog.title}
                                   </td>
-                                  <td className="td table-center">
+                                  <td className="td icon-section table-center">
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
@@ -1129,7 +1155,7 @@ const AdminPage = () => {
                                   <td className="td table-center">
                                     {blog.title}
                                   </td>
-                                  <td className="td table-center">
+                                  <td className="td icon-section table-center">
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
@@ -1284,7 +1310,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -1367,7 +1393,7 @@ const AdminPage = () => {
                                 <td className="td table-center">
                                   {service.description.substring(0, 40)}
                                 </td>
-                                <td className="td table-center actions">
+                                <td className="td table-center icon-section actions">
                                   <span className="td-edit-icon ">
                                     <i
                                       class="bi bi-pencil-square"

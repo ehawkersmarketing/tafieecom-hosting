@@ -44,7 +44,7 @@ const Myaccount = () => {
       <Header />
       <div className="user-account">
         <div className="account row">
-          <div className="col-3 account-dashboard">
+          <div className="col-md-3 account-dashboard">
             <div className="div-admin">
               <div>
                 <div className="top-div"></div>
@@ -93,7 +93,7 @@ const Myaccount = () => {
               </div>
             </div>
           </div>
-          <div className="col-9 account-detail">
+          <div className="col-md-9 account-detail">
             {value == 0 && (
               <div className="profile-detail-outer">
                 <div className="profile-head">

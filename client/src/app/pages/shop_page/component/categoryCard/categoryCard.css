@@ -83,7 +83,7 @@ width: 400px;
 .category-carousel .title-desc-card{
   display: flex;
   flex-direction: column;
-  padding-top: 30%;
+  height: 100%;
   padding-left: 5%;
   justify-content: center;
 }

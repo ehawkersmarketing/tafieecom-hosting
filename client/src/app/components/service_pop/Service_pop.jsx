@@ -7,10 +7,10 @@ const Service_pop = ({ item }) => {
     return (
         <div className="service-pop-main" id="servicemodal">
             <div className="service-pop-submain row">
-                <div className="service-pop-image col-5">
+                <div className="service-pop-image col-md-5">
                     <img src={item?.image} />
                 </div>
-                <div className="service-pop-text col-7">
+                <div className="service-pop-text col-md-7">
                     <div className="service-pop-heading-text">{item?.title}</div>
                     <div className="service-pop-subtext"><p>{item?.description}</p>
                     </div>

@@ -62,7 +62,6 @@
   align-items: center;
 }
 .franchise-wrapper .wrapper-row {
-  /* padding-top: 7%; */
   background-image: url("../../assets/Group\ 345.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -445,3 +444,72 @@
 .row {
   --bs-gutter-x: 0;
 }
+@media (max-width:768px){
+  .franchise-part{
+    padding-bottom: 13rem;
+  }
+  .franchise-wrapper .franchise-heading {
+    font-size: 3.5rem;
+    margin-bottom: 0;
+  }
+  .franchise-wrapper .wrapper-row {
+    background-size: 156% 100%;
+  }
+  .franchise-wrapper .franchise-content-para-bt {
+    height: fit-content;
+  }
+  .franchise-wrapper .subheading-franchise {
+    padding-bottom: 0;
+    font-size:1.2rem;
+  }
+  .franchise-content-para-bt h5{
+    font-size: 1rem;
+    
+  }
+  .franchise-content-para-bt p{
+    font-size: 1rem!important;
+  }
+  .franchise-wrapper .franchise-img-card{
+    text-align: center;
+  }
+  .franchise-wrapper .franchise-block-card{
+    padding: 1rem;
+  }
+  .franchise-wrapper .franchise-block-card .block-card{
+    padding: 3px;
+  }
+  .franchise-wrapper .franchise-block-card .block-card .content-card {
+    width: 100%;
+    height: fit-content;
+    padding: 0.5rem;
+  }
+  .franchise-wrapper h3{
+    font-size: 0.8rem;
+  }
+  .franchise-section2 {
+    background-color:#1a4440 ;
+    background-repeat: no-repeat;
+    background-position: top ;
+  }
+  .fran-section2{
+    margin-bottom: -7rem;
+  }
+  .fran-section2 .row{
+    flex-direction: column-reverse;
+  }
+  .fran-section2 .row .sideimg-fran{
+    padding-top: 0;
+  }
+  .franchise-wrapper .perk-section, .franchise-content-section-tag{
+    width: 80%;
+    margin:3rem  auto;
+  }
+  .franchise-wrapper .lineImg{
+    margin-left: 1rem;
+    margin-right: 0.8rem;
+  }
+  .map-section{
+    display: none;
+  }
+
+  }

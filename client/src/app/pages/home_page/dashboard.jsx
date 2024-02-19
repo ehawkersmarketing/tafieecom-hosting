@@ -112,8 +112,8 @@ const Dashboard = () => {
               <h4><span>YOUR</span> <span style={{ color: "#44A98B" }}>FARMING</span> <span>VENTURES</span></h4>
             </div>
           </div>
-          <div className="servicesDiv">
-            <div className="service100">
+          <div className="servicesDiv row">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <div className="tick-icon">
@@ -123,7 +123,7 @@ const Dashboard = () => {
                 <h5>Exceptional Product Quality</h5>
               </div>
             </div>
-            <div className="service100">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-key-fill serviceIcon"></i>
@@ -131,7 +131,7 @@ const Dashboard = () => {
                 <h5>Ease of Access</h5>
               </div>
             </div>
-            <div className="service100">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-headset serviceIcon"></i>
@@ -139,7 +139,7 @@ const Dashboard = () => {
                 <h5>Expert Advice & Support</h5>
               </div>
             </div>
-            <div className="service100">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-wallet2 serviceIcon"></i>
@@ -149,8 +149,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="div4 row ">
-          <div className="soilDiv col-5">
+        {/* <div className="div4  ">
+          <div className="soilDiv ">
             <div className="soilTestInfo">
               <div className="soilHeading">
                 <h1>FREE</h1>
@@ -172,11 +172,11 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="franDiv col-7">
+          <div className="franDiv ">
             <div className="franchiseInfo">
               <div className="franchHeading">
                 <h1>70+</h1>
-                <h3>FRANCHISES OVER INDIA</h3>
+                <h3>EXCLUSIVE STORES OVER INDIA</h3>
                 <div className="franchSubHead">
                   <h6>Ready to take your farming journey to the </h6>
                   <h6 className="franchSubHead3">Next Level?</h6>
@@ -196,7 +196,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="blankbox"></div>
       </div>
       <Footer />
