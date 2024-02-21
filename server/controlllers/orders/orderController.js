@@ -18,14 +18,19 @@ module.exports.getAllOrders = async (req, res, next) => {
 
 module.exports.getOrderById = async (req, res, next) => {
     try {
+         const id = req.params.id;
         const orders = await orderModel.findOne({ _id: req.params.id }).populate('products.productId').populate('user').populate('userAddress');
         res.status(200).json({
             success: true,
             data: orders
         });
     } catch (error) {
-        console.log(error);
-        next(error);
+        console.log("wrong ");
+        return res.json({
+                status:401,
+                success:false,
+                message:"Wrong order Id"
+             })
     }
 }
 
@@ -74,6 +79,7 @@ module.exports.placeOrder = async (req, res, next) => {
                 transactionId: transactionId,
                 transactionStatus: transactionStatus,
                 userAddress: address._id,
+                status:''
             });
             await newOrder.save();
 
@@ -145,3 +151,27 @@ module.exports.cancelOrders = async (req, res, next) => {
         });
     }
 };
+
+module.exports.updateOrder = async (req,res) =>{
+   const id = req.params.id
+
+    let order = await orderModel.findOne({ _id: id });
+    order.status = ""
+
+    if (order) {
+        order = order.toObject();
+        order.status = req.body.status;
+        order.orderStatus = req.body.orderStatus;
+   
+        await orderModel.findOneAndUpdate({ _id: id }, order, { new: true });
+        res.status(200).json({
+            success: true,
+            data: order
+        });
+    } else {
+        res.status(404).json({
+            success: false,
+            message: "Order not found"
+        });
+    }
+}

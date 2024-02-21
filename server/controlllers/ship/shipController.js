@@ -37,6 +37,7 @@ exports.requestApproval = async (req, res) => {
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
+    console.log('called')
     const { orderId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {

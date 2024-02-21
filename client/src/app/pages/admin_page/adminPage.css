@@ -492,3 +492,8 @@
   align-items: center;
   justify-content: center;
 }
+.orderSelect{
+  border:none;
+  outline: none;
+  text-align: center;
+}

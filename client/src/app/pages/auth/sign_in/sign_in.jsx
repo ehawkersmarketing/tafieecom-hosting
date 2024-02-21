@@ -53,55 +53,6 @@ const SignIn = () => {
   }
 
 let signedUser
-  // const onSendOtp = async (event) => {
-  //   try {
-  //     event.preventDefault();
-  //     if (formField.phone.length == 10) {
-  //     users?.forEach(item => {
-  //       signedUser = (item?.phone === formField.phone)
-  //       //  console.log(item?.phone , formField.phone)
-  //        return console.log(signedUser)
-  //     })
-  //       console.log(signedUser)
-  //       if(signedUser===false){
-  //         alert('login sirji')
-  //       }else{
-  //         const { data } = await axios.post(
-  //           "http://localhost:8080/auth/sendOtp",
-  //           {
-  //             phone: formField.phone,
-  //           }
-  //         );
-  //         token = data.token;
-  //         if (data.success) {
-  //           toast.success("OTP Sent successfully", {
-  //             position: "bottom-right",
-  //             autoClose: 8000,
-  //             pauseOnHover: true,
-  //             draggable: true,
-  //             theme: "dark",
-  //           });
-  //         }}
-  //       }
-  //      else {
-  //       toast.error("Please enter a valid phone number", {
-  //         position: "bottom-right",
-  //         autoClose: 8000,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         theme: "dark",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     toast.error("error", {
-  //       position: "bottom-right",
-  //       autoClose: 8000,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       theme: "dark",
-  //     });
-  //   }
-  // };
 
 
   const onSendOtp = async (event) => {
