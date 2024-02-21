@@ -33,14 +33,23 @@ const CategoryCarousel = ({ items ,  }) => {
                             items:  1,
                             
                         },
+                        576:{
+                            items:2,
+                            // nav:false,
+                            navText:false,
+                        },
                         768: { // For tablets and small desktops
-                            items:  3,
+                            items:  2,
+                            navText:false,
                             
+                        },
+                        922:{
+                            items:3,
                         }
                     }}
                 
                     autoplayHoverPause={true}
-                    autoplay={false} >{items?.map((item, index) => {
+                    autoplay={true} >{items?.map((item, index) => {
                         return (
                             <CategoryCard item={item} key={index} data={handleCallback}  />
                         );

@@ -8,35 +8,45 @@
 }
 
 .topDiv {
-  background-image: url("../../assets/Home_carousal_bg.png");
+  background-color: #1a4440;
+  /* background-image: url(../../assets/Home_carousal_bg.png); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
   width: 100%;
-  padding-bottom: 8%;
+  padding-bottom: 2%;
   justify-content: space-between;
   --bs-gutter-x: 0;
   height: 40rem;
+  z-index: 1;
+  margin-bottom: -2rem;
+  position: relative;
 }
+.topDiv .inside-topDiv {}
 
+.home-page .categoryDiv {
+  margin-top: -6rem;
+  z-index: 999;
+  position: relative;
+}
 .topDiv .headingimage {
-  display: flex;
-  justify-content: end;
-  width: 60%;
-  text-align: center;
-  mask-image: radial-gradient(
-    ellipse 72% 94% at 50% 46%,
-    white 41%,
-    rgba(254, 254, 254, 0) 55%
-  );
   height: 100%;
+  display: flex;
+    justify-content: end;
+    /* width: 60%; */
+    text-align: center;
+    mask-image: radial-gradient(ellipse 13% 17% at 54% 43%, white 65%,rgba(254, 254, 254, 0.67) 273%, rgba(254, 254, 254, 0.47) 316%, rgba(254, 254, 254, 0) 409%);
+    height: 100%;
+    position: absolute;
+    right: 0;
 }
 
 .topDiv .headingimage img {
   margin: auto;
-  width: 80%;
+  width: 100%;
   max-width: 100%;
   max-height: 100% !important;
+  margin-top:0;
   /* margin-top: -2rem; */
   /* margin-right: -1.5rem; */
 }
@@ -394,15 +404,16 @@
 }
 
 .home-page .product-category {
+  
   display: flex;
-  width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url("../../assets/homepage-below-main.png");
-  background-size: 100% 100%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../assets/homepage-below-main.png");
+    background-size: 100% 100%;
+    padding-top: 4%;
+    padding-bottom:4%;
 
   .product-category-text {
     width: 100%;
@@ -550,7 +561,7 @@
   font-size: 18px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .topDiv {
     height: 22rem;
   }
@@ -626,3 +637,45 @@
 }
  
 }
+@media (max-width: 992px){
+  .topDiv{
+    height:30rem;
+    z-index: 0;
+  }
+  .topDiv .headingimage {
+    /* display: none; */
+  }
+  .topDiv .headingDiv h1 {
+    font-size: 3rem;
+  }
+  .topDiv .headingDiv .shopBTN button {
+    font-size: 1rem;
+    padding: 0.4rem 2rem;
+  }
+  .topDiv .headingDiv {
+    margin-left: 5%;
+  }
+  .home-page .feature-text-fields {
+    padding: 0;
+  }
+  .featured-product .carouselItem
+.cart-btn {
+  padding : 4px 15px
+}
+.home-page .product-category .product-category-text .category-text .tafi-product-text1, 
+.home-page .product-category .product-category-text .category-text .tafi-product-text2, 
+.home-page .featured-product .product-category-text .category-text .tafi-product-text1,
+.home-page .featured-product .product-category-text .category-text .tafi-product-text2{
+  font-size: 23px;
+}
+.featured-product .carouselItem .col-gapping {
+  height:12reml
+}
+}
+@media (max-width: 572px){
+  .topDiv .headingimage {
+    display: none;
+  }
+ 
+}
+/* @media () */

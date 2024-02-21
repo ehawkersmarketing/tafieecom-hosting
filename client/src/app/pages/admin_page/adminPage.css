@@ -565,3 +565,43 @@
     font-size: 16px;
   }
 }
+@media (max-width: 992px){
+  .admin-wrapper table .th {
+    font-size: 14px;
+  }
+  .admin-wrapper table .td {
+    font-size: 14px;
+  }
+  .head-table th:nth-child(2){
+    display: none;
+  }
+  .head-table td:nth-child(2){
+    display: none;
+  }
+  .head-table .icon-section{
+    display:flex;
+    flex-direction: row;
+    align-items: row;
+    justify-content: space-between
+    ;
+  }
+  .head-table .icon-section span{
+    border-bottom:none;
+    font-size:17px;
+    /* border-bottom: none; */
+    
+  }
+  .admin-wrapper .dash-number {
+    font-size: 15px;
+  }
+  .admin-wrapper table .td-delete-icon {
+    margin: 0;
+  }
+  .admin-wrapper .dash-order-no {
+    font-size: 13px;
+  }
+  .admin-wrapper .order-bar-icon {
+    font-size: 10px;
+    height: 22px;
+  }
+}

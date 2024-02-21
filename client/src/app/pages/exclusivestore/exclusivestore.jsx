@@ -19,7 +19,7 @@ const ExclusiveStore = () => {
         <div className="franchise-part">
           <div className="franchise-main-content">
             <div className="wrapper-row row">
-              <div className="col-md-6 franchise-wrapper-content">
+              <div className="col-sm-6 franchise-wrapper-content">
                 <div className="main-content-page">
                   <div className="franchise-content-heading">
                     <h1 className="franchise-heading">PARTNER</h1>
@@ -38,7 +38,7 @@ const ExclusiveStore = () => {
                   </button>
                 </div>
               </div>
-              <div className="col-md-6 card-img-franchise">
+              <div className="col-sm-6 card-img-franchise">
                 <div className="franchise-img-card">
                   <img src={img} className="card-type-img" alt="" />
                 </div>
@@ -84,7 +84,7 @@ const ExclusiveStore = () => {
           <div className="franchise-section2">
             <div className="fran-section2">
               <div className="row">
-                <div className="col-md-7">
+                <div className="col-sm-7 perks">
                   <div className="upper-section">
                     <h5 className="perk-section">Perks of Owning a</h5>
                     <div className="franchise-content-section-tag">
@@ -131,7 +131,6 @@ const ExclusiveStore = () => {
                             Staff Education & Training
                           </p>
                         </div>
-
                         <div className="single-fanchise-card">
                           <p className="section-franchise-card-section">
                             Support & Expert Guidance
@@ -180,7 +179,7 @@ const ExclusiveStore = () => {
                     <button className="btn-knowing-more-fran">Know more</button>
                   </div>
                 </div>
-                <div className="col-md-5">
+                <div className="col-sm-5">
                   <div className="section2-part2-img">
                     <img src={sideImg} alt="" className="sideimg-fran" />
                   </div>

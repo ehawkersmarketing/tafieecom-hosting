@@ -226,4 +226,11 @@
   .below_relatedpost_1 {
     width: 236px;
   }
+  
+}
+@media (max-width:992px){
+  .single_blog {
+    padding-bottom: 10rem;
+  }
+
 }

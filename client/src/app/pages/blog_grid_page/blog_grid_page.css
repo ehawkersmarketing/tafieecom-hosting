@@ -395,3 +395,16 @@
   display: inline-block;
 }
 }
+
+@media (max-width:992px){
+  .blogpage .cardimg {
+    width: 100%;
+    height: 40%;
+}
+.blogpage .blog-tile .tile_title {
+  margin-left: 2rem;
+}
+.blogpage .tile-circle{
+  display: none;
+}
+}

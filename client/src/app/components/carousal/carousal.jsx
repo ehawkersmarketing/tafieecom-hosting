@@ -19,9 +19,15 @@ const CarouselCard = ({ cart, items }) => {
                             items:  1,
                         
                         },
+                        576:{
+                            items:2,
+                        },
                         768: { // For tablets and small desktops
-                            items:  4,
+                            items:  3,
                             
+                        },
+                        992:{
+                            items:4,
                         }
                     }}
                 
@@ -31,7 +37,7 @@ const CarouselCard = ({ cart, items }) => {
                         '<span class="arrow prev">‹</span>',
                         '<span class="arrow next">›</span>'
                     ]}
-                    autoplay={true} >{items?.map((item, index) => {
+                    autoplay={false} >{items?.map((item, index) => {
                         return <ProductCard item={item} cart={cart} className='productItem' key={index} />
                     })}
                 </OwlCarousel>

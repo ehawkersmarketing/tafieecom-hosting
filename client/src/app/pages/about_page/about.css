@@ -562,3 +562,45 @@
   .about .tech-keywords .tech-back-img {
     width: 95%;}
 }
+
+
+@media (max-width: 991px){
+  .about .about-tech-we-have {
+    padding-bottom: 18%;
+    background-position: 0 20rem;
+  }
+  .about-hero-head h2 span{
+    font-size: 25px;
+  }
+  .about .about-hero-head p{
+    font-size: 14px;
+  }
+  .about .about-card .about-card-main .tile-circle{
+    display: none;
+  }
+  .about .about-card .about-card-main .card-vision .vision-description,.about .about-card .about-card-main .card-mission{
+    font-size: 15px;
+  }
+  .about .card-vision, .about .card-mission {
+    padding: 3%;
+  }
+  .about .about-card-main{
+    width: 90%;
+  }
+  .about .tech-keywords .tech-back-img {
+    width: 100%;
+  }
+  .about .mission-text, .about .vision-text , .about .our-text{
+    padding: 4px;
+  }
+  .about .vision-description p, .about .mission-description p {
+    padding-top: 3%;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about .about-hero-head p {
+    font-size: 15px;
+  }
+}
