@@ -26,10 +26,10 @@ const SingleBlog = () => {
       <div className="single_blog">
         <div className="single_blog_tile row">
           <div className="tile-circle"></div>
-          <div className="tile_title col-5">
+          <div className="tile_title col-md-5 col-12 ">
             <div className="title_text">
               <div>
-                <h1>{blog && blog.title}</h1>
+                <h1>{blog && blog.title.substring(0,30)}..</h1>
               </div>
               <div>
                 <p>
@@ -38,7 +38,7 @@ const SingleBlog = () => {
               </div>
             </div>
           </div>
-          <div className="tile_image col-7">
+          <div className="tile_image col-md-7">
             <div
               className="blogpage_img"
               style={{ backgroundImage: `url(${blog?.image})` }}
@@ -46,7 +46,7 @@ const SingleBlog = () => {
           </div>
         </div>
         <div className="single_blog_below_tile row">
-          <div className="single_blog_content col-9">
+          <div className="single_blog_content col-md-9">
             <div className="single_blog_content_title">
               <div>
                 <button
@@ -77,7 +77,7 @@ const SingleBlog = () => {
               <p>{blog && blog.content}</p>
             </div>
           </div>
-          <div className="single_blog_relatedpost col-3">
+          <div className="single_blog_relatedpost col-md-3">
             <div>
               <h4>Related Posts</h4>
             </div>

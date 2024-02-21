@@ -8,9 +8,9 @@ import CategoryCarousel from "../../pages/shop_page/component/categoryCarousel/c
 import { useFetch } from "../../hooks/api_hook.js";
 import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
 import { useNavigate } from "react-router-dom";
-import homehero from "../../assets/homepage-main.png";
+import homehero from "../../assets/home-hero.png";
 import { Link } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -26,35 +26,40 @@ const Dashboard = () => {
       <Header />
       <div className="home-page">
         <div className="topDiv row">
-          <div className="headingDiv col-5">
-            <div className="headingMainText">
-              <h1>उच्च खेती,</h1>
-              <h1>उन्नत विकास</h1>
-              <img className="punchImg" src={punchline} />
-            </div>
-            <div className="iconDiv">
-              <div className="socialsLink">
-                <Link to="https://www.instagram.com/twicks_agro/">
-                  <i class="bi bi-instagram"></i>
-                </Link>
-                <Link to="https://www.facebook.com/TwicksA">
-                  <i class="bi bi-facebook"></i>
-                </Link>
-                <Link to="https://www.linkedin.com/company/twicks-agro-farm-industries-pvt-ltd/">
-                  <i class="bi bi-linkedin"></i>
-                </Link>
-                {/* <Link to="https://twitter.com/TwicksA">
+          <div className="col-5 d-flex justify-content-center">
+            <div className="headingDiv">
+              <div className="headingMainText">
+                <h1>उच्च खेती,</h1>
+                <h1>उन्नत विकास</h1>
+                <div className="herosub">
+                  <p>From Fields to Future!</p>
+                </div>
+              </div>
+              <div className="iconDiv">
+                <div className="socialsLink">
+                  <Link to="https://www.instagram.com/twicks_agro/">
+                    <i class="bi bi-instagram"></i>
+                  </Link>
+                  <Link to="https://www.facebook.com/TwicksA">
+                    <i class="bi bi-facebook"></i>
+                  </Link>
+                  <Link to="https://www.linkedin.com/company/twicks-agro-farm-industries-pvt-ltd/">
+                    <i class="bi bi-linkedin"></i>
+                  </Link>
+                  {/* <Link to="https://twitter.com/TwicksA">
                   <i class="bi bi-twitter"></i>
                 </Link> */}
-                <Link to="https://www.youtube.com/channel/UCFZ7_wK9cZUNZzMzteUSTTA">
-                  <i class="bi bi-youtube"></i>
-                </Link>
+                  <Link to="https://www.youtube.com/channel/UCFZ7_wK9cZUNZzMzteUSTTA">
+                    <i class="bi bi-youtube"></i>
+                  </Link>
+                </div>
+              </div>
+              <div className="shopBTN">
+                <button onClick={(e) => navigate("/shopPage")}>Shop Now</button>
               </div>
             </div>
-            <div className="shopBTN">
-              <button onClick={(e) => navigate("/shopPage")}>Shop Now</button>
-            </div>
           </div>
+
           <div className="headingimage col-7">
             <img src={homehero} alt="" />
           </div>
@@ -73,7 +78,6 @@ const Dashboard = () => {
             </div>
             <div className="category-region">
               <div className="category-carousel">
-
                 {categories && <CategoryCarousel items={categories} />}
               </div>
             </div>
@@ -106,11 +110,15 @@ const Dashboard = () => {
               <h1>EMPOWER</h1>
             </div>
             <div className="div3SubHead">
-              <h4><span>YOUR</span> <span style={{ color: "#44A98B" }}>FARMING</span> <span>VENTURES</span></h4>
+              <h4>
+                <span>YOUR</span>{" "}
+                <span style={{ color: "#44A98B" }}>FARMING</span>{" "}
+                <span>VENTURES</span>
+              </h4>
             </div>
           </div>
-          <div className="servicesDiv">
-            <div className="service100">
+          <div className="servicesDiv row">
+            <div className="service100 col-6 col-md-lg-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <div className="tick-icon">
@@ -120,7 +128,7 @@ const Dashboard = () => {
                 <h5>Exceptional Product Quality</h5>
               </div>
             </div>
-            <div className="service100">
+            <div className="service100 col-6 col-md-lg-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-key-fill serviceIcon"></i>
@@ -128,7 +136,7 @@ const Dashboard = () => {
                 <h5>Ease of Access</h5>
               </div>
             </div>
-            <div className="service100">
+            <div className="service100 col-6 col-md-lg-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-headset serviceIcon"></i>
@@ -136,7 +144,7 @@ const Dashboard = () => {
                 <h5>Expert Advice & Support</h5>
               </div>
             </div>
-            <div className="service100">
+            <div className="service100 col-6 col-md-lg-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-wallet2 serviceIcon"></i>
@@ -146,8 +154,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="div4 row ">
-          <div className="soilDiv col-5">
+        {/* <div className="div4  ">
+          <div className="soilDiv ">
             <div className="soilTestInfo">
               <div className="soilHeading">
                 <h1>FREE</h1>
@@ -169,11 +177,11 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="franDiv col-7">
+          <div className="franDiv ">
             <div className="franchiseInfo">
               <div className="franchHeading">
                 <h1>70+</h1>
-                <h3>FRANCHISES OVER INDIA</h3>
+                <h3>EXCLUSIVE STORES OVER INDIA</h3>
                 <div className="franchSubHead">
                   <h6>Ready to take your farming journey to the </h6>
                   <h6 className="franchSubHead3">Next Level?</h6>
@@ -193,7 +201,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <div className="blankbox"></div>
       </div>
       <Footer />
       <ToastContainer />

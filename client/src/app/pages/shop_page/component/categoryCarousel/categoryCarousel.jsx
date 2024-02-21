@@ -17,7 +17,7 @@ const CategoryCarousel = ({ items ,  }) => {
     return (
         <div className='carousal'>
             <div class='container-fluid' >
-                <OwlCarousel items={3}
+                <OwlCarousel
                     className="owl-theme"
                     loop
                     nav
@@ -28,6 +28,26 @@ const CategoryCarousel = ({ items ,  }) => {
                         '<span class="arrow prev">‹</span>',
                         '<span class="arrow next">›</span>'
                     ]}
+                    responsive={{
+                        0: { // For mobile devices
+                            items:  1,
+                            
+                        },
+                        576:{
+                            items:2,
+                            // nav:false,
+                            navText:false,
+                        },
+                        768: { // For tablets and small desktops
+                            items:  2,
+                            navText:false,
+                            
+                        },
+                        922:{
+                            items:3,
+                        }
+                    }}
+                
                     autoplayHoverPause={true}
                     autoplay={true} >{items?.map((item, index) => {
                         return (

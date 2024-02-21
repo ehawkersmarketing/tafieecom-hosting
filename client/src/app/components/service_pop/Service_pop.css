@@ -1,47 +1,70 @@
 .service-pop-main {
-    width: 100%;
+  width: 100%;
 }
 .service-pop-submain {
-    width: 100%;
-    border-radius:  37px;
-    background: var(--light-base-green-2, #EBF6F5);
-    margin: auto;
+  width: 100%;
+  border-radius: 37px;
+  background: var(--light-base-green-2, #ebf6f5);
+  margin: auto;
 }
-.service-pop-submain  .service-pop-text {
-    margin-top: 2rem;
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-bottom: 2%;
+.service-pop-submain .service-pop-text {
+  margin-top: 2rem;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 2%;
 }
 .service-pop-main .service-pop-heading-text {
-    color: var(--light-base-green-2, #EBF6F5);
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: uppercase;
-    display: flex;
-    /* padding: 3px 10px; */
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    background: var(--darkgreen-primary, #19443F);
-    width: fit-content;
-    margin-bottom: 1rem;
+  color: var(--light-base-green-2, #ebf6f5);
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  display: flex;
+  /* padding: 3px 10px; */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: var(--darkgreen-primary, #19443f);
+  width: fit-content;
+  margin-bottom: 1rem;
 }
 .service-pop-main .service-pop-subtext {
-    color: #000;
-    text-align: justify;
-    font-family: Montserrat;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: #000;
+  text-align: justify;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.service-pop-main .service-pop-image{
-    padding: 0;
+.service-pop-main .service-pop-image {
+  padding: 0;
 }
-.service-pop-main .service-pop-image img{
-    width: 100%;
+.service-pop-main .service-pop-image img {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .service-pop-main .service-pop-subtext {
+    font-size: 15px;
+  }
+  .service-pop-main .service-pop-heading-text {
+    font-size: 23px;
+  }
+  .service-pop-submain .service-pop-text {
+    padding: 1rem;
+  }
+  .service-pop-submain {
+    border-radius: 1rem;
+  }
+  .service-pop-submain .service-pop-text {
+    margin-top: 1rem;
+  }
+}
+@media (max-width: 992px) {
+  .modal-dialog {
+    max-width: 80%;
+    margin: auto;
+  }
 }

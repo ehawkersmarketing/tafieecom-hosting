@@ -1,5 +1,5 @@
 .home-page {
-  padding-bottom: 8%;
+  /* padding-bottom: 8%; */
   background-color: white;
 }
 
@@ -8,28 +8,46 @@
 }
 
 .topDiv {
-  background-image: url("../../assets/Home_carousal_bg.png");
+  background-color: #1a4440;
+  /* background-image: url(../../assets/Home_carousal_bg.png); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
   width: 100%;
-  padding-bottom: 8%;
+  padding-bottom: 2%;
   justify-content: space-between;
   --bs-gutter-x: 0;
   height: 40rem;
+  z-index: 1;
+  margin-bottom: -2rem;
+  position: relative;
 }
+.topDiv .inside-topDiv {}
 
+.home-page .categoryDiv {
+  margin-top: -6rem;
+  z-index: 999;
+  position: relative;
+}
 .topDiv .headingimage {
+  height: 100%;
   display: flex;
-  justify-content: end;
-  mask-image: radial-gradient(ellipse, white 50%, rgba(254, 254, 254, 0) 80%);
+    justify-content: end;
+    /* width: 60%; */
+    text-align: center;
+    mask-image: radial-gradient(ellipse 13% 17% at 54% 43%, white 65%,rgba(254, 254, 254, 0.67) 273%, rgba(254, 254, 254, 0.47) 316%, rgba(254, 254, 254, 0) 409%);
+    height: 100%;
+    position: absolute;
+    right: 0;
 }
 
 .topDiv .headingimage img {
-  margin: 0;
-  height: 115%;
+  margin: auto;
   width: 100%;
-  margin-top: -2rem;
+  max-width: 100%;
+  max-height: 100% !important;
+  margin-top:0;
+  /* margin-top: -2rem; */
   /* margin-right: -1.5rem; */
 }
 
@@ -47,11 +65,6 @@
   padding-right: 0;
 }
 
-.topDiv .headingDiv .headingMainText .punchImg {
-  text-align: left;
-  width: 22.625rem;
-}
-
 .topDiv .headingDiv .iconDiv .socialsLink {
   color: white;
   opacity: 0.5;
@@ -60,7 +73,6 @@
   justify-content: space-between;
   width: 100%;
 }
-
 
 .topDiv .headingDiv .iconDiv .socialsLink i {
   font-size: larger;
@@ -81,10 +93,12 @@
 }
 
 .topDiv .headingDiv .shopBTN button {
-  background-image: linear-gradient(79deg,
-      #36914b 0.36%,
-      #44a95c 58.15%,
-      #7bf197 117.12%);
+  background-image: linear-gradient(
+    79deg,
+    #36914b 0.36%,
+    #44a95c 58.15%,
+    #7bf197 117.12%
+  );
   border-radius: 6px;
   border: none;
   color: white;
@@ -99,15 +113,17 @@
 .headingDiv h1 {
   font-weight: 900;
   background-clip: text;
-  background-image: -webkit-linear-gradient(45deg,
-      #e8cd82 10.01%,
-      #c8a33d 55.34%,
-      #887234 109.07%);
+  background-image: -webkit-linear-gradient(
+    45deg,
+    #e8cd82 10.01%,
+    #c8a33d 55.34%,
+    #887234 109.07%
+  );
   background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.5;
   font-family: "Eczar", serif;
-  font-size: 70px;
+  font-size: 5rem;
   margin-bottom: 0;
 }
 
@@ -120,6 +136,7 @@
 
 .div3 .div3Heading {
   margin: auto;
+  width: 100%;
   align-items: center;
   padding-top: 12.5rem;
   width: fit-content;
@@ -128,8 +145,9 @@
 }
 
 .div3 .div3SubHead {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: auto;
   font-size: xx-large;
   color: var(--light-base-green-2, #ebf6f5);
@@ -151,10 +169,12 @@
   font-weight: 500;
   font-size: 6.5rem;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  background-image: -webkit-linear-gradient(20deg,
-      #e8cd82 10.01%,
-      #c8a33d 55.34%,
-      #887234 109.07%);
+  background-image: -webkit-linear-gradient(
+    20deg,
+    #e8cd82 10.01%,
+    #c8a33d 55.34%,
+    #887234 109.07%
+  );
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -163,8 +183,8 @@
   display: flex;
   margin: auto;
   padding-top: 5.2rem;
-  width: fit-content;
-  gap: 3.8rem;
+  width: 90%;
+  gap: 0;
   padding-bottom: 8.6rem;
 }
 
@@ -180,7 +200,11 @@
   color: white;
   padding: 20px;
 }
-
+.div3 .servicesDiv .service100 {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
 .div3 .servicesDiv .service100:hover {
   background-color: #d7e8e6;
   border-radius: 5px;
@@ -233,6 +257,7 @@
 
 .div4 .soilDiv {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: end;
@@ -267,10 +292,12 @@
 }
 
 .div4 .soilDiv .soilTestInfo button {
-  background-image: linear-gradient(79deg,
-      #36914b 0.36%,
-      #44a95c 58.15%,
-      #7bf197 117.12%);
+  background-image: linear-gradient(
+    79deg,
+    #36914b 0.36%,
+    #44a95c 58.15%,
+    #7bf197 117.12%
+  );
   border-radius: 6px;
   border: none;
   color: white;
@@ -285,7 +312,7 @@
   color: white;
   font-weight: 300;
   font-size: 1.3rem;
-  width: 27rem;
+  width: 100%;
 }
 
 .div4 .soilDiv .soilTestInfo .rightIcon {
@@ -377,15 +404,16 @@
 }
 
 .home-page .product-category {
+  
   display: flex;
-  width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url("../../assets/homepage-below-main.png");
-  background-size: 100% 100%;
-  padding-top: 4%;
-  padding-bottom: 4%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../assets/homepage-below-main.png");
+    background-size: 100% 100%;
+    padding-top: 4%;
+    padding-bottom:4%;
 
   .product-category-text {
     width: 100%;
@@ -452,7 +480,6 @@
   align-items: center;
   margin-bottom: -8%;
 
-
   .product-category-text {
     width: 100%;
     display: flex;
@@ -515,7 +542,140 @@
   }
 }
 
-
 .home-page .service100 {
   min-height: 280px;
 }
+
+.blankbox {
+  height: 8rem;
+  width: 100%;
+  background-color: #44a98b;
+}
+.topDiv .herosub p {
+  background-color: white;
+  color: #19443f;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .topDiv {
+    height: 22rem;
+  }
+  .topDiv .headingDiv h1 {
+    font-size: 3.2rem;
+  }
+  .topDiv .headingDiv .shopBTN button {
+    font-size: 1rem;
+    padding: 0.4rem 2rem;
+    /* margin-top: 0; */
+  }
+  .topDiv .headingimage {
+    display: none;
+  }
+  .div3 h1 {
+    font-size: 4.8rem;
+    margin: 0;
+  }
+  .div3SubHead h4 {
+    font-size: 17.5px;
+    display: flex;
+    align-items: center;
+  }
+  .home-page .product-category {
+    background-size: 199% 92%;
+    padding-top: 0; 
+    padding-bottom: 0;
+  }
+  .home-page .div3 {
+    background-size: 160% 100%;
+    margin-top: -7rem;
+    background-position: center center;
+  }
+  .div3 .servicesDiv {
+    padding-top: 1rem;
+  }
+  .div3 .servicesDiv .singleServiceDiv h5 {
+    font-size: 16px;
+  }
+  .home-page .service100 {
+    min-height: 160px;
+  }
+  .div3 .servicesDiv .serviceCircle {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+  .div3 .servicesDiv .singleServiceDiv h5 {
+    font-size: 13px;
+  }
+  .home-page .product-category .product-category-text .category-text .tafi-product-text1, 
+  .home-page .product-category .product-category-text .category-text .tafi-product-text2,
+  .home-page .featured-product .product-category-text .category-text .tafi-product-text1,
+  .home-page .featured-product .product-category-text .category-text .tafi-product-text2  {
+    font-size: 1.3rem;
+  }
+  .home-page .featured-product
+.product-category-text
+.category-text {
+  margin-top:0 !important;
+}
+.home-page .featured-product {
+  padding: 0%;
+}
+.div3 .div3Heading {
+  padding-top: 8.5rem;
+
+}
+.home-page .featured-product
+.category-region
+.category-carousel
+.feature-carousal {
+  height: 15rem;
+}
+ 
+}
+@media (max-width: 992px){
+  .topDiv{
+    height:30rem;
+    z-index: 0;
+  }
+  .topDiv .headingimage {
+    /* display: none; */
+  }
+  .topDiv .headingDiv h1 {
+    font-size: 3rem;
+  }
+  .topDiv .headingDiv .shopBTN button {
+    font-size: 1rem;
+    padding: 0.4rem 2rem;
+  }
+  .topDiv .headingDiv {
+    margin-left: 5%;
+  }
+  .home-page .feature-text-fields {
+    padding: 0;
+  }
+  .featured-product .carouselItem
+.cart-btn {
+  padding : 4px 15px
+}
+.home-page .product-category .product-category-text .category-text .tafi-product-text1, 
+.home-page .product-category .product-category-text .category-text .tafi-product-text2, 
+.home-page .featured-product .product-category-text .category-text .tafi-product-text1,
+.home-page .featured-product .product-category-text .category-text .tafi-product-text2{
+  font-size: 23px;
+}
+.featured-product .carouselItem .col-gapping {
+  height:12reml
+}
+}
+@media (max-width: 572px){
+  .topDiv .headingimage {
+    display: none;
+  }
+ 
+}
+/* @media () */

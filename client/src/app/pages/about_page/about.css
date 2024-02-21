@@ -1,6 +1,5 @@
 .about {
   background-color: #d8e8e7;
-  /* padding-bottom: 5%; */
 }
 .about .about-hero {
   background-image: url("../../assets/about-hero.png");
@@ -84,7 +83,7 @@
   padding-left: 2%;
 }
 
-.about .we-offer-text{
+.about .we-offer-text {
   background-color: #c8a33d;
   padding: 8px;
   font-weight: 700;
@@ -104,7 +103,7 @@
 }
 .about .card-vision,
 .about .card-mission {
-  background-color: #19443f;
+  background-image: radial-gradient(at bottom right, white -10%, #19443f 24%);
   padding: 4%;
   border-radius: 15px;
   padding-top: 50px;
@@ -152,7 +151,7 @@
 .about .buttons div p {
   border-radius: 6px;
   border: none;
-  padding: 7px;
+  padding: 5px;
   background-color: #42a487;
   width: fit-content;
 }
@@ -309,7 +308,7 @@
   transform: scale(1.3);
   display: block;
 }
-.bold-para{
+.bold-para {
   font-weight: 700;
 }
 
@@ -325,14 +324,283 @@
   transform: scale(1.2);
   background-color: white;
   color: #19443f;
-  
+
   border: #19443f solid 2px;
 }
 .about .buttons .col:nth-child(8):hover .block8 {
   transform: scale(1.3);
   display: block;
 }
-.about-tech-we-have img{
+.about-tech-we-have img {
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 767px) {
+  .about{
+    padding-bottom: 2rem;
+  }
+  .about .about-tech-we-have {
+    /* padding-bottom: 3rem; */
+    padding-bottom: 37%;
+    background-position: 1px 176px;
+  }
+  .about .about-logo-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: -2rem;
+    margin-top: -1.5rem;
+  }
+  .about .about-logo-img img {
+    width: 80%;
+  }
+  .about-hero-text .about-hero-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-hero-text .about-hero-head h2 {
+    font-size: 25px;
+  }
+  .about .about-hero {
+    padding-bottom: 32%;
+    background-size: 160% 100%;
+  }
+  .about .buttons div p {
+    font-size: 13px;
+  }
+  .about .about-hero-head p {
+    font-size: 13px;
+  }
+  .about .card-vision,
+  .about .card-mission {
+    margin-bottom: 2rem;
+  }
+  .about .about-vision-mission {
+    margin-top: -5rem;
+  }
+  .about .vision-description p,
+  .about .mission-description p {
+    font-size: 13px;
+    z-index: 999;
+  }
+  .about .tile-circle {
+    border: 45px solid #44a98b;
+  }
+  .about .card-vision,
+  .about .card-mission {
+    padding-top: 35px;
+  }
+  .about .our-text,
+  .about .mission-text,
+  .about .vision-text {
+    padding: 5px;
+  }
+  .about .about-card-main {
+    width: 80%;
+  }
+  .about .buttons {
+    width: 100%;
+  }
+  .about .buttons .col {
+    font-size: 13px;
+    padding: 0px 5px;
+  }
+  .about .buttons .num {
+    padding: 4px;
+    border-radius: 50%;
+    width: 20px !important;
+    height: 20px;
+  }
+  .about .buttons .col:nth-child(1) .num {
+    display: none;
+    position: absolute;
+    top: 6%;
+    left: 48.5%;
+  }
+  .about .buttons .col:nth-child(1):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(1):hover .block1 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(2) .num {
+    left: 73%;
+    top: 36%;
+  }
+  .about .buttons .col:nth-child(2):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(2):hover .block2 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(3) .num {
+    display: none;
+    position: absolute;
+    left: 78%;
+    top: 7%;
+  }
+  .about .buttons .col:nth-child(3):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(3):hover .block3 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(4) .num {
+    display: none;
+    position: absolute;
+    left: 32%;
+    top: 20%;
+  }
+  .about .buttons .col:nth-child(4):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(4):hover .block4 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(5) .num {
+    display: none;
+    position: absolute;
+    left: 71%;
+    top: 19%;
+  }
+  .about .buttons .col:nth-child(5):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(5):hover .block5 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(6) .num {
+    display: none;
+    position: absolute;
+    left: 26%;
+    top: 8%;
+  }
+  .about .buttons .col:nth-child(6):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(6):hover .block6 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(7) .num {
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 36%;
+  }
+  .about .buttons .col:nth-child(7):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(7):hover .block7 {
+    transform: scale(1.1);
+    display: block;
+  }
+  .bold-para {
+    font-weight: 700;
+  }
+  
+  .about .buttons .col:nth-child(8) .num {
+    display: none;
+    position: absolute;
+    left: 55%;
+    top: 20%;
+  }
+  
+  .about .buttons .col:nth-child(8):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+  
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(8):hover .block8 {
+    transform: scale(1.1);
+    display: block;
+  }
+  .about .tech-keywords .tech-back-img {
+    width: 95%;}
+}
+
+
+@media (max-width: 991px){
+  .about .about-tech-we-have {
+    padding-bottom: 18%;
+    background-position: 0 20rem;
+  }
+  .about-hero-head h2 span{
+    font-size: 25px;
+  }
+  .about .about-hero-head p{
+    font-size: 14px;
+  }
+  .about .about-card .about-card-main .tile-circle{
+    display: none;
+  }
+  .about .about-card .about-card-main .card-vision .vision-description,.about .about-card .about-card-main .card-mission{
+    font-size: 15px;
+  }
+  .about .card-vision, .about .card-mission {
+    padding: 3%;
+  }
+  .about .about-card-main{
+    width: 90%;
+  }
+  .about .tech-keywords .tech-back-img {
+    width: 100%;
+  }
+  .about .mission-text, .about .vision-text , .about .our-text{
+    padding: 4px;
+  }
+  .about .vision-description p, .about .mission-description p {
+    padding-top: 3%;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about .about-hero-head p {
+    font-size: 15px;
+  }
 }

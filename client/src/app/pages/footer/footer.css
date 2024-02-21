@@ -8,7 +8,7 @@
 .footer .main-footer .bottom-container {
   background-color: rgba(41, 100, 94, 1);
   min-height: 402px;
-  padding: 100px 75px;
+  padding: 4% 3% 3% 3%;
   display: flex;
   align-items: end;
   flex-direction: column;
@@ -56,7 +56,7 @@
   text-align: right;
 }
 .footer .middle-container{
-  width:70%;
+  width:80%;
   margin: auto;
 }
 .footer .full-form{
@@ -134,8 +134,8 @@
 }
 .footer .aao-baat-kre h1{
   color: white;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   align-items: center;
   padding-left: 110px;
   font-size: 60px;
@@ -160,12 +160,13 @@
   line-height: 1.5;
   font-family: "Eczar", serif;
   font-size: 60px;
-  margin-bottom: 0;
+  margin-bottom: 5px;
+  overflow-y: hidden;
   
 }
 .footer .headingMainText h1 span{
   background-color: #C8A33D;
-  padding: 1px 5px;
+  padding: 1px 8px;
   font-family: "Eczar", serif;
 }
 .footer .form-img{
@@ -186,4 +187,86 @@ input:focus, textarea:focus {
 }
 .footer .column201 .inside-column{
   line-height: 1.7;
+}
+
+.footer .credits{
+  background-color: rgb(29, 84, 78);
+  padding: 2% 3%;
+  color: white;
+}
+.footer .credits a{
+  color:white;
+  text-decoration: none;
+}
+.footer .credits .footer-credit{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer .contactus p a{
+  color: white !important;
+}
+br{
+  display: none;
+}
+.footer .made{
+  text-align: right;
+}
+@media (max-width: 768px) {
+  .footer .main-footer .footer-nav .row.foot-navigation{
+    flex-direction: column-reverse;
+  }
+  .footer .main-footer .column2 h5, .footer .main-footer .column1 h5{
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .footer .main-footer .column2 .list, .footer .main-footer .column1 .list{
+    padding: 0px;
+    font-size: 13px;
+  }
+  .footer .main-footer .column1 .website-icons{
+    padding-top: 5px ;
+  }
+  .footer .main-footer .column1 .website-icons i{
+    font-size: 13px;
+  }
+  .footer .main-footer .column3{
+    text-align: left;
+  }
+  .footer .main-footer .column3 .col-12 img{
+    width: 80%;
+    padding: 25px 25px 25px 0px;
+  }
+  .footer .middle-container{
+    width: 93%;
+  }
+  .footer .headingMainText h1{
+    font-size: 40px;
+  }
+  .footer .aao-baat-kre h1{
+    padding-left:50px ;
+  }
+  .footer .aao-baat-kre p{
+    font-size: 15px;
+  }
+
+  .footer .form-content{
+    padding: 15px;
+  }
+  .footer .form-content .form{
+    padding: 20px;
+    width: 100%;
+  }
+  .footer .credits .footer-credit{
+    font-size: 13px;
+  }
+  br{
+    display: block;
+  }
+  .footer .made{
+    text-align: left;
+  }
 }
