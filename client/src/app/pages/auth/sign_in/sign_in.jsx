@@ -290,9 +290,9 @@ let signedUser
     <>
       <Header />
       {path === "login" && (
-        <div className="sign_in">
+        <div className="div sign_in">
           <div className="div-8">
-            <div className="div-9">
+            <div className="div-9 d-flex flex-row ">
               <div className="column">
                 <div className="div-10">
                   <div className="div-11">
@@ -383,7 +383,7 @@ let signedUser
       {path === "register" && (
         <div className="div sign_up">
           <div className="div-8">
-            <div className="div-9">
+            <div className="div-9 d-flex flex-row">
               <div className="column-2">
                 <span className="span-5">
                   <div className="div-13">Register</div>
@@ -437,11 +437,11 @@ let signedUser
                     />
                     Keep me signed in
                   </div>
-                  <div className="register">
+                  
                     <button className="span-9" onClick={onSignUp}>
                       Register
                     </button>
-                  </div>
+                  
 
                   <div className="div-20">
                     <span className="register-text">Already a user? </span>

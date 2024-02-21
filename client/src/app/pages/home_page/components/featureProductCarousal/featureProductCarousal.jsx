@@ -22,12 +22,21 @@ const FeatureCarouselCard = ({ items }) => {
                     responsive={{
                         0: { // For mobile devices
                             items:  1,
-                            nav: false
+                            navText: false
                             
                         },
+                        576:{
+                            items:2,
+                            navText:false,
+                        },
                         768: { // For tablets and small desktops
-                            items:  3,
+                            itemsText:  3,
+                            navText:false,
+                            nav:false,
                             
+                        },
+                        922:{
+                            itemsText:3,
                         }
                     }}
                     autoplayHoverPause={true}

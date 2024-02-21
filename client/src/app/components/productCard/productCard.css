@@ -3,6 +3,12 @@
   /* overflow: hidden; */
   padding: 0;
   margin: 0;
+  .col-gapping{
+    height: 100%;
+    .textBlock{
+      height: 100%;
+    }
+  }
 
   .product-image {
     background-size: cover;
@@ -63,6 +69,7 @@
     margin-right: 5px;
     color: #44a98b;
   }
+ 
 
   .wishlist {
     color: var(--bright-green-primary, #44a98b);
@@ -222,10 +229,12 @@
   background-color: white;
   overflow: hidden;
   padding-bottom: 2%;
+  height: 100%;
 }
 
 .best-seller-product .col-gapping {
   padding: 10px;
+  height: 100% !important;
   /* background-color: #d9ebe8; */
 }
 
@@ -236,6 +245,7 @@
 .latest-post-card .col-gapping {
   padding: 10px;
   background-color: #D9EBE8;
+  height: 100%;
 }
 .shop-page-container .blog-latest-post {
   padding: 4%;
@@ -264,7 +274,7 @@
     margin: 0 !important;
 }
 @media (max-width: 768px){
-  .latest-post-card .textBlock .text-fields, .all-products-card .textBlock .text-fields {
+  .single-product .textBlock .text-fields,.latest-post-card .textBlock .text-fields, .all-products-card .textBlock .text-fields {
     padding-top: 5rem !important;
     z-index: 9999;
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
@@ -272,6 +282,7 @@
     position: relative;
    
   } 
+  
   
   .best-seller-product .textBlock .text-fields {
     padding-top: 5rem !important;
@@ -298,5 +309,32 @@
   .latest-post-card .textBlock .text-fields .text-fields .category-name ,.best-seller-product .text-fields .category-name.ratingAndReview , .all-products-card .textBlock .text-fields .category-name{
     margin: 0;
   }
+  .blogpage .card-body {
+    padding-top: 5rem !important;
+    background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
+    margin-top: -11rem;
+  }
+}
+@media (max-width: 992px){
+  .single-product .textBlock .text-fields,.latest-post-card .textBlock .text-fields, .all-products-card .textBlock .text-fields {
+    padding-top: 5rem !important;
+    z-index: 9999;
+    background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
+    margin-top: -11rem;
+    position: relative;
+   
+  } 
+  .best-seller-product .textBlock .text-fields {
+    padding-top: 5rem !important;
+    z-index: 9999;
+    background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
+    margin-top: -9rem;
+    position: relative;
+   
+  } 
 
+.shop-page-container
+.all-products {
+  padding: 2rem 0;
+}
 }

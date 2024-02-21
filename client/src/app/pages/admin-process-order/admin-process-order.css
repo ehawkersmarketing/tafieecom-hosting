@@ -131,3 +131,10 @@
 .shipment-buttons button{
     margin: 2%;
 }
+
+@media (max-height: 768px) {
+
+.accept-reject-button{
+    margin-bottom: 3rem;
+}
+}

@@ -76,6 +76,21 @@
 .active-link {
   color: #f1c40f !important;
 }
+@media(max-width:767px){
+  .heading {
+    padding-bottom: 4rem;
+  }
+  .header {
+    padding-top: 4rem;
+    height: 3rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {padding-bottom: 2.5rem;
+    margin-top: 2rem;}
+}
 @media (max-width: 992px) {
   .heading {
     padding-bottom: 4rem;

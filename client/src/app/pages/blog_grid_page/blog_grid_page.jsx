@@ -283,26 +283,32 @@ const BlogPage = () => {
                             alt="..."
                           />
                         </div>
-                        <div class="card-body">
-                          <h5 class="card-title">
-                            {blog.title.length > 30
-                              ? blog.title.substring(0, 30) + "..."
-                              : blog.title}
-                          </h5>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                          <div>
+                            <h5 class="card-title">
+                              {blog.title.length > 30
+                                ? blog.title.substring(0, 30) + "..."
+                                : blog.title}
+                            </h5>
 
-                          <p class="card-text">
-                            {blog.content.substring(0, 60)}....
-                          </p>
-                          <p class="blog-date">{`${dayjs(blog.createdAt).format(
-                            "MMMM D, YYYY"
-                          )}`}</p>
-                          <Link
-                            to={`/singleBlog/${blog._id}`}
-                            onClick={scrollToTop}
-                            class="btn btn-read"
-                          >
-                            Read More
-                          </Link>
+                            <p class="card-text">
+                              {blog.content.substring(0, 60)}....
+                            </p>
+                          </div>
+
+                          <div>
+                            {" "}
+                            <p class="blog-date">{`${dayjs(
+                              blog.createdAt
+                            ).format("MMMM D, YYYY")}`}</p>
+                            <Link
+                              to={`/singleBlog/${blog._id}`}
+                              onClick={scrollToTop}
+                              class="btn btn-read"
+                            >
+                              Read More
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
