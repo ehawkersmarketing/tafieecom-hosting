@@ -4,6 +4,7 @@ import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
 import punchline from "../../assets/punchline.png";
 import "./home_page.css";
+import map from "../../assets/mapp.png";
 import CategoryCarousel from "../../pages/shop_page/component/categoryCarousel/categoryCarousel.jsx";
 import { useFetch } from "../../hooks/api_hook.js";
 import FeatureCarouselCard from "./components/featureProductCarousal/featureProductCarousal.jsx";
@@ -26,7 +27,7 @@ const Dashboard = () => {
       <Header />
       <div className="home-page">
         <div className="topDiv row">
-          <div className="col-5 d-flex justify-content-center">
+          <div className="col-md-5 d-flex justify-content-center">
             <div className="headingDiv">
               <div className="headingMainText">
                 <h1>उच्च खेती,</h1>
@@ -60,7 +61,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="headingimage col-7">
+          <div className="headingimage col-md-7">
             <img src={homehero} alt="" />
           </div>
         </div>
@@ -154,9 +155,9 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        {/* <div className="div4  ">
-          <div className="soilDiv ">
-            <div className="soilTestInfo">
+        <div className="div4 row ">
+          <div className="soilDiv col-md-7 col-sm-6">
+            {/* <div className="soilTestInfo">
               <div className="soilHeading">
                 <h1>FREE</h1>
                 <h5 className="soilSubHead1">SOIL TESTING</h5>
@@ -175,10 +176,35 @@ const Dashboard = () => {
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>
-            </div>
-          </div>
-          <div className="franDiv ">
+            </div> */}
             <div className="franchiseInfo">
+              <div className="franchHeading">
+                <h1>70<span>+</span></h1>
+                <h3>EXCLUSIVE STORES OVER <span>INDIA</span></h3>
+                <div className="franchSubHead">
+                  <h6>Ready to take your farming journey to the <span> Next Level?</span></h6>
+                </div>
+              </div>
+            </div>
+            {/* <div className="franInfoDiv2">
+              <p>
+                <strong>Join the Krishak Vatika</strong> family today and
+                harvest the success tomorrow!
+              </p>
+
+              <div className="registerSoilBTN" onClick={scrollToTop}>
+                <button onClick={(e) => navigate("/exclusivestore")}>
+                  Know More
+                </button>
+              </div>
+            </div> */}
+          </div>
+          <div className="franDiv col-md-5 col-sm-6">
+            <div className="map-image">
+              <img src={map}/>
+
+            </div>
+            {/* <div className="franchiseInfo">
               <div className="franchHeading">
                 <h1>70+</h1>
                 <h3>EXCLUSIVE STORES OVER INDIA</h3>
@@ -199,9 +225,9 @@ const Dashboard = () => {
                   Know More
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
-        </div> */}
+        </div>
         <div className="blankbox"></div>
       </div>
       <Footer />
