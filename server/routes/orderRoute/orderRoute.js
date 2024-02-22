@@ -6,6 +6,7 @@ const {
   placeOrder,
   getAllOrdersByStatus,
   getOrderById,
+  updateOrder
 } = require("../../controlllers/orders/orderController.js");
 const {
   ViewerRole,
@@ -22,5 +23,6 @@ router.get("/getAllOrderByUser/:userId", getAllOrderByUser);
 router.get("/getOrderCount", getAllOrderCounts);
 router.post("/placeOrder", placeOrder);
 router.get("/getOrderByStatus/:orderStatus", getAllOrdersByStatus);
+router.patch("/updateOrder/:id", updateOrder);
 
 module.exports = router;

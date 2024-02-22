@@ -69,7 +69,7 @@ const AdminPage = () => {
       let previousOrder = new Date(dataSet.timestamps);
       // console.log(dataSet?.timestamps)
       var diff = currentOrder.getMonth() - previousOrder.getMonth();
-      console.log(diff_months(currentOrder, previousOrder));
+      // console.log(diff_months(currentOrder, previousOrder));
 
       // console.log(diff_months)
       if (diff_months(currentOrder, previousOrder) !== 0) {
@@ -79,7 +79,7 @@ const AdminPage = () => {
         }
         if (dataSet?.orderStatus === "REJECTED") {
           previousRejectedCount = previousRejectedCount + 1;
-          console.log(previousRejectedCount);
+          // console.log(previousRejectedCount);
         }
         if (dataSet?.orderStatus === "APPROVED") {
           previousApprovedCount = previousApprovedCount + 1;
@@ -196,12 +196,12 @@ const AdminPage = () => {
   };
 
   const deleteServiceHandler = (id) => {
-    console.log("id", id);
+    // console.log("id", id);
     fetch(`http://localhost:8080/api/deleteService/${id}`, { method: "DELETE" })
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "service deleted!!") {
-          console.log("deleted");
+          // console.log("deleted");
           fetchDeletedService();
         }
       });
@@ -215,7 +215,7 @@ const AdminPage = () => {
 
   const fetchDeletedService = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/getAllService`);
-    console.log(data);
+    // console.log(data);
     setServices(data.data);
   };
 
@@ -314,6 +314,132 @@ const AdminPage = () => {
     "--size": 0.4,
     fontSize: "var(--size)rem",
   };
+  const [open, setOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState({
+    filter: "",
+  });
+
+  const applyFilter = (e, index) => {
+    if (index === 2) {
+      setActiveFilter({ filter: e.target.value });
+      setOpen(false);
+    }
+  };
+
+  // const [orderStatus , setOrderStatus] = useState("")
+  // const [orderStatus, setOrderStatus] = useState(() => {
+  //   const savedStatus = localStorage.getItem('selectedOrderStatus');
+  //   return savedStatus ? savedStatus : '';
+  // });
+
+  // const [orderStatuses, setOrderStatuses] = useState({});
+
+//   const handlechangeOrderStatus = (e , id)=>{
+//     console.log(id)
+//        const orderStatus = e.target.value;
+//     if(orderStatus === "PROCESSING"){
+//       console.log("Processing order status")
+//       setOrderStatus("PROCESSING")
+//     }else if(orderStatus === "REJECTED"){
+//       setOrderStatus("REJECTED")
+//       console.log("reject order status")
+//     }else if(orderStatus === "APPROVED"){
+      
+//       setOrderStatus("APPROVED")
+//       console.log("approve order status")
+//  }else if(orderStatus === "COMPLETED"){
+//   setOrderStatus("COMPLETED")
+//   console.log("comp order status")
+// }
+// console.log(orderStatus)
+// orderStatusHandler(id , orderStatus)
+
+//   }
+
+// const handlechangeOrderStatus = (e, id) => {
+//   const newOrderStatus = e.target.value;
+//   setOrderStatus(newOrderStatus);
+//   localStorage.setItem('selectedOrderStatus', newOrderStatus); // Save to local storage
+//   console.log(newOrderStatus);
+//   orderStatusHandler(id, newOrderStatus);
+// };
+
+// const handlechangeOrderStatus = (e, id) => {
+//   const newOrderStatus = e.target.value;
+//   // Update the status for the specific order ID
+//   setOrderStatuses(prevStatuses => ({
+//     ...prevStatuses,
+//     [id]: newOrderStatus
+//   }));
+//   // Save to local storage
+//   localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
+//   console.log(newOrderStatus);
+//   orderStatusHandler(id, newOrderStatus);
+// };
+// const orderStatusHandler = (id, orderStatus) => {
+//   console.log(orderStatus);
+//   axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+//     orderStatus: orderStatus,
+//   })
+//   .then((res) => {
+//     console.log(res.data);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+// };
+ 
+
+const getInitialStatus = (id) => {
+  const savedStatus = localStorage.getItem(`selectedOrderStatus-${id}`);
+  return savedStatus ? savedStatus : '';
+};
+
+// Initialize the state as an object to store statuses for each order
+const [orderStatuses, setOrderStatuses] = useState({});
+
+// When the component mounts, check local storage for each order's status
+useEffect(() => {
+  // Assuming `orders` is an array of order IDs that you have
+  if (orders) {
+    orders.forEach(order => {
+      const savedStatus = getInitialStatus(order._id);
+      if (savedStatus) {
+        setOrderStatuses(prevStatuses => ({
+          ...prevStatuses,
+          [order._id]: savedStatus
+        }));
+      }
+    });
+  }
+}, [orders]); // Depend on `orders` to re-run the effect when it changes
+
+const handlechangeOrderStatus = (e, id) => {
+  const newOrderStatus = e.target.value;
+  setOrderStatuses(prevStatuses => ({
+    ...prevStatuses,
+    [id]: newOrderStatus
+  }));
+  localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
+  console.log(newOrderStatus);
+  orderStatusHandler(id, newOrderStatus);
+};
+
+const orderStatusHandler = (id, orderStatus) => {
+  console.log(orderStatus);
+  axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+    length:   1,
+    orderStatus: orderStatus,
+  })
+  .then((res) => {
+    console.log(res.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
+
+
 
   return (
     <div className="admin-wrapper">
@@ -377,7 +503,9 @@ const AdminPage = () => {
                   )}
 
                   <div>
+
                     <div className="sidebar-title" onClick={blogHandler}>
+
                       <div className="icon">
                         <i class="bi bi-layout-text-window-reverse"></i>
                       </div>
@@ -394,12 +522,14 @@ const AdminPage = () => {
                     </div>
                   </div>
 
+
                   <div>
                     <div className="sidebar-title" onClick={serviceHandler}>
                       <div className="icon">
                         <i class="bi bi-box"></i>
                       </div>
                       <div className="title">Services</div>
+
                     </div>
                   </div>
 
@@ -619,23 +749,26 @@ const AdminPage = () => {
                     <div className="admin-card-header">
                       <h3 className="h3">Active Orders</h3>
                       <div className="admin-input-dropdown">
-                        <input
+                        {/* <input
                           type="text"
                           className="nav-input"
                           style={{ width: "15rem" }}
                           placeholder="Search"
-                        />
-                        {/* <div className="short">
+                        /> */}
+                        <div className="short">
                           <select
                             type="text"
                             name="input"
-                            id="input"
+                            id="filterDropdown"
                             placeholder="Short by:Newest "
+                            onChange={(e) => applyFilter(e, 2)}
+                            value={activeFilter.filter}
                           >
-                            <option>Short by : Newest</option>
-                            <option>yes</option>
+                            <option value=""> Filter By : Delievery </option>
+                            <option value="By Self">By Self</option>
+                            <option value="By ShipRocket">By ShipRocket</option>
                           </select>
-                        </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -652,8 +785,15 @@ const AdminPage = () => {
                           <th scope="col" className="th">
                             Price
                           </th>
-                          <th scope="col" className="th">
+                          <th
+                            scope="col"
+                            className="th"
+                            data-category="By Self"
+                          >
                             Status
+                          </th>
+                          <th scope="col" className="th">
+                            Delivery Option
                           </th>
                           <th scope="col" className="th">
                             No of Orders
@@ -667,17 +807,47 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {orders &&
-                          orders.map((order, index) => {
+                        {orders
+                          .filter((order) => {
+                            // If no filter is selected, show all orders
+                            if (activeFilter.filter === "") return true;
+                            // If a filter is selected, only show orders that match the filter
+                            return order.status === activeFilter.filter;
+                          })
+                          .map((order, index) => {
                             return (
-                              <tr>
+                              <tr key={order._id}>
                                 <th scope="row table-center">{index + 1}</th>
                                 <td className="td table-center">{order._id}</td>
                                 <td className="td table-center">
                                   {order.amount}
                                 </td>
+
+                                {order.status === "By Self" ? (
+                                <div>
+                                <select
+                                  className="orderSelect"
+                                  name="input"
+                                  id="orderStatus"
+                                  placeholder="Order Status"
+                                  value={orderStatuses[order._id] || ''} // Use the status for this specific order
+                                  onChange={(e) => handlechangeOrderStatus(e, order._id)}
+                                >
+                                  <option value="">Select </option>
+                                  <option value="APPROVED">APPROVED</option>
+                                  <option value="REJECTED">REJECTED</option>
+                                  <option value="PROCESSING">PROCESSING</option>
+                                  <option value="COMPLETED">COMPLETED</option>
+                                </select>
+                              </div>
+                                ) : (
+                                  <td className="td table-center">
+                                    {order.orderStatus}
+                                  </td>
+                                )}
+
                                 <td className="td table-center">
-                                  {order.orderStatus}
+                                  {order.status}
                                 </td>
                                 <td className="td table-center">10</td>
                                 <td className="td table-center">
@@ -1140,7 +1310,7 @@ const AdminPage = () => {
                           blogs &&
                           blogs?.map((blog, index) => {
                             if (blog._id === deletedBlogId) {
-                              console.log(blog.title);
+                              // console.log(blog.title);
                               return null;
                             } else
                               return (
@@ -1377,7 +1547,7 @@ const AdminPage = () => {
                         ) : (
                           services &&
                           services.map((service, index) => {
-                            console.log(service._id);
+                            // console.log(service._id);
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>

@@ -132,9 +132,25 @@
     margin: 2%;
 }
 
+.popup-button{
+    display: flex;
+    gap:7px;
+    justify-content: right;
+}
+.save-button-a{
+   color:white;
+   background-color: rgb(20, 40, 20);
+   border: none;
+   padding:5px 10px 5px 10px; 
+  
+   border-radius: 8px;
+
+}
+
 @media (max-height: 768px) {
 
 .accept-reject-button{
     margin-bottom: 3rem;
 }
 }
+

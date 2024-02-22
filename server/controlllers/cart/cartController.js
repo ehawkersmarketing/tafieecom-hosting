@@ -1,7 +1,7 @@
 const express = require("express");
 const cartModel = require("../../models/cartModel/cartModel.js");
 const productModel = require("../../models/productModel/productModel.js");
-
+const mongoose = require("mongoose")
 const app = express();
 
 exports.putProductInCart = async (req, res) => {
@@ -127,6 +127,41 @@ exports.deleteProductInCart = async (req, res) => {
     });
   }
 };
+
+// exports.getCartByUser = async (req, res, next) => {
+//   try {
+//     const { userId } = req.params;
+
+//     // Check if userId is provided and is a valid ObjectId
+//     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Invalid userId",
+//       });
+//     }
+
+//     const cart = await cartModel.findOne({ userId: userId }).populate('products.productId');
+//     if (cart) {
+//       res.status(200).json({
+//         success: true,
+//         data: cart,
+//       });
+//     } else {
+//       res.status(404).json({
+//         success: false,
+//         message: "Cart not found",
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Error in getting cart",
+//       error,
+//     });
+//   }
+// };
+
 
 exports.getCartByUser = async (req, res, next) => {
   try {

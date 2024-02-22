@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useState } from 'react';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
@@ -6,34 +6,75 @@ import './OrderConformationPage.css'
 import tick_icon from '../../assets/tick_icon.png'
 import { useFetch } from '../../hooks/api_hook';
 import dayjs from 'dayjs';
-
+// import { useFetch } from 'path-to-your-useFetch-hook';
 import Carousal from '../../components/carousal/carousal'
 
 import { useNavigate, useParams } from 'react-router-dom';
-
+import axios from 'axios'
 
 const OrderConformationPage = () => {
   const { id } = useParams();
-  const { data } = useFetch(`/api/getOrderById/${id}`);
+  const { data} = useFetch(`/api/getOrderById/${id}`);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
+  const [error, setError] = useState(null);
+     
 
-
-  const handleDownload = () => {
-    navigate(`/invoice/${id}`)
-  };
-
-  const orderHandler = () => {
-    navigate(`/myaccount/${user?._id}`)
-  };
 
   useEffect(() => {
+    // Function to fetch order data from the backend
+
+    const fetchOrder = async () => {
+      try {        
+          const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
+          
+          if (response) {
+            const data = await response.json();
+           console.log(data)
+           if(data.success === false){
+            console.log("navigate")
+            navigate(`/myaccount/${user?._id}`);
+          }else if(data.success === true){
+            if(data.data.user._id === user?._id){
+              console.log("vkdvd")
+            }else {
+              console.log("go navigate")
+              navigate(`/myaccount/${user?._id}`);
+            }
+          } 
+           
+                   
+          } else {
+            throw new Error('Order not found');
+          }
+        
+        }catch (error) {
+          setError(error.message);
+        }
+      }
+        
+    fetchOrder(); 
+    
+  }, [id]);
+
+  const handleDownload = () => {
+    navigate(`/invoice/${id}`);
+  };
+  
+  const orderHandler = () => {
+    navigate(`/myaccount/${user?._id}`);
+  };
+  useEffect(() => {
+
     if (!user) {
-      navigate('/auth/login');
+      console.log("user not found")
+    //  navigate(`/myaccount/${user?._id}`);
     }
   }, []);
+
+ 
 
   return (
     <>

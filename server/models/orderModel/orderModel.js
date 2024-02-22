@@ -66,6 +66,9 @@ const orderSchema = new mongoose.Schema(
         timestamps: {
             type: Date,
             default: Date.now(),
+        },
+        status:{
+            type:String,
         }
     },
     { timestamps: true }

@@ -478,6 +478,13 @@
   justify-content: center;
 }
 
+.orderSelect{
+  border:none;
+  outline: none;
+  text-align: center;
+}
+
+
 @media (max-width: 768px) {
   .admin-wrapper .admin-sub-wrapper .admin-logo-section {
     display: none;
@@ -605,3 +612,4 @@
     height: 22px;
   }
 }
+
