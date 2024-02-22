@@ -324,6 +324,14 @@
     position: relative;
    
   } 
+  .textBlock .text-fields .category-name{
+    font-size: 1rem;
+
+  }
+  .textBlock .text-fields .product-name{
+    font-size: 1.3rem;
+   
+  }
   .best-seller-product .textBlock .text-fields {
     padding-top: 5rem !important;
     z-index: 9999;
@@ -337,4 +345,14 @@
 .all-products {
   padding: 2rem 0;
 }
+.latest-post-card .textBlock .text-fields .ratingAndReview, .best-seller-product .textBlock .text-fields .ratingAndReview, .all-products-card .textBlock .text-fields .ratingAndReview{
+  font-size: 12px;
+}
+.latest-post-card .textBlock .text-fields .ratingAndReview .review, .best-seller-product .textBlock .text-fields .ratingAndReview .review, .all-products-card .textBlock .text-fields .ratingAndReview .review{
+  font-size: 14px;
+}
+.text-fields{
+  padding:1rem 0.7rem 0.8rem 0.7rem
+}
+
 }
