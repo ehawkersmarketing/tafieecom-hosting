@@ -8,12 +8,29 @@ const CarouselCard = ({ cart, items }) => {
     return (
         <div>
             <div class='container-fluid' >
-                <OwlCarousel items={4}
+                <OwlCarousel
                     className="owl-theme"
                     loop
                     margin={6}
                     nav
                     dots={false}
+                    responsive={{
+                        0: { // For mobile devices
+                            items:  1,
+                        
+                        },
+                        576:{
+                            items:2,
+                        },
+                        768: { // For tablets and small desktops
+                            items:  3,
+                            
+                        },
+                        992:{
+                            items:4,
+                        }
+                    }}
+                
                     autoplayTimeout={2000}
                     autoplayHoverPause={true}
                     navText={[

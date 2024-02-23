@@ -50,7 +50,7 @@
 }
 
 .admin-wrapper .sidebar-title:hover .title {
-  background-color:white;
+  background-color: white;
   font-weight: 600;
   color: rgb(15, 37, 26);
 }
@@ -78,11 +78,10 @@
   margin-top: 0.5rem;
   margin-left: 0.8rem;
 }
-.admin-wrapper .dash-number 
-{
+.admin-wrapper .dash-number {
   font-size: 18px;
 }
-.dash-order-no{
+.dash-order-no {
   font-size: 18px;
 }
 .admin-wrapper .icon {
@@ -190,11 +189,11 @@
     width: 0.2rem;
 
     &-thumb {
-        background-color: #ffffff39;
-        width: 0.1rem;
-        border-radius: 1rem;
+      background-color: #ffffff39;
+      width: 0.1rem;
+      border-radius: 1rem;
     }
-}
+  }
 }
 
 .admin-wrapper table .th {
@@ -284,16 +283,6 @@
 .admin-wrapper .admin-input-dropdown {
   display: flex;
   justify-content: space-between;
-}
-
-.nav-admin-page {
-}
-
-.admin-wrapper h1 {
-  margin-top: 3rem;
-  font-size: 25px;
-  margin-left: 2rem;
-  font-weight: 600;
 }
 
 .admin-wrapper h3 {
@@ -444,56 +433,183 @@
   border: none;
 }
 
-
 /*new changes */
 
-.admin-wrapper .admin-header-nav{
+.admin-wrapper .admin-header-nav {
   display: flex;
   justify-content: space-between;
 }
 
-.admin-wrapper .lg-admin-button{
+.admin-wrapper .lg-admin-button {
   display: flex;
   font-weight: 700;
   font-size: 15px;
   margin-top: 55px;
 }
 
-.admin-wrapper .sidebar-title:hover{
-  color:#06130f;
+.admin-wrapper .sidebar-title:hover {
+  color: #06130f;
   background-color: white;
   border-radius: 12px;
-   
-  box-shadow: 0px 3.500000238418579px 5.500000476837158px 0px #00000014;
 
+  box-shadow: 0px 3.500000238418579px 5.500000476837158px 0px #00000014;
 }
-.admin-wrapper .sidebar-title:active{
+.admin-wrapper .sidebar-title:active {
   background-color: white;
   border-radius: 12px;
-   color:#285a4b;
+  color: #285a4b;
   box-shadow: 0px 3.500000238418579px 5.500000476837158px 0px #00000014;
-
 }
 
-.admin-wrapper .featured-img-admin-blog{
+.admin-wrapper .featured-img-admin-blog {
   width: 25px;
   height: 25px;
 }
-.admin-wrapper .img-product-admin-data{
+.admin-wrapper .img-product-admin-data {
   width: 25px;
   height: 25px;
 }
-
 
 /* new changes */
 
-.actions{
+.actions {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .orderSelect{
   border:none;
   outline: none;
   text-align: center;
 }
+
+
+@media (max-width: 768px) {
+  .admin-wrapper .admin-sub-wrapper .admin-logo-section {
+    display: none;
+  }
+  .admin-wrapper .order-dash-title span {
+    font-size: 12px;
+  }
+  .admin-wrapper .no-of-order .dash-number {
+    font-size: 12px;
+  }
+  .admin-wrapper .order-bar-icon {
+    height: 20px;
+    width: 20px;
+    padding: 0.7rem;
+  }
+  .admin-wrapper .order-analysis-card .analysis h2 {
+    font-size: 16px;
+    margin: 0;
+  }
+  .admin-wrapper .order-color-revenue,
+  .admin-wrapper .order-analysis-card {
+    width: 90%;
+    margin: 1rem;
+  }
+  .admin-wrapper .admin-dash-order span {
+    font-size: 13px;
+  }
+  .admin-wrapper .product-dashboard-heading h4 {
+    font-size: 16px !important;
+  }
+  .admin-wrapper .admin-card-header h3 {
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+  }
+  .admin-wrapper .admin-input-dropdown {
+    width: 13rem;
+    font-size: 13px;
+  }
+  .admin-wrapper .admin-input-dropdown input {
+    padding: 0.5rem;
+  }
+  .admin-wrapper .admin-card-header {
+    align-items: center;
+    display: flex;
+  }
+  .admin-wrapper h1 {
+    margin: 0;
+    font-size: 23px;
+    padding-bottom: 0.4rem;
+  }
+  .head-table th:nth-child(2){
+    display: none;
+  }
+  .head-table td:nth-child(2){
+    display: none;
+  }
+  .admin-wrapper .subHeading {
+    margin: 0rem;
+  }
+  .admin-wrapper table .th {
+    font-size: 12px;
+    padding: 0px;
+  }
+  .admin-wrapper .admin-card-heading{
+    padding: 1rem;
+  }
+  .admin-wrapper table .td {
+    font-size: 12px;
+    padding: 2px;
+  }
+  .admin-wrapper .table-center .td-edit-icon ,.admin-wrapper .table-center .td-delete-icon{
+    font-size: 15px;
+  }
+  .admin-wrapper .icon-section{
+    display: flex;
+    align-items: center;
+    /* height: 100% ; */
+    border-bottom: none;
+    border-left:none;
+    border-right: none;
+    justify-content: space-around;
+  }
+  .admin-wrapper .nav-rightContent{
+    font-size: 16px;
+  }
+}
+@media (max-width: 992px){
+  .admin-wrapper table .th {
+    font-size: 14px;
+  }
+  .admin-wrapper table .td {
+    font-size: 14px;
+  }
+  .head-table th:nth-child(2){
+    display: none;
+  }
+  .head-table td:nth-child(2){
+    display: none;
+  }
+  .head-table .icon-section{
+    display:flex;
+    flex-direction: row;
+    align-items: row;
+    justify-content: space-between
+    ;
+  }
+  .head-table .icon-section span{
+    border-bottom:none;
+    font-size:17px;
+    /* border-bottom: none; */
+    
+  }
+  .admin-wrapper .dash-number {
+    font-size: 15px;
+  }
+  .admin-wrapper table .td-delete-icon {
+    margin: 0;
+  }
+  .admin-wrapper .dash-order-no {
+    font-size: 13px;
+  }
+  .admin-wrapper .order-bar-icon {
+    font-size: 10px;
+    height: 22px;
+  }
+}
+

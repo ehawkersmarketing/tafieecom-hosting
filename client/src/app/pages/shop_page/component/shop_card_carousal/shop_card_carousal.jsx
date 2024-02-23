@@ -57,7 +57,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
             '<span class="arrow prev">‹</span>',
             '<span class="arrow next">›</span>',
           ]}
-          autoplay={true}
+          autoplay={false}
         >
           {items?.map((item, index) => {
             const inCart = cart?.products.find((product) => {
@@ -70,7 +70,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                                  <img src={PosterCardBackground} height={500} />
                              </div> */}
                 <div className="shop-page-card-content row">
-                  <div className="view-more col-6">
+                  <div className="view-more col-md-6">
                     <div className="poster-text">
                       <span className="fertilizer-text">
                         {item.category.category}
@@ -86,7 +86,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="product-content col-6">
+                  <div className="product-content col-md-6">
                     <div className="text-fields d-flex">
                       <div className="">
                         <h3 className="category-name">
@@ -118,7 +118,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                           {inCart ? "View Cart" : "Add to Cart"}
                         </button>
                       </div>
-                      <div className="poster-card">
+                      <div className="poster-card col-12">
                         <img src={item.image} alt="" />
                       </div>
                     </div>

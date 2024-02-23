@@ -131,6 +131,7 @@
 .shipment-buttons button{
     margin: 2%;
 }
+
 .popup-button{
     display: flex;
     gap:7px;
@@ -144,5 +145,12 @@
   
    border-radius: 8px;
 
+}
+
+@media (max-height: 768px) {
+
+.accept-reject-button{
+    margin-bottom: 3rem;
+}
 }
 

@@ -4,7 +4,7 @@ import "./sign_in.css";
 import "../sign_up/sign_up.css";
 import axios from "axios";
 import photo from "../../../assets/photo.png";
-import google_icon from "../../../assets/google.png";
+// import google_icon from "../../../assets/google.png";
 import Mask_group from "../../../assets/Mask_group.png";
 import Tafi_logo_white from "../../../assets/Tafi_logo_white.png";
 import { Link } from "react-router-dom";
@@ -243,7 +243,7 @@ let signedUser
       {path === "login" && (
         <div className="div sign_in">
           <div className="div-8">
-            <div className="div-9">
+            <div className="div-9 d-flex flex-row ">
               <div className="column">
                 <div className="div-10">
                   <div className="div-11">
@@ -254,14 +254,14 @@ let signedUser
                         src={Tafi_logo_white}
                         className="img-3"
                       />
-                      <div className="div-12">
+                      {/* <div className="div-12">
                         <div>
                           <span className="welcome-text">Enter the </span>
                         </div>
                         <div>
                           <span className="back-text">Agro-Tech World!</span>
                         </div>
-                      </div>
+                      </div> */}
                     </span>
                     <img loading="lazy" src={photo} className="img-4" />
                   </div>
@@ -290,7 +290,7 @@ let signedUser
                   {/* <div className="input-phone">
                   <input type="tel" placeholder="Enter phone number" />
                 </div> */}
-                  <span className="span-7">
+                  <span className="span-6">
                     <div className="div-16" />
                     <div className="div-17">
                       <input
@@ -334,7 +334,7 @@ let signedUser
       {path === "register" && (
         <div className="div sign_up">
           <div className="div-8">
-            <div className="div-9">
+            <div className="div-9 d-flex flex-row">
               <div className="column-2">
                 <span className="span-5">
                   <div className="div-13">Register</div>
@@ -347,7 +347,7 @@ let signedUser
                         type="text"
                         name="userName"
                         onChange={handleChangeFormField}
-                        placeholder="Enter your username"
+                        placeholder="Enter your Full Name"
                       />
                     </div>
                   </span>
@@ -369,7 +369,7 @@ let signedUser
                     </div>
                   </span>
 
-                  <span className="span-7">
+                  <span className="span-6">
                     <div className="div-16" />
                     <div className="div-17">
                       <input
@@ -388,11 +388,11 @@ let signedUser
                     />
                     Keep me signed in
                   </div>
-                  <div className="register">
+                  
                     <button className="span-9" onClick={onSignUp}>
                       Register
                     </button>
-                  </div>
+                  
 
                   <div className="div-20">
                     <span className="register-text">Already a user? </span>
@@ -415,14 +415,14 @@ let signedUser
                         src={Tafi_logo_white}
                         className="img-3"
                       />
-                      <div className="div-12">
+                      {/* <div className="div-12">
                         <div>
                           <span className="welcome-text">Grow</span>
                         </div>
                         <div>
                           <span className="back-text">With Us!</span>
                         </div>
-                      </div>
+                      </div> */}
                     </span>
                     <img loading="lazy" src={photo} className="img-4" />
                   </div>

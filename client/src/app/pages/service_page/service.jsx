@@ -94,7 +94,7 @@ const OurServices = () => {
                     searchService?.map((service, index) => {
                       return (
                         <>
-                          <div className="col-4" key={index}>
+                          <div className="col-md-4 col-4" key={index}>
                             <div className="service-block d-flex">
                               <div className="block-text col-7">
                                 <div>
@@ -135,7 +135,7 @@ const OurServices = () => {
               searchField === "" &&
               services.map((service, index) => {
                 return (
-                  <div className="col-4" key={index}>
+                  <div className="col-md-4" key={index}>
                     <div className="service-block d-flex">
                       <div className="block-text col-7">
                         <div>
@@ -160,7 +160,7 @@ const OurServices = () => {
                   </div>
                 );
               })}
-            <div className="col-4 missing-card">
+            <div className="col-md-4 missing-card">
               <div className="service-block d-flex">
                 <div className="block-text">
                   

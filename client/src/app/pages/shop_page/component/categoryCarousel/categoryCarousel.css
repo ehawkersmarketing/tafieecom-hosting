@@ -60,3 +60,20 @@
     font-size: 6rem;
     top: 1rem;
 }
+
+@media (max-width: 767px) {
+    .product-category .next {
+        display: none;
+        right: 10px;
+        color: #44A98B;
+        font-size: 6rem;
+        top: 1rem;
+    }
+    .product-category .prev {
+        display: none;
+        right: 10px;
+        color: #44A98B;
+        font-size: 6rem;
+        top: 1rem;
+    }
+}
