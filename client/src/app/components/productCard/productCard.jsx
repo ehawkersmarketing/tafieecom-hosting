@@ -51,11 +51,11 @@ const ProductCard = ({ cart, item }) => {
   return (
     <div
       key={item._id}
-      className="carouselItem col-md-4 col-lg-3"
+      className="carouselItem col-md-4 col-lg-3 col-sm-6"
       interval="500"
     >
       <div className="col-gapping">
-        <div className="textBlock">
+        <div className="textBlock ">
           <div
             className="product-image"
             onClick={() => viewproductHandler(item._id)}

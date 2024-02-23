@@ -270,3 +270,16 @@ br{
     text-align: left;
   }
 }
+
+@media (max-width: 568px){
+  .footer .full-form{
+    background-image: url("../../assets/footer-background-mob.jpg");
+    width: 80%;
+    margin: auto;
+    margin-top: -13rem;
+    border-radius: 2rem;
+  }
+  .footer .form-img{
+    background-image: url("../../assets/footer-mask-mob.png");
+  }
+}

@@ -25,6 +25,49 @@ const Product = () => {
     `/api/getReviewById/${id}`
   );
   // console.log(reviews?.reviews)
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    // Function to fetch order data from the backend
+
+    const fetchProduct = async () => {
+      try {        
+          const response = await fetch("http://localhost:8080/api/getProduct/" + id);
+          
+          if (response) {
+            const data = await response.json();
+           console.log(data)
+           if(data.success === false){
+            console.log("navigate")
+            navigate(`/shopPage`)
+          }else if(data.success === true){
+            if(data.data.user._id === user?._id){
+              console.log("vkdvd")
+            }else {
+              console.log("go navigate")
+              navigate(`/shopPage`);
+            }
+          } 
+           
+                   
+          } else {
+            throw new Error('Order not found');
+          }
+        
+        }catch (error) {
+          setError(error.message);
+        }
+      }
+        
+    fetchProduct(); 
+    
+  }, [id]);
+
+
+
+
+
+
+
 
   const [inputHandler, setInputHandler] = useState({
     reviewContent: " ",

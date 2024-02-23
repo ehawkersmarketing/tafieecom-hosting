@@ -597,7 +597,166 @@
     padding-top: 3%;
     margin-bottom: 0;
   }
+  .about .buttons .col {
+    font-size: 13px;
+    padding: 0px 5px;
+  }
+  .about .buttons .num {
+    padding: 4px;
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px;
+  }
+  .about .buttons .col:nth-child(1) .num {
+    display: none;
+    position: absolute;
+    top: 6%;
+    left: 48.5%;
+  }
+  .about .buttons .col:nth-child(1):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(1):hover .block1 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(2) .num {
+    left: 73%;
+    top: 56%;
+  }
+  .about .buttons .col:nth-child(2):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(2):hover .block2 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(3) .num {
+    display: none;
+    position: absolute;
+    left: 78%;
+    top: 7%;
+  }
+  .about .buttons .col:nth-child(3):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(3):hover .block3 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(4) .num {
+    display: none;
+    position: absolute;
+    left: 32%;
+    top: 30%;
+  }
+  .about .buttons .col:nth-child(4):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(4):hover .block4 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(5) .num {
+    display: none;
+    position: absolute;
+    left: 71%;
+    top: 29%;
+  }
+  .about .buttons .col:nth-child(5):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(5):hover .block5 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(6) .num {
+    display: none;
+    position: absolute;
+    left: 26%;
+    top: 8%;
+  }
+  .about .buttons .col:nth-child(6):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(6):hover .block6 {
+    transform: scale(1.1);
+    display: block;
+  }
+  
+  .about .buttons .col:nth-child(7) .num {
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 56%;
+  }
+  .about .buttons .col:nth-child(7):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(7):hover .block7 {
+    transform: scale(1.1);
+    display: block;
+  }
+  .bold-para {
+    font-weight: 700;
+  }
+  
+  .about .buttons .col:nth-child(8) .num {
+    display: none;
+    position: absolute;
+    left: 55%;
+    top: 30%;
+  }
+  
+  .about .buttons .col:nth-child(8):hover .num {
+    display: flex;
+    transform: scale(1.1);
+    background-color: white;
+    color: #19443f;
+  
+    border: #19443f solid 2px;
+  }
+  .about .buttons .col:nth-child(8):hover .block8 {
+    transform: scale(1.1);
+    display: block;
+  }
+  .about .tech-keywords .tech-back-img {
+    width: 95%;}
 }
+
+
 
 @media (max-width: 1024px) {
   .about .about-hero-head p {
