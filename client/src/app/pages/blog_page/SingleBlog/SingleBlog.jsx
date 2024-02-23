@@ -1,5 +1,6 @@
 import "./SingleBlog.css";
-import { Link, useParams } from "react-router-dom";
+import { useState ,useEffect } from "react";
+import { Link, useParams  } from "react-router-dom";
 import resourcepage1 from "../../../assets/resourcecenter1.png";
 import blogpage_img from "../../../assets/blogpage_head.jpeg";
 import { useFetch } from "../../../hooks/api_hook";
@@ -9,9 +10,50 @@ import Footer from "../../footer/footer";
 import { useNavigate } from "react-router-dom";
 const SingleBlog = () => {
   const { blogId } = useParams();
+
   const { data: blog } = useFetch(`/api/blog/${blogId}`);
   const { data: blogs } = useFetch("/api/blogs");
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    // Function to fetch order data from the backend
+
+    const fetchBlog = async () => {
+      try {        
+          const response = await fetch("http://localhost:8080/api/blog/" + blogId);
+          
+          if (response) {
+            const data = await response.json();
+           console.log(data)
+           if(data.success === false){
+            console.log("navigate")
+            navigate(`/blog`)
+
+          }else if(data.success === true){
+            if(data.data.user._id === user?._id){
+              console.log("vkdvd")
+            }else {
+              console.log("go navigate")
+              // navigate(`/blog`);
+            }
+          } 
+           
+                   
+          } else {
+            throw new Error('Order not found');
+          }
+        
+        }catch (error) {
+          setError(error.message);
+        }
+      }
+        
+    fetchBlog(); 
+    
+  }, [blogId]);
+
+
 
   const backHandler = () => {
     navigate("/blog");

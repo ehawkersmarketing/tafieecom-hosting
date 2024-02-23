@@ -36,7 +36,9 @@ const CreateProduct = () => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // history("/adminPage");
-      } else {
+      } if(user.role.role === "User"){
+        history("/")
+      }else {
         history("/auth/login");
       }
     } else {
