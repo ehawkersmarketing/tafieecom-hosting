@@ -119,7 +119,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="servicesDiv row">
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <div className="tick-icon">
@@ -129,7 +129,7 @@ const Dashboard = () => {
                 <h5>Exceptional Product Quality</h5>
               </div>
             </div>
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-key-fill serviceIcon"></i>
@@ -137,7 +137,7 @@ const Dashboard = () => {
                 <h5>Ease of Access</h5>
               </div>
             </div>
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-headset serviceIcon"></i>
@@ -145,7 +145,7 @@ const Dashboard = () => {
                 <h5>Expert Advice & Support</h5>
               </div>
             </div>
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-wallet2 serviceIcon"></i>
