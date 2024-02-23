@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(cors())
 // app.use(
 //   cors({
-//     origin: "https://tafieecom-hosting.vercel.app",
+//     origin: "http://localhost:8080",
 //     methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
 //     credentials: true,
 //   })

@@ -208,3 +208,78 @@ input:focus, textarea:focus {
 .footer .contactus p a{
   color: white !important;
 }
+br{
+  display: none;
+}
+.footer .made{
+  text-align: right;
+}
+@media (max-width: 768px) {
+  .footer .main-footer .footer-nav .row.foot-navigation{
+    flex-direction: column-reverse;
+  }
+  .footer .main-footer .column2 h5, .footer .main-footer .column1 h5{
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .footer .main-footer .column2 .list, .footer .main-footer .column1 .list{
+    padding: 0px;
+    font-size: 13px;
+  }
+  .footer .main-footer .column1 .website-icons{
+    padding-top: 5px ;
+  }
+  .footer .main-footer .column1 .website-icons i{
+    font-size: 13px;
+  }
+  .footer .main-footer .column3{
+    text-align: left;
+  }
+  .footer .main-footer .column3 .col-12 img{
+    width: 80%;
+    padding: 25px 25px 25px 0px;
+  }
+  .footer .middle-container{
+    width: 93%;
+  }
+  .footer .headingMainText h1{
+    font-size: 40px;
+  }
+  .footer .aao-baat-kre h1{
+    padding-left:50px ;
+  }
+  .footer .aao-baat-kre p{
+    font-size: 15px;
+  }
+
+  .footer .form-content{
+    padding: 15px;
+  }
+  .footer .form-content .form{
+    padding: 20px;
+    width: 100%;
+  }
+  .footer .credits .footer-credit{
+    font-size: 13px;
+  }
+  br{
+    display: block;
+  }
+  .footer .made{
+    text-align: left;
+  }
+}
+
+@media (max-width: 568px){
+  .footer .full-form{
+    background-image: url("../../assets/footer-background-mob.jpg");
+    width: 80%;
+    margin: auto;
+    margin-top: -13rem;
+    border-radius: 2rem;
+  }
+  .footer .form-img{
+    background-image: url("../../assets/footer-mask-mob.png");
+  }
+}

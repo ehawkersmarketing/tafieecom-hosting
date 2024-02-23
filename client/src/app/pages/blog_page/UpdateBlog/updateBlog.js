@@ -22,6 +22,8 @@ const UpdateBlog = () => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // history("/adminPage");
+      }if(user.role.role === "User"){
+        history("/")
       } else {
         history("/auth/login");
       }

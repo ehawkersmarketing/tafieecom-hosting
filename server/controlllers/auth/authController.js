@@ -179,7 +179,6 @@ exports.user = async (req, res) => {
   }
 };
 
-
 exports.getUserById = async(req,res) =>{
     try {
       const user = await userModel.findById({ _id: req.params.id });
@@ -203,6 +202,7 @@ exports.getUserById = async(req,res) =>{
       });
     }
   };
+
 
 exports.updateUserById = async(req,res) => {
   try {

@@ -19,8 +19,28 @@ const FeatureCarouselCard = ({ items }) => {
                         '<span class="arrow prev">‹</span>',
                         '<span class="arrow next">›</span>'
                     ]}
+                    responsive={{
+                        0: { // For mobile devices
+                            items:  1,
+                            navText: false
+                            
+                        },
+                        576:{
+                            items:2,
+                            navText:false,
+                        },
+                        768: { // For tablets and small desktops
+                            itemsText:  3,
+                            navText:false,
+                            nav:false,
+                            
+                        },
+                        922:{
+                            itemsText:3,
+                        }
+                    }}
                     autoplayHoverPause={true}
-                    autoplay={true} >{items?.map((item) => {
+                    autoplay={false} >{items?.map((item) => {
                         return <FeaturedProductCard item={item} className='productItem' />
                     })}
                 </OwlCarousel>

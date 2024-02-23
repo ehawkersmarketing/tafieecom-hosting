@@ -15,15 +15,60 @@ import $ from "jquery";
 
 const Product = () => {
   const { id } = useParams();
-
+// console.log("id",id)
   const userUniqueId = localStorage.getItem("user_id");
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(userUniqueId);
+  // console.log(userUniqueId);
   const { data: product } = useFetch(`/api/getProduct/${id}`);
   const { data: allProducts } = useFetch("/api/allProducts");
   const { data: reviews, setData: setReviews } = useFetch(
     `/api/getReviewById/${id}`
   );
+  // console.log(reviews?.reviews)
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    // Function to fetch order data from the backend
+
+    const fetchProduct = async () => {
+      try {        
+          const response = await fetch("http://localhost:8080/api/getProduct/" + id);
+          
+          if (response) {
+            const data = await response.json();
+           console.log(data)
+           if(data.success === false){
+            console.log("navigate")
+            navigate(`/shopPage`)
+          }else if(data.success === true){
+            if(data.data.user._id === user?._id){
+              console.log("vkdvd")
+            }else {
+              console.log("go navigate")
+              navigate(`/shopPage`);
+            }
+          } 
+           
+                   
+          } else {
+            throw new Error('Order not found');
+          }
+        
+        }catch (error) {
+          setError(error.message);
+        }
+      }
+        
+    fetchProduct(); 
+    
+  }, [id]);
+
+
+
+
+
+
+
+
   const [inputHandler, setInputHandler] = useState({
     reviewContent: " ",
     rating: " ",
@@ -85,12 +130,19 @@ const Product = () => {
   };
 
   const fetchReviews = async () => {
-    const { data } = await axios.get(
-      `https://twicks-backend.onrender.com/api/getReviewById/${id}`
-    );
-    setReviews(data.data);
+    try {
+      // console.log("Fetching reviews...");
+      const response = await axios.get(`https://twicks-backend.onrender.com/api/getReviewById/${id}`);
+      console.log("Reviews fetched:", response.data.data);
+      if ( response.data.data.reviews) {
+        setReviews(response.data.data.reviews);
+      } else {
+        console.error("No reviews found in the response.");
+      }
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
   };
-
   const ReviewAddHandler = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -106,19 +158,20 @@ const Product = () => {
       });
       if (data.success) {
         setRated(0);
-        fetchReviews();
         setInputHandler({
           ...inputHandler,
           reviewContent: " ",
           rating: " ",
         });
+        window.location.reload();
       }
     }
+    fetchReviews();
   };
 
   $(document).ready(function () {
-    var list = $(".list li");
-    var numToShow = 3;
+    var list = $(".list");
+    var numToShow = 4;
     var button = $("#next");
     var numInList = list.length;
     list.hide();
@@ -139,7 +192,7 @@ const Product = () => {
 
   const increaseValueHandler = async () => {
     try {
-      if (quantity == product.units.maxQuantity) {
+      if (quantity === product.units.maxQuantity) {
         toast.error(`You have reached product max limit`, {
           position: "bottom-right",
           autoClose: 8000,
@@ -218,10 +271,10 @@ const Product = () => {
           <div className="wrapper">
             <div className="container">
               <div className="inner-container row">
-                <div className="product-image col-7">
+                <div className="product-image col-md-7">
                   <img src={product?.image} alt="product-img" />
                 </div>
-                <card className="card card-design col-5">
+                <card className="card card-design col-md-5">
                   <div className="inner-card">
                     <h3 className="category-name">
                       {product?.category?.category}
@@ -345,21 +398,20 @@ const Product = () => {
             </div>
             <div className="review-description">
               <div className="list">
-                {reviews?.reviews.map((item) => {
-                  console.log(item?.userId?.userName);
+          
+                {reviews?.reviews?.map((item) => {
                   return (
-                    <li>
+                    <li className="list">
                       <div className="user-review">
                         <div className="user-main-review">
                           <span className="user-icon">
                             <i class="bi bi-person-circle"></i>
                           </span>
                           <h3 className="personName">
-                            {item?.userId.userName}
+                            {item?.userId?.userName}
                           </h3>
                         </div>
                         <ul className="rating">
-                          {" "}
                           {Array.apply(null, { length: 5 }).map((e, i) => (
                             <li>
                               <i
@@ -373,16 +425,15 @@ const Product = () => {
                             </li>
                           ))}
                         </ul>
-                        <p>{item.review}</p>
+                        <p>{item?.review}</p>
                       </div>
                     </li>
                   );
                 })}
               </div>
-
-              {product && product.reviews.length > 3 && (
+              {product && product?.reviews > 3 && (
                 <button className="load-more" id="next">
-                  Load More<i className="bi bi-chevron-down"></i>{" "}
+                  Load More<i className="bi bi-chevron-down"></i>
                 </button>)}
               
             </div>

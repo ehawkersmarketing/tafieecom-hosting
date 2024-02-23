@@ -24,13 +24,50 @@ const Myaccount = () => {
   const { data: locationData } = useFetch(`/api/getUserAddress/${user?._id}`);
   const { data: orders } = useFetch(`/api/getAllOrderByUser/${user?._id}`);
 
+  const [error, setError] = useState(null);
+   useEffect(() => {
+    // Function to fetch order data from the backend
+
+    const fetchUser = async () => {
+      try {        
+          const response = await fetch("http://localhost:8080/auth/user/" + id);
+          
+          if (response) {
+            const data = await response.json();
+           console.log(data)
+           if(data.success === false){
+            console.log("navigate")
+            navigate(`/`)
+
+          }else if(data.success === true){
+            if(data.data.user._id === user?._id){
+              console.log("vkdvd")
+            }else {
+              console.log("go navigate")
+              navigate(`/`);
+            }
+          }                
+          } else {
+            throw new Error('user not found');
+          }
+        
+        }catch (error) {
+          setError(error.message);
+        }
+      }
+        
+    fetchUser(); 
+    
+  }, [id]);
+
+
 
   useEffect(() => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         navigate('/')
       }
-    } else {
+    }else {
       navigate("/auth/login");
     }
   }, [user]);
@@ -44,7 +81,7 @@ const Myaccount = () => {
       <Header />
       <div className="user-account">
         <div className="account row">
-          <div className="col-3 account-dashboard">
+          <div className="col-md-3 account-dashboard">
             <div className="div-admin">
               <div>
                 <div className="top-div"></div>
@@ -93,7 +130,7 @@ const Myaccount = () => {
               </div>
             </div>
           </div>
-          <div className="col-9 account-detail">
+          <div className="col-md-9 account-detail">
             {value == 0 && (
               <div className="profile-detail-outer">
                 <div className="profile-head">

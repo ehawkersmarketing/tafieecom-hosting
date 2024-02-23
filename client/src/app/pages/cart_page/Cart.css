@@ -89,3 +89,33 @@ div.emptyDiv{
    }
 
  
+   @media (max-width: 767px) {
+    
+    .cart-page {
+        padding: 3rem 0;
+        padding-bottom: 8rem;
+    }
+    .cart-page .cart-overall {
+   
+    width: 90%;
+    }
+    .cart-page .cart-header h2{
+        font-size: 3rem;
+    }
+    .cart-page  .table-head .table-row th, .cart-page  .table-body td , .cart-page .table-footer td{
+        font-size: 12px;
+    }
+    .cart-page .table-row td button {
+        height: 15px;
+        width: 15px;
+        margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    font-size: 10px;
+    line-height: 1;
+    padding: 2px;
+    }
+    .checkout-subtotal {
+        width: 100%;
+    }
+
+   }

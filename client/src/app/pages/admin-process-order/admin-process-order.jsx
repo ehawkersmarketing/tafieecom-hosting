@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./admin-process-order.css";
 import TafiLogo from "../../assets/Tafi_logo_white.png";
 import Header from "../header/header";
@@ -8,9 +8,28 @@ import axios from 'axios';
 import { useFetch } from "../../hooks/api_hook";
 import { toast, ToastContainer } from 'react-toastify';
 
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 
 const AdminProcessOrder = () => {
   const { id } = useParams();
+  const orderId = useParams()
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const acceptHandler = () => setValue(1);
@@ -25,6 +44,11 @@ const AdminProcessOrder = () => {
     height: 0,
     weight: 0
   });
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
   useEffect(() => {
     if (!user || user.role.role === 'User' || user.role.role === 'Editor') {
@@ -98,6 +122,44 @@ const AdminProcessOrder = () => {
       });
     }
   }
+  
+  const [topping, setTopping] = useState("By Self")
+
+  const onOptionChange = e => {
+    setTopping(e.target.value)
+  }
+
+  const ShippingDeliveryHandler = () =>{
+       if(topping === "By Self"){
+      axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+          status :"By Self",
+        })
+        .then((res) => {
+          console.log(res.data);
+          navigate("/adminPage")
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+       
+        console.log("order",order) 
+       }else if(topping === "By ShipRocket"){
+          
+        axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+          status :"By ShipRocket",
+        })
+        .then((res) => {
+          dashboardHandler();
+          console.log(res.data);
+          navigate("/adminPage")
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+       
+       }
+  }
+
 
   return (
     <>
@@ -213,6 +275,57 @@ const AdminProcessOrder = () => {
           </button>
         </div>
       )}
+
+<Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+
+  <Box sx={style}>
+  <div>
+      <h3>Select Delivery Option</h3>
+      <hr />
+   <div>
+      <input
+        type="radio"
+        name="topping"
+        value="By Self"
+        id="regular"
+        checked={topping === "By Self"}
+        onChange={onOptionChange}
+      />
+      <label htmlFor="regular">By Self</label>
+      </div>
+      <div>
+      <input
+        type="radio"
+        name="topping"
+        value="By ShipRocket"
+        id="medium"
+        checked={topping === "By ShipRocket"}
+        onChange={onOptionChange}
+      />
+      <label htmlFor="medium">By ShipRocket</label>
+      </div>
+      <hr />
+      <p>
+        Selected option <strong>{topping}</strong>
+      </p>
+      <div className="popup-button">
+        <div>
+          <button className="save-button-a" onClick={ShippingDeliveryHandler}>save</button>
+        </div>
+        <div>
+          <button className="save-button-a" onClick={handleClose}>close</button>
+        </div>
+      </div>
+        
+    </div>
+  </Box>
+</Modal>
+
       {value == 1 && (
         <div className="table-for-input">
           <hr />
@@ -238,7 +351,7 @@ const AdminProcessOrder = () => {
             </div>
 
             <div className="shipment-buttons">
-              <button className="confirm-button btn btn-primary" onClick={dashboardHandler}>
+              <button className="confirm-button btn btn-primary" onClick={handleOpen}>
                 Confirm Shipment
               </button>
               <button

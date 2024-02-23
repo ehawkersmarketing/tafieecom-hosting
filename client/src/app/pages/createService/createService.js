@@ -22,6 +22,8 @@ const CreateService = () => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // navigate("blog/composeBlog");
+      }if(user.role.role === "User"){
+        navigate("/")
       } else {
         navigate("/auth/login");
       }

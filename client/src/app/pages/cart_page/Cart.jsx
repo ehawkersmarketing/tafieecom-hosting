@@ -109,7 +109,7 @@ const Cart = () => {
           <thead className="table-head">
             <tr className="table-row">
               <th>Product Name</th>
-              <th>Price (INR)</th>
+              <th>Price (₹)</th>
               <th>Quantity</th>
               <th>Total Amount</th>
             </tr>

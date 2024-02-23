@@ -1,5 +1,6 @@
 import "./SingleBlog.css";
-import { Link, useParams } from "react-router-dom";
+import { useState ,useEffect } from "react";
+import { Link, useParams  } from "react-router-dom";
 import resourcepage1 from "../../../assets/resourcecenter1.png";
 import blogpage_img from "../../../assets/blogpage_head.jpeg";
 import { useFetch } from "../../../hooks/api_hook";
@@ -9,9 +10,50 @@ import Footer from "../../footer/footer";
 import { useNavigate } from "react-router-dom";
 const SingleBlog = () => {
   const { blogId } = useParams();
+
   const { data: blog } = useFetch(`/api/blog/${blogId}`);
   const { data: blogs } = useFetch("/api/blogs");
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    // Function to fetch order data from the backend
+
+    const fetchBlog = async () => {
+      try {        
+          const response = await fetch("http://localhost:8080/api/blog/" + blogId);
+          
+          if (response) {
+            const data = await response.json();
+           console.log(data)
+           if(data.success === false){
+            console.log("navigate")
+            navigate(`/blog`)
+
+          }else if(data.success === true){
+            if(data.data.user._id === user?._id){
+              console.log("vkdvd")
+            }else {
+              console.log("go navigate")
+              // navigate(`/blog`);
+            }
+          } 
+           
+                   
+          } else {
+            throw new Error('Order not found');
+          }
+        
+        }catch (error) {
+          setError(error.message);
+        }
+      }
+        
+    fetchBlog(); 
+    
+  }, [blogId]);
+
+
 
   const backHandler = () => {
     navigate("/blog");
@@ -26,10 +68,10 @@ const SingleBlog = () => {
       <div className="single_blog">
         <div className="single_blog_tile row">
           <div className="tile-circle"></div>
-          <div className="tile_title col-5">
+          <div className="tile_title col-md-5 col-12 ">
             <div className="title_text">
               <div>
-                <h1>{blog && blog.title}</h1>
+                <h1>{blog && blog.title.substring(0,30)}..</h1>
               </div>
               <div>
                 <p>
@@ -38,7 +80,7 @@ const SingleBlog = () => {
               </div>
             </div>
           </div>
-          <div className="tile_image col-7">
+          <div className="tile_image col-md-7">
             <div
               className="blogpage_img"
               style={{ backgroundImage: `url(${blog?.image})` }}
@@ -46,7 +88,7 @@ const SingleBlog = () => {
           </div>
         </div>
         <div className="single_blog_below_tile row">
-          <div className="single_blog_content col-9">
+          <div className="single_blog_content col-md-9">
             <div className="single_blog_content_title">
               <div>
                 <button
@@ -77,7 +119,7 @@ const SingleBlog = () => {
               <p>{blog && blog.content}</p>
             </div>
           </div>
-          <div className="single_blog_relatedpost col-3">
+          <div className="single_blog_relatedpost col-md-3">
             <div>
               <h4>Related Posts</h4>
             </div>

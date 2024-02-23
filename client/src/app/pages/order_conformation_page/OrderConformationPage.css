@@ -1,11 +1,12 @@
-.main {
+.order-confirm {
     width: 100%;
+    padding-top: 3rem;
     flex-shrink: 0;
     background: linear-gradient(90deg, rgba(41, 100, 94, 0.10) -0.43%, rgba(68, 169, 139, 0.10) 99.93%), var(--light-base-green-2, #EBF6F5);
 }
 
-.main .main-1 {
-    margin-top: 3rem !important;
+.order-confirm .main-1 {
+    /* padding-top: 3rem !important; */
     margin: auto;
     width: 90%;
     background-color: #fff;
@@ -54,11 +55,11 @@
     background: linear-gradient(79deg, #CEE5D3 0.36%, #D0E9D6 58.15%, #D8F4DF 117.12%);
 }
 
-.main h1 {
+.order-confirm h1 {
     color: rgba(25, 68, 63, 1)
 }
 
-.main p {
+.order-confirm p {
     color: rgba(68, 169, 139, 1)
 }
 
@@ -113,7 +114,11 @@
 }
 
 .status {
-    padding-left: 6rem
+    padding-left: 2rem
+}
+.status img{
+    max-width:80% ;
+    
 }
 
 .order-link button {
@@ -179,4 +184,68 @@
     column-gap: 20px;
     align-items: center;
     height: fit-content;
+}
+
+@media (max-width:992px) {
+    .order-confirm .main-1{
+        width: 95%;
+        padding: 2rem;
+    }
+    .order-confirm .order-header .title h2{
+        font-size: 25px;
+    }
+    .order-confirm .order-header .sub-title p{
+        font-size: 14px;
+    }
+    .order-confirm .details h4{
+        font-size: 18px;
+    }
+    .order-confirm .details p{
+        font-size: 13px;
+    }
+    .order-confirm{
+        padding-bottom: 3rem;
+        .BillingDetails, .ShippingDetails, .OrderDetails{
+            padding-left: 0.7rem;
+            padding-top: 0.8rem;
+            .row{
+                column-gap: 2px;
+            }
+        }
+    }
+    .OrderDetails-text .row{
+        display: flex;
+        align-items: center;
+    }
+}
+@media (max-width:768px) {
+    .order-confirm .main-1{
+        width: 97%;
+        padding: 1rem;
+    }
+    .order-confirm .main-1 .all-data{
+        flex-direction: column-reverse;
+        .status{
+            display: none;
+        }
+    }
+    .order-confirm{
+        .details{
+            row-gap: 5px;
+        }
+        .BillingDetails, .ShippingDetails, .OrderDetails{
+            width: 100%;
+            
+        }
+        .invoice-download {
+            padding-bottom: 1rem;
+            button{
+            margin: auto;
+        }}
+    }
+    .order-link button{
+        
+        margin: 0px;
+        margin-top:1rem;
+    }
 }

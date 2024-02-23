@@ -53,62 +53,15 @@ const SignIn = () => {
   }
 
 let signedUser
-  // const onSendOtp = async (event) => {
-  //   try {
-  //     event.preventDefault();
-  //     if (formField.phone.length == 10) {
-  //     users?.forEach(item => {
-  //       signedUser = (item?.phone === formField.phone)
-  //       //  console.log(item?.phone , formField.phone)
-  //        return console.log(signedUser)
-  //     })
-  //       console.log(signedUser)
-  //       if(signedUser===false){
-  //         alert('login sirji')
-  //       }else{
-  //         const { data } = await axios.post(
-  //           "https://twicks-backend.onrender.com/auth/sendOtp",
-  //           {
-  //             phone: formField.phone,
-  //           }
-  //         );
-  //         token = data.token;
-  //         if (data.success) {
-  //           toast.success("OTP Sent successfully", {
-  //             position: "bottom-right",
-  //             autoClose: 8000,
-  //             pauseOnHover: true,
-  //             draggable: true,
-  //             theme: "dark",
-  //           });
-  //         }}
-  //       }
-  //      else {
-  //       toast.error("Please enter a valid phone number", {
-  //         position: "bottom-right",
-  //         autoClose: 8000,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         theme: "dark",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     toast.error("error", {
-  //       position: "bottom-right",
-  //       autoClose: 8000,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       theme: "dark",
-  //     });
-  //   }
-  // };
 
 
   const onSendOtp = async (event) => {
+    console.log("vjvsujsvd")
     try {
        event.preventDefault();
        if (formField.phone.length == 10) {
          const userExists = users?.some(item => item?.phone === formField.phone);
+         console.log(userExists)
          if(!userExists){
           toast.error(`User is not Registered`, {
             position: "bottom-right",
@@ -155,8 +108,59 @@ let signedUser
     }
    };
    
+   const RegisterSendOtp = async (event) => {
+    console.log("vjvsujsvd")
+    try {
+       event.preventDefault();
+       if (formField.phone.length == 10) {
+        //  const userExists = users?.some(item => item?.phone === formField.phone);
+        //  console.log(userExists)
+        //  if(!userExists){
+        //   toast.error(`User is not Registered`, {
+        //     position: "bottom-right",
+        //     autoClose: 8000,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     theme: "dark",
+        //   });
+        //  } else {
+           const { data } = await axios.post(
+             "http://localhost:8080/auth/sendOtp",
+             {
+               phone: formField.phone,
+             }
+           );
+           token = data.token;
+           if (data.success) {
+             toast.success("OTP Sent successfully", {
+               position: "bottom-right",
+               autoClose: 8000,
+               pauseOnHover: true,
+               draggable: true,
+               theme: "dark",
+             });
+          //  }
+         }
+       } else {
+         toast.error("Please enter a valid phone number", {
+           position: "bottom-right",
+           autoClose: 8000,
+           pauseOnHover: true,
+           draggable: true,
+           theme: "dark",
+         });
+       }
+    } catch (error) {
+       toast.error(`${error.response.data.message}`, {
+         position: "bottom-right",
+         autoClose: 8000,
+         pauseOnHover: true,
+         draggable: true,
+         theme: "dark",
+       });
+    }
+   };
    
-
 
   const onSignUp = async (event) => {
     try {
@@ -184,7 +188,7 @@ let signedUser
             if (formField.checkbox == 0) {
               forgotOnClose();
             }
-            navigate("/");
+            navigate("/auth/login");
           } else {
             toast.error(data.message, {
               position: "bottom-right",
@@ -292,7 +296,7 @@ let signedUser
       {path === "login" && (
         <div className="div sign_in">
           <div className="div-8">
-            <div className="div-9">
+            <div className="div-9 d-flex flex-row ">
               <div className="column">
                 <div className="div-10">
                   <div className="div-11">
@@ -303,14 +307,14 @@ let signedUser
                         src={Tafi_logo_white}
                         className="img-3"
                       />
-                      <div className="div-12">
+                      {/* <div className="div-12">
                         <div>
                           <span className="welcome-text">Enter the </span>
                         </div>
                         <div>
                           <span className="back-text">Agro-Tech World!</span>
                         </div>
-                      </div>
+                      </div> */}
                     </span>
                     <img loading="lazy" src={photo} className="img-4" />
                   </div>
@@ -339,7 +343,7 @@ let signedUser
                   {/* <div className="input-phone">
                   <input type="tel" placeholder="Enter phone number" />
                 </div> */}
-                  <span className="span-7">
+                  <span className="span-6">
                     <div className="div-16" />
                     <div className="div-17">
                       <input
@@ -383,7 +387,7 @@ let signedUser
       {path === "register" && (
         <div className="div sign_up">
           <div className="div-8">
-            <div className="div-9">
+            <div className="div-9 d-flex flex-row">
               <div className="column-2">
                 <span className="span-5">
                   <div className="div-13">Register</div>
@@ -412,13 +416,13 @@ let signedUser
                         placeholder="Enter your phone number"
                         maxLength={10}
                       />
-                      <button className="button_otp" onClick={onSendOtp}>
+                      <button className="button_otp" onClick={RegisterSendOtp}>
                         Generate otp
                       </button>
                     </div>
                   </span>
 
-                  <span className="span-7">
+                  <span className="span-6">
                     <div className="div-16" />
                     <div className="div-17">
                       <input
@@ -437,11 +441,11 @@ let signedUser
                     />
                     Keep me signed in
                   </div>
-                  <div className="register">
+                  
                     <button className="span-9" onClick={onSignUp}>
                       Register
                     </button>
-                  </div>
+                  
 
                   <div className="div-20">
                     <span className="register-text">Already a user? </span>
@@ -464,14 +468,14 @@ let signedUser
                         src={Tafi_logo_white}
                         className="img-3"
                       />
-                      <div className="div-12">
+                      {/* <div className="div-12">
                         <div>
                           <span className="welcome-text">Grow</span>
                         </div>
                         <div>
                           <span className="back-text">With Us!</span>
                         </div>
-                      </div>
+                      </div> */}
                     </span>
                     <img loading="lazy" src={photo} className="img-4" />
                   </div>

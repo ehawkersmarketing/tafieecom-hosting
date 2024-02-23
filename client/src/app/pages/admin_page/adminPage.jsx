@@ -11,10 +11,11 @@ import { toast, ToastContainer } from "react-toastify";
 import Header from "../header/header";
 import GraphRevenue from "./components/graphRevenue";
 const AdminPage = () => {
-  
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const auth =localStorage.getItem("auth_token");
+
   const { data: blogs, setData: setBlogs } = useFetch("/api/blogs");
   const { data: products } = useFetch("/api/allProducts");
   const { data: orders } = useFetch("/api/getAllOrders");
@@ -70,7 +71,7 @@ const AdminPage = () => {
       let previousOrder = new Date(dataSet.timestamps);
       // console.log(dataSet?.timestamps)
       var diff = currentOrder.getMonth() - previousOrder.getMonth();
-      console.log(diff_months(currentOrder, previousOrder));
+      // console.log(diff_months(currentOrder, previousOrder));
 
       // console.log(diff_months)
       if (diff_months(currentOrder, previousOrder) !== 0) {
@@ -80,7 +81,7 @@ const AdminPage = () => {
         }
         if (dataSet?.orderStatus === "REJECTED") {
           previousRejectedCount = previousRejectedCount + 1;
-          console.log(previousRejectedCount);
+          // console.log(previousRejectedCount);
         }
         if (dataSet?.orderStatus === "APPROVED") {
           previousApprovedCount = previousApprovedCount + 1;
@@ -121,8 +122,9 @@ const AdminPage = () => {
 
   const [diffdata, setDiffData] = useState({ old: [], new: [] });
 
-  const dashboardHandler = () => { 
-    setValue(1)} ;
+  const dashboardHandler = () => {
+    setValue(1);
+  };
   const storeHandler = () => setValue(0);
   const productHandler = () => setValue(3);
   const blogHandler = () => setValue(4);
@@ -136,9 +138,11 @@ const AdminPage = () => {
       let total = 0;
       let previousRevenue = 0;
       for (let i = 0; i < orders?.length; i++) {
-        if(diff_months(new Date(), new Date(orders[i].timestamps)) === 0){
+        if (diff_months(new Date(), new Date(orders[i].timestamps)) === 0) {
           total = orders[i]?.amount;
-        }else if(diff_months(new Date(), new Date(orders[i].timestamps)) === 1){
+        } else if (
+          diff_months(new Date(), new Date(orders[i].timestamps)) === 1
+        ) {
           previousRevenue += orders[i].amount;
         }
       }
@@ -153,7 +157,10 @@ const AdminPage = () => {
         setValue(1);
       } else if (user.role.role === "Editor") {
         setValue(3);
-      } else {
+      } else if(user.role.role === "User") {
+        console.log(user._id)
+        navigate(`/myaccount/${user?._id}`);
+      }else{
         navigate("/auth/login");
       }
     } else {
@@ -194,12 +201,12 @@ const AdminPage = () => {
   };
 
   const deleteServiceHandler = (id) => {
-    console.log("id", id);
-    fetch(`https://twicks-backend.onrender.com/api/deleteService/${id}`, { method: "DELETE" })
+    // console.log("id", id);
+    fetch(`http://localhost:8080/api/deleteService/${id}`, { method: "DELETE" })
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "service deleted!!") {
-          console.log("deleted");
+          // console.log("deleted");
           fetchDeletedService();
         }
       });
@@ -212,8 +219,8 @@ const AdminPage = () => {
   }
 
   const fetchDeletedService = async () => {
-    const { data } = await axios.get(`https://twicks-backend.onrender.com/api/getAllService`);
-    console.log(data);
+    const { data } = await axios.get(`http://localhost:8080/api/getAllService`);
+    // console.log(data);
     setServices(data.data);
   };
 
@@ -312,102 +319,192 @@ const AdminPage = () => {
     "--size": 0.4,
     fontSize: "var(--size)rem",
   };
+  const [open, setOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState({
+    filter: "",
+  });
+
+  const applyFilter = (e, index) => {
+    if (index === 2) {
+      setActiveFilter({ filter: e.target.value });
+      setOpen(false);
+    }
+  };
+
+const getInitialStatus = (id) => {
+  const savedStatus = localStorage.getItem(`selectedOrderStatus-${id}`);
+  return savedStatus ? savedStatus : '';
+};
+
+// Initialize the state as an object to store statuses for each order
+const [orderStatuses, setOrderStatuses] = useState({});
+
+// When the component mounts, check local storage for each order's status
+useEffect(() => {
+  // Assuming `orders` is an array of order IDs that you have
+  if (orders) {
+    orders.forEach(order => {
+      const savedStatus = getInitialStatus(order._id);
+      if (savedStatus) {
+        setOrderStatuses(prevStatuses => ({
+          ...prevStatuses,
+          [order._id]: savedStatus
+        }));
+      }
+    });
+  }
+}, [orders]); // Depend on `orders` to re-run the effect when it changes
+
+const handlechangeOrderStatus = (e, id) => {
+  const newOrderStatus = e.target.value;
+  setOrderStatuses(prevStatuses => ({
+    ...prevStatuses,
+    [id]: newOrderStatus
+  }));
+  localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
+  console.log(newOrderStatus);
+  orderStatusHandler(id, newOrderStatus);
+};
+
+const orderStatusHandler = (id, orderStatus) => {
+  console.log(orderStatus);
+  axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+    length:   1,
+    orderStatus: orderStatus,
+  })
+  .then((res) => {
+    console.log(res.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
+
+
 
   return (
     <div className="admin-wrapper">
       <Header />
       {user && (
         <div className="row row-wrapper">
-          <div className="col-3 admin-sub-wrapper">
-            <div className="div-admin">
-              <div>
-                <div className="top-div"></div>
-                <div className="logo">
-                  <div className="image">
-                    <img src={logoImage} className="img-logo" alt="tafi-logo" />
+          <div className="col-md-3 p-2 admin-sub-wrapper navbar navbar-expand-md bg-body-tertiary">
+            <button
+              class="d-flex d-md-none justify-content-around w-100 sticky navbar-toggler mt-2 align-item-center"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <p className="mb-0">View Admin Menu</p>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+            <div
+              className="div-admin collapse  w-100 navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <div className="w-100">
+                <div className="admin-logo-section">
+                  <div className="top-div"></div>
+                  <div className="logo">
+                    <div className="image">
+                      <img
+                        src={logoImage}
+                        className="img-logo"
+                        alt="tafi-logo"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="sidebar">
-                {user.role.role === "Admin" && (
-                  <div>
-                    <div className="sidebar-title active-link-admin" onClick={dashboardHandler}>
-                      <div className="icon">
-                        <i class="bi bi-bar-chart-fill"></i>
+                <div className="sidebar">
+                  {user.role.role === "Admin" && (
+                    <div>
+                      <div
+                        className="sidebar-title active-link-admin"
+                        onClick={dashboardHandler}
+                      >
+                        <div className="icon">
+                          <i class="bi bi-bar-chart-fill"></i>
+                        </div>
+                        <div className="title">Dashboard</div>
                       </div>
-                      <div className="title">Dashboard</div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {user.role.role === "Admin" && (
-                  <div>
-                    <div className="sidebar-title" onClick={storeHandler}>
-                      <div className="icon">
-                        <i class="bi bi-shop"></i>
+                  {user.role.role === "Admin" && (
+                    <div>
+                      <div className="sidebar-title" onClick={storeHandler}>
+                        <div className="icon">
+                          <i class="bi bi-shop"></i>
+                        </div>
+                        <div className="title">All Orders</div>
                       </div>
-                      <div className="title">All Orders</div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                <div>
-                  <div className="sidebar-title"  onClick={blogHandler}>
-                    <div className="icon">
-                      <i class="bi bi-layout-text-window-reverse"></i>
-                    </div>
-                    <div className="title">Blogs</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="sidebar-title" onClick={productHandler}>
-                    <div className="icon">
-                      <i class="bi bi-box"></i>
-                    </div>
-                    <div className="title">Products</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="sidebar-title" onClick={serviceHandler}>
-                    <div className="icon">
-                      <i class="bi bi-box"></i>
-                    </div>
-                    <div className="title">Services</div>
-                  </div>
-                </div>
-
-                <div>
                   <div>
-                    <div className="h3-title">ACCOUNT PAGES</div>
-                  </div>
-                </div>
 
-                {user.role.role === "Admin" && (
-                  <div>
-                    <div className="sidebar-title " onClick={userHandler}>
+                    <div className="sidebar-title" onClick={blogHandler}>
+
                       <div className="icon">
-                        <i class="bi bi-person-circle"></i>
+                        <i class="bi bi-layout-text-window-reverse"></i>
                       </div>
-                      <div className="title">User</div>
+                      <div className="title">Blogs</div>
                     </div>
                   </div>
-                )}
 
-                <div>
-                  <div className="sidebar-title" onClick={onLogOut}>
-                    <div className="icon">
-                      <i class="bi bi-person"></i>
+                  <div>
+                    <div className="sidebar-title" onClick={productHandler}>
+                      <div className="icon">
+                        <i class="bi bi-box"></i>
+                      </div>
+                      <div className="title">Products</div>
                     </div>
-                    <div className="title">Logout</div>
+                  </div>
+
+
+                  <div>
+                    <div className="sidebar-title" onClick={serviceHandler}>
+                      <div className="icon">
+                        <i class="bi bi-box"></i>
+                      </div>
+                      <div className="title">Services</div>
+
+                    </div>
+                  </div>
+
+                  <div>
+                    <div>
+                      <div className="h3-titlfe">ACCOUNT PAGES</div>
+                    </div>
+                  </div>
+
+                  {user.role.role === "Admin" && (
+                    <div>
+                      <div className="sidebar-title " onClick={userHandler}>
+                        <div className="icon">
+                          <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div className="title">User</div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div>
+                    <div className="sidebar-title" onClick={onLogOut}>
+                      <div className="icon">
+                        <i class="bi bi-person"></i>
+                      </div>
+                      <div className="title">Logout</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="col-9 admin-suber-wrapper">
+          <div className="col-md-9 admin-suber-wrapper">
             {value == 0 && (
               <nav className="nav-admin-page">
                 <div className="admin-navbar">
@@ -593,28 +690,31 @@ const AdminPage = () => {
                     <div className="admin-card-header">
                       <h3 className="h3">Active Orders</h3>
                       <div className="admin-input-dropdown">
-                        <input
+                        {/* <input
                           type="text"
                           className="nav-input"
                           style={{ width: "15rem" }}
                           placeholder="Search"
-                        />
-                        {/* <div className="short">
+                        /> */}
+                        <div className="short">
                           <select
                             type="text"
                             name="input"
-                            id="input"
+                            id="filterDropdown"
                             placeholder="Short by:Newest "
+                            onChange={(e) => applyFilter(e, 2)}
+                            value={activeFilter.filter}
                           >
-                            <option>Short by : Newest</option>
-                            <option>yes</option>
+                            <option value=""> Filter By : Delievery </option>
+                            <option value="By Self">By Self</option>
+                            <option value="By ShipRocket">By ShipRocket</option>
                           </select>
-                        </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -626,8 +726,15 @@ const AdminPage = () => {
                           <th scope="col" className="th">
                             Price
                           </th>
-                          <th scope="col" className="th">
+                          <th
+                            scope="col"
+                            className="th"
+                            data-category="By Self"
+                          >
                             Status
+                          </th>
+                          <th scope="col" className="th">
+                            Delivery Option
                           </th>
                           <th scope="col" className="th">
                             No of Orders
@@ -641,17 +748,47 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {orders &&
-                          orders.map((order, index) => {
+                        {orders
+                          .filter((order) => {
+                            // If no filter is selected, show all orders
+                            if (activeFilter.filter === "") return true;
+                            // If a filter is selected, only show orders that match the filter
+                            return order.status === activeFilter.filter;
+                          })
+                          .map((order, index) => {
                             return (
-                              <tr>
+                              <tr key={order._id}>
                                 <th scope="row table-center">{index + 1}</th>
                                 <td className="td table-center">{order._id}</td>
                                 <td className="td table-center">
                                   {order.amount}
                                 </td>
+
+                                {order.status === "By Self" ? (
+                                <div>
+                                <select
+                                  className="orderSelect"
+                                  name="input"
+                                  id="orderStatus"
+                                  placeholder="Order Status"
+                                  value={orderStatuses[order._id] || ''} // Use the status for this specific order
+                                  onChange={(e) => handlechangeOrderStatus(e, order._id)}
+                                >
+                                  <option value="">Select </option>
+                                  <option value="APPROVED">APPROVED</option>
+                                  <option value="REJECTED">REJECTED</option>
+                                  <option value="PROCESSING">PROCESSING</option>
+                                  <option value="COMPLETED">COMPLETED</option>
+                                </select>
+                              </div>
+                                ) : (
+                                  <td className="td table-center">
+                                    {order.orderStatus}
+                                  </td>
+                                )}
+
                                 <td className="td table-center">
-                                  {order.orderStatus}
+                                  {order.status}
                                 </td>
                                 <td className="td table-center">10</td>
                                 <td className="td table-center">
@@ -683,7 +820,7 @@ const AdminPage = () => {
             {value == 1 && (
               <div className=" card admin-table-card dashboardCard">
                 <div className="admin-dashboard-card subHeading row">
-                  <div className="admin-dashboard-graph-cart card col-6">
+                  <div className="admin-dashboard-graph-cart card col-md-6">
                     <Chart
                       chartType="ColumnChart"
                       width="100%"
@@ -716,8 +853,8 @@ const AdminPage = () => {
                           <span>than last week</span>
                         </div>
                       </div>
-                      <div className="dash-desc-content">
-                        <div className="no-of-order">
+                      <div className="dash-desc-content row">
+                        <div className="no-of-order col-md-4 col-4">
                           <div className="order-dash-title">
                             <span className="order-bar-icon">
                               <i class="bi bi-cart"></i>
@@ -727,7 +864,7 @@ const AdminPage = () => {
                           <div className="dash-number">{orders?.length}</div>
                           <span className="progress-bar"></span>
                         </div>
-                        <div className="no-of-order">
+                        <div className="no-of-order col-md-4 col-4">
                           <div className="order-dash-title">
                             <span className="order-bar-icon">
                               <i class="bi bi-rocket-takeoff-fill"></i>
@@ -743,7 +880,7 @@ const AdminPage = () => {
                           </div>
                           <span className="progress-bar"></span>
                         </div>
-                        <div className="no-of-order">
+                        <div className="no-of-order col-md-4 col-4">
                           <div className="order-dash-title">
                             <span className="order-bar-icon">
                               <i class="bi bi-check"></i>
@@ -763,7 +900,7 @@ const AdminPage = () => {
                     </div>
                   </div>
 
-                  <div className="product-requirement col-6">
+                  <div className="product-requirement col-md-6">
                     <div className="product-dashboard-heading">
                       <h4
                         style={{
@@ -781,13 +918,13 @@ const AdminPage = () => {
                         <span> in 2024</span>
                       </div>
                     </div>
-                   <GraphRevenue/>
+                    <GraphRevenue />
                   </div>
                 </div>
-                <div className="orders-dash-card-format">
-                  <div className="order-analysis-card order-color-revenue">
+                <div className="orders-dash-card-format row">
+                  <div className="order-analysis-card order-color-revenue col-md-6">
                     <div className="analysis">
-                      <h2 className="order-analysis-title">ORDERS Analysis</h2>
+                      <h2 className="order-analysis-title">Orders Analysis</h2>
 
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
@@ -821,7 +958,7 @@ const AdminPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="order-analysis-card order-color-analysis">
+                  <div className="order-analysis-card order-color-analysis col-md-6">
                     <div className="analysis">
                       <h2 className="order-analysis-title">
                         Revenue Generated
@@ -830,7 +967,7 @@ const AdminPage = () => {
                       <div className="dash-order-analysis">
                         <div className="admin-dash-order">
                           <span class>This Month</span>
-                          {currentRevenue}
+                          <span>{currentRevenue}</span>
                         </div>
                       </div>
                       <div className="dash-order-analysis">
@@ -888,7 +1025,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -1053,7 +1190,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -1086,7 +1223,7 @@ const AdminPage = () => {
                                   <td className="td table-center">
                                     {blog.title}
                                   </td>
-                                  <td className="td table-center">
+                                  <td className="td icon-section table-center">
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
@@ -1114,7 +1251,7 @@ const AdminPage = () => {
                           blogs &&
                           blogs?.map((blog, index) => {
                             if (blog._id === deletedBlogId) {
-                              console.log(blog.title);
+                              // console.log(blog.title);
                               return null;
                             } else
                               return (
@@ -1129,7 +1266,7 @@ const AdminPage = () => {
                                   <td className="td table-center">
                                     {blog.title}
                                   </td>
-                                  <td className="td table-center">
+                                  <td className="td icon-section table-center">
                                     <span className="td-edit-icon ">
                                       <i
                                         class="bi bi-pencil-square"
@@ -1284,7 +1421,7 @@ const AdminPage = () => {
                     </div>
                   </div>
                   <div className="admin-table-div">
-                    <table class="table table-hover">
+                    <table class="table head-table table-hover">
                       <thead>
                         <tr>
                           <th scope="col" className="th">
@@ -1351,7 +1488,7 @@ const AdminPage = () => {
                         ) : (
                           services &&
                           services.map((service, index) => {
-                            console.log(service._id);
+                            // console.log(service._id);
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>
@@ -1367,7 +1504,7 @@ const AdminPage = () => {
                                 <td className="td table-center">
                                   {service.description.substring(0, 40)}
                                 </td>
-                                <td className="td table-center actions">
+                                <td className="td table-center icon-section actions">
                                   <span className="td-edit-icon ">
                                     <i
                                       class="bi bi-pencil-square"
