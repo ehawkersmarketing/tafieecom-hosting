@@ -40,6 +40,7 @@ const OrderConformationPage = () => {
           }else if(data.success === true){
             if(data.data.user._id === user?._id){
               console.log("vkdvd")
+              navigate(`/orderConfirmationPage/${id}`);
             }else if(data.data === null ) {
               console.log("data is null")
               navigate(`/myaccount/${user?._id}`);

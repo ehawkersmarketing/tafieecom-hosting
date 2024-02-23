@@ -174,7 +174,7 @@ exports.checkStatusFunction = async (req, res) => {
     } else {
       return res.status(500).send({
         success: false,
-        message: "Check status returnevbjhvd failed status of transaction",
+        message: "Check status return failed status of transaction",
       });
       nav
     }
