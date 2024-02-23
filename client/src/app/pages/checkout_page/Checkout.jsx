@@ -117,7 +117,7 @@ const Checkout = () => {
           }
         );
         if (data.success) {
-          const totalPayAmount = cart.totalPrice + 0;
+          const totalPayAmount = cart.totalPrice + shipCharge;
           const { data } = await axios.post(
             "http://localhost:8080/api/pay/phonePePayment",
             {
