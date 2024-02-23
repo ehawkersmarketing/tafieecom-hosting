@@ -136,6 +136,7 @@ const AdminProcessOrder = () => {
         })
         .then((res) => {
           console.log(res.data);
+          navigate("/adminPage")
         })
         .catch((err) => {
           console.log(err);
@@ -150,6 +151,7 @@ const AdminProcessOrder = () => {
         .then((res) => {
           dashboardHandler();
           console.log(res.data);
+          navigate("/adminPage")
         })
         .catch((err) => {
           console.log(err);

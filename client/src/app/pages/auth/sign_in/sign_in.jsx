@@ -56,10 +56,12 @@ let signedUser
 
 
   const onSendOtp = async (event) => {
+    console.log("vjvsujsvd")
     try {
        event.preventDefault();
        if (formField.phone.length == 10) {
          const userExists = users?.some(item => item?.phone === formField.phone);
+         console.log(userExists)
          if(!userExists){
           toast.error(`User is not Registered`, {
             position: "bottom-right",
@@ -106,8 +108,59 @@ let signedUser
     }
    };
    
+   const RegisterSendOtp = async (event) => {
+    console.log("vjvsujsvd")
+    try {
+       event.preventDefault();
+       if (formField.phone.length == 10) {
+        //  const userExists = users?.some(item => item?.phone === formField.phone);
+        //  console.log(userExists)
+        //  if(!userExists){
+        //   toast.error(`User is not Registered`, {
+        //     position: "bottom-right",
+        //     autoClose: 8000,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     theme: "dark",
+        //   });
+        //  } else {
+           const { data } = await axios.post(
+             "http://localhost:8080/auth/sendOtp",
+             {
+               phone: formField.phone,
+             }
+           );
+           token = data.token;
+           if (data.success) {
+             toast.success("OTP Sent successfully", {
+               position: "bottom-right",
+               autoClose: 8000,
+               pauseOnHover: true,
+               draggable: true,
+               theme: "dark",
+             });
+          //  }
+         }
+       } else {
+         toast.error("Please enter a valid phone number", {
+           position: "bottom-right",
+           autoClose: 8000,
+           pauseOnHover: true,
+           draggable: true,
+           theme: "dark",
+         });
+       }
+    } catch (error) {
+       toast.error(`${error.response.data.message}`, {
+         position: "bottom-right",
+         autoClose: 8000,
+         pauseOnHover: true,
+         draggable: true,
+         theme: "dark",
+       });
+    }
+   };
    
-
 
   const onSignUp = async (event) => {
     try {
@@ -135,7 +188,7 @@ let signedUser
             if (formField.checkbox == 0) {
               forgotOnClose();
             }
-            navigate("/");
+            navigate("/auth/login");
           } else {
             toast.error(data.message, {
               position: "bottom-right",
@@ -363,7 +416,7 @@ let signedUser
                         placeholder="Enter your phone number"
                         maxLength={10}
                       />
-                      <button className="button_otp" onClick={onSendOtp}>
+                      <button className="button_otp" onClick={RegisterSendOtp}>
                         Generate otp
                       </button>
                     </div>

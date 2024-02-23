@@ -14,6 +14,8 @@ const AdminPage = () => {
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const auth =localStorage.getItem("auth_token");
+
   const { data: blogs, setData: setBlogs } = useFetch("/api/blogs");
   const { data: products } = useFetch("/api/allProducts");
   const { data: orders } = useFetch("/api/getAllOrders");
@@ -155,7 +157,10 @@ const AdminPage = () => {
         setValue(1);
       } else if (user.role.role === "Editor") {
         setValue(3);
-      } else {
+      } else if(user.role.role === "User") {
+        console.log(user._id)
+        navigate(`/myaccount/${user?._id}`);
+      }else{
         navigate("/auth/login");
       }
     } else {
@@ -325,70 +330,6 @@ const AdminPage = () => {
       setOpen(false);
     }
   };
-
-  // const [orderStatus , setOrderStatus] = useState("")
-  // const [orderStatus, setOrderStatus] = useState(() => {
-  //   const savedStatus = localStorage.getItem('selectedOrderStatus');
-  //   return savedStatus ? savedStatus : '';
-  // });
-
-  // const [orderStatuses, setOrderStatuses] = useState({});
-
-//   const handlechangeOrderStatus = (e , id)=>{
-//     console.log(id)
-//        const orderStatus = e.target.value;
-//     if(orderStatus === "PROCESSING"){
-//       console.log("Processing order status")
-//       setOrderStatus("PROCESSING")
-//     }else if(orderStatus === "REJECTED"){
-//       setOrderStatus("REJECTED")
-//       console.log("reject order status")
-//     }else if(orderStatus === "APPROVED"){
-      
-//       setOrderStatus("APPROVED")
-//       console.log("approve order status")
-//  }else if(orderStatus === "COMPLETED"){
-//   setOrderStatus("COMPLETED")
-//   console.log("comp order status")
-// }
-// console.log(orderStatus)
-// orderStatusHandler(id , orderStatus)
-
-//   }
-
-// const handlechangeOrderStatus = (e, id) => {
-//   const newOrderStatus = e.target.value;
-//   setOrderStatus(newOrderStatus);
-//   localStorage.setItem('selectedOrderStatus', newOrderStatus); // Save to local storage
-//   console.log(newOrderStatus);
-//   orderStatusHandler(id, newOrderStatus);
-// };
-
-// const handlechangeOrderStatus = (e, id) => {
-//   const newOrderStatus = e.target.value;
-//   // Update the status for the specific order ID
-//   setOrderStatuses(prevStatuses => ({
-//     ...prevStatuses,
-//     [id]: newOrderStatus
-//   }));
-//   // Save to local storage
-//   localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
-//   console.log(newOrderStatus);
-//   orderStatusHandler(id, newOrderStatus);
-// };
-// const orderStatusHandler = (id, orderStatus) => {
-//   console.log(orderStatus);
-//   axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
-//     orderStatus: orderStatus,
-//   })
-//   .then((res) => {
-//     console.log(res.data);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-// };
- 
 
 const getInitialStatus = (id) => {
   const savedStatus = localStorage.getItem(`selectedOrderStatus-${id}`);
