@@ -24,6 +24,9 @@ const Myaccount = () => {
   const { data: locationData } = useFetch(`/api/getUserAddress/${user?._id}`);
   const { data: orders } = useFetch(`/api/getAllOrderByUser/${user?._id}`);
 
+  const handleClick = (id) => {
+    navigate(`/orderConfirmationPage/${id}`);
+  };
   const [error, setError] = useState(null);
    useEffect(() => {
     // Function to fetch order data from the backend
@@ -217,7 +220,7 @@ const Myaccount = () => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}.</th>
-                                <td className="td "> {order._id}
+                                <td className="td" onClick={()=>{handleClick(order._id)}}> {order._id} 
                                 </td>
                                 <td className="td">{order.amount}</td>
                                 <td className="td">{order.orderStatus}</td>
