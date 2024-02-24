@@ -31,7 +31,7 @@ const Product = () => {
 
     const fetchProduct = async () => {
       try {        
-          const response = await fetch("http://localhost:8080/api/getProduct/" + id);
+          const response = await fetch("https://backend.twicks.in/api/getProduct/" + id);
           
           if (response) {
             const data = await response.json();
@@ -103,7 +103,7 @@ const Product = () => {
   const onCartClick = async () => {
     try {
       if (localStorage.getItem("user_id")) {
-        await axios.put("https://twicks-backend.onrender.com/api/addToCart", {
+        await axios.put("https://backend.twicks.in/api/addToCart", {
           productId: id,
           userId: localStorage.getItem("user_id"),
           units: 1,
@@ -132,7 +132,7 @@ const Product = () => {
   const fetchReviews = async () => {
     try {
       // console.log("Fetching reviews...");
-      const response = await axios.get(`https://twicks-backend.onrender.com/api/getReviewById/${id}`);
+      const response = await axios.get(`https://backend.twicks.in/api/getReviewById/${id}`);
       console.log("Reviews fetched:", response.data.data);
       if ( response.data.data.reviews) {
         setReviews(response.data.data.reviews);
@@ -150,7 +150,7 @@ const Product = () => {
     } else {
       const { reviewContent, rating } = inputHandler;
 
-      const { data } = await axios.post("https://twicks-backend.onrender.com/api/addReview", {
+      const { data } = await axios.post("https://backend.twicks.in/api/addReview", {
         reviewContent: reviewContent,
         rating: rated,
         productId: id,
@@ -202,7 +202,7 @@ const Product = () => {
         });
       } else {
         const { data } = await axios.put(
-          `https://twicks-backend.onrender.com/api/addToCart`,
+          `https://backend.twicks.in/api/addToCart`,
           {
             userId: user._id,
             productId: id,
@@ -235,7 +235,7 @@ const Product = () => {
   const decreaseValueHandler = async () => {
     try {
       const { data } = await axios.delete(
-        `https://twicks-backend.onrender.com/api/dropFromCart/${user._id}/${id}`
+        `https://backend.twicks.in/api/dropFromCart/${user._id}/${id}`
       );
       if (data.success) {
         if (quantity != 1) {

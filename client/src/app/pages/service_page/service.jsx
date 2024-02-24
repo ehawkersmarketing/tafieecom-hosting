@@ -18,7 +18,7 @@ const OurServices = () => {
   const search = async (text) => {
     if (text !== "") {
       const { data } = await axios.post(
-        `https://twicks-backend.onrender.com/api/searchService`,
+        `https://backend.twicks.in/api/searchService`,
         {
           search: text,
         }

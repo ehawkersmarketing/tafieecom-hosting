@@ -65,7 +65,7 @@ const AdminProcessOrder = () => {
 
   const cancelShipment = async () => {
     try {
-      const { data } = await axios.post("https://twicks-backend.onrender.com/api/ship/cancelRequest", {
+      const { data } = await axios.post("https://backend.twicks.in/api/ship/cancelRequest", {
         orderId: id,
       });
       if (data.success) {
@@ -93,7 +93,7 @@ const AdminProcessOrder = () => {
         });
       } else {
         console.log(formData.length + formData.breadth + formData.height + formData.weight);
-        const { data } = await axios.post("https://twicks-backend.onrender.com/api/ship/approveRequest", {
+        const { data } = await axios.post("https://backend.twicks.in/api/ship/approveRequest", {
           orderId: id,
           length: formData.length,
           breadth: formData.breadth,
@@ -131,7 +131,7 @@ const AdminProcessOrder = () => {
 
   const ShippingDeliveryHandler = () =>{
        if(topping === "By Self"){
-      axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+      axios.patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
           status :"By Self",
         })
         .then((res) => {
@@ -145,7 +145,7 @@ const AdminProcessOrder = () => {
         console.log("order",order) 
        }else if(topping === "By ShipRocket"){
           
-        axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+        axios.patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
           status :"By ShipRocket",
         })
         .then((res) => {

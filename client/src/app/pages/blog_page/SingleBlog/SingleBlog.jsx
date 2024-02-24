@@ -21,7 +21,7 @@ const SingleBlog = () => {
 
     const fetchBlog = async () => {
       try {        
-          const response = await fetch("http://localhost:8080/api/blog/" + blogId);
+          const response = await fetch("https://backend.twicks.in/api/blog/" + blogId);
           
           if (response) {
             const data = await response.json();

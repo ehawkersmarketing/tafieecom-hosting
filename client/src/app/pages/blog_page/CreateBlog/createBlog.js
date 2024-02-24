@@ -71,14 +71,14 @@ const CreateBlog = () => {
       formData.append("image", image);
 
       const imageUrl = await axios.post(
-        "https://twicks-backend.onrender.com/api/uploadBlogImage",
+        "https://backend.twicks.in/api/uploadBlogImage",
         formData
       );
       console.log(imageUrl);
       if (imageUrl) {
         if (imageUrl?.data.success) {
           const { data } = await axios.post(
-            "https://twicks-backend.onrender.com/api/composeBlog",
+            "https://backend.twicks.in/api/composeBlog",
             {
               title: title,
               content: content,

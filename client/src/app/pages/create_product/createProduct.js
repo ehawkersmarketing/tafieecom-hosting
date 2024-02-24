@@ -99,7 +99,7 @@ const CreateProduct = () => {
       formData.append("image", image);
 
       const imageUrl = await axios.post(
-        "https://twicks-backend.onrender.com/api/uploadImage",
+        "https://backend.twicks.in/api/uploadImage",
         formData
       );
 
@@ -107,7 +107,7 @@ const CreateProduct = () => {
       console.log(imageUrl);
       if (imageUrl?.data.success) {
         const { data } = await axios.post(
-          "https://twicks-backend.onrender.com/api/createProduct",
+          "https://backend.twicks.in/api/createProduct",
           {
             title: title,
             description: description,

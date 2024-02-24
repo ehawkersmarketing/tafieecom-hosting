@@ -34,7 +34,7 @@ const UpdateBlog = () => {
 
   const getOneBlog = async () => {
     try {
-      const { data } = await axios.get("https://twicks-backend.onrender.com/api/blog/" + id);
+      const { data } = await axios.get("https://backend.twicks.in/api/blog/" + id);
       console.log(data);
       setInputHandler({
         title: data.data.title,
@@ -52,7 +52,7 @@ const UpdateBlog = () => {
 
   useEffect(() => {
     axios
-      .put("https://twicks-backend.onrender.com/api/updateBlog/" + id)
+      .put("https://backend.twicks.in/api/updateBlog/" + id)
       .then((res) => {
         console.log(res.data);
         setInputHandler({
@@ -86,13 +86,13 @@ const UpdateBlog = () => {
     formData.append("image", image);
 
     var imageUrl = await axios.post(
-      "https://twicks-backend.onrender.com/api/uploadBlogImage",
+      "https://backend.twicks.in/api/uploadBlogImage",
       formData
     );
     console.log(imageUrl);
     if (imageUrl.data.success) {
       axios
-        .put("https://twicks-backend.onrender.com/api/updateBlog/" + id, {
+        .put("https://backend.twicks.in/api/updateBlog/" + id, {
           title: inputHandler.title,
           content: inputHandler.content,
           readingTime: inputHandler.readingTime,

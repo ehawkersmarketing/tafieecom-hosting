@@ -69,7 +69,7 @@ const Checkout = () => {
             //     alert("Enter your Country");
             // } else {
                 const response = await axios.post(
-                    "https://twicks-backend.onrender.com/api/ship/calcShipment",
+                    "https://backend.twicks.in/api/ship/calcShipment",
                     {
                         shipping_postcode: formData.PinCode,
                         weight: cart.totalWeight,
@@ -103,7 +103,7 @@ const Checkout = () => {
         );
       } else {
         const { data } = await axios.post(
-          "https://twicks-backend.onrender.com/api/putUserAddress",
+          "https://backend.twicks.in/api/putUserAddress",
           {
             userId: user._id,
             street: formData.Address,
@@ -119,7 +119,7 @@ const Checkout = () => {
         if (data.success) {
           const totalPayAmount = cart.totalPrice + shipCharge;
           const { data } = await axios.post(
-            "https://twicks-backend.onrender.com/api/pay/phonePePayment",
+            "https://backend.twicks.in/api/pay/phonePePayment",
             {
               amount: Math.round(totalPayAmount),
               cartId: cart.cartId,

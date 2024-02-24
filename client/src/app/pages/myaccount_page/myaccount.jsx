@@ -30,7 +30,7 @@ const Myaccount = () => {
 
     const fetchUser = async () => {
       try {        
-          const response = await fetch("http://localhost:8080/auth/user/" + id);
+          const response = await fetch("https://backend.twicks.in/auth/user/" + id);
           
           if (response) {
             const data = await response.json();

@@ -25,7 +25,7 @@ const OrderConformationPage = () => {
     // Function to fetch order data from the backend
     const fetchOrder = async () => {
       try {        
-          const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
+          const response = await fetch("https://backend.twicks.in/api/getOrderById/" + id);
              console.log("id" ,id)
           if (response) {
             const data = await response.json();

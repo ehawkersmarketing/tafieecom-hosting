@@ -39,10 +39,10 @@ const UpdateUser = () => {
   const getOneUser = async () => {
     try {
       const { data: user } = await axios.get(
-        `https://twicks-backend.onrender.com/auth/user/${id}`
+        `https://backend.twicks.in/auth/user/${id}`
       );
       const { data: userAddress } = await axios.get(
-        `https://twicks-backend.onrender.com/api/getUserAddress/${id}`
+        `https://backend.twicks.in/api/getUserAddress/${id}`
       );
       let date = new Date(user.data.dob);
       let day = date.getDay();
@@ -121,7 +121,7 @@ const UpdateUser = () => {
     }else if(inputHandler.state===""){
       alert("Enter State")
     }else{
-   const {data} =  await axios.post(`https://twicks-backend.onrender.com/api/putUserAddress`, {
+   const {data} =  await axios.post(`https://backend.twicks.in/api/putUserAddress`, {
         userId: id,
         email: inputHandler.email,
         dob: inputHandler.dob,

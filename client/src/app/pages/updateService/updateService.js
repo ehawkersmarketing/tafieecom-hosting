@@ -32,7 +32,7 @@ const UpdateService = () => {
   const getOneService = async () => {
     try {
       const { data } = await axios.get(
-        "https://twicks-backend.onrender.com/api/getService/" + id
+        "https://backend.twicks.in/api/getService/" + id
       );
       console.log(data.data[0].image);
       setInputHandler({
@@ -51,7 +51,7 @@ const UpdateService = () => {
   let decodedFileName;
   useEffect(() => {
     axios
-      .put("https://twicks-backend.onrender.com/api/updateService/" + id)
+      .put("https://backend.twicks.in/api/updateService/" + id)
       .then((res) => {
         console.log(res.data.data.image);
 
@@ -99,12 +99,12 @@ const UpdateService = () => {
     formData.append("image", image);
 
     const imageUrl = await axios.post(
-      "https://twicks-backend.onrender.com/api/uploadServiceImage",
+      "https://backend.twicks.in/api/uploadServiceImage",
       formData
     );
     if (imageUrl.data.success) {
       axios
-        .put("https://twicks-backend.onrender.com/api/updateService/" + id, {
+        .put("https://backend.twicks.in/api/updateService/" + id, {
           title: inputHandler.title,
           description: inputHandler.description,
           image: imageUrl.data.url,

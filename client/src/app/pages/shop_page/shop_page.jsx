@@ -29,7 +29,7 @@ const ShopPage = () => {
     if (text !== "") {
       try {
         const { data } = await axios.post(
-          `https://twicks-backend.onrender.com/api/searchProduct`,
+          `https://backend.twicks.in/api/searchProduct`,
           {
             search: text,
           }

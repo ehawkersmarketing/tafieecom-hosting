@@ -56,7 +56,7 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     axios
-      .get("https://twicks-backend.onrender.com/api/getProduct/" + id)
+      .get("https://backend.twicks.in/api/getProduct/" + id)
       .then((res) => {
         console.log(res.data.data.weight);
         setInputHandler({
@@ -98,13 +98,13 @@ const UpdateProduct = () => {
     formData.append("image", image);
 
     const imageUrl = await axios.post(
-      "https://twicks-backend.onrender.com/api/uploadImage",
+      "https://backend.twicks.in/api/uploadImage",
       formData
     );
 
     if (imageUrl.data.success) {
       axios
-        .patch("https://twicks-backend.onrender.com/api/updateProduct/" + id, {
+        .patch("https://backend.twicks.in/api/updateProduct/" + id, {
           title: inputHandler.title,
           description: inputHandler.description,
           price: inputHandler.price,

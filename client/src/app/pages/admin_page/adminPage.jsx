@@ -170,7 +170,7 @@ const AdminPage = () => {
 
   function deleteResourceHandler(id) {
     try {
-      fetch(`https://twicks-backend.onrender.com/api/deleteBlog/${id}`, { method: "DELETE" })
+      fetch(`https://backend.twicks.in/api/deleteBlog/${id}`, { method: "DELETE" })
         .then((response) => response.json())
         .then((data) => {
           if (data.message === "Blog deleted!!") {
@@ -195,14 +195,14 @@ const AdminPage = () => {
   }
 
   const fetchDeleted = async () => {
-    const { data } = await axios.get(`https://twicks-backend.onrender.com/api/blogs`);
+    const { data } = await axios.get(`https://backend.twicks.in/api/blogs`);
     console.log(data);
     setBlogs(data.data);
   };
 
   const deleteServiceHandler = (id) => {
     // console.log("id", id);
-    fetch(`http://localhost:8080/api/deleteService/${id}`, { method: "DELETE" })
+    fetch(`https://backend.twicks.in/api/deleteService/${id}`, { method: "DELETE" })
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "service deleted!!") {
@@ -219,7 +219,7 @@ const AdminPage = () => {
   }
 
   const fetchDeletedService = async () => {
-    const { data } = await axios.get(`http://localhost:8080/api/getAllService`);
+    const { data } = await axios.get(`https://backend.twicks.in/api/getAllService`);
     // console.log(data);
     setServices(data.data);
   };
@@ -228,7 +228,7 @@ const AdminPage = () => {
     if (text !== "") {
       if (value === 3) {
         const { data } = await axios.post(
-          `https://twicks-backend.onrender.com/api/searchProduct`,
+          `https://backend.twicks.in/api/searchProduct`,
           {
             search: text,
           }
@@ -236,7 +236,7 @@ const AdminPage = () => {
         setSearchProducts(data.data);
       } else if (value === 4) {
         const { data } = await axios.post(
-          `https://twicks-backend.onrender.com/api/searchBlog`,
+          `https://backend.twicks.in/api/searchBlog`,
           {
             search: text,
           }
@@ -244,7 +244,7 @@ const AdminPage = () => {
         setSearchBlog(data.data);
       } else if (value === 5) {
         const { data } = await axios.post(
-          `https://twicks-backend.onrender.com/api/searchService`,
+          `https://backend.twicks.in/api/searchService`,
           {
             search: text,
           }
@@ -252,7 +252,7 @@ const AdminPage = () => {
         setSearchService(data.data);
       } else if (value == 2) {
         const { data } = await axios.post(
-          `https://twicks-backend.onrender.com/auth/searchUser`,
+          `https://backend.twicks.in/auth/searchUser`,
           {
             search: text,
           }
@@ -368,7 +368,7 @@ const handlechangeOrderStatus = (e, id) => {
 
 const orderStatusHandler = (id, orderStatus) => {
   console.log(orderStatus);
-  axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
+  axios.patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
     length:   1,
     orderStatus: orderStatus,
   })

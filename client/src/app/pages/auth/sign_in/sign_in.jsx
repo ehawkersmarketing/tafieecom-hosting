@@ -72,7 +72,7 @@ let signedUser
           });
          } else {
            const { data } = await axios.post(
-             "https://twicks-backend.onrender.com/auth/sendOtp",
+             "https://backend.twicks.in/auth/sendOtp",
              {
                phone: formField.phone,
              }
@@ -125,7 +125,7 @@ let signedUser
         //   });
         //  } else {
            const { data } = await axios.post(
-             "http://localhost:8080/auth/sendOtp",
+             "https://backend.twicks.in/auth/sendOtp",
              {
                phone: formField.phone,
              }
@@ -167,7 +167,7 @@ let signedUser
       event.preventDefault();
       if (token) {
         const { data } = await axios.post(
-          "https://twicks-backend.onrender.com/auth/verifyOtp",
+          "https://backend.twicks.in/auth/verifyOtp",
           {
             otp: formField.otp,
             token: token,
@@ -175,7 +175,7 @@ let signedUser
         );
         if (data.success) {
           const { data } = await axios.post(
-            "https://twicks-backend.onrender.com/auth/signup",
+            "https://backend.twicks.in/auth/signup",
             {
               phone: formField.phone,
               userName: formField.userName,
@@ -241,7 +241,7 @@ let signedUser
     try {
       event.preventDefault();
       if (token) {
-        const { data } = await axios.post("https://twicks-backend.onrender.com/auth/login", {
+        const { data } = await axios.post("https://backend.twicks.in/auth/login", {
           phone: formField.phone,
           otp: formField.otp,
           token: token,

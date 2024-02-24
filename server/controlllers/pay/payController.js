@@ -24,9 +24,9 @@ exports.payFunction = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount * 100,
-      redirectUrl: `https://twicks-backend.onrender.com/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
+      redirectUrl: `https://backend.twicks.in/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
-      callbackUrl: "https://twicks-backend.onrender.com/api/pay/getOrderLog", //url to post complete transaction response by API
+      callbackUrl: "https://backend.twicks.in/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
       paymentInstrument: {
         type: "PAY_PAGE",
@@ -141,7 +141,7 @@ exports.checkStatusFunction = async (req, res) => {
       });
     }
     // if (status) {
-    //   return res.redirect("http://localhost:8080/");
+    //   return res.redirect("https://backend.twicks.in/");
     // } else {
     //   return res.status(500).send({
     //     success: false,
@@ -204,7 +204,7 @@ exports.checkStatusFunction = async (req, res) => {
 //         console.log(response.data.data);
 //         try {
 //           const { data } = await axios.post(
-//             "http://localhost:8080/api/placeOrder",
+//             "https://backend.twicks.in/api/placeOrder",
 //             {
 //               cartId: cartId,
 //               transactionId: response.data.data.transactionId,
@@ -214,7 +214,7 @@ exports.checkStatusFunction = async (req, res) => {
 //           );
 //           if (data.success) {
 //             const { data: request } = await axios.post(
-//               "http://localhost:8080/api/ship/requestApproval",
+//               "https://backend.twicks.in/api/ship/requestApproval",
 //               {
 //                 orderId: data.data._id,
 //               }
@@ -277,7 +277,7 @@ async function statusCall(n, options, cartId) {
         console.log(response);
         try {
           const { data } = await axios.post(
-            "http://localhost:8080/api/placeOrder",
+            "https://backend.twicks.in/api/placeOrder",
             {
               cartId: cartId,
               transactionId: response.data.data.transactionId,
@@ -287,7 +287,7 @@ async function statusCall(n, options, cartId) {
           );
           if (data.success) {
             const { data: request } = await axios.post(
-              "https://twicks-backend.onrender.com/api/ship/requestApproval",
+              "https://backend.twicks.in/api/ship/requestApproval",
               {
                 orderId: data.data._id,
               }
@@ -352,7 +352,7 @@ exports.refundFunction = async (req, res) => {
       originalTransactionId: transactionId,
       merchantTransactionId: refundTransId,
       amount: refundAmount, //change this to the value from the payments model
-      callbackUrl: "https://twicks-backend.onrender.com/api/pay/getOrderLog",
+      callbackUrl: "https://backend.twicks.in/api/pay/getOrderLog",
     };
     console.log("data" + data);
 
@@ -388,7 +388,7 @@ exports.refundFunction = async (req, res) => {
         // console.log("data found",response.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(
-            `http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`
+            `https://backend.twicks.in/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`
           );
           console.log("data", data);
           if (data.success) {
