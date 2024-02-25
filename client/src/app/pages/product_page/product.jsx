@@ -374,7 +374,7 @@ const Product = () => {
                         id="review-icon"
                         onClick={() => setRated(i + 1) 
                         }
-                        required:true
+                        required="true"
                       ></i>
                     </li>
                   ))}
