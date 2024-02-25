@@ -157,6 +157,8 @@
   background-position: top;
   background-repeat: no-repeat;
   background-color: #1a4440;
+  z-index: 999;
+  position: relative;
 }
 .franchise-section2 p {
   margin: 7px;
@@ -337,14 +339,7 @@
 }
 
 /* map */
-.map-section {
-  /* margin-bottom: 2rem; */
-  background-image: url("../../assets/group-section-franchise.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: 999;
-  position: relative;
-}
+
 
 .mapImg {
   width: 100%;

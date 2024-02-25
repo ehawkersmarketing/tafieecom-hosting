@@ -140,6 +140,9 @@
   padding-left: 110px;
   font-size: 60px;
 }
+.footer .main-footer .column3 .col-12 img{
+  max-width: 100%;
+}
 .footer input {
   border: none;
   background-color: #D9EAE8;
@@ -208,7 +211,7 @@ input:focus, textarea:focus {
 .footer .contactus p a{
   color: white !important;
 }
-br{
+.footer br{
   display: none;
 }
 .footer .made{

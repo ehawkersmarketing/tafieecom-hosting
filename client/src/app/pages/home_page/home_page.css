@@ -132,6 +132,8 @@
   align-items: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  z-index: 44;
+  position: relative;
 }
 
 .div3 .div3Heading {
@@ -253,11 +255,24 @@
   background-repeat: no-repeat;
   background-size: 100%;
   --bs-gutter-x: 0;
+  background-color: #19443f;
+  color: white;
+  height: 100%;
+  z-index: 0;
+  position: relative;
+  margin-top: -4%;
+}
+.div4 .franchisemain{
+  width: 90%;
+  margin: auto;
+  position: relative;
+  padding: 6% 0;
 }
 
 .div4 .soilDiv {
   display: flex;
-  width: 100%;
+  /* width: 100%; */
+  padding: 15% 2% 8% 2% ;
   flex-direction: column;
   align-items: center;
   justify-content: end;
@@ -290,7 +305,9 @@
   width: fit-content;
   font-size: 1.3rem;
 }
-
+.div4 .franDiv .map-image img{
+  width: 100%;
+}
 .div4 .soilDiv .soilTestInfo button {
   background-image: linear-gradient(
     79deg,
@@ -320,13 +337,19 @@
 }
 
 .div4 .franDiv {
-  width: 52%;
-  height: 110vh;
+  width: 50%;
+  /* height: 110vh; */
   color: white;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  right: 0;
+  top:50%;
+  transform: translateY(-50%) translateX(-6%);
+  height: 100%;
+
 }
 
 .div4 .soilDiv .franchiseInfo {
@@ -334,41 +357,52 @@
 }
 
 .div4 .soilDiv .franchiseInfo .franchHeading {
-  transform: rotate(-2deg);
+  /* transform: rotate(-2deg); */
   margin-top: 5.6rem;
-  text-align: center;
+  /* text-align: center; */
   width: 100%;
 }
 
 .div4 .soilDiv .franchiseInfo .franchHeading h1 {
-  margin: auto;
-  background-color: #c8a33d;
-  width: fit-content;
+  /* margin: auto;
+  width: fit-content; */
   font-weight: 800;
-  font-size: 3.1rem;
+  font-size: 6rem;
+}
+.div4 .soilDiv .franchiseInfo .franchHeading h1 span{
+  color: #c8a33d;
 }
 
 .div4 .soilDiv .franchiseInfo .franchHeading h3 {
   margin: auto;
-  font-size: 1.6rem;
-  font-weight: 200;
+  font-size: 2.6rem;
+  font-weight: 700;
   margin-top: 0.5rem;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: #19443f;
-  width: fit-content;
+  width: 122%;
+}
+.div4 .soilDiv .franchiseInfo .franchHeading h3.exclusive{
+  
+}
+.div4 .soilDiv .franchiseInfo .franchHeading h3 span{
+  background-color: #C8A33D;
+  color: #19443f;
+  width: 100%;
+  display: inline-block;
 }
 
-.div4 .soilDiv .franchiseInfo .franchHeading h6 {
-  color: #19443f;
-  font-weight: 400;
-  font-size: 22px;
+.div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead h6 {
+  /* color: #19443f; */
+  font-weight: 250;
+  font-size: 25px;
+}
+.div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead h6 span{
+  text-decoration: underline;
 }
 
 .div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead {
   margin: auto;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 5px;
   padding-top: 1rem;
 }
@@ -478,6 +512,8 @@
   padding: 0 2rem;
   justify-content: center;
   align-items: center;
+  z-index: 66;
+  position: relative;
   margin-bottom: -8%;
 
   .product-category-text {
@@ -683,10 +719,14 @@
   .div4{
     background-color: #19443f;
     padding: 1rem;
+    margin-top: -4.3rem;
   }
   .div4 .franDiv {
     height: 100%
     ;
+  }
+  .div4 .soilDiv{
+    margin-bottom: 0px;
   }
   .div4 .soilDiv .franchiseInfo .franchHeading h1 span{
     color: #c8a33d;
@@ -695,6 +735,7 @@
     color: white;
     margin: 0;
     background-color:transparent;
+    font-size: 4rem;
   }
   .div4 .soilDiv .franchiseInfo .franchHeading {
     text-align: start;
@@ -707,12 +748,17 @@
     font-weight: 700;
     padding: 0;
     margin: 0;
+    width: fit-content;
+    font-size: 2rem;
   }
   .div4 .franDiv{
     background-image: url("../../assets/mapp.png");
+    position: relative;
+    transform: translateX(0) translateY(0);
   }
-  .div4 .soilDiv .franchiseInfo .franchHeading h6 {
+  .div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead h6 {
     color: white;
+    font-size: 18px;
   }
   .div4 .soilDiv .franchiseInfo .franchHeading h6 span{
     text-decoration: underline;

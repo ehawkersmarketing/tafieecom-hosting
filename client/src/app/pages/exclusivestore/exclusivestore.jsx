@@ -6,6 +6,7 @@ import sideImg from "../../assets/Group 358.png";
 import lineImg from "../../assets/Line 13.png";
 import mapImg from "../../assets/group-section-franchise.png";
 import Footer from "../footer/footer";
+import Map from "../../components/map/map"
 
 const ExclusiveStore = () => {
   const footerHandler = () => {
@@ -188,54 +189,9 @@ const ExclusiveStore = () => {
             </div>
           </div>
 
-          <div className="map-section">
-            <div className="section-map-fran row">
-              <div className="img-section-map-fran col-md-6">
-                {/* <img src={mapImg} className="mapImg" alt="" /> */}
-              </div>
-
-              <div className="map-section-card col-md-6">
-                <div className="map-number">
-                  <h2 className="map-number-70"> 70+</h2>
-                </div>
-                <div className="map-content">
-                  <h3 className="h3-content">FRENCHISE OVER INDIA</h3>
-                </div>
-                <div className="map-para " id="cont">
-                  <div className="para-unevil">
-                    <i>
-                      Unveil unique products & services not found{" "}
-                      <b> elsewhere</b>
-                    </i>
-                  </div>
-                </div>
-                {/* <div className="content-map-fan">
-                  <p
-                    style={{
-                      fontWeight: "700",
-                      marginTop: "2rem",
-                      color: "#19443F",
-                    }}
-                  >
-                    Find the stores near you!
-                  </p>
-                </div> */}
-
-                {/* <div className="search-bar">
-                  <input
-                    type="text"
-                    name="search"
-                    className="search-container"
-                  />
-                  <div className="search-button">
-                    <button className="search-icon">
-                      <i class="bi bi-search"></i>
-                    </button>
-                  </div>
-                </div> */}
-              </div>
-            </div>
-          </div>
+          
+            <Map/>
+          
         </div>
         <Footer />
       </div>

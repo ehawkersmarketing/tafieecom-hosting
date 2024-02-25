@@ -174,9 +174,8 @@ exports.checkStatusFunction = async (req, res) => {
     } else {
       return res.status(500).send({
         success: false,
-        message: "Check status returnevbjhvd failed status of transaction",
+        message: "Check status return failed status of transaction",
       });
-      nav
     }
   }
 };
@@ -385,10 +384,10 @@ exports.refundFunction = async (req, res) => {
       .request(options)
       .then(async function (response) {
         console.log("data found here??");
-        // console.log("data found",response.data); //RESPONSE FROM THE REFUND PROCESS API
+        console.log("data found",response?.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(
-            `https://backend.twicks.in/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`
+            `https://backend.twicks.in/api/pay/checkStatus?transactionId=${response.data.transactionId}&cartId=${orderId}&isRefund=1`
           );
           console.log("data", data);
           if (data.success) {
