@@ -760,6 +760,9 @@
 .poster-card {
   right: -2rem;
 }
+.main-container{
+  margin-bottom: 4rem;
+}
 }
 @media (max-width: 576px) {
   .shop-page-container
