@@ -298,8 +298,6 @@ async function statusCall(n, options, cartId) {
             merchantTransactionId:merchantTransactionId,
             shipmentCharges:data. shipment_charge,
             merchantUserId:process.env.MERCHANT_ID,
-            refundTransactionId, 
-            refundMerchantTransactionId,
             amount: data.amount,
             status: "payment Successfull",
             cartId: data.cartId
