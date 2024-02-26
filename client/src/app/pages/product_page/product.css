@@ -326,6 +326,7 @@
 .review-description button {
   display: block;
   margin: auto;
+  padding-top: 1rem;
 }
 
 .single-product .carouselItem {
@@ -427,6 +428,7 @@
   .single-product .review-card{
     width: 95%;
     padding: 0;
+    padding-bottom: 1rem;
     margin: auto;
   }
   .single-product .review-heading{
@@ -495,12 +497,23 @@
     width: 70%;
   }
 }
-@media (max-width : 640px){
+@media (max-width : 568px){
+  .single-product .about-title {
+    margin-top: 0;
+  }
   .single-product .wrapper .product-image{
     margin-bottom: -3rem;
   }
   .single-product .wrapper .product-image img {
     padding: 0rem !important;
-    margin-bottom: 4rem !important;
+    margin-bottom: 4.5rem !important;
   }
+  .single-product .wrapper {
+    min-height: auto;
+    background-size: contain;
+    background-position: bottom center;
+  }
+  .single-product {
+    padding-bottom: 6rem;
+}
 }

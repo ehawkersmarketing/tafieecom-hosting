@@ -309,10 +309,10 @@
   .latest-post-card .textBlock .text-fields .text-fields .category-name ,.best-seller-product .text-fields .category-name.ratingAndReview , .all-products-card .textBlock .text-fields .category-name{
     margin: 0;
   }
-  .blogpage .card-body {
+   .card-body {
     padding-top: 5rem !important;
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
-    margin-top: -11rem;
+    margin-top: -5rem;
   }
 }
 @media (max-width: 992px){

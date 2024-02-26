@@ -763,3 +763,52 @@
     font-size: 15px;
   }
 }
+
+@media (max-width:568px){
+  .about .card-vision, .about .card-mission {
+    /* margin-bottom: 2rem; */
+    padding: 5%;
+}
+.about .card-vision h4, .about .card-mission h4{
+  margin-top: -2rem;
+}
+.about .card-vision, .about .card-mission {
+  overflow: visible;
+}
+.about .buttons .num {
+  width: 19px !important;
+  height: 19px;
+}
+.about .buttons .col:nth-child(1) .num {
+  top: 8%;
+  left: 48.5%;
+}
+.about .buttons .col:nth-child(2) .num {
+  left: 73%;
+  top: 44%;
+}
+.about .buttons .col:nth-child(3) .num {
+  left: 78%;
+  top: 9%;
+}
+.about .buttons .col:nth-child(4) .num {
+  left: 32%;
+  top: 25%;
+}
+.about .buttons .col:nth-child(5) .num {
+  left: 71%;
+  top: 24%;
+}
+.about .buttons .col:nth-child(6) .num {
+  left: 26%;
+  top: 9%;
+}
+.about .buttons .col:nth-child(7) .num {
+  left: 30%;
+  top: 44%;
+}
+.about .buttons .col:nth-child(8) .num {
+  left: 55%;
+  top: 30%;
+}
+}
