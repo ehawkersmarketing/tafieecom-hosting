@@ -347,8 +347,8 @@
     height: 135px;
   }
 }
-@media (max-width:992px){
-  .services .services-card-outer{
+@media (max-width: 992px) {
+  .services .services-card-outer {
     margin-bottom: 3rem;
   }
   .services .services-card-outer .services-card {
@@ -357,6 +357,5 @@
   }
   .services .services-card .col-md-4 {
     padding: 1% 0.5rem;
-}
-  
+  }
 }
