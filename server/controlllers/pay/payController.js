@@ -219,6 +219,7 @@ async function statusCall(n, options, cartId) {
           });
           console.log("=============================");
           console.log(responseData);
+          responseData.save();
           console.log("=======================");
 
           if (data.success) {
