@@ -89,7 +89,7 @@
   color: var(--bright-green-primary, #44a98b);
 
   /* height: 18.068px; */
-  font-size: 14.455px;
+  font-size: 0.8rem;
   line-height: normal;
   font-weight: 400;
 }
@@ -280,7 +280,7 @@
   margin-left: 0.7rem;
   color: var(--darkgreen-primary, #19443f);
   font-family: Montserrat;
-  font-size: 20px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 700;
   line-height: 2;
@@ -326,6 +326,7 @@
 .review-description button {
   display: block;
   margin: auto;
+  padding-top: 1rem;
 }
 
 .single-product .carouselItem {
@@ -337,7 +338,8 @@
 }
 .single-product .ratingAndReview {
   display: flex;
-  gap: 2rem;
+  /* gap: 2rem; */
+  justify-content: space-between;
   align-items: center;
   /* margin-left: -2rem; */
   margin-bottom: 1rem;
@@ -381,6 +383,13 @@
     margin: 0;
     padding: 1.2rem;
   }
+  .single-product .wrapper .product-image{
+    margin-bottom: -3rem;
+  }
+  .single-product .wrapper .product-image img {
+    padding: 2rem!important;
+    margin-bottom: 1rem!important;
+  }
   .single-product .about-title {
     margin-bottom: 0.2rem;
   }
@@ -419,6 +428,7 @@
   .single-product .review-card{
     width: 95%;
     padding: 0;
+    padding-bottom: 1rem;
     margin: auto;
   }
   .single-product .review-heading{
@@ -474,14 +484,36 @@
     margin: auto;
     width: 85%;
     display: flex;
-    margin-bottom: -1rem;
+    margin-bottom: -2rem;
   }
   .single-product .wrapper .product-image img {
     width: 80%;
     margin: auto;
     z-index: 999;
+    padding: 9%;
+    margin-bottom: -4rem;
   }
   .single-product .card-design{
     width: 70%;
   }
+}
+@media (max-width : 568px){
+  .single-product .about-title {
+    margin-top: 0;
+  }
+  .single-product .wrapper .product-image{
+    margin-bottom: -3rem;
+  }
+  .single-product .wrapper .product-image img {
+    padding: 0rem !important;
+    margin-bottom: 4.5rem !important;
+  }
+  .single-product .wrapper {
+    min-height: auto;
+    background-size: contain;
+    background-position: bottom center;
+  }
+  .single-product {
+    padding-bottom: 6rem;
+}
 }

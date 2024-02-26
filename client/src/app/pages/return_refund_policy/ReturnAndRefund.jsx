@@ -41,7 +41,7 @@ const ReturnAndRefund = () => {
                 original payment method.
               </ul>
             </p>
-            <h4>
+            {/* <h4>
               <ol>Store Credit (Cash on Delivery):</ol>
             </h4>
             <p>
@@ -50,7 +50,7 @@ const ReturnAndRefund = () => {
                 will be issued in the form of RAER points or store credit, which
                 can be used for future purchases on our website.
               </ol>
-            </p>
+            </p> */}
           </div>
           <div className="RnR-3">
             <h3>Return Procedure:</h3>

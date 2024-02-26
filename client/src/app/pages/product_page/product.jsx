@@ -372,7 +372,9 @@ const Product = () => {
                       <i
                         class={i >= rated ? `bi bi-star` : `bi bi-star-fill`}
                         id="review-icon"
-                        onClick={() => setRated(i + 1)}
+                        onClick={() => setRated(i + 1) 
+                        }
+                        required="true"
                       ></i>
                     </li>
                   ))}
