@@ -8,7 +8,7 @@ const transactionSchema = new mongoose.Schema({
   merchantTransactionId:{
     type:String
   },
-  shippmentCharges:{
+  shipment_charge:{
     type:String
   },
   merchantUserId:{
@@ -32,7 +32,7 @@ const transactionSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true,
+    default:Date.now()
   },
   cartId: {
     type: mongoose.Types.ObjectId,
