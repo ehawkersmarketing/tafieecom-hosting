@@ -241,4 +241,10 @@
   .div4 .soilDiv .franchiseInfo .franchHeading {
     margin: 0;
   }
+  .div4 .franDiv{
+    display: none;
+  }
+  .div4 .soilDiv .franchiseInfo {
+    width: 80%;
+}
 }

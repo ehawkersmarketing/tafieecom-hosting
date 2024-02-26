@@ -292,6 +292,7 @@ let signedUser
 
   return (
     <>
+    <div className="auth">
       <Header />
       {path === "login" && (
         <div className="div sign_in">
@@ -486,6 +487,7 @@ let signedUser
         </div>
       )}
       <ToastContainer />
+      </div>
     </>
   );
 };

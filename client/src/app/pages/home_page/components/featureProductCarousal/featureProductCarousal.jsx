@@ -22,12 +22,14 @@ const FeatureCarouselCard = ({ items }) => {
                     responsive={{
                         0: { // For mobile devices
                             items:  1,
-                            navText: false
+                            navText: false,
+                            nav:false
                             
                         },
                         576:{
                             items:2,
                             navText:false,
+                            nav:false,
                         },
                         768: { // For tablets and small desktops
                             itemsText:  3,

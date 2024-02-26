@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import homehero from "../../assets/home-hero.png";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Map from "../../components/map/map.jsx"
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -155,28 +156,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-         <div className="div4  ">
-          <div className="franchisemain row"> 
-            <div className="soilDiv col-md-7 col-sm-6">
-            <div className="franchiseInfo">
-              <div className="franchHeading">
-                <h1>70<span>+</span></h1>
-                <h3 className="exclusive">EXCLUSIVE <br /> STORES OVER</h3>
-                <h3><span>INDIA</span></h3>
-                <div className="franchSubHead">
-                  <h6>Ready to take your farming <br/>journey to the <span> Next Level?</span></h6>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          <div className="franDiv col-md-5 col-sm-6">
-            <div className="map-image w-100">
-              <img src={map} alt="" />
-            </div>
-          </div>
-          </div>
-        </div>
+         <Map/>
         {/* <div className="div4 row ">
           <div className="soilDiv col-md-7 col-sm-6">
             <div className="soilTestInfo">

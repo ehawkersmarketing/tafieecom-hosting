@@ -314,7 +314,7 @@
 }
 @media (max-width: 768px) {
   .services {
-    padding-bottom: 12rem;
+    padding-bottom: 6rem;
   }
   .services .service-text h1 {
     font-size: 34px;

@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <nav className="heading navbar bg-body-tertiary navbar-expand-lg fixed-top" id="head">
       <div className="header sticky-xxl-top container-fluid" >
-        <div className="logo-section navbar-brand col-md-2">
+        <div className="logo-section navbar-brand col-md-3">
           <Link to="/">
             <img src={logo} alt="" />
           </Link>
@@ -39,7 +39,6 @@ const Header = () => {
         <div className="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-              
             </h5>
             <button
               type="button"
@@ -48,7 +47,7 @@ const Header = () => {
               aria-label="Close"
             ></button>
           </div>
-          <div className="offcanvas-body justify-content-end">
+          <div className="offcanvas-body justify-content-between row">
             <div className="link-section col-md-7 justify-content-around">
               <Link
                 to="/"

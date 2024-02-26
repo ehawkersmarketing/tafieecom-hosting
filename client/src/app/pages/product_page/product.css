@@ -6,7 +6,7 @@
       rgba(68, 169, 139, 0.1) 99.93%
     ),
     var(--light-base-green-2, #ebf6f5);
-  padding-bottom: 5%;
+  padding-bottom: 11%;
   box-shadow: 0px 10px 30px 20px #19443f33;
 }
 
@@ -19,8 +19,8 @@
   background-image: url("../../assets//mask.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  min-height: 65vh;
-  padding: 2%;
+  /* min-height: 65vh; */
+  padding: 5%;
 }
 
 .wrapper-about {
@@ -85,7 +85,7 @@
   line-height: 2.5rem;
 }
 
-.review {
+.single-product .review {
   color: var(--bright-green-primary, #44a98b);
 
   /* height: 18.068px; */
@@ -94,7 +94,7 @@
   font-weight: 400;
 }
 
-.price {
+.single-product .price {
   color: var(--darkgreen-primary, #19443f);
   font-size: 20px;
   line-height: normal;
@@ -102,18 +102,18 @@
   margin-bottom: 0.6rem;
 }
 
-.wishlistAndAddCart {
+.single-product .wishlistAndAddCart {
   display: flex;
   justify-content: space-between;
 }
-.wishlistAndAddCart .minus {
+.single-product .wishlistAndAddCart .minus {
   margin-right: 1rem;
 }
 .wishlistAndAddCart .plus {
   margin-left: 1rem;
 }
 
-.cart-btn {
+.single-product .cart-btn {
   border-radius: 7px;
   border: none;
   color: white;
@@ -130,22 +130,22 @@
     0px 3.721px 8.683px 0px rgba(21, 60, 56, 0.3);
 }
 
-#review-icon {
+.single-product #review-icon {
   color: #c8a33d;
 }
 
-#wishlist-icon {
+.single-product #wishlist-icon {
   margin-right: 5px;
   color: #44a98b;
 }
 
-.about-product {
+.single-product .about-product {
   padding: 1rem 5%;
   width: 80%;
   margin: auto;
 }
 
-.wishlist {
+.single-product .wishlist {
   color: var(--bright-green-primary, #44a98b);
   font-size: 16px;
   font-style: normal;
@@ -154,20 +154,20 @@
   text-decoration-line: underline;
 }
 
-.ratingAndReview {
+.single-product .ratingAndReview {
   display: flex;
   /* gap: 5rem; */
   /* margin-left: -2rem; */
   justify-content: space-between;
 }
 
-.rating {
+.single-product .rating {
   list-style-type: none;
   display: flex;
   gap: 0.7rem;
 }
 
-.description {
+.single-product .description {
   color: var(--light-base-green-2, #ebf6f5);
   text-align: center;
   font-size: 16px;

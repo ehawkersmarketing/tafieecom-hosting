@@ -389,7 +389,7 @@ const Product = () => {
                   name="reviewContent"
                   onChange={onChangeInputHandler}
                   value={inputHandler.reviewContent}
-                  placeholder="Hey! @name, it’s a very good design.🔥"
+                  placeholder="Please leave your review here..."
                 />
               </div>
               <div>

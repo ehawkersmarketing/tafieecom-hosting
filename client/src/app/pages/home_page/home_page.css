@@ -22,10 +22,9 @@
   margin-bottom: -2rem;
   position: relative;
 }
-.topDiv .inside-topDiv {}
 
 .home-page .categoryDiv {
-  margin-top: -6rem;
+  margin-top: -10rem;
   z-index: 999;
   position: relative;
 }
@@ -438,7 +437,7 @@
 }
 
 .home-page .product-category {
-  
+  background-repeat: no-repeat;
   display: flex;
     width: 100%;
     flex-direction: column;
@@ -453,6 +452,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: 3rem;
 
     .category-text {
       margin: 2rem 0 1rem 0;
@@ -624,7 +624,7 @@
   .home-page .product-category {
     background-size: 199% 92%;
     padding-top: 0; 
-    padding-bottom: 0;
+    /* padding-bottom: 0; */
   }
   .home-page .div3 {
     background-size: 160% 100%;
@@ -712,6 +712,9 @@
   .topDiv .headingimage {
     display: none;
   }
+  .topDiv .headingDiv {
+    margin-left: 0;
+}
 
  
 }

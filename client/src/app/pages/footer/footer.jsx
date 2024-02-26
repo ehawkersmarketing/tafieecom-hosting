@@ -41,6 +41,11 @@ const Footer = () => {
                             <input type="text" name="email" placeholder="Mobile No" />
                           </div>
                         </div>
+                        <div className="email">
+                          <div className="input-sec">
+                            <input type="text" name="email" placeholder="Email Id" />
+                          </div>
+                        </div>
                         <div className="message">
                           <div className="input-sec">
                             <textarea
