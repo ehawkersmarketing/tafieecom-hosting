@@ -119,7 +119,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="servicesDiv row">
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <div className="tick-icon">
@@ -129,7 +129,7 @@ const Dashboard = () => {
                 <h5>Exceptional Product Quality</h5>
               </div>
             </div>
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-key-fill serviceIcon"></i>
@@ -137,7 +137,7 @@ const Dashboard = () => {
                 <h5>Ease of Access</h5>
               </div>
             </div>
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-headset serviceIcon"></i>
@@ -145,7 +145,7 @@ const Dashboard = () => {
                 <h5>Expert Advice & Support</h5>
               </div>
             </div>
-            <div className="service100 col-6 col-md-lg-3">
+            <div className="service100 col-6 col-md-3">
               <div className="singleServiceDiv">
                 <div className="serviceCircle">
                   <i className="bi bi-wallet2 serviceIcon"></i>
@@ -155,9 +155,31 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="div4 row ">
+         <div className="div4  ">
+          <div className="franchisemain row"> 
+            <div className="soilDiv col-md-7 col-sm-6">
+            <div className="franchiseInfo">
+              <div className="franchHeading">
+                <h1>70<span>+</span></h1>
+                <h3 className="exclusive">EXCLUSIVE <br /> STORES OVER</h3>
+                <h3><span>INDIA</span></h3>
+                <div className="franchSubHead">
+                  <h6>Ready to take your farming <br/>journey to the <span> Next Level?</span></h6>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div className="franDiv col-md-5 col-sm-6">
+            <div className="map-image w-100">
+              <img src={map} alt="" />
+            </div>
+          </div>
+          </div>
+        </div>
+        {/* <div className="div4 row ">
           <div className="soilDiv col-md-7 col-sm-6">
-            {/* <div className="soilTestInfo">
+            <div className="soilTestInfo">
               <div className="soilHeading">
                 <h1>FREE</h1>
                 <h5 className="soilSubHead1">SOIL TESTING</h5>
@@ -176,7 +198,7 @@ const Dashboard = () => {
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>
-            </div> */}
+            </div>
             <div className="franchiseInfo">
               <div className="franchHeading">
                 <h1>70<span>+</span></h1>
@@ -186,7 +208,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="franInfoDiv2">
+            <div className="franInfoDiv2">
               <p>
                 <strong>Join the Krishak Vatika</strong> family today and
                 harvest the success tomorrow!
@@ -197,14 +219,14 @@ const Dashboard = () => {
                   Know More
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
           <div className="franDiv col-md-5 col-sm-6">
             <div className="map-image">
               <img src={map}/>
 
             </div>
-            {/* <div className="franchiseInfo">
+            <div className="franchiseInfo">
               <div className="franchHeading">
                 <h1>70+</h1>
                 <h3>EXCLUSIVE STORES OVER INDIA</h3>
@@ -225,9 +247,9 @@ const Dashboard = () => {
                   Know More
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
-        </div>
+        </div> */}
         <div className="blankbox"></div>
       </div>
       <Footer />

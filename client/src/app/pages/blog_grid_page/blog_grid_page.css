@@ -285,11 +285,11 @@
 
 
 @media (max-width: 768px) {
-  .blogpage .card-body {
+  /* .blogpage .card-body {
     padding-top: 5rem !important;
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
     margin-top: -11rem;
-  }
+  } */
   .blogpage .card-body h5,.blog-date p{
     font-size: 17px;
     padding: 0;
@@ -394,17 +394,31 @@
   font-size: 34px;
   display: inline-block;
 }
+.blogpage .card-main .card {
+  height: fit-content;
+}
 }
 
 @media (max-width:992px){
   .blogpage .cardimg {
     width: 100%;
-    height: 40%;
+    height: 10rem;
 }
 .blogpage .blog-tile .tile_title {
   margin-left: 2rem;
 }
 .blogpage .tile-circle{
   display: none;
+}
+.blogpage .card-main .card {
+  height: 100%;
+}
+}
+@media (max-width:568px){
+  .blogpage .most-viewed-cards .card-main .card {
+    height: fit-content;
+}
+.blogpage .most-viewed-cards .card-body {
+  margin-top: -8rem;
 }
 }

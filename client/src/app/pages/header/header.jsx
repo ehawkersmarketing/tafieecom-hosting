@@ -19,8 +19,8 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <nav className="heading navbar bg-body-tertiary navbar-expand-lg fixed-top">
-      <div className="header sticky-xxl-top container-fluid" id="head">
+    <nav className="heading navbar bg-body-tertiary navbar-expand-lg fixed-top" id="head">
+      <div className="header sticky-xxl-top container-fluid" >
         <div className="logo-section navbar-brand col-md-2">
           <Link to="/">
             <img src={logo} alt="" />

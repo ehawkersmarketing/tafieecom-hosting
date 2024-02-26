@@ -40,6 +40,7 @@ const OrderConformationPage = () => {
           }else if(data.success === true){
             if(data.data.user._id === user?._id){
               console.log("vkdvd")
+              navigate(`/orderConfirmationPage/${id}`);
             }else if(data.data === null ) {
               console.log("data is null")
               navigate(`/myaccount/${user?._id}`);
@@ -69,10 +70,10 @@ const OrderConformationPage = () => {
     navigate(`/myaccount/${user?._id}`);
   };
   useEffect(() => {
-   if(!data?.user){
-    console.log("go to account")
-    navigate(`/myaccount/${user?._id}`);
-   }
+  //  if(!data?.user){
+  //   console.log("go to account")
+  //   navigate(`/myaccount/${user?._id}`);
+  //  }
     if(data?.user && user){
       console.log(data?.user , user)
     if(data.user._id !== user?._id){

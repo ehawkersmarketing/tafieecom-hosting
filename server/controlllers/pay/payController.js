@@ -4,6 +4,7 @@ const uniqid = require("uniqid");
 const { setTimeout } = require("timers");
 const transactionModel = require("../../models/transactionModel/transactionModel");
 const orderModel = require("../../models/orderModel/orderModel");
+const { Console } = require("console");
 
 const giveUniqueId = (length) => {
   return "TAFI" + uniqid(length);
@@ -13,9 +14,9 @@ const merchantTransactionId = giveUniqueId(16);
 //redirecting to PhonePe for payment facilitation
 exports.payFunction = async (req, res) => {
   try {
-    console.log("hii");
+    // console.log("hii");
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
-    console.log(merchantTransactionId);
+    // console.log(merchantTransactionId);
     const { amount, cartId } = req.body;
     const data = {
       //Required data structure for the pay API call
@@ -31,8 +32,10 @@ exports.payFunction = async (req, res) => {
         type: "PAY_PAGE",
       },
     };
+
     console.log(merchantTransactionId);
     console.log(cartId);
+
     const payload = JSON.stringify(data);
     const payloadMain = Buffer.from(payload).toString("base64");
     const string =
@@ -47,6 +50,7 @@ exports.payFunction = async (req, res) => {
     console.log("                                ");
     console.log(payloadMain);
 
+
     const options = {
       //required options structure for the API call
       method: "post",
@@ -60,7 +64,9 @@ exports.payFunction = async (req, res) => {
         request: payloadMain,
       },
     };
+
     console.log(checksum);
+
     axios
       .request(options)
       .then(function (response) {
@@ -98,17 +104,20 @@ exports.checkStatusFunction = async (req, res) => {
       process.env.PHONEPE_API_SALT_KEY;
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX;
+    // console.log("                                        ")
+    // console.log(checksum)
     const options = {
       method: "get",
-      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${merchantId}/${merchantTransactionId}`,
+      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
       headers: {
         "Content-Type": "application/json",
         "X-VERIFY": checksum,
         "X-MERCHANT-ID": `${process.env.MERCHANT_ID}`,
       },
     };
-    let n = 10;
-    let status = statusCall(n, options, null);
+    let n = 1;
+    let status = await statusCall(n, options, cartId);
+    console.log(status);
     if (status) {
       //Here the cartId is holding the value of orderId during the call
       const order = await orderModel.findOneAndUpdate(
@@ -136,62 +145,140 @@ exports.checkStatusFunction = async (req, res) => {
         message: "Transaction Refunded Failed",
       });
     }
-    if (status) {
-      return res.redirect("http://localhost:8080/");
-    } else {
-      return res.status(500).semd({
-        success: false,
-        message: "Check status returned failed status of transaction",
-      });
-    }
+    // if (status) {
+    //   return res.redirect("http://localhost:8080/");
+    // } else {
+    //   return res.status(500).send({
+    //     success: false,
+    //     message: "Check status returned failed status of transaction",
+    //   });
+    // }
   } else {
     const string =
-      `/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}` +
+      `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
       process.env.PHONEPE_API_SALT_KEY;
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX;
     const options = {
       method: "get",
-      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
+      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}`,
       headers: {
         "Content-Type": "application/json",
         "X-VERIFY": checksum,
         "X-MERCHANT-ID": `${process.env.MERCHANT_ID}`,
       },
     };
-    let n = 10;
+    let n = 1;
     let status = await statusCall(n, options, cartId);
+    console.log(status);
     console.log(`This is the status ${status.success}`);
     if (status.success) {
       return res.redirect(
-        `http://localhost:3000/OrderConfirmationPage/${status.orderId}`
+        `http://twicks.in/OrderConfirmationPage/${status.orderId}`
       );
     } else {
       return res.status(500).send({
         success: false,
-        message: "Check status returned failed status of transaction",
+        message: "Check status return failed status of transaction",
       });
     }
   }
 };
 
+// async function statusCall(n, options, cartId) {
+//   try {
+//     console.log("1" + cartId);
+//     if (cartId == null) {
+//       let response = await axios.request(options);
+//       console.log("2" + response);
+//       if (response.data.success === true) {
+//         console.log("3" + "true status")
+//         return true;
+//       } else {
+//         if (n === 0) {
+//           return false;
+//         } else {
+//           return await setTimeout(await statusCall(--n, options, null), 3000);
+//         }
+//       }
+
+//     } else {
+//       let response = await axios.request(options);
+//       if (response.data.success === true) {
+//         console.log(response.data.data);
+//         try {
+//           const { data } = await axios.post(
+//             "http://localhost:8080/api/placeOrder",
+//             {
+//               cartId: cartId,
+//               transactionId: response.data.data.transactionId,
+//               amount: response.data.data.amount,
+//               transactionStatus: response.data.data.state,
+//             }
+//           );
+//           if (data.success) {
+//             const { data: request } = await axios.post(
+//               "http://localhost:8080/api/ship/requestApproval",
+//               {
+//                 orderId: data.data._id,
+//               }
+//             );
+//             if (request.success) {
+//               return {
+//                 success: true,
+//                 orderId: data.data._id,
+//               };
+//             } else {
+//               return { success: false };
+//             }
+//           }
+//         } catch (error) {
+//           console.log(error);
+//           console.log("failure in saving new transaction");
+//           return { success: false };
+//         }
+//       } else {
+//         if (n === 0) {
+//           return { success: false };
+//         } else {
+//           return await setTimeout(await statusCall(--n, options, cartId), 3000);
+//         }
+//       }
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return false;
+//   }
+// }
+
 async function statusCall(n, options, cartId) {
   try {
+    // console.log("1" + cartId);
     if (cartId == null) {
       let response = await axios.request(options);
+      console.log("2" + response);
       if (response.data.success === true) {
+        console.log("3" + "true status");
         return true;
       } else {
         if (n === 0) {
           return false;
         } else {
-          return await setTimeout(await statusCall(--n, options, null), 3000);
+          // Correctly use setTimeout with a callback function
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(statusCall(--n, options, null));
+            }, 3000);
+          });
         }
       }
     } else {
+      console.log("BHVHFY")
       let response = await axios.request(options);
+      console.log("JDVCGHDV")
+      console.log(response)
       if (response.data.success === true) {
-        console.log(response.data.data);
+        console.log(response);
         try {
           const { data } = await axios.post(
             "http://localhost:8080/api/placeOrder",
@@ -238,7 +325,12 @@ async function statusCall(n, options, cartId) {
         if (n === 0) {
           return { success: false };
         } else {
-          return await setTimeout(await statusCall(--n, options, cartId), 3000);
+          // Correctly use setTimeout with a callback function
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(statusCall(--n, options, cartId));
+            }, 3000);
+          });
         }
       }
     }
@@ -277,6 +369,8 @@ exports.refundFunction = async (req, res) => {
       amount: refundAmount, //change this to the value from the payments model
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog",
     };
+    console.log("data" + data);
+
     const payload = JSON.stringify(data);
 
     const payloadMain = Buffer.from(payload).toString("base64");
@@ -301,15 +395,15 @@ exports.refundFunction = async (req, res) => {
         request: payloadMain,
       },
     };
-    console.log("data found thorugh the api ");
+    console.log("data found through the api ");
     await axios
       .request(options)
       .then(async function (response) {
         console.log("data found here??");
-        // console.log("data found",response.data); //RESPONSE FROM THE REFUND PROCESS API
+        console.log("data found",response?.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(
-            `http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`
+            `http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.transactionId}&cartId=${orderId}&isRefund=1`
           );
           console.log("data", data);
           if (data.success) {
