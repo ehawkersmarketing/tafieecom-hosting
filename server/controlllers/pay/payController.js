@@ -32,8 +32,10 @@ exports.payFunction = async (req, res) => {
         type: "PAY_PAGE",
       },
     };
-    // console.log(merchantTransactionId)
-    // console.log(cartId)
+
+    console.log(merchantTransactionId);
+    console.log(cartId);
+
     const payload = JSON.stringify(data);
     const payloadMain = Buffer.from(payload).toString("base64");
     const string =
@@ -41,12 +43,13 @@ exports.payFunction = async (req, res) => {
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX; // required value for sendin in the X_VERIFY field in header
 
-    // console.log("               ")
+    console.log("               ");
     console.log("payload", payload);
-    // console.log("                           ");
-    // console.log(checksum);
-    // console.log("                                ")
-    // console.log(payloadMain);
+    console.log("                           ");
+    console.log(checksum);
+    console.log("                                ");
+    console.log(payloadMain);
+
 
     const options = {
       //required options structure for the API call
@@ -61,7 +64,9 @@ exports.payFunction = async (req, res) => {
         request: payloadMain,
       },
     };
-    // console.log(checksum)
+
+    console.log(checksum);
+
     axios
       .request(options)
       .then(function (response) {
@@ -284,6 +289,17 @@ async function statusCall(n, options, cartId) {
               transactionStatus: response.data.data.state,
             }
           );
+          console.log("#########################");
+          console.log(data);
+          console.log("#########################");
+
+          const responseData = await transactionModel({
+            data,
+          });
+          console.log("=============================");
+          console.log(responseData);
+          console.log("=======================");
+
           if (data.success) {
             const { data: request } = await axios.post(
               "https://backend.twicks.in/api/ship/requestApproval",
