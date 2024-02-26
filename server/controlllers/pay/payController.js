@@ -31,19 +31,20 @@ exports.payFunction = async (req, res) => {
         type: "PAY_PAGE",
       },
     };
-    console.log(merchantTransactionId)
-    console.log(cartId)
+    console.log(merchantTransactionId);
+    console.log(cartId);
     const payload = JSON.stringify(data);
     const payloadMain = Buffer.from(payload).toString("base64");
-    const string = payloadMain + "/pg/v1/pay" + process.env.PHONEPE_API_SALT_KEY ;
+    const string =
+      payloadMain + "/pg/v1/pay" + process.env.PHONEPE_API_SALT_KEY;
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX; // required value for sendin in the X_VERIFY field in header
-    
-    console.log("               ")
-    console.log("payload" ,payload)
+
+    console.log("               ");
+    console.log("payload", payload);
     console.log("                           ");
     console.log(checksum);
-    console.log("                                ")
+    console.log("                                ");
     console.log(payloadMain);
 
     const options = {
@@ -58,13 +59,12 @@ exports.payFunction = async (req, res) => {
       data: {
         request: payloadMain,
       },
-      
     };
-    console.log(checksum)
+    console.log(checksum);
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data.instrumentResponse.redirectInfo.url)
+        console.log(response.data.data.instrumentResponse.redirectInfo.url);
         // return res.redirect(response.data.data.instrumentResponse.redirectInfo.url)
         res.json({
           success: true,
@@ -194,7 +194,7 @@ async function statusCall(n, options, cartId) {
         console.log(response.data.data);
         try {
           const { data } = await axios.post(
-            "http://localhost:8080/api/placeOrder", 
+            "http://localhost:8080/api/placeOrder",
             {
               cartId: cartId,
               transactionId: response.data.data.transactionId,
@@ -202,6 +202,17 @@ async function statusCall(n, options, cartId) {
               transactionStatus: response.data.data.state,
             }
           );
+          console.log("#########################");
+          console.log(data);
+          console.log("#########################");
+
+          const responseData = await transactionModel({
+            data,
+          });
+          console.log("=============================");
+          console.log(responseData);
+          console.log("=======================");
+
           if (data.success) {
             const { data: request } = await axios.post(
               "http://localhost:8080/api/ship/requestApproval",
