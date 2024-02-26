@@ -291,18 +291,19 @@ async function statusCall(n, options, cartId) {
           );
           console.log("#########################");
           console.log(data);
-          console.log(data.transactionId);
-          console.log(data.amount)
+         
           console.log("#########################");
-
+              
           const responseData = await transactionModel({
-            transactionId: data.transactionId,
+            data ,
+            
+            // transactionId: transactionId,
             merchantTransactionId:merchantTransactionId,
-            shipment_charge:data.shipment_charge,
+            // shipment_charge:shipment_charge,
             merchantUserId:process.env.MERCHANT_ID,
-            amount: amount,
+            // amount: amount,
             status: "payment Successfull",
-            cartId: data.cartId
+            // cartId: cartId
           });
           console.log("=============================");
           console.log(responseData);
