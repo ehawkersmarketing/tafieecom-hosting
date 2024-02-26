@@ -49,7 +49,7 @@
     border: none;
     color: white;
     display: inline-flex;
-    /* padding: 6.202px 24.81px; */
+    padding: 6.202px 24.81px;
     margin: 0;
     justify-content: center;
     align-items: center;
@@ -92,7 +92,7 @@
   .rating {
     list-style-type: none;
     display: flex;
-    /* gap: 0.5rem; */
+    gap: 0.5rem;
     padding-left: 0;
   }
   ul {
@@ -169,7 +169,7 @@
     border: none;
     color: white;
     display: inline-flex;
-    /* padding: 6.202px 24.81px; */
+    padding: 6.202px 24.81px;
     margin: 0;
     justify-content: center;
     align-items: center;
@@ -212,7 +212,7 @@
   .rating {
     list-style-type: none;
     display: flex;
-    /* gap: 0.5rem; */
+    gap: 0.5rem;
     padding-left: 0;
   }
   ul {

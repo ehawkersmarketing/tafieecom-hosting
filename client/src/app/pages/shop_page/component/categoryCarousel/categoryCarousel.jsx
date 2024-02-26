@@ -31,24 +31,40 @@ const CategoryCarousel = ({ items ,  }) => {
                     responsive={{
                         0: { // For mobile devices
                             items:  1,
+                            navText:false,
+                            nav:false
                             
                         },
                         576:{
                             items:2,
                             // nav:false,
                             navText:false,
+                            nav:false
                         },
                         768: { // For tablets and small desktops
                             items:  2,
                             navText:false,
+                            nav:false
                             
                         },
                         922:{
                             items:3,
+                            navText:false,
+                            nav:false
+                        },
+                        1024:{
+                            items:3,
+                            navText:false,
+                            nav:false
+                        },
+                        1050:{
+                            items:3,
+                            nav:true,
+                            navText:true
                         }
                     }}
                 
-                    autoplayHoverPause={true}
+                    autoplayHoverPause={false}
                     autoplay={true} >{items?.map((item, index) => {
                         return (
                             <CategoryCard item={item} key={index} data={handleCallback}  />

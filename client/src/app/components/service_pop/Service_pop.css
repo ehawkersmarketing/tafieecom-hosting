@@ -61,10 +61,19 @@
   .service-pop-submain .service-pop-text {
     margin-top: 1rem;
   }
+  .service-pop-main .modal-dialog {
+    padding-top: 3rem;
+  }
 }
 @media (max-width: 992px) {
   .modal-dialog {
     max-width: 80%;
     margin: auto;
+    padding-top: 3rem;
+  }
+}
+@media (max-width: 569px) {
+  .service-pop-main .modal-dialog {
+    padding-top: 3rem;
   }
 }
