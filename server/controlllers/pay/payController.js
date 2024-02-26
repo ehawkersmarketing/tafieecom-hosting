@@ -294,11 +294,11 @@ async function statusCall(n, options, cartId) {
           console.log("#########################");
 
           const responseData = await transactionModel({
-            transactionId: data.transactionId,
+            transactionId: transactionId,
             merchantTransactionId:merchantTransactionId,
-            shipmentCharges:data. shipment_charge,
+            shipment_charge:data.shipment_charge,
             merchantUserId:process.env.MERCHANT_ID,
-            amount: data.amount,
+            amount: amount,
             status: "payment Successfull",
             cartId: data.cartId
           });
