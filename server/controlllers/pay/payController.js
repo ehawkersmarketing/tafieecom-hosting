@@ -291,8 +291,6 @@ async function statusCall(n, options, cartId) {
           );
           console.log("#########################");
           console.log(data);
-          console.log(data.transactionId);
-          console.log(data.amount)
           console.log("#########################");
 
           const responseData = await transactionModel({
