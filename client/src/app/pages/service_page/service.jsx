@@ -204,7 +204,7 @@ const OurServices = () => {
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body d-flex align-item-center">
                       <Service_pop
                         item={
                           searchField === ""
