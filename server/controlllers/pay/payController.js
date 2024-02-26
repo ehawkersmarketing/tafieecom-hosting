@@ -294,21 +294,20 @@ async function statusCall(n, options, cartId) {
          
           console.log("#########################");
               
-          const responseData = await transactionModel({
-            data ,
-            
-            // transactionId: transactionId,
+          const responseData = await transactionModel({   
+            transactionId:data.data.transactionId,
             merchantTransactionId:merchantTransactionId,
-            // shipment_charge:shipment_charge,
+            shipment_charge:data.data.shipment_charge,
             merchantUserId:process.env.MERCHANT_ID,
-            // amount: amount,
+            amount: data.data.amount,
             status: "payment Successfull",
-            // cartId: cartId
+            cartId: cartId
           });
           console.log("=============================");
           console.log(responseData);
           responseData.save();
           console.log("=======================");
+          console.log(cartId)
 
           if (data.success) {
             const { data: request } = await axios.post(
