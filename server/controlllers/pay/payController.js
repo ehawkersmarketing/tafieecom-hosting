@@ -177,79 +177,17 @@ exports.checkStatusFunction = async (req, res) => {
         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
       );
     } else {
-      return res.status(500).send({
-        success: false,
-        message: "Check status return failed status of transaction",
-      });
+        res.success = false;
+      return res.redirect(
+        `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+      );
+      // return res.status(500).send({
+      //   success: false,
+      //   message: "Check status return failed status of transaction",
+      // });
     }
   }
 };
-
-// async function statusCall(n, options, cartId) {
-//   try {
-//     console.log("1" + cartId);
-//     if (cartId == null) {
-//       let response = await axios.request(options);
-//       console.log("2" + response);
-//       if (response.data.success === true) {
-//         console.log("3" + "true status")
-//         return true;
-//       } else {
-//         if (n === 0) {
-//           return false;
-//         } else {
-//           return await setTimeout(await statusCall(--n, options, null), 3000);
-//         }
-//       }
-
-//     } else {
-//       let response = await axios.request(options);
-//       if (response.data.success === true) {
-//         console.log(response.data.data);
-//         try {
-//           const { data } = await axios.post(
-//             "http://localhost:8080/api/placeOrder",
-//             {
-//               cartId: cartId,
-//               transactionId: response.data.data.transactionId,
-//               amount: response.data.data.amount,
-//               transactionStatus: response.data.data.state,
-//             }
-//           );
-//           if (data.success) {
-//             const { data: request } = await axios.post(
-//               "http://localhost:8080/api/ship/requestApproval",
-//               {
-//                 orderId: data.data._id,
-//               }
-//             );
-//             if (request.success) {
-//               return {
-//                 success: true,
-//                 orderId: data.data._id,
-//               };
-//             } else {
-//               return { success: false };
-//             }
-//           }
-//         } catch (error) {
-//           console.log(error);
-//           console.log("failure in saving new transaction");
-//           return { success: false };
-//         }
-//       } else {
-//         if (n === 0) {
-//           return { success: false };
-//         } else {
-//           return await setTimeout(await statusCall(--n, options, cartId), 3000);
-//         }
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// }
 
 async function statusCall(n, options, cartId) {
   try {
@@ -369,6 +307,8 @@ exports.refundFunction = async (req, res) => {
     const refundEntry = await orderModel.findOne({
       _id: orderId,
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
+
+
     const refundAmount = refundEntry.amount + refundEntry.shipment_charge;
     const data = {
       merchantId: process.env.MERCHANT_ID,
