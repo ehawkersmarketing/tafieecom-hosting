@@ -5,10 +5,22 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  merchantTransactionId:{
+    type:String
+  },
+  shippmentCharges:{
+    type:String
+  },
+  merchantUserId:{
+    type:String
+  },
   refundTransactionId: {
     type: String,
     trim: true,
     default: "",
+  },
+  refundMerchantTransactionId:{
+      type:String
   },
   amount: {
     type: Number,
