@@ -32,13 +32,13 @@ const FeatureCarouselCard = ({ items }) => {
                             // nav:false,
                         },
                         768: { // For tablets and small desktops
-                            itemsText:  3,
+                            items: 2,
                             navText:false,
                             // nav:false,
                             
                         },
-                        922:{
-                            itemsText:3,
+                        992:{
+                            items:3,
                             navText:false,
                             // nav:false,
                         }
