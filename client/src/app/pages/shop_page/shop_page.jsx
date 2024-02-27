@@ -125,8 +125,9 @@ const ShopPage = () => {
     // Now you can use childData to filter your data
  }
 
+ 
  const scrollToTop =()=>{
-  document.getElementById('productCategory').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('head').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
   return (
     <div className="main-container">
@@ -246,7 +247,7 @@ const ShopPage = () => {
               <div className="below-post"></div>
               <div className="below-post-1"></div>
             </div>
-            <div className="latest-post-card w-100 row">
+            <div className="latest-post-card w-100 row" onClick={scrollToTop}>
               {searchProducts && searchProducts.length !== 0 ? (
                 searchProducts?.map((item, index) => {
                   return (
@@ -275,7 +276,7 @@ const ShopPage = () => {
               <span>SELLERS</span>
             </div>
           </div>
-          <div className="best-seller-product">
+          <div className="best-seller-product" onClick={scrollToTop}>
             {products && <CarousalCard items={products} cart={cart} />}
           </div>
         </div>
@@ -311,7 +312,7 @@ const ShopPage = () => {
               </div>
             </div>
           )}
-          <div className="all-products-card row">
+          <div className="all-products-card row" onClick={scrollToTop}>
             {activeFilter.filter === "" &&
               searchField === "" &&
               products &&

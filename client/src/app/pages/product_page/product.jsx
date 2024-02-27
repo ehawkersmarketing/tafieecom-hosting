@@ -24,6 +24,10 @@ const Product = () => {
   const { data: reviews, setData: setReviews } = useFetch(
     `/api/getReviewById/${id}`
   );
+
+  const scrollToTop = () => {
+    document.getElementById("head").scrollIntoView({ behavior: "smooth" });
+  };
   // console.log(reviews?.reviews)
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -346,7 +350,7 @@ const Product = () => {
                 <h2 className="recommended">Recommended</h2>
                 <h2 className="foryou">For You</h2>
               </div>
-              <div className="product-page-carousal">
+              <div className="product-page-carousal" onClick={scrollToTop}>
                 {allProducts && cart && (
                   <Carousal items={allProducts} cart={cart} />
                 )}

@@ -786,15 +786,4 @@
     flex-direction: column;
     margin-left: 5rem;
 }
-.shop-page-container
-.shop-page-card
-.shop-page-card-content
-.product-content
-.text-fields
-.poster-card
-img {
-    /* height: 100%; */
-    position: absolute;
-    bottom: 70%;
-}
 }
