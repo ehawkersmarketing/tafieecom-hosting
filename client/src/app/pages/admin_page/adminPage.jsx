@@ -387,7 +387,7 @@ const orderStatusHandler = (id, orderStatus) => {
       <Header />
       {user && (
         <div className="row row-wrapper">
-          <div className="col-md-3 admin-sub-wrapper navbar navbar-expand-md bg-body-tertiary">
+          <div className="col-md-3 admin-sub-wrapper navbar navbar-expand-md   bg-body-tertiary">
             <button
               class="d-flex d-md-none justify-content-around w-100 sticky navbar-toggler mt-2 align-item-center"
               type="button"
