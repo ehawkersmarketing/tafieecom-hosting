@@ -233,7 +233,7 @@ async function statusCall(n, options, cartId) {
           console.log("#########################");
               
           const responseData = await transactionModel({ 
-            orderId:_id,  
+            orderId:data.data._id,  
             transactionId:data.data.transactionId,
             merchantTransactionId:merchantTransactionId,
             shipment_charge:data.data.shipment_charge,

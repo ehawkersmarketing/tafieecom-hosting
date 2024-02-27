@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "../header/header";
 import logoImage from "../../assets/Tafi_logo_white.png";
 import { useFetch } from "../../hooks/api_hook";
-import dayjs from 'dayjs';
-
-
+import dayjs from "dayjs";
 
 const Myaccount = () => {
   const [value, setValue] = useState(0);
@@ -15,8 +13,8 @@ const Myaccount = () => {
   const orderHandler = () => setValue(1);
   const logoutHandler = () => {
     localStorage.clear();
-    navigate('/auth/login')
-  }
+    navigate("/auth/login");
+  };
   const navigate = useNavigate();
   const { id } = useParams();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -28,56 +26,51 @@ const Myaccount = () => {
     navigate(`/orderConfirmationPage/${id}`);
   };
   const [error, setError] = useState(null);
-   useEffect(() => {
+  useEffect(() => {
     // Function to fetch order data from the backend
 
     const fetchUser = async () => {
-      try {        
-          const response = await fetch("https://backend.twicks.in/auth/user/" + id);
-          
-          if (response) {
-            const data = await response.json();
-           console.log(data)
-           if(data.success === false){
-            console.log("navigate")
-            navigate(`/`)
+      try {
+        const response = await fetch("http://localhost:8080/auth/user/" + id);
 
-          }else if(data.success === true){
-            if(data.data.user._id === user?._id){
-              console.log("vkdvd")
-            }else {
-              console.log("go navigate")
+        if (response) {
+          const data = await response.json();
+          console.log(data);
+          if (data.success === false) {
+            console.log("navigate");
+            navigate(`/`);
+          } else if (data.success === true) {
+            if (data.data.user._id === user?._id) {
+              console.log("vkdvd");
+            } else {
+              console.log("go navigate");
               navigate(`/`);
             }
-          }                
-          } else {
-            throw new Error('user not found');
           }
-        
-        }catch (error) {
-          setError(error.message);
+        } else {
+          throw new Error("user not found");
         }
+      } catch (error) {
+        setError(error.message);
       }
-        
-    fetchUser(); 
-    
+    };
+
+    fetchUser();
   }, [id]);
-
-
 
   useEffect(() => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
-        navigate('/')
+        navigate("/");
       }
-    }else {
+    } else {
       navigate("/auth/login");
     }
   }, [user]);
 
   const submitHandler = () => {
-    navigate(`/updateUser/${userData?._id}`)
-  }
+    navigate(`/updateUser/${userData?._id}`);
+  };
 
   return (
     <div>
@@ -165,7 +158,9 @@ const Myaccount = () => {
                       <tr>
                         <td>Date of Birth :</td>
                         <td>
-                          <span>{dayjs(userData?.dob).format('MMM D, YYYY')}</span>
+                          <span>
+                            {dayjs(userData?.dob).format("MMM D, YYYY")}
+                          </span>
                         </td>
                       </tr>
                       <tr>
@@ -179,7 +174,16 @@ const Myaccount = () => {
                 </div>
                 <div className="edit-button">
                   <button type="submit" className="edit">
-                    <Link style={{ color: "white", outline: "none", textDecoration: "none" }} to={`/updateUser/${userData?._id}`}>EDIT</Link>
+                    <Link
+                      style={{
+                        color: "white",
+                        outline: "none",
+                        textDecoration: "none",
+                      }}
+                      to={`/updateUser/${userData?._id}`}
+                    >
+                      EDIT
+                    </Link>
                   </button>
                 </div>
               </div>
@@ -215,29 +219,36 @@ const Myaccount = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {
-                          orders && orders.map((order, index) => {
+                        {orders &&
+                          orders.map((order, index) => {
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}.</th>
-                                <td className="td" onClick={()=>{handleClick(order._id)}}> {order._id} 
+                                <td className="td order-link">
+                                  <Link
+                                    to={`/OrderConfirmationPage/${order._id}`}
+                                  >
+                                    {order._id}
+                                  </Link>
                                 </td>
                                 <td className="td">{order.amount}</td>
                                 <td className="td">{order.orderStatus}</td>
-                                <td className="td "> {`${dayjs(order.createdAt).format('MMMM D, YYYY')}`}</td>
+                                <td className="td ">
+                                  {" "}
+                                  {`${dayjs(order.createdAt).format(
+                                    "MMMM D, YYYY"
+                                  )}`}
+                                </td>
                               </tr>
                             );
-                          })
-                        }
+                          })}
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             )}
-            {value == 2 && (
-              <div></div>
-            )}
+            {value == 2 && <div></div>}
           </div>
         </div>
       </div>

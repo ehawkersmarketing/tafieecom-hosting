@@ -19,8 +19,11 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <nav className="heading navbar bg-body-tertiary navbar-expand-lg fixed-top" id="head">
-      <div className="header sticky-xxl-top container-fluid" >
+    <nav
+      className="heading navbar bg-body-tertiary navbar-expand-lg fixed-top"
+      id="head"
+    >
+      <div className="header sticky-xxl-top container-fluid">
         <div className="logo-section navbar-brand col-md-3">
           <Link to="/">
             <img src={logo} alt="" />
@@ -36,10 +39,14 @@ const Header = () => {
         >
           <i class="bi bi-list"></i>
         </button>
-        <div className="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div
+          className="offcanvas offcanvas-end "
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-            </h5>
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
             <button
               type="button"
               class="btn-close"
@@ -93,6 +100,14 @@ const Header = () => {
               </Link>
             </div>
             <div className="login-section col-md-5">
+            {user && user.role.role === "User" && (
+                <Link
+                  className="signin"
+                  to={`/Cart`}
+                >
+                  <i class="bi bi-cart3"></i>
+                </Link>
+              )}
               {!user && (
                 <Link className="register" to={`/auth/register`}>
                   Register
@@ -109,17 +124,17 @@ const Header = () => {
                     Dashboard
                   </Link>
                 )}
-              {user && (
-                <Link className="signin" to={`/auth/login`} onClick={onLogout}>
-                  Logout
-                </Link>
-              )}
               {user && user.role.role === "User" && (
                 <Link
                   className="register myaccount"
                   to={`/myaccount/${userId}`}
                 >
                   My account
+                </Link>
+              )}
+              {user && (
+                <Link className="signin" to={`/auth/login`} onClick={onLogout}>
+                  Logout
                 </Link>
               )}
             </div>

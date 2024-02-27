@@ -68,7 +68,8 @@ exports.approveRequest = async (req, res) => {
             tax: 0
           })
         }
-        // console.log(request);
+
+        console.log("request accept atapprovalrequest",request);
         // console.log();
         let time = order.timestamps.toISOString();
         axios.post("https://backend.twicks.in/api/ship/createOrder",
@@ -109,6 +110,7 @@ exports.approveRequest = async (req, res) => {
             weight: weight
           }
         ).then(async(shipment) => {
+                 console.log("shippment whenodercreated",shipment)
           if (shipment) {
             await orderModel.findOneAndUpdate({
               _id: request.orderId,
@@ -327,7 +329,7 @@ exports.calcShipment = async (req, res) => {
 
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
-  // console.log("dsjhbuygesufheys");
+  console.log("dsjhbuygesufheys");
   const {
     pickup_location,
     order_id,
@@ -370,8 +372,8 @@ exports.createOrder = async (req, res) => {
 
   async function newShipFunction() {
     let getToken = await srlogin();
-    // console.log("below is the api key token recieved");
-    // console.log(getToken);
+    console.log("below is the api key token recieved");
+    console.log(getToken);
 
     if (getToken.status) {
       await axios
@@ -421,9 +423,12 @@ exports.createOrder = async (req, res) => {
           }
         )
         .then(async function (response) {
-          // console.log(response);
-          // console.log(response.data.order_id);
-          // console.log(response.data.shipment_id);
+          console.log("))))))))))))))))))))")
+          console.log(response);
+          console.log("))))))))))))))))))))")
+
+          console.log(response.data.order_id);
+          console.log(response.data.shipment_id);
           const { data: awb } = await axios.post(
             "https://backend.twicks.in/api/ship/generateAWB",
             {
