@@ -96,10 +96,10 @@ const OrderConformationPage = () => {
   const cancelOrderHandler = async () => {
     try {
       console.log("order cancelled", id)
-      console.log(axios.post("https://backend.twicks.in//api/ship/cancelRequest", {
+      console.log(axios.post("https://backend.twicks.in/api/ship/cancelRequest", {
         orderId: id,
       }))
-      const data = await axios.post("https://backend.twicks.in//api/ship/cancelRequest", {
+      const data = await axios.post("https://backend.twicks.in/api/ship/cancelRequest", {
         orderId: id,
       });
       console.log("api called", data)

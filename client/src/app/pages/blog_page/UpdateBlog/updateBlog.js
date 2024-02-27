@@ -32,7 +32,7 @@ const UpdateBlog = () => {
 
   const getOneBlog = async () => {
     try {
-      const { data } = await axios.get("https://backend.twicks.in//api/blog/" + id);
+      const { data } = await axios.get("https://backend.twicks.in/api/blog/" + id);
       // console.log(data);
       setInputHandler({
         title: data.data.title,

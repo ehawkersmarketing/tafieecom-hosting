@@ -93,7 +93,7 @@ const AdminProcessOrder = () => {
         });
       } else {
         // console.log(formData.length + formData.breadth + formData.height + formData.weight);
-        const { data } = await axios.post("https://backend.twicks.in//api/ship/approveRequest", {
+        const { data } = await axios.post("https://backend.twicks.in/api/ship/approveRequest", {
           orderId: id,
           length: formData.length,
           breadth: formData.breadth,
