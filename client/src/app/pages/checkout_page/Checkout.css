@@ -1,4 +1,4 @@
-section {
+csection {
     width: 100%;
     min-height: calc(100vh - 80px);
 }
@@ -55,15 +55,14 @@ section {
 .checkout-page-payment-details .checkout-btn,.checkout-page-form .checkout-btn {
     display: block;
     width: 100%;
-    padding: 15px;
-    border: none;
-    outline: none;
-    background-color: rgb(25, 68, 63);
-    color: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    margin-top: 10px;
+    border: 1px solid white;
     cursor: pointer;
+    color: white;
+    padding: 10px 23px 10px 23px;
+    text-decoration: none;
+    font-size: 16px;
+    background-image: linear-gradient(    79deg,    #434b24 0.36%,    #234926 58.15%,    #1f581b 117.12%  );
+    border: none;
 }
 
 .checkout-page-table-details {
