@@ -24,7 +24,7 @@ const Header = () => {
       id="head"
     >
       <div className="header sticky-xxl-top container-fluid">
-        <div className="logo-section navbar-brand col-md-3">
+        <div className="logo-section navbar-brand col-md-2">
           <Link to="/">
             <img src={logo} alt="" />
           </Link>
@@ -55,7 +55,7 @@ const Header = () => {
             ></button>
           </div>
           <div className="offcanvas-body justify-content-between row">
-            <div className="link-section col-md-6 justify-content-around">
+            <div className="link-section col-md-7 justify-content-around">
               <Link
                 to="/"
                 className={location.pathname === "/" ? "active-link" : ""}
@@ -99,7 +99,7 @@ const Header = () => {
                 <span>Resource center</span>
               </Link>
             </div>
-            <div className="login-section col-md-6">
+            <div className="login-section col-md-5">
             {user && user.role.role === "User" && (
                 <Link
                   className="signin"
