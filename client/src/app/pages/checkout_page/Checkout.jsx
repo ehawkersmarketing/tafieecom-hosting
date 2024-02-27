@@ -119,7 +119,7 @@ const Checkout = () => {
     // event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/ship/calcShipment",
+        "https://backend.twicks.in/api/ship/calcShipment",
         {
           shipping_postcode: pincode,
           weight: cart.totalWeight,
