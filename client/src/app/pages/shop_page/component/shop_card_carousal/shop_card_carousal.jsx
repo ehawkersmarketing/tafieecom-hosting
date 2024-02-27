@@ -72,7 +72,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                 <div className="shop-page-card-content row">
                   <div className="view-more col-md-6">
                     <div className="poster-text">
-                      <span className="fertilizer-text">
+                      <span className="fertilizer-text" onClick={() => navigate(`/product/${item._id}`)}>
                         {item.category.category}
                       </span>
                       <span className="description-text">
