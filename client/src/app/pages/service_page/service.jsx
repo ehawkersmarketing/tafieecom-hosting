@@ -46,7 +46,12 @@ const OurServices = () => {
                   <span>OUR</span> <span>SERVICES</span>
                 </h1>
                 <p>Define your agriculture in a whole different way</p>
-                <Link className="learn-more-service" to="https://wa.me/917987206373">Learn More <i class="bi bi-whatsapp"></i></Link>
+                <Link
+                  className="learn-more-service"
+                  to="https://api.whatsapp.com/send?phone=918120000506&text=Please%20tell%20me%20more%20about%20TWICKS%20SERVICES."
+                >
+                  Learn More <i class="bi bi-whatsapp"></i>
+                </Link>
               </div>
             </div>
           </div>
@@ -109,7 +114,9 @@ const OurServices = () => {
                                       {service.title}
                                     </button>
                                   </h5>
-                                  <p>{service.description.substring(0, 40)}...</p>
+                                  <p>
+                                    {service.description.substring(0, 40)}...
+                                  </p>
                                 </div>
                               </div>
                               <div className="block-img col-5">
@@ -117,7 +124,6 @@ const OurServices = () => {
                               </div>
                             </div>
                           </div>
-                          
                         </>
                       );
                     })
@@ -126,7 +132,6 @@ const OurServices = () => {
                       <h4>No Results Found</h4>
                     </div>
                   )}
-                  
                 </div>
               </div>
             )}
@@ -163,15 +168,17 @@ const OurServices = () => {
             <div className="col-md-4 missing-card">
               <div className="service-block d-flex">
                 <div className="block-text">
-                  
-                    <h5>
-                    <button type="button" class="card-button" onClick={() => window.location.hash = "#bottom"}>Missing something?</button>
-
-                    </h5>
-                    <p>Tell us your requirements below</p>
-                  
+                  <h5>
+                    <button
+                      type="button"
+                      class="card-button"
+                      onClick={() => (window.location.hash = "#bottom")}
+                    >
+                      Missing something?
+                    </button>
+                  </h5>
+                  <p>Tell us your requirements below</p>
                 </div>
-                
               </div>
             </div>
 
@@ -217,17 +224,18 @@ const OurServices = () => {
                     </div>
                     <div class="modal-footer">
                       <div className="service-pop">
-                        <button
-                          className="d-flex"
-                          type="button"
-                          data-bs-dismiss="modal"
-                        >
-                          {" "}
-                          <div>
-                            <strong>Show Interest</strong>
-                          </div>
-                          <i class="bi bi-whatsapp"></i>
-                        </button>
+                        <a href="https://api.whatsapp.com/send?phone=918120000506&text=Please%20tell%20me%20more%20about%20TWICKS%20SERVICES.">
+                          <button
+                            className="d-flex"
+                            type="button"
+                            data-bs-dismiss="modal"
+                          >
+                            <div>
+                              <strong>Show Interest</strong>
+                            </div>
+                            <i class="bi bi-whatsapp"></i>
+                          </button>
+                        </a>
                       </div>
                       <button
                         type="button"
