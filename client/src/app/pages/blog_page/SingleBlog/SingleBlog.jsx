@@ -25,16 +25,16 @@ const SingleBlog = () => {
           
           if (response) {
             const data = await response.json();
-           console.log(data)
+          //  console.log(data)
            if(data.success === false){
-            console.log("navigate")
+            // console.log("navigate")
             navigate(`/blog`)
 
           }else if(data.success === true){
             if(data.data.user._id === user?._id){
-              console.log("vkdvd")
+              
             }else {
-              console.log("go navigate")
+              
               // navigate(`/blog`);
             }
           } 

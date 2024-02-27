@@ -36,14 +36,14 @@ const storage = multer.memoryStorage({
 const upload = multer({ storage: storage });
 
 router.post("/uploadServiceImage", upload.single("image"), (req, res) => {
-  console.log(req.file);
+  // console.log(req.file);
   const params = {
     Bucket: S3_BUCKET_NAME,
     Key: `services/${req.file.originalname}`,
     Body: req.file.buffer,
     ContentType: "image/jpeg"
   };
-  console.log("params", params)
+  // console.log("params", params)
 
   s3.upload(params, (error, data) => {
     if (error) {
