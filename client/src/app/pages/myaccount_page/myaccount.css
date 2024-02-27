@@ -159,13 +159,17 @@
     background-color: transparent;
 }
 .user-account .admin-product-card {
-  margin-top: 3rem;
+  margin: auto;
+  width: 95%;
 }
 
 .user-account .subHeading {
   margin: 1rem;
 }
 
+.admin-product-card .order-link a{
+  text-decoration: none;
+}
 .user-account h1 {
   margin-top: 3rem;
   font-size: 25px;
