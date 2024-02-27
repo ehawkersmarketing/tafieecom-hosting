@@ -38,7 +38,7 @@
 
   .price {
     color: var(--darkgreen-primary, #19443f);
-    font-size: 20px;
+    font-size: 1rem;
     line-height: normal;
     margin-bottom: 0.6rem;
     font-weight: 700;
@@ -159,7 +159,7 @@
 
   .price {
     color: var(--darkgreen-primary, #19443f);
-    font-size: 20px;
+    font-size: 1rem;
     line-height: normal;
     margin-bottom: 0.6rem;
     font-weight: 700;
