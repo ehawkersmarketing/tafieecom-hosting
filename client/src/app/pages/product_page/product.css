@@ -96,7 +96,8 @@
 
 .single-product .price {
   color: var(--darkgreen-primary, #19443f);
-  font-size: 20px;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: normal;
   margin-top: -6px;
   margin-bottom: 0.6rem;
@@ -369,7 +370,7 @@
   border: none;
 }
 @media (max-width: 768px) {
-  .single-product{
+  .single-product {
     padding-bottom: 10rem;
   }
   .single-product .wrapper {
@@ -383,12 +384,12 @@
     margin: 0;
     padding: 1.2rem;
   }
-  .single-product .wrapper .product-image{
+  .single-product .wrapper .product-image {
     margin-bottom: -3rem;
   }
   .single-product .wrapper .product-image img {
-    padding: 2rem!important;
-    margin-bottom: 1rem!important;
+    padding: 2rem !important;
+    margin-bottom: 1rem !important;
   }
   .single-product .about-title {
     margin-bottom: 0.2rem;
@@ -405,65 +406,66 @@
     margin-top: -4.5rem;
     z-index: 0;
   }
-  .single-product .card-design .inner-card{
+  .single-product .card-design .inner-card {
     margin: 5%;
   }
-  .single-product .card-design .inner-card h3{
+  .single-product .card-design .inner-card h3 {
     margin: 0;
   }
-  .single-product .card-design .inner-card h1{
+  .single-product .card-design .inner-card h1 {
     font-size: 22px;
     padding: 0;
     margin: 0;
   }
-  .single-product .card-design .inner-card .price{
+  .single-product .card-design .inner-card .price {
     font-size: 15px;
   }
-  .single-product .card-design .inner-card .wishlistAndAddCart{
+  .single-product .card-design .inner-card .wishlistAndAddCart {
     font-size: 15px;
   }
-  .single-product .wrapper-about .about-product .about-desc p{
+  .single-product .wrapper-about .about-product .about-desc p {
     font-size: 15px;
   }
-  .single-product .review-card{
+  .single-product .review-card {
     width: 95%;
     padding: 0;
     padding-bottom: 1rem;
     margin: auto;
   }
-  .single-product .review-heading{
+  .single-product .review-heading {
     margin-top: 1rem;
   }
-  .single-product .review-heading, .single-product .input-form, .single-product .review-description{
+  .single-product .review-heading,
+  .single-product .input-form,
+  .single-product .review-description {
     margin-left: 1rem;
     margin-right: 1rem;
   }
-  .single-product .price{
+  .single-product .price {
     font-size: 15px;
     font-weight: bold;
   }
-  .single-product .user-review .user-main-review{
+  .single-product .user-review .user-main-review {
     margin: 0.2rem;
     display: flex;
     align-items: center;
   }
-  .single-product .review-heading .review-main-title h1{
+  .single-product .review-heading .review-main-title h1 {
     font-size: 22px;
   }
-  .single-product .review-heading .ratingAndReview{
+  .single-product .review-heading .ratingAndReview {
     font-size: 15px;
-    padding-top: .3rem;
-    margin-bottom: .4rem;
+    padding-top: 0.3rem;
+    margin-bottom: 0.4rem;
   }
-  .single-product .card-carousel-title{
+  .single-product .card-carousel-title {
     margin-top: 0.5rem;
-
   }
-  .user-main-review .user-main-review h3{
+  .user-main-review .user-main-review h3 {
     padding: 0;
     margin: 0;
   }
-  .single-product .user-main-review span{
+  .single-product .user-main-review span {
     font-size: 20px;
   }
   .single-product .personName {
@@ -473,11 +475,11 @@
     height: 7rem;
   }
 }
-@media (max-width: 992px){
+@media (max-width: 992px) {
   .single-product {
     padding-bottom: 9rem;
   }
-  .wrapper .container .card-design .inner-card h1{
+  .wrapper .container .card-design .inner-card h1 {
     font-size: 15px;
   }
   .single-product .wrapper .product-image {
@@ -493,15 +495,15 @@
     padding: 9%;
     margin-bottom: -4rem;
   }
-  .single-product .card-design{
+  .single-product .card-design {
     width: 70%;
   }
 }
-@media (max-width : 568px){
+@media (max-width: 568px) {
   .single-product .about-title {
     margin-top: 0;
   }
-  .single-product .wrapper .product-image{
+  .single-product .wrapper .product-image {
     margin-bottom: -3rem;
   }
   .single-product .wrapper .product-image img {
@@ -515,5 +517,5 @@
   }
   .single-product {
     padding-bottom: 6rem;
-}
+  }
 }
