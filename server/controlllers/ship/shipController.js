@@ -146,9 +146,9 @@ exports.approveRequest = async (req, res) => {
 //POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
-    // console.log("yes sir")
+    console.log("yes sir")
     const { orderId } = req.body;
-    // console.log("heelo",orderId)
+    console.log("heelo",orderId)
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
       // console.log(request)
