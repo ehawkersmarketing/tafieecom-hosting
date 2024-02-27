@@ -239,14 +239,14 @@ const ShopPage = () => {
         )}
         {(activeFilter.filter !== "" || searchField !== "") && (
           <div className="blog-latest-post">
-            <div>
+            <div className="w-100">
               <h4>Search Posts</h4>
             </div>
-            <div className="below-line">
+            <div className="below-line w-100">
               <div className="below-post"></div>
               <div className="below-post-1"></div>
             </div>
-            <div className="latest-post-card row">
+            <div className="latest-post-card w-100 row">
               {searchProducts && searchProducts.length !== 0 ? (
                 searchProducts?.map((item, index) => {
                   return (
