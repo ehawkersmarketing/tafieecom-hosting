@@ -1,5 +1,6 @@
 .order-confirm {
     width: 100%;
+    padding-bottom: 5rem;
     padding-top: 3rem;
     flex-shrink: 0;
     background: linear-gradient(90deg, rgba(41, 100, 94, 0.10) -0.43%, rgba(68, 169, 139, 0.10) 99.93%), var(--light-base-green-2, #EBF6F5);
