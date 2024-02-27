@@ -99,7 +99,7 @@ const Checkout = () => {
     try {
       if (shipCharge === undefined) {
         alert(
-          "Submit adress details and calculate shipment before placing order"
+          "Submit address details and calculate shipment before placing order"
         );
       } else {
         const { data } = await axios.post(
