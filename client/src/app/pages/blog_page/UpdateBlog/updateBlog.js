@@ -24,9 +24,7 @@ const UpdateBlog = () => {
         // history("/adminPage");
       }if(user.role.role === "User"){
         history("/")
-      } else {
-        history("/auth/login");
-      }
+      } 
     } else {
       history("/auth/login");
     }
@@ -35,7 +33,7 @@ const UpdateBlog = () => {
   const getOneBlog = async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/api/blog/" + id);
-      console.log(data);
+      // console.log(data);
       setInputHandler({
         title: data.data.title,
         content: data.data.content,
@@ -54,7 +52,7 @@ const UpdateBlog = () => {
     axios
       .put("http://localhost:8080/api/updateBlog/" + id)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setInputHandler({
           ...inputHandler,
           title: res.data.updatedBlog.title,
@@ -89,7 +87,7 @@ const UpdateBlog = () => {
       "http://localhost:8080/api/uploadBlogImage",
       formData
     );
-    console.log(imageUrl);
+    // console.log(imageUrl);
     if (imageUrl.data.success) {
       axios
         .put("http://localhost:8080/api/updateBlog/" + id, {
@@ -99,7 +97,7 @@ const UpdateBlog = () => {
           image: imageUrl.data.url,
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {

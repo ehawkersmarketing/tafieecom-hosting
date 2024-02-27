@@ -21,7 +21,7 @@ const SignIn = () => {
   const { id } = useParams();
   const [path, setPath] = useState(id);
   const { data: users } = useFetch("/auth/users");
-  console.log(users)
+  // console.log(users)
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
@@ -56,7 +56,7 @@ let signedUser
 
 
   const onSendOtp = async (event) => {
-    console.log("vjvsujsvd")
+   
     try {
        event.preventDefault();
        if (formField.phone.length == 10) {
@@ -109,21 +109,10 @@ let signedUser
    };
    
    const RegisterSendOtp = async (event) => {
-    console.log("vjvsujsvd")
+    
     try {
        event.preventDefault();
        if (formField.phone.length == 10) {
-        //  const userExists = users?.some(item => item?.phone === formField.phone);
-        //  console.log(userExists)
-        //  if(!userExists){
-        //   toast.error(`User is not Registered`, {
-        //     position: "bottom-right",
-        //     autoClose: 8000,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     theme: "dark",
-        //   });
-        //  } else {
            const { data } = await axios.post(
              "http://localhost:8080/auth/sendOtp",
              {
@@ -139,7 +128,7 @@ let signedUser
                draggable: true,
                theme: "dark",
              });
-          //  }
+          
          }
        } else {
          toast.error("Please enter a valid phone number", {

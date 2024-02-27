@@ -249,3 +249,7 @@
         margin-top:1rem;
     }
 }
+.cross{
+    font-size: 7rem;
+    /* background: var(--Dark-Green-Gradient, linear-gradient(34deg, #29645E 1.8%, #188479 105.45%)); */
+}

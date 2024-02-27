@@ -21,8 +21,6 @@ const UpdateService = () => {
         // history("/adminPage");
       } if(user.role.role === "User"){
         history("/")
-      }else {
-        history("/auth/login");
       }
     } else {
       history("/auth/login");
