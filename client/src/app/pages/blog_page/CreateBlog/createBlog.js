@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './createBlog.css';
+import "./createBlog.css";
 import Header from "../../header/header";
 import Footer from "../../footer/footer";
 
@@ -21,9 +21,9 @@ const CreateBlog = () => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
         // navigate("/");
-       
-      }if(user.role.role === "User"){
-        navigate("/")
+      }
+      if (user.role.role === "User") {
+        navigate("/");
       }
     } else {
       navigate("/auth/login");
@@ -38,20 +38,19 @@ const CreateBlog = () => {
   };
   const history = useNavigate();
   const backToDashboard = () => {
-    history('/adminPage')
-  }
+    history("/adminPage");
+  };
 
-  const addTags = event => {
+  const addTags = (event) => {
     if (event.key === "Enter" && event.target.value !== "") {
       setTags([...tags, event.target.value]);
       event.target.value = "";
     }
   };
 
-  const removeTags = index => {
-    setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
+  const removeTags = (index) => {
+    setTags([...tags.filter((tag) => tags.indexOf(tag) !== index)]);
   };
-
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -160,14 +159,24 @@ const CreateBlog = () => {
                   required
                 />
               </div>
-              <div className="tags-input-container">
-                {tags.map((tag, index) => (
-                  <div className="tag-item" key={index}>
-                    <span className="text">{tag}</span>
-                    <span className="close" onClick={() => removeTags(index)}>&times;</span>
-                  </div>
-                ))}
-                <input onKeyDown={event => addTags(event)} type="text" className="tags-input" placeholder="Please enter your tags here" />
+              <div className="tags">
+                <label>Tags</label>
+                <div className="tags-input-container">
+                  {tags.map((tag, index) => (
+                    <div className="tag-item" key={index}>
+                      <span className="text">{tag}</span>
+                      <span className="close" onClick={() => removeTags(index)}>
+                        &times;
+                      </span>
+                    </div>
+                  ))}
+                  <input
+                    onKeyDown={(event) => addTags(event)}
+                    type="text"
+                    className="tags-input"
+                    placeholder="Please enter your tags here"
+                  />
+                </div>
               </div>
               <div
                 className="btn"
@@ -183,7 +192,6 @@ const CreateBlog = () => {
                 <br />
               </React.Fragment>
             ))}
-
           </div>
         }
       </section>

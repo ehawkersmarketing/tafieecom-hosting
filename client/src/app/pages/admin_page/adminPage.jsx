@@ -765,7 +765,7 @@ const orderStatusHandler = (id, orderStatus) => {
                                 </td>
 
                                 {order.status === "By Self" ? (
-                                <div>
+                                <td>
                                 <select
                                   className="orderSelect"
                                   name="input"
@@ -780,7 +780,7 @@ const orderStatusHandler = (id, orderStatus) => {
                                   <option value="PROCESSING">PROCESSING</option>
                                   <option value="COMPLETED">COMPLETED</option>
                                 </select>
-                              </div>
+                              </td>
                                 ) : (
                                   <td className="td table-center">
                                     {order.orderStatus}
