@@ -20,11 +20,10 @@ const CreateBlog = () => {
   useEffect(() => {
     if (user) {
       if (user.role.role === "Admin" || user.role.role === "Editor") {
-        // navigate("blog/composeBlog");
+        // navigate("/");
+       
       }if(user.role.role === "User"){
         navigate("/")
-      } else {
-        navigate("/auth/login");
       }
     } else {
       navigate("/auth/login");
@@ -74,7 +73,7 @@ const CreateBlog = () => {
         "https://backend.twicks.in/api/uploadBlogImage",
         formData
       );
-      console.log(imageUrl);
+      // console.log(imageUrl);
       if (imageUrl) {
         if (imageUrl?.data.success) {
           const { data } = await axios.post(

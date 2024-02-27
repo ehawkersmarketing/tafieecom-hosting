@@ -37,7 +37,7 @@ exports.requestApproval = async (req, res) => {
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
-    console.log('called')
+    // console.log('called')
     const { orderId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
@@ -68,8 +68,8 @@ exports.approveRequest = async (req, res) => {
             tax: 0
           })
         }
-        console.log(request);
-        console.log();
+        // console.log(request);
+        // console.log();
         let time = order.timestamps.toISOString();
         axios.post("https://backend.twicks.in/api/ship/createOrder",
           {
@@ -160,6 +160,7 @@ exports.cancelApprovalRequest = async (req, res) => {
         , { new: true }
       ); 
       if (data) {
+        // console.log("csjvidnidu data" , data)
         const order = await orderModel.findOneAndUpdate(
           { _id: data.orderId },
           {
@@ -167,6 +168,7 @@ exports.cancelApprovalRequest = async (req, res) => {
           }
         );
         if (order) {
+          // console.log("========================================")
           const { data: payRefund } = await axios.post(
             "https://backend.twicks.in/api/pay/refund",
             {
@@ -248,7 +250,7 @@ exports.calcShipment = async (req, res) => {
         paramers += "&is_return=" + is_return;
 
         if (getToken.status) {
-          console.log(getToken.mainToken);
+          // console.log(getToken.mainToken);
           var options = {
             method: "get",
             maxBodyLength: Infinity,
@@ -262,30 +264,30 @@ exports.calcShipment = async (req, res) => {
           };
           axios(options)
             .then(function (response) {
-              console.log(
-                "Following are the delivery companies available for the delivery service: "
-              );
-              console.log(response.data.data);
+              // console.log(
+              //   "Following are the delivery companies available for the delivery service: "
+              // );
+              // console.log(response.data.data);
               let minRateObject =
                 response.data.data.available_courier_companies.reduce(
                   (prev, curr) => {
                     return prev.rate < curr.rate ? prev : curr;
                   }
                 );
-              console.log(
-                "The minimum rate for delivery is:" +
-                minRateObject.rate +
-                "\n" +
-                "The estimated time of delivery for the service is: " +
-                minRateObject.etd +
-                "\n" +
-                "The name of the service is: " +
-                minRateObject.courier_name
-              );
+              // console.log(
+              //   "The minimum rate for delivery is:" +
+              //   minRateObject.rate +
+              //   "\n" +
+              //   "The estimated time of delivery for the service is: " +
+              //   minRateObject.etd +
+              //   "\n" +
+              //   "The name of the service is: " +
+              //   minRateObject.courier_name
+              // );
               resData.status = true;
               resData.message = "Success!!";
               resData.mainset = response.data;
-              console.log(resData);
+              // console.log(resData);
               res.json({
                 success: true,
                 shipPrice: minRateObject.rate,
@@ -318,7 +320,7 @@ exports.calcShipment = async (req, res) => {
 
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
-  console.log("dsjhbuygesufheys");
+  // console.log("dsjhbuygesufheys");
   const {
     pickup_location,
     order_id,
@@ -361,8 +363,8 @@ exports.createOrder = async (req, res) => {
 
   async function newShipFunction() {
     let getToken = await srlogin();
-    console.log("below is the api key token recieved");
-    console.log(getToken);
+    // console.log("below is the api key token recieved");
+    // console.log(getToken);
 
     if (getToken.status) {
       await axios
@@ -412,9 +414,9 @@ exports.createOrder = async (req, res) => {
           }
         )
         .then(async function (response) {
-          console.log(response);
-          console.log(response.data.order_id);
-          console.log(response.data.shipment_id);
+          // console.log(response);
+          // console.log(response.data.order_id);
+          // console.log(response.data.shipment_id);
           const { data: awb } = await axios.post(
             "https://backend.twicks.in/api/ship/generateAWB",
             {
@@ -430,7 +432,7 @@ exports.createOrder = async (req, res) => {
                 // pickup_date: ,
               }
             );
-            console.log(pickUp,"pickup")
+            // console.log(pickUp,"pickup")
             if (pickUp.success) {
               const { data: manifest } = await axios.post(
                 "https://backend.twicks.in/api/ship/manifest",
@@ -530,7 +532,7 @@ exports.getOrderDetsFunction = async (req, res) => {
 
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
-  console.log(getToken);
+  // console.log(getToken);
 
   if (getToken) {
     let options = {
@@ -568,7 +570,7 @@ exports.getOrderDetsFunction = async (req, res) => {
 //POST || generating AWB for order mandatory for shipment pickup
 exports.generateAWBFunction = async (req, res) => {
   let { shipment_id } = req.body;
-  console.log("generating AWB");
+  // console.log("generating AWB");
 
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
@@ -590,7 +592,7 @@ exports.generateAWBFunction = async (req, res) => {
     };
     await axios.request(options)
       .then(function (response) {
-        console.log("awwwwb",response)
+        // console.log("awwwwb",response)
         if(response.data.awb_assign_status !== 0){
           return res.json({
             success: true,
@@ -889,7 +891,7 @@ exports.cancelShipmentFunction = async (req, res) => {
         }
       )
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         return res.status(200).send({
           success: true,
           message: response.data.message,
@@ -994,7 +996,7 @@ exports.createReturnOrderFunction = async (req, res) => {
         }
       )
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         if (response.status_code == 422) {
           return res.status(422).send({
             success: false,
@@ -1052,7 +1054,7 @@ exports.generateRetAWBFunction = async (req, res) => {
     };
     await axios(options)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         return response;
       })
       .catch(function (error) {
@@ -1101,7 +1103,7 @@ exports.generateRetAWBFunction = async (req, res) => {
 
 //getToken Function ||Authentication via login and token recieval REQUIRED FOR ALL API CALLS
 function srlogin() {
-  console.log(process.env.SHIPROCKET_EMAIL);
+  // console.log(process.env.SHIPROCKET_EMAIL);
   return new Promise(async (resolve, reject) => {
     //DUMMY RESPONSE DATA, UPDATED ON RESPONSE RECIEVAL
     let resData = {

@@ -45,9 +45,9 @@ router.post("/uploadBlogImage", upload.single("image"), async (req, res) => {
 
   s3.upload(params, (error, data) => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     } else {
-      console.log(data.Location)
+      // console.log(data.Location)
       res.json({
         success: true,
         message: "Image Uploaded Successfully",

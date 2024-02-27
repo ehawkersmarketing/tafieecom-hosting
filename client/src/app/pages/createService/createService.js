@@ -24,9 +24,7 @@ const CreateService = () => {
         // navigate("blog/composeBlog");
       }if(user.role.role === "User"){
         navigate("/")
-      } else {
-        navigate("/auth/login");
-      }
+      } 
     } else {
       navigate("/auth/login");
     }

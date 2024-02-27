@@ -158,7 +158,7 @@ const AdminPage = () => {
       } else if (user.role.role === "Editor") {
         setValue(3);
       } else if(user.role.role === "User") {
-        console.log(user._id)
+        // console.log(user._id)
         navigate(`/myaccount/${user?._id}`);
       }else{
         navigate("/auth/login");
@@ -196,7 +196,7 @@ const AdminPage = () => {
 
   const fetchDeleted = async () => {
     const { data } = await axios.get(`https://backend.twicks.in/api/blogs`);
-    console.log(data);
+    // console.log(data);
     setBlogs(data.data);
   };
 
@@ -362,18 +362,18 @@ const handlechangeOrderStatus = (e, id) => {
     [id]: newOrderStatus
   }));
   localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
-  console.log(newOrderStatus);
+  // console.log(newOrderStatus);
   orderStatusHandler(id, newOrderStatus);
 };
 
 const orderStatusHandler = (id, orderStatus) => {
-  console.log(orderStatus);
+  // console.log(orderStatus);
   axios.patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
     length:   1,
     orderStatus: orderStatus,
   })
   .then((res) => {
-    console.log(res.data);
+    // console.log(res.data);
   })
   .catch((err) => {
     console.log(err);
