@@ -341,6 +341,10 @@
   justify-content: center;
   align-items: center;
 }
+.order-bar-icon i{
+  width: 30px;
+  height: 30pxa;
+}
  .user-account .admin-product-card table th{
   border: none;
 }

@@ -90,7 +90,10 @@ const OrderConformationPage = () => {
     }
   }, [data, user]);
 
-
+useEffect(async()=>{
+     const data = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`)
+     console.log(data)
+},[id])
 
 
   const cancelOrderHandler = async () => {

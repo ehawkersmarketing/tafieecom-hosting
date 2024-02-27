@@ -153,7 +153,7 @@ const Cart = () => {
           <div className="subtotal">
             <p>Subtotal: {total?.toLocaleString("en-IN")}</p>
           </div>
-          <div className="checkout" onClick={() => navigate('/checkout')}>
+          <div className="checkout checkout-btn" onClick={() => navigate('/checkout')}>
             <button>Proceed To Checkout</button>
           </div>
         </div>

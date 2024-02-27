@@ -51,13 +51,13 @@ const ShopPageCarouselCard = ({ cart, items }) => {
           className="owl-theme"
           loop
           dots={false}
-          autoplayTimeout={2000}
+          autoplayTimeout={20000000}
           autoplayHoverPause={true}
           navText={[
             '<span class="arrow prev">‹</span>',
             '<span class="arrow next">›</span>',
           ]}
-          autoplay={false}
+          autoplay={true}
         >
           {items?.map((item, index) => {
             const inCart = cart?.products.find((product) => {
@@ -72,7 +72,7 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                 <div className="shop-page-card-content row">
                   <div className="view-more col-md-6">
                     <div className="poster-text">
-                      <span className="fertilizer-text">
+                      <span className="fertilizer-text" onClick={() => navigate(`/product/${item._id}`)}>
                         {item.category.category}
                       </span>
                       <span className="description-text">

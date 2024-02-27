@@ -154,3 +154,9 @@
 }
 }
 
+@media (max-width: 992px) {
+
+    .admin-process-main {
+        margin-bottom: 3rem;
+    }
+}
