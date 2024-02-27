@@ -55,7 +55,7 @@
             img {
               /* height: 100%; */
               position: absolute;
-              bottom: 50%;
+              bottom: 70%;
             }
           }
 
@@ -162,7 +162,7 @@
           }
 
           .description-text {
-            width: 25rem;
+            width: 24rem;
             font-size: 1rem;
             font-weight: 400;
             color: white;
@@ -708,7 +708,7 @@
     .shop-page-card-content
     .view-more
     .poster-text {
-    margin-left: 5rem;
+    margin-left: 3rem;
   }
   .shop-page-container .shop-page-card {
     height: 30rem;
@@ -740,27 +740,19 @@
           padding: 5px 15px;
         }
         .poster-card {
-          width: 100%;
+          width: 60%;
           max-height: 100px;
           height: fit-content;
+          right: -50%;
           img {
-            right: 0;
             bottom: -2rem;
             height: 150px;
-            width: fit-content;
+            width: 100%;
           }
         }
       }
     }
   }
-  .shop-page-container
-.shop-page-card
-.shop-page-card-content
-.product-content
-.text-fields
-.poster-card {
-  right: -2rem;
-}
 .main-container{
   margin-bottom: 4rem;
 }
@@ -782,4 +774,27 @@
     img {
     right: -45%;
   }
+}
+
+@media (max-width:1335px){
+  .shop-page-container
+.shop-page-card
+.shop-page-card-content
+.view-more
+.poster-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5rem;
+}
+.shop-page-container
+.shop-page-card
+.shop-page-card-content
+.product-content
+.text-fields
+.poster-card
+img {
+    /* height: 100%; */
+    position: absolute;
+    bottom: 70%;
+}
 }
