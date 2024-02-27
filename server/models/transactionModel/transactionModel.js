@@ -5,10 +5,22 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  merchantTransactionId:{
+    type:String
+  },
+  shipment_charge:{
+    type:String
+  },
+  merchantUserId:{
+    type:String
+  },
   refundTransactionId: {
     type: String,
     trim: true,
     default: "",
+  },
+  refundMerchantTransactionId:{
+      type:String
   },
   amount: {
     type: Number,
@@ -20,7 +32,7 @@ const transactionSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true,
+    default:Date.now()
   },
   cartId: {
     type: mongoose.Types.ObjectId,

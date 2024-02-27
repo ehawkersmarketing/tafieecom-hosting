@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import homehero from "../../assets/home-hero.png";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Map from "../../components/map/map.jsx"
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -155,9 +156,10 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="div4 row ">
+         <Map/>
+        {/* <div className="div4 row ">
           <div className="soilDiv col-md-7 col-sm-6">
-            {/* <div className="soilTestInfo">
+            <div className="soilTestInfo">
               <div className="soilHeading">
                 <h1>FREE</h1>
                 <h5 className="soilSubHead1">SOIL TESTING</h5>
@@ -176,7 +178,7 @@ const Dashboard = () => {
                   Register Now<i class="bi bi-chevron-right rigthIcon"></i>
                 </button>
               </div>
-            </div> */}
+            </div>
             <div className="franchiseInfo">
               <div className="franchHeading">
                 <h1>70<span>+</span></h1>
@@ -186,7 +188,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="franInfoDiv2">
+            <div className="franInfoDiv2">
               <p>
                 <strong>Join the Krishak Vatika</strong> family today and
                 harvest the success tomorrow!
@@ -197,14 +199,14 @@ const Dashboard = () => {
                   Know More
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
           <div className="franDiv col-md-5 col-sm-6">
             <div className="map-image">
               <img src={map}/>
 
             </div>
-            {/* <div className="franchiseInfo">
+            <div className="franchiseInfo">
               <div className="franchHeading">
                 <h1>70+</h1>
                 <h3>EXCLUSIVE STORES OVER INDIA</h3>
@@ -225,9 +227,9 @@ const Dashboard = () => {
                   Know More
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
-        </div>
+        </div> */}
         <div className="blankbox"></div>
       </div>
       <Footer />

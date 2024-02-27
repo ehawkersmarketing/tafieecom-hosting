@@ -131,6 +131,11 @@
   align-items: end;
   padding: 10%;
   margin-left: 5%;
+  width: fit-content;
+  text-align: right;
+  /* padding-left: 27px; */
+  padding-left: 7%;
+  padding-top: 13%;
 }
 .footer .aao-baat-kre h1{
   color: white;
@@ -140,6 +145,9 @@
   padding-left: 110px;
   font-size: 60px;
 }
+.footer .main-footer .column3 .col-12 img{
+  max-width: 100%;
+}
 .footer input {
   border: none;
   background-color: #D9EAE8;
@@ -147,13 +155,7 @@
   border-radius: 3px;
   width: 100%;
 }
-.footer .headingMainText {
-  width: fit-content;
-  text-align: right;
-  /* padding-left: 27px; */
-  padding-left: 7%;
-  padding-top: 13%;
-}
+
 
 .footer .headingMainText h1 {
   font-weight: 700;
@@ -180,7 +182,7 @@ input:focus, textarea:focus {
 }
 .footer .aao-baat-kre p{
   color: white;
-  font-size: 18px;
+  font-size: 16px;
 }
 .footer-desc {
   width: 14rem;
@@ -208,7 +210,7 @@ input:focus, textarea:focus {
 .footer .contactus p a{
   color: white !important;
 }
-br{
+.footer br{
   display: none;
 }
 .footer .made{
@@ -245,10 +247,9 @@ br{
   }
   .footer .headingMainText h1{
     font-size: 40px;
-  }
-  .footer .aao-baat-kre h1{
     padding-left:50px ;
   }
+  
   .footer .aao-baat-kre p{
     font-size: 15px;
   }
@@ -281,5 +282,16 @@ br{
   }
   .footer .form-img{
     background-image: url("../../assets/footer-mask-mob.png");
+  }
+  .footer .aao-baat-kre{
+    align-items: center;
+    padding: 0;
+    padding-top: 10%;
+    padding-bottom: 10% ;
+    margin: auto;
+    text-align: center;
+  }
+  .footer .aao-baat-kre h1 {
+    padding-left: 0;
   }
 }

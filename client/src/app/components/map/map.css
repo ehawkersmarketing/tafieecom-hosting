@@ -1,0 +1,250 @@
+.div4 {
+  /* background-image: url("../../assets/franchiseBG.png"); */
+  width: 100%;
+  display: flex;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  --bs-gutter-x: 0;
+  background-color: #19443f;
+  color: white;
+  height: 100%;
+  z-index: 0;
+  position: relative;
+  margin-top: -8%;
+}
+.div4 .franchisemain {
+  width: 90%;
+  margin: auto;
+  position: relative;
+  padding: 6% 0;
+}
+
+.div4 .soilDiv {
+  display: flex;
+  /* width: 100%; */
+  padding: 15% 2% 8% 2%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 35px;
+}
+
+.div4 .soilDiv .soilTestInfo .soilHeading h1 {
+  width: fit-content;
+  color: white;
+  font-size: 4.2rem;
+  font-weight: 700;
+}
+
+.div4 .soilDiv .soilTestInfo .soilHeading .soilSubHead1 {
+  align-items: center;
+  color: white;
+  background-color: #19443f;
+  padding: 0.2rem 0.3rem 0.2rem 0.3rem;
+  font-weight: 700;
+  width: fit-content;
+  font-size: 1.65rem;
+}
+
+.div4 .soilDiv .soilTestInfo .soilHeading .soilSubHead2 {
+  align-items: center;
+  color: white;
+  background-color: #c8a33d;
+  padding: 0.4rem 0.3rem 0.2rem 0.3rem;
+  /* padding-right: 1rem; */
+  width: fit-content;
+  font-size: 1.3rem;
+}
+.div4 .franDiv .map-image img {
+  width: 100%;
+}
+.div4 .soilDiv .soilTestInfo button {
+  background-image: linear-gradient(
+    79deg,
+    #36914b 0.36%,
+    #44a95c 58.15%,
+    #7bf197 117.12%
+  );
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 62px;
+  padding-right: 62px;
+}
+
+.div4 .soilDiv .soilTestInfo p {
+  color: white;
+  font-weight: 300;
+  font-size: 1.3rem;
+  width: 100%;
+}
+
+.div4 .soilDiv .soilTestInfo .rightIcon {
+  margin-left: 4rem;
+}
+
+.div4 .franDiv {
+  width: 50%;
+  /* height: 110vh; */
+  color: white;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(-6%);
+  height: 100%;
+}
+
+.div4 .soilDiv .franchiseInfo {
+  width: 100%;
+}
+
+.div4 .soilDiv .franchiseInfo .franchHeading {
+  /* transform: rotate(-2deg); */
+  margin-top: 5.6rem;
+  /* text-align: center; */
+  width: 100%;
+}
+
+.div4 .soilDiv .franchiseInfo .franchHeading h1 {
+  /* margin: auto;
+    width: fit-content; */
+  font-weight: 800;
+  font-size: 6rem;
+}
+.div4 .soilDiv .franchiseInfo .franchHeading h1 span {
+  color: #c8a33d;
+}
+
+.div4 .soilDiv .franchiseInfo .franchHeading h3 {
+  margin: auto;
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  width: 122%;
+}
+.div4 .soilDiv .franchiseInfo .franchHeading h3.exclusive {
+}
+.div4 .soilDiv .franchiseInfo .franchHeading h3 span {
+  background-color: #c8a33d;
+  color: #19443f;
+  width: 100%;
+  display: inline-block;
+}
+
+.div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead h6 {
+  /* color: #19443f; */
+  font-weight: 250;
+  font-size: 25px;
+}
+.div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead h6 span {
+  text-decoration: underline;
+}
+
+.div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead {
+  margin: auto;
+  display: flex;
+  /* justify-content: center; */
+  gap: 5px;
+  padding-top: 1rem;
+}
+
+.div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead .franchSubHead3 {
+  background-color: #44a98b;
+  padding-left: 18px;
+  padding-right: 18px;
+  width: fit-content;
+  color: white;
+}
+
+.div4 .soilDiv .franInfoDiv2 {
+  color: #19443f;
+  font-size: 1.2rem;
+  width: 26rem;
+  text-align: center;
+  margin-bottom: 1.5%;
+  margin-left: 21%;
+}
+
+.div4 .soilDiv .franInfoDiv2 button {
+  background-color: #29645e;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 22px;
+}
+
+@media (max-width: 564px) {
+  .div4 {
+    background-color: #19443f;
+    padding: 1rem;
+    margin-top: -4.3rem;
+  }
+  .div4 .franDiv {
+    height: 100%;
+  }
+  .div4 .soilDiv {
+    margin-bottom: 0px;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading h1 span {
+    color: #c8a33d;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading h1 {
+    color: white;
+    margin: 0;
+    background-color: transparent;
+    font-size: 4rem;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading {
+    text-align: start;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading h3 span {
+    background-color: #c8a33d;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading h3 {
+    color: white;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+    width: fit-content;
+    font-size: 2rem;
+  }
+  .div4 .franDiv {
+    background-image: url("../../assets/mapp.png");
+    position: relative;
+    transform: translateX(0) translateY(0);
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading .franchSubHead h6 {
+    color: white;
+    font-size: 18px;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading h6 span {
+    text-decoration: underline;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading {
+    transform: rotate(0deg);
+  }
+  .div4 .franDiv .map-image img {
+    width: 100%;
+  }
+  .div4 .soilDiv .franchiseInfo .franchHeading {
+    margin: 0;
+  }
+  .div4 .franDiv{
+    display: none;
+  }
+  .div4 .soilDiv .franchiseInfo {
+    width: 80%;
+}
+}

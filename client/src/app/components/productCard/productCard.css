@@ -3,9 +3,9 @@
   /* overflow: hidden; */
   padding: 0;
   margin: 0;
-  .col-gapping{
+  .col-gapping {
     height: 100%;
-    .textBlock{
+    .textBlock {
       height: 100%;
     }
   }
@@ -49,7 +49,7 @@
     border: none;
     color: white;
     display: inline-flex;
-    /* padding: 6.202px 24.81px; */
+    padding: 6.202px 24.81px;
     margin: 0;
     justify-content: center;
     align-items: center;
@@ -69,7 +69,6 @@
     margin-right: 5px;
     color: #44a98b;
   }
- 
 
   .wishlist {
     color: var(--bright-green-primary, #44a98b);
@@ -93,7 +92,7 @@
   .rating {
     list-style-type: none;
     display: flex;
-    /* gap: 0.5rem; */
+    gap: 0.5rem;
     padding-left: 0;
   }
   ul {
@@ -112,7 +111,7 @@
   background-color: white;
   overflow: hidden;
   padding-bottom: 2%;
-  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.120);
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.12);
   position: relative;
   z-index: 0;
 }
@@ -170,7 +169,7 @@
     border: none;
     color: white;
     display: inline-flex;
-    /* padding: 6.202px 24.81px; */
+    padding: 6.202px 24.81px;
     margin: 0;
     justify-content: center;
     align-items: center;
@@ -213,7 +212,7 @@
   .rating {
     list-style-type: none;
     display: flex;
-    /* gap: 0.5rem; */
+    gap: 0.5rem;
     padding-left: 0;
   }
   ul {
@@ -244,7 +243,7 @@
 }
 .latest-post-card .col-gapping {
   padding: 10px;
-  background-color: #D9EBE8;
+  background-color: #d9ebe8;
   height: 100%;
 }
 .shop-page-container .blog-latest-post {
@@ -270,67 +269,74 @@
   }
 }
 
-.latest-post-card .carouselItem{
-    margin: 0 !important;
+.latest-post-card .carouselItem {
+  margin: 0 !important;
 }
-@media (max-width: 768px){
-  .single-product .textBlock .text-fields,.latest-post-card .textBlock .text-fields, .all-products-card .textBlock .text-fields {
+@media (max-width: 768px) {
+  .single-product .textBlock .text-fields,
+  .latest-post-card .textBlock .text-fields,
+  .all-products-card .textBlock .text-fields {
     padding-top: 5rem !important;
     z-index: 9999;
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
     margin-top: -11rem;
     position: relative;
-   
-  } 
-  
-  
+  }
+
   .best-seller-product .textBlock .text-fields {
     padding-top: 5rem !important;
     z-index: 9999;
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
     margin-top: -9rem;
     position: relative;
-   
-  } 
-  .latest-post-card .textBlock .price,.best-seller-product .textBlock .price, .all-products-card .textBlock .text-fields .price {
+  }
+  .latest-post-card .textBlock .price,
+  .best-seller-product .textBlock .price,
+  .all-products-card .textBlock .text-fields .price {
     font-weight: bold;
     font-size: 16px;
     /* margin-bottom: 0; */
-    
   }
-  .text-fields .product-name{
+  .text-fields .product-name {
     font-size: 20px;
     padding: 0%;
     margin: 0%;
   }
-  .latest-post-card .textBlock .text-fields .ratingAndReview,.best-seller-product .textBlock .text-fields .ratingAndReview , .all-products-card .textBlock .text-fields .ratingAndReview{
+  .latest-post-card .textBlock .text-fields .ratingAndReview,
+  .best-seller-product .textBlock .text-fields .ratingAndReview,
+  .all-products-card .textBlock .text-fields .ratingAndReview {
     margin-bottom: 0.5rem;
   }
-  .latest-post-card .textBlock .text-fields .text-fields .category-name ,.best-seller-product .text-fields .category-name.ratingAndReview , .all-products-card .textBlock .text-fields .category-name{
+  .latest-post-card .textBlock .text-fields .text-fields .category-name,
+  .best-seller-product .text-fields .category-name.ratingAndReview,
+  .all-products-card .textBlock .text-fields .category-name {
     margin: 0;
   }
-  .blogpage .card-body {
+  .card-body {
     padding-top: 5rem !important;
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
-    margin-top: -11rem;
+    margin-top: -5rem;
+  }
+  .best-seller-product .cart-btn,
+  .all-products-card .carouselItem .cart-btn {
+    padding: 6px 18px;
   }
 }
-@media (max-width: 992px){
-  .single-product .textBlock .text-fields,.latest-post-card .textBlock .text-fields, .all-products-card .textBlock .text-fields {
+@media (max-width: 992px) {
+  .single-product .textBlock .text-fields,
+  .latest-post-card .textBlock .text-fields,
+  .all-products-card .textBlock .text-fields {
     padding-top: 5rem !important;
     z-index: 9999;
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
     margin-top: -11rem;
     position: relative;
-   
-  } 
-  .textBlock .text-fields .category-name{
-    font-size: 1rem;
-
   }
-  .textBlock .text-fields .product-name{
+  .textBlock .text-fields .category-name {
+    font-size: 1rem;
+  }
+  .textBlock .text-fields .product-name {
     font-size: 1.3rem;
-   
   }
   .best-seller-product .textBlock .text-fields {
     padding-top: 5rem !important;
@@ -338,21 +344,32 @@
     background-image: linear-gradient(to top, white 71%, #ffffff00 100%);
     margin-top: -9rem;
     position: relative;
-   
-  } 
+  }
 
-.shop-page-container
-.all-products {
-  padding: 2rem 0;
+  .shop-page-container .all-products {
+    padding: 2rem 0;
+  }
+  .latest-post-card .textBlock .text-fields .ratingAndReview,
+  .best-seller-product .textBlock .text-fields .ratingAndReview,
+  .all-products-card .textBlock .text-fields .ratingAndReview {
+    font-size: 12px;
+  }
+  .latest-post-card .textBlock .text-fields .ratingAndReview .review,
+  .best-seller-product .textBlock .text-fields .ratingAndReview .review,
+  .all-products-card .textBlock .text-fields .ratingAndReview .review {
+    font-size: 14px;
+  }
+  .text-fields {
+    padding: 1rem 0.7rem 0.8rem 0.7rem;
+  }
+  .best-seller-product .cart-btn,
+  .all-products-card .carouselItem .cart-btn {
+    padding: 6px 18px;
+  }
 }
-.latest-post-card .textBlock .text-fields .ratingAndReview, .best-seller-product .textBlock .text-fields .ratingAndReview, .all-products-card .textBlock .text-fields .ratingAndReview{
-  font-size: 12px;
-}
-.latest-post-card .textBlock .text-fields .ratingAndReview .review, .best-seller-product .textBlock .text-fields .ratingAndReview .review, .all-products-card .textBlock .text-fields .ratingAndReview .review{
-  font-size: 14px;
-}
-.text-fields{
-  padding:1rem 0.7rem 0.8rem 0.7rem
-}
-
+@media (max-width: 568px) {
+  .best-seller-product .cart-btn,
+  .all-products-card .carouselItem .cart-btn {
+    padding: 6px 18px;
+  }
 }

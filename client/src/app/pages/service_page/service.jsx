@@ -94,7 +94,7 @@ const OurServices = () => {
                     searchService?.map((service, index) => {
                       return (
                         <>
-                          <div className="col-md-4 col-4" key={index}>
+                          <div className="col-md-4" key={index}>
                             <div className="service-block d-flex">
                               <div className="block-text col-7">
                                 <div>
@@ -204,7 +204,7 @@ const OurServices = () => {
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body d-flex align-item-center">
                       <Service_pop
                         item={
                           searchField === ""

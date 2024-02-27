@@ -20,46 +20,47 @@ const OrderConformationPage = () => {
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   // Function to fetch order data from the backend
-  //   const fetchOrder = async () => {
-  //     try {
-  //         const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
-  //            console.log("id" ,id)
-  //         if (response) {
-  //           const data = await response.json();
-  //          console.log(data.data)
-  //          if(data.data === null){
-  //           console.log("empy")
-  //           navigate(`/myaccount/${user?._id}`);
-  //          }
-  //          if(data.success === false){
-  //           console.log("navigate")
-  //           navigate(`/myaccount/${user?._id}`);
-  //         }else if(data.success === true){
-  //           if(data.data.user._id === user?._id){
-  //             console.log("vkdvd")
-  //           }else if(data.data === null ) {
-  //             console.log("data is null")
-  //             navigate(`/myaccount/${user?._id}`);
-  //           }else{
-  //             console.log("go navigate")
-  //             navigate(`/myaccount/${user?._id}`);
-  //           }
-  //         }
-  //         } else {
-  //           throw new Error('Order not found');
-  //         }
-
-  //       }catch (error) {
-  //         setError(error.message);
-  //       }
-  //     }
-
-  //   fetchOrder();
-
-  // }, [id]);
+     
+  useEffect(() => {
+    // Function to fetch order data from the backend
+    const fetchOrder = async () => {
+      try {        
+          const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
+             console.log("id" ,id)
+          if (response) {
+            const data = await response.json();
+           console.log(data.data)
+           if(data.data === null){
+            console.log("empy")
+            navigate(`/myaccount/${user?._id}`);
+           }
+           if(data.success === false){
+            console.log("navigate")
+            navigate(`/myaccount/${user?._id}`);
+          }else if(data.success === true){
+            if(data.data.user._id === user?._id){
+              console.log("vkdvd")
+              navigate(`/orderConfirmationPage/${id}`);
+            }else if(data.data === null ) {
+              console.log("data is null")
+              navigate(`/myaccount/${user?._id}`);
+            }else{
+              console.log("go navigate")
+              navigate(`/myaccount/${user?._id}`);
+            }
+          }          
+          } else {
+            throw new Error('Order not found');
+          }
+        
+        }catch (error) {
+          setError(error.message);
+        }
+      }
+        
+    fetchOrder(); 
+    
+  }, [id]);
 
   const handleDownload = () => {
     navigate(`/invoice/${id}`);
@@ -69,18 +70,17 @@ const OrderConformationPage = () => {
     navigate(`/myaccount/${user?._id}`);
   };
   useEffect(() => {
-    console.log(data);
-    //  if(!data?.user){
-    //   console.log("go to account")
-    //   navigate(`/myaccount/${user?._id}`);
-    //  }
-    if (data?.user && user) {
-      console.log(data?.user, user);
-      if (data.user._id !== user?._id) {
-        console.log("navigatee");
-      } else {
-        console.log(" kd d dk");
-      }
+  //  if(!data?.user){
+  //   console.log("go to account")
+  //   navigate(`/myaccount/${user?._id}`);
+  //  }
+    if(data?.user && user){
+      console.log(data?.user , user)
+    if(data.user._id !== user?._id){
+      console.log("navigatee")
+    }else{
+      console.log(" kd d dk")
+    }
     }
 
     if (!user) {

@@ -32,8 +32,10 @@ exports.payFunction = async (req, res) => {
         type: "PAY_PAGE",
       },
     };
-    // console.log(merchantTransactionId)
-    // console.log(cartId)
+
+    console.log(merchantTransactionId);
+    console.log(cartId);
+
     const payload = JSON.stringify(data);
     const payloadMain = Buffer.from(payload).toString("base64");
     const string =
@@ -41,12 +43,13 @@ exports.payFunction = async (req, res) => {
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX; // required value for sendin in the X_VERIFY field in header
 
-    // console.log("               ")
+    console.log("               ");
     console.log("payload", payload);
-    // console.log("                           ");
-    // console.log(checksum);
-    // console.log("                                ")
-    // console.log(payloadMain);
+    console.log("                           ");
+    console.log(checksum);
+    console.log("                                ");
+    console.log(payloadMain);
+
 
     const options = {
       //required options structure for the API call
@@ -61,7 +64,9 @@ exports.payFunction = async (req, res) => {
         request: payloadMain,
       },
     };
-    // console.log(checksum)
+
+    console.log(checksum);
+
     axios
       .request(options)
       .then(function (response) {
@@ -172,80 +177,17 @@ exports.checkStatusFunction = async (req, res) => {
         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
       );
     } else {
-      return res.status(500).send({
-        success: false,
-        message: "Check status returnevbjhvd failed status of transaction",
-      });
-      nav
+        res.success = false;
+      return res.redirect(
+        `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+      );
+      // return res.status(500).send({
+      //   success: false,
+      //   message: "Check status return failed status of transaction",
+      // });
     }
   }
 };
-
-// async function statusCall(n, options, cartId) {
-//   try {
-//     console.log("1" + cartId);
-//     if (cartId == null) {
-//       let response = await axios.request(options);
-//       console.log("2" + response);
-//       if (response.data.success === true) {
-//         console.log("3" + "true status")
-//         return true;
-//       } else {
-//         if (n === 0) {
-//           return false;
-//         } else {
-//           return await setTimeout(await statusCall(--n, options, null), 3000);
-//         }
-//       }
-
-//     } else {
-//       let response = await axios.request(options);
-//       if (response.data.success === true) {
-//         console.log(response.data.data);
-//         try {
-//           const { data } = await axios.post(
-//             "http://localhost:8080/api/placeOrder",
-//             {
-//               cartId: cartId,
-//               transactionId: response.data.data.transactionId,
-//               amount: response.data.data.amount,
-//               transactionStatus: response.data.data.state,
-//             }
-//           );
-//           if (data.success) {
-//             const { data: request } = await axios.post(
-//               "http://localhost:8080/api/ship/requestApproval",
-//               {
-//                 orderId: data.data._id,
-//               }
-//             );
-//             if (request.success) {
-//               return {
-//                 success: true,
-//                 orderId: data.data._id,
-//               };
-//             } else {
-//               return { success: false };
-//             }
-//           }
-//         } catch (error) {
-//           console.log(error);
-//           console.log("failure in saving new transaction");
-//           return { success: false };
-//         }
-//       } else {
-//         if (n === 0) {
-//           return { success: false };
-//         } else {
-//           return await setTimeout(await statusCall(--n, options, cartId), 3000);
-//         }
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// }
 
 async function statusCall(n, options, cartId) {
   try {
@@ -285,6 +227,26 @@ async function statusCall(n, options, cartId) {
               transactionStatus: response.data.data.state,
             }
           );
+          console.log("#########################");
+          console.log(data);
+         
+          console.log("#########################");
+              
+          const responseData = await transactionModel({   
+            transactionId:data.data.transactionId,
+            merchantTransactionId:merchantTransactionId,
+            shipment_charge:data.data.shipment_charge,
+            merchantUserId:process.env.MERCHANT_ID,
+            amount: data.data.amount,
+            status: "payment Successfull",
+            cartId: cartId
+          });
+          console.log("=============================");
+          console.log(responseData);
+          responseData.save();
+          console.log("=======================");
+          console.log(cartId)
+
           if (data.success) {
             const { data: request } = await axios.post(
               "http://localhost:8080/api/ship/requestApproval",
@@ -345,6 +307,8 @@ exports.refundFunction = async (req, res) => {
     const refundEntry = await orderModel.findOne({
       _id: orderId,
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
+
+
     const refundAmount = refundEntry.amount + refundEntry.shipment_charge;
     const data = {
       merchantId: process.env.MERCHANT_ID,
@@ -385,10 +349,10 @@ exports.refundFunction = async (req, res) => {
       .request(options)
       .then(async function (response) {
         console.log("data found here??");
-        // console.log("data found",response.data); //RESPONSE FROM THE REFUND PROCESS API
+        console.log("data found",response?.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(
-            `http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.data.transactionId}&cartId=${orderId}&isRefund=1`
+            `http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.transactionId}&cartId=${orderId}&isRefund=1`
           );
           console.log("data", data);
           if (data.success) {

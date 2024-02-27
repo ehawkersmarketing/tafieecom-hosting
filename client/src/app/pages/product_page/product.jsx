@@ -372,7 +372,9 @@ const Product = () => {
                       <i
                         class={i >= rated ? `bi bi-star` : `bi bi-star-fill`}
                         id="review-icon"
-                        onClick={() => setRated(i + 1)}
+                        onClick={() => setRated(i + 1) 
+                        }
+                        required="true"
                       ></i>
                     </li>
                   ))}
@@ -387,7 +389,7 @@ const Product = () => {
                   name="reviewContent"
                   onChange={onChangeInputHandler}
                   value={inputHandler.reviewContent}
-                  placeholder="Hey! @name, it’s a very good design.🔥"
+                  placeholder="Please leave your review here..."
                 />
               </div>
               <div>

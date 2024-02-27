@@ -25,7 +25,7 @@ const Footer = () => {
                     <div className="headingMainText aao-baat-kre">
                       <h1>आओ,</h1>
                       <h1><span>साथ</span> बढ़ें</h1>
-                      <p className="footer-desc"><b><span>Interested in openeing</span> <span>your own franchise?</span></b></p>
+                      <p className="footer-desc"><b><span>Interested in openeing</span> <span>your own exclusive store?</span></b></p>
                     </div>
                   </div>
                   <div className="form-content col-sm-6 col-12">
@@ -39,6 +39,11 @@ const Footer = () => {
                         <div className="email">
                           <div className="input-sec">
                             <input type="text" name="email" placeholder="Mobile No" />
+                          </div>
+                        </div>
+                        <div className="email">
+                          <div className="input-sec">
+                            <input type="text" name="email" placeholder="Email Id" />
                           </div>
                         </div>
                         <div className="message">

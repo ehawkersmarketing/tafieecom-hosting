@@ -1,14 +1,19 @@
-.sign_up {
-  height: 100%;
+.auth{
   background: linear-gradient(
       90deg,
       rgba(41, 100, 94, 0.1) -0.43%,
       rgba(68, 169, 139, 0.1) 99.93%
     ),
     #fff;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.sign_up {
+  height: 100%;
+  
   display: flex;
   flex-direction: column;
-  height: 87vh;
+  min-height: 100%;
 }
 .sign_up .text-register {
   font-family: Montserrat, sans-serif;
@@ -19,13 +24,12 @@
   color: rgba(25, 68, 63, 1);
 }
 
-
 .sign_up .create-account-text {
   text-decoration: none;
   font-weight: bold;
 }
-.sign_up .checkbox{
-    padding-top: 1rem;
+.sign_up .checkbox {
+  padding-top: 1rem;
 }
 .sign_up .div-2 {
   background-color: var(--darkgreen-primary, #19443f);
@@ -163,7 +167,7 @@
   .sign_up .div-8 {
     max-width: 100%;
     margin-top: 40px;
-    width: 95%;
+    width: 90%;
     margin: auto;
   }
 }
@@ -415,8 +419,14 @@
   justify-content: center;
   align-items: center;
   border-radius: 31px;
-  box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.3), 0px 3px 7px 0px rgba(21, 60, 56, 0.3);
-  background-image: linear-gradient( 79deg, #36914b 0.36%, #44a95c 58.15%, #7bf197 117.12% );
+  box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.3),
+    0px 3px 7px 0px rgba(21, 60, 56, 0.3);
+  background-image: linear-gradient(
+    79deg,
+    #36914b 0.36%,
+    #44a95c 58.15%,
+    #7bf197 117.12%
+  );
   align-self: center;
   margin-top: 29px;
   width: 272px;
@@ -530,8 +540,15 @@
 }
 
 @media (max-width: 767px) {
-  .sign_up .div-11 {
+  .sign_up .column-2 {
+    width: 100%;
+    margin: auto;
+  }
+  .sign_up .column{
     display: none;
+  }
+  .sign_up .div-13{
+    margin: 0;
   }
   .sign_up .span-5 {
     max-width: 90%;
@@ -544,25 +561,32 @@
   .sign_up .span-6 {
     padding-right: 0;
   }
-  .sign_up .button_otp{
+  .sign_up .button_otp {
     font-size: 13px;
   }
   .sign_up .register {
     display: flex;
     justify-content: center;
-}
-.sign_up input{
+  }
+  .sign_up input {
     font-size: 14px;
-}
-.sign_up input::-webkit-input-placeholder{
+  }
+  .sign_up input::-webkit-input-placeholder {
     font-size: 13px;
-}
-.sign_in .checkbox{
+  }
+  .sign_in .checkbox {
     font-size: 13px;
+  }
 }
 
+@media (min-width: 922px) {
 }
 
-@media (min-width: 922px){
-
+@media (max-width: 568px) {
+  .sign_up .div-13 {
+    margin: 0;
+  }
+  .sign_up .column-2 {
+    margin: auto;
+  }
 }
