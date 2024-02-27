@@ -1,4 +1,4 @@
-e.franchise-wrapper .franchise-part {
+.franchise-wrapper .franchise-part {
   width: 100%;
   height: 100%;
 }
@@ -150,7 +150,7 @@ e.franchise-wrapper .franchise-part {
   margin: 0;
 }
 .franchise-block-card {
-  padding: 4rem;
+  padding: 4rem 1rem;
   display: flex;
   justify-content: space-evenly;
 }
@@ -449,28 +449,31 @@ e.franchise-wrapper .franchise-part {
   --bs-gutter-x: 0;
 }
 @media (max-width: 992px) {
-  .franchise-part {
-    margin-bottom: 5rem;
-  }
   .franchise-wrapper .franchise-heading {
     font-size: 65px;
   }
   .franchise-wrapper .franchise-block-card .block-card .content-card {
     width: 10.5rem;
   }
+  .franchise-wrapper .div4{
+    padding-bottom: 3rem;
+  }
   .franchise-wrapper h3 {
     font-size: 1rem;
   }
   .franchise-block-card {
-    padding: 3rem;
+    padding: 3rem 1rem;
   }
   .fran-section2 .lineImg {
     margin-left: 7rem;
     margin-right: 2rem;
   }
   .franchise-wrapper p {
-    margin: 7px;
-    font-size: 15px;
+    /* margin: 7px; */
+    font-size: 14px;
+  }
+  .franchise-paragraph-content{
+    margin: 0;
   }
   .franchise-wrapper .perk-section {
     width: 30%;}
@@ -481,11 +484,9 @@ e.franchise-wrapper .franchise-part {
     .franchise-wrapper .subheading-franchise {
       padding-bottom: 0;
     }
+    
 }
 @media (max-width: 768px) {
-  .franchise-part {
-    margin-bottom: 10rem;
-  }
   .franchise-wrapper .franchise-heading {
     font-size: 3.5rem;
     margin-bottom: 0;
@@ -505,6 +506,9 @@ e.franchise-wrapper .franchise-part {
   }
   .franchise-content-para-bt p {
     font-size: 1rem !important;
+  }
+  .franchise-wrapper .div4{
+    padding-bottom: 3rem;
   }
   .franchise-wrapper .franchise-img-card {
     text-align: center;
