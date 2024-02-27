@@ -58,22 +58,22 @@ const ExclusiveStore = () => {
                 </p>
               </div>
               <div className="franchise-block-card row">
-                <div className="block-card col-6 col-md-3">
+                <div className="block-card col-6 col-md-3 d-flex align-item-center justify-content-center">
                   <div className="content-card">
                     <h3 className="h3-franchise-tag">Quality Adherence</h3>
                   </div>
                 </div>
-                <div className="block-card col-6 col-md-3">
+                <div className="block-card col-6 col-md-3 d-flex align-item-center justify-content-center">
                   <div className="content-card">
                     <h3 className="h3-franchise-tag">Grounded</h3>
                   </div>
                 </div>
-                <div className="block-card col-6 col-md-3">
+                <div className="block-card col-6 col-md-3 d-flex align-item-center justify-content-center">
                   <div className="content-card">
                     <h3 className="h3-franchise-tag">Impactful</h3>
                   </div>
                 </div>
-                <div className="block-card col-6 col-md-3">
+                <div className="block-card col-6 col-md-3 d-flex align-item-center justify-content-center">
                   <div className="content-card">
                     <h3 className="h3-franchise-tag">Bold</h3>
                   </div>
