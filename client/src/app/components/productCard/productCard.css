@@ -86,7 +86,7 @@
     justify-content: space-between;
     align-items: center;
     /* margin-left: -2rem; */
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;
   }
 
   .rating {
@@ -206,7 +206,7 @@
     justify-content: space-between;
     align-items: center;
     /* margin-left: -2rem; */
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;
   }
 
   .rating {
@@ -248,25 +248,23 @@
 }
 .shop-page-container .blog-latest-post {
   padding: 4%;
+  flex-direction: column!important;
 }
-.shop-page-container .blog-latest-post {
-  .ratingAndReview {
-    display: flex;
-    flex-direction: row;
-    /* gap: 2rem; */
-    justify-content: space-between;
-    align-items: center;
-    /* margin-left: -2rem; */
-    margin-bottom: 1rem;
-  }
-
-  .rating {
+.shop-page-container .blog-latest-post .rating {
     list-style-type: none;
     display: flex;
     margin-bottom: 0;
     /* gap: 0.5rem; */
     padding-left: 0;
-  }
+}
+.shop-page-container .blog-latest-post .ratingAndReview {
+  display: flex;
+  flex-direction: row;
+  /* gap: 2rem; */
+  justify-content: space-between;
+  align-items: center;
+  /* margin-left: -2rem; */
+  margin-bottom: 0.3rem;
 }
 
 .latest-post-card .carouselItem {
