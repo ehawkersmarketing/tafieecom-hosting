@@ -10,7 +10,7 @@ import Map from "../../components/map/map"
 
 const ExclusiveStore = () => {
   const footerHandler = () => {
-    document.getElementById("cont").scrollIntoView({ behavior: "smooth" });
+    document.getElementById("bottom").scrollIntoView({ behavior: "smooth" });
   };
 
   return (

@@ -14,7 +14,7 @@ const AdminPage = () => {
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const auth =localStorage.getItem("auth_token");
+  const auth = localStorage.getItem("auth_token");
 
   const { data: blogs, setData: setBlogs } = useFetch("/api/blogs");
   const { data: products } = useFetch("/api/allProducts");
@@ -157,10 +157,10 @@ const AdminPage = () => {
         setValue(1);
       } else if (user.role.role === "Editor") {
         setValue(3);
-      } else if(user.role.role === "User") {
+      } else if (user.role.role === "User") {
         // console.log(user._id)
         navigate(`/myaccount/${user?._id}`);
-      }else{
+      } else {
         navigate("/auth/login");
       }
     } else {
@@ -331,56 +331,55 @@ const AdminPage = () => {
     }
   };
 
-const getInitialStatus = (id) => {
-  const savedStatus = localStorage.getItem(`selectedOrderStatus-${id}`);
-  return savedStatus ? savedStatus : '';
-};
+  const getInitialStatus = (id) => {
+    const savedStatus = localStorage.getItem(`selectedOrderStatus-${id}`);
+    return savedStatus ? savedStatus : "";
+  };
 
-// Initialize the state as an object to store statuses for each order
-const [orderStatuses, setOrderStatuses] = useState({});
+  // Initialize the state as an object to store statuses for each order
+  const [orderStatuses, setOrderStatuses] = useState({});
 
-// When the component mounts, check local storage for each order's status
-useEffect(() => {
-  // Assuming `orders` is an array of order IDs that you have
-  if (orders) {
-    orders.forEach(order => {
-      const savedStatus = getInitialStatus(order._id);
-      if (savedStatus) {
-        setOrderStatuses(prevStatuses => ({
-          ...prevStatuses,
-          [order._id]: savedStatus
-        }));
-      }
-    });
-  }
-}, [orders]); // Depend on `orders` to re-run the effect when it changes
+  // When the component mounts, check local storage for each order's status
+  useEffect(() => {
+    // Assuming `orders` is an array of order IDs that you have
+    if (orders) {
+      orders.forEach((order) => {
+        const savedStatus = getInitialStatus(order._id);
+        if (savedStatus) {
+          setOrderStatuses((prevStatuses) => ({
+            ...prevStatuses,
+            [order._id]: savedStatus,
+          }));
+        }
+      });
+    }
+  }, [orders]); // Depend on `orders` to re-run the effect when it changes
 
-const handlechangeOrderStatus = (e, id) => {
-  const newOrderStatus = e.target.value;
-  setOrderStatuses(prevStatuses => ({
-    ...prevStatuses,
-    [id]: newOrderStatus
-  }));
-  localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
-  // console.log(newOrderStatus);
-  orderStatusHandler(id, newOrderStatus);
-};
+  const handlechangeOrderStatus = (e, id) => {
+    const newOrderStatus = e.target.value;
+    setOrderStatuses((prevStatuses) => ({
+      ...prevStatuses,
+      [id]: newOrderStatus,
+    }));
+    localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
+    // console.log(newOrderStatus);
+    orderStatusHandler(id, newOrderStatus);
+  };
 
-const orderStatusHandler = (id, orderStatus) => {
-  // console.log(orderStatus);
-  axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
-    length:   1,
-    orderStatus: orderStatus,
-  })
-  .then((res) => {
-    // console.log(res.data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-};
-
-
+  const orderStatusHandler = (id, orderStatus) => {
+    // console.log(orderStatus);
+    axios
+      .patch(`http://localhost:8080/api/updateOrder/${id}`, {
+        length: 1,
+        orderStatus: orderStatus,
+      })
+      .then((res) => {
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="admin-wrapper">
@@ -444,9 +443,7 @@ const orderStatusHandler = (id, orderStatus) => {
                   )}
 
                   <div>
-
                     <div className="sidebar-title" onClick={blogHandler}>
-
                       <div className="icon">
                         <i class="bi bi-layout-text-window-reverse"></i>
                       </div>
@@ -463,14 +460,12 @@ const orderStatusHandler = (id, orderStatus) => {
                     </div>
                   </div>
 
-
                   <div>
                     <div className="sidebar-title" onClick={serviceHandler}>
                       <div className="icon">
                         <i class="bi bi-box"></i>
                       </div>
                       <div className="title">Services</div>
-
                     </div>
                   </div>
 
@@ -765,22 +760,28 @@ const orderStatusHandler = (id, orderStatus) => {
                                 </td>
 
                                 {order.status === "By Self" ? (
-                                <td>
-                                <select
-                                  className="orderSelect"
-                                  name="input"
-                                  id="orderStatus"
-                                  placeholder="Order Status"
-                                  value={orderStatuses[order._id] || ''} // Use the status for this specific order
-                                  onChange={(e) => handlechangeOrderStatus(e, order._id)}
-                                >
-                                  <option value="">Select </option>
-                                  <option value="APPROVED">APPROVED</option>
-                                  <option value="REJECTED">REJECTED</option>
-                                  <option value="PROCESSING">PROCESSING</option>
-                                  <option value="COMPLETED">COMPLETED</option>
-                                </select>
-                              </td>
+                                  <td>
+                                    <select
+                                      className="orderSelect"
+                                      name="input"
+                                      id="orderStatus"
+                                      placeholder="Order Status"
+                                      value={orderStatuses[order._id] || ""} // Use the status for this specific order
+                                      onChange={(e) =>
+                                        handlechangeOrderStatus(e, order._id)
+                                      }
+                                    >
+                                      <option value="">Select </option>
+                                      <option value="APPROVED">APPROVED</option>
+                                      <option value="REJECTED">REJECTED</option>
+                                      <option value="PROCESSING">
+                                        PROCESSING
+                                      </option>
+                                      <option value="COMPLETED">
+                                        COMPLETED
+                                      </option>
+                                    </select>
+                                  </td>
                                 ) : (
                                   <td className="td table-center">
                                     {order.orderStatus}
@@ -993,7 +994,103 @@ const orderStatusHandler = (id, orderStatus) => {
                 </div>
               </div>
             )}
-
+            {value == 2 && (
+              <div className="card admin-blog-card">
+                <div className="subHeading">
+                  <div className="admin-card-heading">
+                    <h1 className="h1">All Users</h1>
+                    <div className="admin-card-header">
+                      <h3 className="h3">Users</h3>
+                      <div className="admin-input-dropdown">
+                        <input
+                          type="text"
+                          className="nav-input"
+                          name="users"
+                          onChange={(e) => handleSearchFields(e)}
+                          style={{ width: "15rem" }}
+                          placeholder="Search"
+                        />
+                        {/* <div className="short">
+                          <select
+                            type="text"
+                            name="input"
+                            id="input"
+                            placeholder="Short by:Newest "
+                          >
+                            <option>Short by : Newest</option>
+                            <option>yes</option>
+                          </select>
+                        </div> */}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="admin-table-div">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col" className="th">
+                            Sr.No.
+                          </th>
+                          <th scope="col" className="th">
+                            User Name
+                          </th>
+                          <th scope="col" className="th">
+                            Role
+                          </th>
+                          <th scope="col" className="th">
+                            Phone Number
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {searchField.users !== "" ? (
+                          searchUsers && searchUsers.length > 0 ? (
+                            searchUsers.map((user, index) => {
+                              return (
+                                <tr>
+                                  <th scope="row table-center">{index + 1}</th>
+                                  <td className="td table-center">
+                                    {user.userName}
+                                  </td>
+                                  <td className="td table-center">
+                                    {user.role.role}
+                                  </td>
+                                  <td className="td table-center">
+                                    {user.phone}
+                                  </td>
+                                </tr>
+                              );
+                            })
+                          ) : (
+                            <div>
+                              <h4>No Results Found</h4>
+                            </div>
+                          )
+                        ) : (
+                          users &&
+                          users.map((user, index) => {
+                            return (
+                              <tr>
+                                <th scope="row table-center">{index + 1}</th>
+                                <td className="td table-center">
+                                  {user.userName}
+                                </td>
+                                <td className="td table-center">
+                                  {user.role.role}
+                                </td>
+                                <td className="td table-center">
+                                  {user.phone}
+                                </td>
+                              </tr>
+                            );
+                          })
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
             {value == 3 && (
               <div className="card admin-product-card">
                 <div className="subHeading">
@@ -1158,7 +1255,6 @@ const orderStatusHandler = (id, orderStatus) => {
                 </div>
               </div>
             )}
-
             {value == 4 && (
               <div className="card admin-blog-card">
                 <div className="subHeading">
@@ -1292,104 +1388,6 @@ const orderStatusHandler = (id, orderStatus) => {
                 </div>
               </div>
             )}
-            {value == 2 && (
-              <div className="card admin-blog-card">
-                <div className="subHeading">
-                  <div className="admin-card-heading">
-                    <h1 className="h1">All Users</h1>
-                    <div className="admin-card-header">
-                      <h3 className="h3">Users</h3>
-                      <div className="admin-input-dropdown">
-                        <input
-                          type="text"
-                          className="nav-input"
-                          name="users"
-                          onChange={(e) => handleSearchFields(e)}
-                          style={{ width: "15rem" }}
-                          placeholder="Search"
-                        />
-                        {/* <div className="short">
-                          <select
-                            type="text"
-                            name="input"
-                            id="input"
-                            placeholder="Short by:Newest "
-                          >
-                            <option>Short by : Newest</option>
-                            <option>yes</option>
-                          </select>
-                        </div> */}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="admin-table-div">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th scope="col" className="th">
-                            Sr.No.
-                          </th>
-                          <th scope="col" className="th">
-                            User Name
-                          </th>
-                          <th scope="col" className="th">
-                            Role
-                          </th>
-                          <th scope="col" className="th">
-                            Phone Number
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {searchField.users !== "" ? (
-                          searchUsers && searchUsers.length > 0 ? (
-                            searchUsers.map((user, index) => {
-                              return (
-                                <tr>
-                                  <th scope="row table-center">{index + 1}</th>
-                                  <td className="td table-center">
-                                    {user.userName}
-                                  </td>
-                                  <td className="td table-center">
-                                    {user.role.role}
-                                  </td>
-                                  <td className="td table-center">
-                                    {user.phone}
-                                  </td>
-                                </tr>
-                              );
-                            })
-                          ) : (
-                            <div>
-                              <h4>No Results Found</h4>
-                            </div>
-                          )
-                        ) : (
-                          users &&
-                          users.map((user, index) => {
-                            return (
-                              <tr>
-                                <th scope="row table-center">{index + 1}</th>
-                                <td className="td table-center">
-                                  {user.userName}
-                                </td>
-                                <td className="td table-center">
-                                  {user.role.role}
-                                </td>
-                                <td className="td table-center">
-                                  {user.phone}
-                                </td>
-                              </tr>
-                            );
-                          })
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            )}
-
             {value == 5 && (
               <div className="card admin-product-card">
                 <div className="subHeading">

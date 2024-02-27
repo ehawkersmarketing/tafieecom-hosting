@@ -82,7 +82,7 @@
   font-size: 18px;
 }
 .dash-order-no {
-  font-size: 18px;
+  font-size: 15apx;
 }
 .admin-wrapper .icon {
   width: 2.5rem;
@@ -182,7 +182,7 @@
 
 .admin-wrapper .admin-suber-wrapper {
   height: 100vh;
-  padding: 2%;
+  padding: 1%;
   padding-top: 0px;
   overflow: scroll;
   &::-webkit-scrollbar {
@@ -217,12 +217,13 @@
 .admin-wrapper .div-admin {
   height: 100%;
   background-color: #ebf6f5;
+  align-items: flex-start;
 }
 
 .admin-wrapper table .td-delete-icon {
   color: red;
   font-size: 24px;
-  margin-left: 2rem;
+  margin-left: 0.2rem;
 }
 
 .admin-wrapper table .td-edit-icon {
@@ -478,12 +479,11 @@
   justify-content: center;
 }
 
-.orderSelect{
-  border:none;
+.orderSelect {
+  border: none;
   outline: none;
   text-align: center;
 }
-
 
 @media (max-width: 768px) {
   .admin-wrapper .admin-sub-wrapper .admin-logo-section {
@@ -536,10 +536,10 @@
     font-size: 23px;
     padding-bottom: 0.4rem;
   }
-  .head-table th:nth-child(2){
+  .head-table th:nth-child(2) {
     display: none;
   }
-  .head-table td:nth-child(2){
+  .head-table td:nth-child(2) {
     display: none;
   }
   .admin-wrapper .subHeading {
@@ -549,54 +549,53 @@
     font-size: 12px;
     padding: 0px;
   }
-  .admin-wrapper .admin-card-heading{
+  .admin-wrapper .admin-card-heading {
     padding: 1rem;
   }
   .admin-wrapper table .td {
     font-size: 12px;
     padding: 2px;
   }
-  .admin-wrapper .table-center .td-edit-icon ,.admin-wrapper .table-center .td-delete-icon{
+  .admin-wrapper .table-center .td-edit-icon,
+  .admin-wrapper .table-center .td-delete-icon {
     font-size: 15px;
   }
-  .admin-wrapper .icon-section{
+  .admin-wrapper .icon-section {
     display: flex;
     align-items: center;
     /* height: 100% ; */
     border-bottom: none;
-    border-left:none;
+    border-left: none;
     border-right: none;
     justify-content: space-around;
   }
-  .admin-wrapper .nav-rightContent{
+  .admin-wrapper .nav-rightContent {
     font-size: 16px;
   }
 }
-@media (max-width: 992px){
+@media (max-width: 992px) {
   .admin-wrapper table .th {
     font-size: 14px;
   }
   .admin-wrapper table .td {
     font-size: 14px;
   }
-  .head-table th:nth-child(2){
+  .head-table th:nth-child(2) {
     display: none;
   }
-  .head-table td:nth-child(2){
+  .head-table td:nth-child(2) {
     display: none;
   }
-  .head-table .icon-section{
-    display:flex;
+  .head-table .icon-section {
+    display: flex;
     flex-direction: row;
     align-items: row;
-    justify-content: space-between
-    ;
+    justify-content: space-between;
   }
-  .head-table .icon-section span{
-    border-bottom:none;
-    font-size:17px;
+  .head-table .icon-section span {
+    border-bottom: none;
+    font-size: 17px;
     /* border-bottom: none; */
-    
   }
   .admin-wrapper .dash-number {
     font-size: 15px;
@@ -613,3 +612,14 @@
   }
 }
 
+@media (max-width: 1300px) {
+  .head-table th:nth-child(2) {
+    display: none;
+  }
+  .head-table td:nth-child(2) {
+    display: none;
+  }
+  .admin-wrapper .subHeading {
+    margin: 0.5rem;
+  }
+}
