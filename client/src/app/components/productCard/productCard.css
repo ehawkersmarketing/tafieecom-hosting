@@ -123,7 +123,7 @@
   width: 100%;
 }
 
-.best-seller-product {
+.best-seller-product ,.shop-page-container .blog-latest-post{
   background-color: transparent;
   overflow: hidden;
   padding: 0;

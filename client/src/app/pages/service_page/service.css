@@ -178,7 +178,7 @@
 .services .services-card-outer .services-card {
   width: 90%;
   margin: auto;
-  row-gap: 2rem;
+  row-gap: 1rem;
   padding-top: 3%;
 }
 .services .services-card .service-block {
@@ -357,5 +357,14 @@
   }
   .services .services-card .col-md-4 {
     padding: 1% 0.5rem;
+  }
+  .services .block-text h5 button {
+    font-size: 19px;
+  }
+  .services .block-text p {
+    font-size: 12px;
+  }
+  .services .services-card .service-block {
+    height: 160px;
   }
 }
