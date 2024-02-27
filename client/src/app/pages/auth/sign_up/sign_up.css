@@ -167,7 +167,7 @@
   .sign_up .div-8 {
     max-width: 100%;
     margin-top: 40px;
-    width: 90%;
+    /* width: 90%; */
     margin: auto;
   }
 }
@@ -551,10 +551,13 @@
     margin: 0;
   }
   .sign_up .span-5 {
-    max-width: 90%;
+    max-width: 95%;
     margin: auto;
     height: 30rem;
   }
+  .sign_upf .checkbox {
+    font-size: 13px;
+}
   .sign_up .span-5 {
     border-radius: 19px 19px 19px 19px;
   }
