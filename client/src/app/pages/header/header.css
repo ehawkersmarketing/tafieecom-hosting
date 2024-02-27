@@ -38,10 +38,9 @@
 }
 
 .header .link-section a {
-  padding: 4px;
+  /* padding: 4px; */
   text-decoration: none;
   color: white;
-  font-size: 16px;
 }
 .login-section .register,
 .login-section .signin {
@@ -114,5 +113,9 @@
   }
   .heading .header button {
     color: white;
+  }
+  .header .link-section a span {
+    font-weight: 600;
+    font-size: 13px;
   }
 }
