@@ -167,7 +167,7 @@
   .sign_up .div-8 {
     max-width: 100%;
     margin-top: 40px;
-    /* width: 90%; */
+    width: 95%;
     margin: auto;
   }
 }
@@ -231,7 +231,7 @@
 @media (max-width: 991px) {
   .sign_up .div-11 {
     max-width: 100%;
-    padding: 0 20px;
+    padding: 20px;
   }
 }
 
@@ -538,7 +538,11 @@
 .sign_up input[type="text"]:focus {
   outline: 0;
 }
-
+@media (max-width:992px){
+  .sign_up .column-2 {
+    width: 100%;
+  }
+}
 @media (max-width: 767px) {
   .sign_up .column-2 {
     width: 100%;
@@ -555,7 +559,7 @@
     margin: auto;
     height: 30rem;
   }
-  .sign_upf .checkbox {
+  .sign_up .checkbox {
     font-size: 13px;
 }
   .sign_up .span-5 {

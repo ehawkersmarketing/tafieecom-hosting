@@ -232,7 +232,8 @@ async function statusCall(n, options, cartId) {
          
           console.log("#########################");
               
-          const responseData = await transactionModel({   
+          const responseData = await transactionModel({ 
+            orderId:_id,  
             transactionId:data.data.transactionId,
             merchantTransactionId:merchantTransactionId,
             shipment_charge:data.data.shipment_charge,
@@ -307,7 +308,7 @@ exports.refundFunction = async (req, res) => {
     const refundEntry = await orderModel.findOne({
       _id: orderId,
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
-
+  
 
     const refundAmount = refundEntry.amount + refundEntry.shipment_charge;
     const data = {

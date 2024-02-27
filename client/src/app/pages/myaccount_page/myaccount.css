@@ -3,7 +3,12 @@
   padding-bottom: 15%;
   padding-right: 0;
 }
-
+.user-account{
+  height: 88.5vh;
+}
+.user-account .account {
+  height: 100%;
+}
 .user-account .top-div {
   background-color: #44a98b;
   height: 2rem;

@@ -6,6 +6,7 @@ import "./OrderConformationPage.css";
 import tick_icon from "../../assets/tick_icon.png";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
+import { toast, ToastContainer } from 'react-toastify';
 // import { useFetch } from 'path-to-your-useFetch-hook';
 import Carousal from "../../components/carousal/carousal";
 
@@ -20,46 +21,46 @@ const OrderConformationPage = () => {
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
-     
+
   useEffect(() => {
     // Function to fetch order data from the backend
     const fetchOrder = async () => {
-      try {        
-          const response = await fetch("https://backend.twicks.in/api/getOrderById/" + id);
-             console.log("id" ,id)
-          if (response) {
-            const data = await response.json();
-           console.log(data.data)
-           if(data.data === null){
+      try {
+        const response = await fetch("https://backend.twicks.in/api/getOrderById/" + id);
+        console.log("id", id)
+        if (response) {
+          const data = await response.json();
+          console.log(data.data)
+          if (data.data === null) {
             console.log("empy")
             navigate(`/myaccount/${user?._id}`);
-           }
-           if(data.success === false){
+          }
+          if (data.success === false) {
             console.log("navigate")
             navigate(`/myaccount/${user?._id}`);
-          }else if(data.success === true){
-            if(data.data.user._id === user?._id){
+          } else if (data.success === true) {
+            if (data.data.user._id === user?._id) {
               console.log("vkdvd")
               navigate(`/orderConfirmationPage/${id}`);
-            }else if(data.data === null ) {
+            } else if (data.data === null) {
               console.log("data is null")
               navigate(`/myaccount/${user?._id}`);
-            }else{
+            } else {
               console.log("go navigate")
               navigate(`/myaccount/${user?._id}`);
             }
-          }          
-          } else {
-            throw new Error('Order not found');
           }
-        
-        }catch (error) {
-          setError(error.message);
+        } else {
+          throw new Error('Order not found');
         }
+
+      } catch (error) {
+        setError(error.message);
       }
-        
-    fetchOrder(); 
-    
+    }
+
+    fetchOrder();
+
   }, [id]);
 
   const handleDownload = () => {
@@ -70,17 +71,17 @@ const OrderConformationPage = () => {
     navigate(`/myaccount/${user?._id}`);
   };
   useEffect(() => {
-  //  if(!data?.user){
-  //   console.log("go to account")
-  //   navigate(`/myaccount/${user?._id}`);
-  //  }
-    if(data?.user && user){
-      console.log(data?.user , user)
-    if(data.user._id !== user?._id){
-      console.log("navigatee")
-    }else{
-      console.log(" kd d dk")
-    }
+    //  if(!data?.user){
+    //   console.log("go to account")
+    //   navigate(`/myaccount/${user?._id}`);
+    //  }
+    if (data?.user && user) {
+      console.log(data?.user, user)
+      if (data.user._id !== user?._id) {
+        console.log("navigatee")
+      } else {
+        console.log(" kd d dk")
+      }
     }
 
     if (!user) {
@@ -88,6 +89,33 @@ const OrderConformationPage = () => {
       navigate(`/myaccount/${user?._id}`);
     }
   }, [data, user]);
+
+
+
+
+  const cancelOrderHandler = async () => {
+    try {
+      console.log("order cancelled", id)
+      console.log(axios.post("http://localhost:8080/api/ship/cancelRequest", {
+        orderId: id,
+      }))
+      const data = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
+        orderId: id,
+      });
+      console.log("api called", data)
+      if (data.success) {
+        navigate("/adminPage");
+      }
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
+    }
+  };
 
   return (
     <>
@@ -98,17 +126,17 @@ const OrderConformationPage = () => {
           <div className="order-header col-12">
             <div className="element row justify-content-between">
               <div className="col-sm-9">
-                
+
                 <div className="title">
                   <h2>
                     <strong>Thank you, your order has been placed</strong>
                   </h2>
                 </div>
-                <div className="title">
+                {/* <div className="title">
                   <h2>
                     <strong>Sorry, your order has been Failed</strong>
                   </h2>
-                </div>
+                </div> */}
 
                 <div className="sub-title">
                   <p>
@@ -118,6 +146,11 @@ const OrderConformationPage = () => {
                   </p>
                 </div>
               </div>
+              
+                <button type="button" onClick={cancelOrderHandler}>
+                  Cancel
+                </button>
+            
               <div className="invoice-download col-sm-3">
                 <button type="link" onClick={handleDownload}>
                   {" "}
@@ -211,14 +244,14 @@ const OrderConformationPage = () => {
               <div>
                 <img src={tick_icon} />
               </div>
-              <div
+              {/* <div
                 style={{
                   fontSize: "11rem",
                   color: "red",
                 }}
               >
                 <i class="bi bi-x-circle-fill"></i>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="order-link">
