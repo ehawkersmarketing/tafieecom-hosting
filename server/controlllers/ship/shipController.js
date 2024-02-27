@@ -151,7 +151,7 @@ exports.cancelApprovalRequest = async (req, res) => {
     console.log("heelo",orderId)
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
-      // console.log(request)
+      console.log("requestConsole",request)
       const data = await requestModel.findOneAndUpdate(
         { orderId:orderId}, 
         {
@@ -222,7 +222,11 @@ exports.calcShipment = async (req, res) => {
     declared_value,
     is_return
   );
-  // console.log(rs_data);
+  console.log("==============**********************")
+
+  console.log(rs_data);
+  console.log("==============**********************")
+
 
   function srShippingRateCalculation(
     shipping_postcode,
@@ -264,10 +268,10 @@ exports.calcShipment = async (req, res) => {
           };
           axios(options)
             .then(function (response) {
-              // console.log(
-              //   "Following are the delivery companies available for the delivery service: "
-              // );
-              // console.log(response.data.data);
+              console.log(
+                "Following are the delivery companies available for the delivery service: "
+              );
+              console.log(response.data.data);
               let minRateObject =
                 response.data.data.available_courier_companies.reduce(
                   (prev, curr) => {
@@ -287,7 +291,10 @@ exports.calcShipment = async (req, res) => {
               resData.status = true;
               resData.message = "Success!!";
               resData.mainset = response.data;
-              // console.log(resData);
+              console.log("==============")
+              console.log(resData);
+              console.log("==============")
+
               res.json({
                 success: true,
                 shipPrice: minRateObject.rate,
