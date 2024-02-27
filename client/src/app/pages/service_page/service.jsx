@@ -141,7 +141,12 @@ const OurServices = () => {
               services.map((service, index) => {
                 return (
                   <div className="col-md-4" key={index}>
-                    <div className="service-block d-flex">
+                    <div
+                      className="service-block d-flex"e
+                      data-bs-toggle="modal"
+                      onClick={() => setIndex(index)}
+                      data-bs-target="#service-about"
+                    >
                       <div className="block-text col-7">
                         <div>
                           <h5>
