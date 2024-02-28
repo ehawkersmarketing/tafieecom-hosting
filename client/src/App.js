@@ -12,7 +12,7 @@ import Product from "./app/pages/product_page/product.jsx";
 import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition.jsx";
 import ReturnAndRefund from "./app/pages/return_refund_policy/ReturnAndRefund.jsx";
 import PrivacyPolicy from "./app/pages/privacy_policy/PrivacyPolicy.jsx";
-import OrderConformationPage from "./app/pages/order_conformation_page/OrderConformationPage.jsx";
+import OrderConfirmationPage from "./app/pages/order_confirmation_page/OrderConfirmationPage.jsx";
 import "./App.css";
 import BlogPage from "./app/pages/blog_grid_page/blog_grid_page.jsx";
 import ShopPage from "./app/pages/shop_page/shop_page.jsx";
@@ -82,7 +82,7 @@ function App() {
           <Route
             path="/OrderConfirmationPage/:id"
             exact
-            element={<OrderConformationPage />}
+            element={<OrderConfirmationPage />}
           />
           <Route path="/invoice/:id" exact element={<Invoice />} />
           <Route path="/about" exact element={<About />} />

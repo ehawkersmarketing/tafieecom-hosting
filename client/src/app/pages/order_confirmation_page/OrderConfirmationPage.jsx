@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import { useLocation } from 'react-router-dom';
-import "./OrderConformationPage.css";
+
+import "./OrderConfirmationPage.css";
 import tick_icon from "../../assets/tick_icon.png";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
@@ -13,7 +13,7 @@ import Carousal from "../../components/carousal/carousal";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const OrderConformationPage = () => {
+const OrderConfirmationPage = () => {
   const { id } = useParams();
   const { data } = useFetch(`/api/getOrderById/${id}`);
   const navigate = useNavigate();
@@ -21,57 +21,8 @@ const OrderConformationPage = () => {
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
-
-
-
-
-
-
-  useEffect(() => {
-    // Access the query string
-    const queryString = window.location.search;
-
-    // Parse the query string
-    const searchParams = new URLSearchParams(queryString);
-
-    // Extract the success status
-    const success = searchParams.get('success');
-
-    // Log the success status
-    console.log("Success Status:", success);
-
-    // You can now use the success status as needed in your component
- }, []); // E
-
-
-
- const location = useLocation();
-
-
- // Extract the success status from the query parameters
- const searchParams = new URLSearchParams(location.search);
- const success = searchParams.get('success');
-
- // You can now use the success status as needed in your component
- // For example, logging it to the console
- console.log("Success Status:", success);
-
- useEffect(() => {
-    // Extract the success status from the query parameters
-    const searchParams = new URLSearchParams(location.search);
-    const success = searchParams.get('success');
-
-    // Log the success status
-    console.log("Order Confirmation Success Status:", success);
-
-    // You can also set the success status in your component's state or use it as needed
- }); 
-
-
-
-
-
-
+const orderStatus = localStorage.getItem("orderStatus")
+console.log(orderStatus)
   useEffect(() => {
     // Function to fetch order data from the backend
     const fetchOrder = async () => {
@@ -329,4 +280,4 @@ useEffect(async()=>{
   );
 };
 
-export default OrderConformationPage;
+export default OrderConfirmationPage;
