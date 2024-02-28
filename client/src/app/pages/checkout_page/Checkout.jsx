@@ -103,10 +103,10 @@ const Checkout = () => {
     }
   };
 
-  async function checkPincodeAndCalculateCharges(event , pincode) {
+  async function checkPincodeAndCalculateCharges(pincode) {
 
     if (pincode.length == 6) {
-      const shippingCharges = await calculateShippingCharges(event ,pincode);
+      const shippingCharges = await calculateShippingCharges(pincode);
       console.log("neewew", shippingCharges)
       console.log(`Shipping charges for pincode ${pincode}: $${shippingCharges}`);
     } else {
@@ -115,8 +115,7 @@ const Checkout = () => {
     }
   }
 
-  const calculateShippingCharges = async (event ,pincode) => {
-    event.preventDefault();
+  const calculateShippingCharges = async (pincode) => {
     try {
       console.log(pincode , cart.totalWeight , cart.totalPrice)
       const response = await axios.post(
