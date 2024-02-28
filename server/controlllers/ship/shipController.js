@@ -245,8 +245,8 @@ exports.calcShipment = async (req, res) => {
       };
       try {
         let getToken = await srlogin();
-        // console.log("below is the api key token recieved");
-        // console.log(getToken);
+        console.log("below is the api key token recieved");
+        console.log(getToken);
 
         let paramers = "pickup_postcode=" + process.env.SHOP_PINCODE;
         paramers += "&delivery_postcode=" + shipping_postcode;
@@ -294,9 +294,9 @@ exports.calcShipment = async (req, res) => {
               resData.status = true;
               resData.message = "Success!!";
               resData.mainset = response.data;
-              console.log("==============")
+              console.log("==============******************************")
               console.log(resData);
-              console.log("==============")
+              console.log("==============*****************************")
 
               res.json({
                 success: true,
