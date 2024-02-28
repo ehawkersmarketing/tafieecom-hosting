@@ -45,6 +45,7 @@ exports.payFunction = async (req, res) => {
     };
 
     // console.log(merchantTransactionId);
+    // console.log(cartId);
     // const responseData = await transactionModel({     
     //   merchantTransactionId:merchantTransactionId,
     // });
@@ -112,8 +113,8 @@ exports.payFunction = async (req, res) => {
 };
 
 exports.checkStatusFunction = async (req, res) => {
-  const { merchantTransactionId, cartId, isRefund } = req.query;
-  console.log("data", merchantTransactionId, cartId, isRefund);
+  const { transactionId, cartId, isRefund } = req.query;
+  console.log("data", transactionId, cartId, isRefund);
   if (isRefund) {
     const string =
       `/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}` +
@@ -132,7 +133,7 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
-    let status = await statusCall(n, options, cartId ,merchantTransactionId );
+    let status = await statusCall(n, options, cartId , transactionId);
     console.log(status);
     if (status) {
       //Here the cartId is holding the value of orderId during the call
@@ -171,13 +172,13 @@ exports.checkStatusFunction = async (req, res) => {
     // }
   } else {
     const string =
-      `/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}` +
+      `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
       process.env.PHONEPE_API_SALT_KEY;
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX;
     const options = {
       method: "get",
-      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
+      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}`,
       headers: {
         "Content-Type": "application/json",
         "X-VERIFY": checksum,
@@ -185,7 +186,7 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
-    let status = await statusCall(n, options, cartId , merchantTransactionId);
+    let status = await statusCall(n, options, cartId , transactionId);
     console.log(status);
     console.log(`This is the status ${status.success}`);
     if (status.success) {
@@ -206,7 +207,7 @@ exports.checkStatusFunction = async (req, res) => {
   }
 };
 
-async function statusCall(n, options, cartId , merchantTransactionId) {
+async function statusCall(n, options, cartId , transactionId) {
   try {
     // console.log("1" + cartId);
     if (cartId == null) {
@@ -229,7 +230,6 @@ async function statusCall(n, options, cartId , merchantTransactionId) {
       }
     } else {
       console.log("BHVHFY")
-      console.log(merchantTransactionId)
       let response = await axios.request(options);
       console.log("JDVCGHDV")
       console.log(response)
