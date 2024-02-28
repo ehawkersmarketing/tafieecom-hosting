@@ -10,14 +10,13 @@ const { json } = require("express");
 const giveUniqueId = (length) => {
   return "TAFI" + uniqid(length);
 };
-const merchantTransactionId = giveUniqueId(16);
+// const merchantTransactionId = giveUniqueId(16);
 
 //redirecting to PhonePe for payment facilitation
 exports.payFunction = async (req, res) => {
   try {
     console.log("hii");
     console.log("hii");
-
     console.log("hii");
     console.log("hii");
     console.log("hii");
@@ -45,8 +44,14 @@ exports.payFunction = async (req, res) => {
       },
     };
 
-    console.log(merchantTransactionId);
-    console.log(cartId);
+    // console.log(merchantTransactionId);
+    // console.log(cartId);
+    // const responseData = await transactionModel({     
+    //   merchantTransactionId:merchantTransactionId,
+    // });
+    // console.log("============order placed api=================");
+    // console.log(responseData);
+    // console.log("=======================");
 
     const payload = JSON.stringify(data);
     const payloadMain = Buffer.from(payload).toString("base64");
