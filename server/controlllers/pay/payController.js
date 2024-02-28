@@ -178,6 +178,7 @@ exports.checkStatusFunction = async (req, res) => {
         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
       );
     } else {
+      localStorage.setItem("orderStatus",res.success)
         res.success = false;
       return res.redirect(
         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
