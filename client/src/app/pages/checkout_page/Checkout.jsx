@@ -69,7 +69,7 @@ const Checkout = () => {
             //     alert("Enter your Country");
             // } else {
                 const response = await axios.post(
-                    "http://localhost:8080/api/ship/calcShipment",
+                    "https://backend.twicks.in/api/ship/calcShipment",
                     {
                         shipping_postcode: formData.PinCode,
                         weight: cart.totalWeight,
