@@ -69,7 +69,7 @@ exports.approveRequest = async (req, res) => {
           })
         }
 
-        console.log("request accept atapprovalrequest",request);
+        // console.log("request accept atapprovalrequest",request);
         // console.log();
         let time = order.timestamps.toISOString();
         axios.post("http://localhost:8080/api/ship/createOrder",
@@ -110,7 +110,7 @@ exports.approveRequest = async (req, res) => {
             weight: weight
           }
         ).then(async(shipment) => {
-                 console.log("shippment whenodercreated",shipment)
+                //  console.log("shippment whenodercreated",shipment)
           if (shipment) {
             await orderModel.findOneAndUpdate({
               _id: request.orderId,
@@ -225,10 +225,10 @@ exports.calcShipment = async (req, res) => {
     declared_value,
     is_return
   );
-  console.log("==============**********************")
+  // console.log("==============**********************")
 
-  console.log(rs_data);
-  console.log("==============**********************")
+  // console.log(rs_data);
+  // console.log("==============**********************")
 
 
   function srShippingRateCalculation(
@@ -245,8 +245,8 @@ exports.calcShipment = async (req, res) => {
       };
       try {
         let getToken = await srlogin();
-        console.log("below is the api key token recieved");
-        console.log(getToken);
+        // console.log("below is the api key token recieved");
+        // console.log(getToken);
 
         let paramers = "pickup_postcode=" + process.env.SHOP_PINCODE;
         paramers += "&delivery_postcode=" + shipping_postcode;
@@ -274,7 +274,7 @@ exports.calcShipment = async (req, res) => {
               console.log(
                 "Following are the delivery companies available for the delivery service: "
               );
-              console.log(response.data.data);
+              // console.log(response.data.data);
               let minRateObject =
                 response.data.data.available_courier_companies.reduce(
                   (prev, curr) => {
@@ -294,9 +294,9 @@ exports.calcShipment = async (req, res) => {
               resData.status = true;
               resData.message = "Success!!";
               resData.mainset = response.data;
-              console.log("==============******************************")
-              console.log(resData);
-              console.log("==============*****************************")
+              // console.log("==============******************************")
+              // console.log(resData);
+              // console.log("==============*****************************")
 
               res.json({
                 success: true,
@@ -330,7 +330,7 @@ exports.calcShipment = async (req, res) => {
 
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
-  console.log("dsjhbuygesufheys");
+  // console.log("dsjhbuygesufheys");
   const {
     pickup_location,
     order_id,

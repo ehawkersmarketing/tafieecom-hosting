@@ -253,7 +253,7 @@ async function statusCall(n, options, cartId , transactionId) {
           const responseData = await transactionModel({ 
             orderId:data.data._id,  
             transactionId:data.data.transactionId,
-            merchantTransactionId:merchantTransactionId,
+            merchantTransactionId:transactionId,
             shipment_charge:data.data.shipment_charge,
             merchantUserId:process.env.MERCHANT_ID,
             amount: data.data.amount,
