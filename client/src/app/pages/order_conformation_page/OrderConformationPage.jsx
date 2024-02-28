@@ -21,10 +21,17 @@ const OrderConformationPage = () => {
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
-  const success = req.query.success;
-console.log(success)
 
  const location = useLocation();
+
+
+ // Extract the success status from the query parameters
+ const searchParams = new URLSearchParams(location.search);
+ const success = searchParams.get('success');
+
+ // You can now use the success status as needed in your component
+ // For example, logging it to the console
+ console.log("Success Status:", success);
 
  useEffect(() => {
     // Extract the success status from the query parameters
