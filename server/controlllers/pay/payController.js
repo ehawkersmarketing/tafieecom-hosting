@@ -255,7 +255,7 @@ async function statusCall(n, options, cartId) {
             status: "payment Successfull",
             cartId: cartId
           });
-          console.log("=============================");
+          console.log("============order placed api=================");
           console.log(responseData);
           responseData.save();
           console.log("=======================");
