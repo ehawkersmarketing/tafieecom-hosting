@@ -44,14 +44,13 @@ exports.payFunction = async (req, res) => {
       },
     };
 
-    // console.log(merchantTransactionId);
-    // console.log(cartId);
-    // const responseData = await transactionModel({     
-    //   merchantTransactionId:merchantTransactionId,
-    // });
-    // console.log("============order placed api=================");
-    // console.log(responseData);
-    // console.log("=======================");
+    console.log(merchantTransactionId);
+    const responseData = await transactionModel({     
+      merchantTransactionId:merchantTransactionId,
+    });
+    console.log("============order placed api=================");
+    console.log(responseData);
+    console.log("=======================");
 
     const payload = JSON.stringify(data);
     const payloadMain = Buffer.from(payload).toString("base64");
@@ -234,7 +233,7 @@ async function statusCall(n, options, cartId) {
       console.log("JDVCGHDV")
       console.log(response)
       if (response.data.success === true) {
-        console.log(response);
+        console.log("****************************************************",response );
         try {
           const { data } = await axios.post(
             "http://localhost:8080/api/placeOrder",
