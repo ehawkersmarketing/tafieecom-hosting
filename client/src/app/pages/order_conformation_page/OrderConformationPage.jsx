@@ -22,6 +22,29 @@ const OrderConformationPage = () => {
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
 
+
+
+
+
+
+  useEffect(() => {
+    // Access the query string
+    const queryString = window.location.search;
+
+    // Parse the query string
+    const searchParams = new URLSearchParams(queryString);
+
+    // Extract the success status
+    const success = searchParams.get('success');
+
+    // Log the success status
+    console.log("Success Status:", success);
+
+    // You can now use the success status as needed in your component
+ }, []); // E
+
+
+
  const location = useLocation();
 
 
@@ -42,7 +65,7 @@ const OrderConformationPage = () => {
     console.log("Order Confirmation Success Status:", success);
 
     // You can also set the success status in your component's state or use it as needed
- }, [location]); 
+ }); 
 
 
 
