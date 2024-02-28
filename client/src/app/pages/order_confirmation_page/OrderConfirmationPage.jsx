@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 
-import "./OrderConformationPage.css";
+import "./OrderConfirmationPage.css";
 import tick_icon from "../../assets/tick_icon.png";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
@@ -13,7 +13,7 @@ import Carousal from "../../components/carousal/carousal";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const OrderConformationPage = () => {
+const OrderConfirmationPage = () => {
   const { id } = useParams();
   const { data } = useFetch(`/api/getOrderById/${id}`);
   const navigate = useNavigate();
@@ -280,4 +280,4 @@ useEffect(async()=>{
   );
 };
 
-export default OrderConformationPage;
+export default OrderConfirmationPage;

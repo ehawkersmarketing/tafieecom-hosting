@@ -54,7 +54,7 @@ const Header = () => {
               aria-label="Close"
             ></button>
           </div>
-          <div className="offcanvas-body justify-content-between row">
+          <div className="offcanvas-body justify-content-around row">
             <div className="link-section col-md-7 justify-content-around">
               <Link
                 to="/"
