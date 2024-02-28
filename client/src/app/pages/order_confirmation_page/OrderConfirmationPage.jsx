@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import { useLocation } from 'react-router-dom';
-import "./OrderConformationPage.css";
+import "./OrderConfirmationPage.css"
 import tick_icon from "../../assets/tick_icon.png";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
@@ -179,17 +179,17 @@ useEffect(async()=>{
           <div className="order-header col-12">
             <div className="element row justify-content-between">
               <div className="col-sm-9">
-
-                <div className="title">
+{success==true? <div className="title">
                   <h2>
                     <strong>Thank you, your order has been placed</strong>
                   </h2>
-                </div>
-                {/* <div className="title">
+                </div>: <div className="title">
                   <h2>
                     <strong>Sorry, your order has been Failed</strong>
                   </h2>
-                </div> */}
+                </div>}
+                
+               
 
                 <div className="sub-title">
                   <p>
@@ -294,17 +294,18 @@ useEffect(async()=>{
               </div>
             </div>
             <div className="status col-3">
-              <div>
+              {success==true?<div>
                 <img src={tick_icon} />
-              </div>
-              {/* <div
+              </div> : <div
                 style={{
                   fontSize: "11rem",
                   color: "red",
                 }}
               >
                 <i class="bi bi-x-circle-fill"></i>
-              </div> */}
+              </div>}
+              
+             
             </div>
           </div>
           <div className="order-link">
