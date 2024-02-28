@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-
+import { useLocation } from 'react-router-dom';
 import "./OrderConformationPage.css";
 import tick_icon from "../../assets/tick_icon.png";
 import { useFetch } from "../../hooks/api_hook";
@@ -21,8 +21,34 @@ const OrderConformationPage = () => {
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
-const orderStatus = localStorage.getItem("orderStatus")
-console.log(orderStatus)
+
+ const location = useLocation();
+
+
+ // Extract the success status from the query parameters
+ const searchParams = new URLSearchParams(location.search);
+ const success = searchParams.get('success');
+
+ // You can now use the success status as needed in your component
+ // For example, logging it to the console
+ console.log("Success Status:", success);
+
+ useEffect(() => {
+    // Extract the success status from the query parameters
+    const searchParams = new URLSearchParams(location.search);
+    const success = searchParams.get('success');
+
+    // Log the success status
+    console.log("Order Confirmation Success Status:", success);
+
+    // You can also set the success status in your component's state or use it as needed
+ }, [location]); 
+
+
+
+
+
+
   useEffect(() => {
     // Function to fetch order data from the backend
     const fetchOrder = async () => {
