@@ -327,13 +327,13 @@ exports.refundFunction = async (req, res) => {
       _id: orderId,
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
        const transactionDetails = await transactionModel.findOne({orderId:orderId})
-console.log(transactionDetails)
+console.log(transactionDetails.merchantTransactionId)
     const refundAmount = (refundEntry.amount + refundEntry.shipment_charge);
     // console.log(merchantTransactionId)
     const data = {
       merchantId: process.env.MERCHANT_ID,
       merchantUserId: process.env.MERCHANT_USER_ID,
-      originalTransactionId: merchantTransactionId,
+      originalTransactionId: transactionDetails.merchantTransactionId,
       merchantTransactionId: refundTransId,
       amount: refundAmount, //change this to the value from the payments model
       callbackUrl: "http://localhost:8080/api/pay/getOrderLog",
