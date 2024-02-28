@@ -9,21 +9,21 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  // console.log(user.userName)
-  useEffect(() => {
-    if (user) {
-      navigate('/checkout')
-    } else {
-      navigate("/auth/login");
-    }
-  }, []);
-  let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
-  // console.log(cart)
-  const products = cart?.products;
-  // console.log("hyyyy",products)
-  const [shipCharge, setShipCharge] = useState(undefined);
+    const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user.userName)
+    useEffect(() => {
+        if (user) {
+               navigate('/checkout')
+        } else {
+          navigate("/auth/login");
+        }
+      }, []);
+    let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
+    console.log(cart)
+    const products = cart?.products;
+    console.log("hyyyy",products)
+    const [shipCharge, setShipCharge] = useState(undefined);
 
   const [formData, setFormData] = useState({
     userName: "",
@@ -37,12 +37,69 @@ const Checkout = () => {
     Country: "",
   });
 
+
+  const [contact, setContact] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleInputChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+    setContact(event.target.value);
+
+    
+  };
+
+
+    const shipChargeFunction = async (event) => {
+        event.preventDefault();
+        try {
+            //  if (formData.Email === "") {
+            //     alert("Enter your email");
+            // }  else if (formData.Address === "") {
+            //     alert("Enter your address");
+            // } else if (formData.City === "") {
+            //     alert("Enter your City");
+            // } else if (formData.State === "") {
+            //     alert("Enter your State");
+            // } else if (formData.PinCode === "") {
+            //     alert("Enter your Pin Code");
+            // } else if (formData.Country === "") {
+            //     alert("Enter your Country");
+            // } else {
+                const response = await axios.post(
+                    "http://localhost:8080/api/ship/calcShipment",
+                    {
+                        shipping_postcode: formData.PinCode,
+                        weight: cart.totalWeight,
+                        declared_value: cart.totalPrice,
+                        is_return: 0,
+                    }
+                );
+                setShipCharge(response.data.shipPrice);
+                console.log(shipCharge);
+            }
+        catch (error) {
+            console.error("Failed to fetch ship details", error);
+        }
+    };
+
+  // const secondHandler=(event)=>{
+  //   if (event.target.value.length < 10) {
+
+  //   } else {
+  //     setErrorMessage("");
+  //   }
+  // }
+
+  
   const handleOrderFunction = async (event) => {
     event.preventDefault();
     try {
       if (shipCharge === undefined) {
         alert(
-          "Submit address details and calculate shipment before placing order"
+          "Submit adress details and calculate shipment before placing order"
         );
       } else {
         const { data } = await axios.post(
@@ -85,58 +142,6 @@ const Checkout = () => {
       console.error("Failed to submit form", error);
     }
   };
-  const [contact, setContact] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleInputChange = (event) => {
-    // console.log(event.target.name)
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-    setContact(event.target.value);
-
-    if (event.target.name === "PinCode") {
-      const pincode = event.target.value
-      console.log(pincode)
-      checkPincodeAndCalculateCharges(pincode)
-    }
-  };
-
-  async function checkPincodeAndCalculateCharges(pincode) {
-
-    if (pincode.length == 6) {
-      const shippingCharges = await calculateShippingCharges(pincode);
-      console.log("neewew", shippingCharges)
-      console.log(`Shipping charges for pincode ${pincode}: $${shippingCharges}`);
-    } else {
-      console.log(`Pincode ${pincode} is not within the  4 to  6 digit range.`);
-      return null;
-    }
-  }
-
-  const calculateShippingCharges = async (pincode) => {
-    try {
-      console.log(pincode , cart.totalWeight , cart.totalPrice)
-      const response = await axios.post(
-        "http://localhost:8080/api/ship/calcShipment",
-        {
-          shipping_postcode: pincode,
-          weight: cart.totalWeight,
-          declared_value: cart.totalPrice,
-          is_return: 0,
-        }
-      );
-      console.log(response.data);
-      console.log(shipCharge)
-      setShipCharge(response.data.shipPrice);
-      return shipCharge;
-    }
-    catch (error) {
-      console.error("Failed to fetch ship details", error);
-    }
-  };
-
   return (
     <div>
       <Header />
@@ -148,7 +153,7 @@ const Checkout = () => {
             </h1>
           </div>
           <div className="checkout-page-form ">
-            <form className="row">
+            <form className="row" onSubmit={shipChargeFunction}>
               <div className="row col-12 firstinput">
                 <div className="col-6">
                   <div className="checkout-page-input checkout1">
@@ -172,9 +177,9 @@ const Checkout = () => {
                       id="Contact"
                       name="Contact"
                       placeholder="Contact Number"
-                      value={user?.phone}
+value={user?.phone}
                       required
-                      onChange={handleInputChange}
+                     onChange={handleInputChange}
                     />
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                   </div>
@@ -191,7 +196,7 @@ const Checkout = () => {
                   placeholder="Email Address"
                   onChange={handleInputChange}
                 />
-
+                
               </div>
               <div className="row col-12 firstinput">
                 <div className="col-6">
@@ -252,9 +257,6 @@ const Checkout = () => {
                   required
                   onChange={handleInputChange}
                 />
-                
-                {  formData.PinCode.length == 6 ? <span></span> : <p style={{color:"red"}}>Your Pincode must be of 6 digit</p>}
-                
               </div>
               <div className="checkout-page-input">
                 <label htmlFor="Country">Country / Region</label>
@@ -267,9 +269,9 @@ const Checkout = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              {/* <button className="checkout-btn" onClick={shipChargeFunction}>
+              <button className="checkout-btn" onClick={shipChargeFunction}>
                 Calculate shipping price
-              </button> */}
+              </button>
             </form>
             <div className="checkout-page-payment-details" id="shipment">
               <div className="checkout-page-table-button">
@@ -316,9 +318,8 @@ const Checkout = () => {
                     )}
                     <tr>
                       <th>Total</th>
-                      <th>{(cart?.totalPrice + shipCharge ?? 0).toLocaleString("en-IN")}</th>
+                      <th>{cart?.totalPrice + shipCharge ?? 0}</th>
                     </tr>
-
                   </table>
                 </div>
 
