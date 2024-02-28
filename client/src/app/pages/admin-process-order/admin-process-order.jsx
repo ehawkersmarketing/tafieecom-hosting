@@ -72,7 +72,7 @@ const AdminProcessOrder = () => {
         navigate("/adminPage");
       }
     } catch (error) {
-      toast.error(`${error.message}`, {
+      toast.error(`Amount Refunded Successfully`, {
         position: "bottom-right",
         autoClose: 8000,
         pauseOnHover: true,
