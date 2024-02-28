@@ -15,9 +15,20 @@ const merchantTransactionId = giveUniqueId(16);
 //redirecting to PhonePe for payment facilitation
 exports.payFunction = async (req, res) => {
   try {
-    // console.log("hii");
+    console.log("hii");
+    console.log("hii");
+
+    console.log("hii");
+    console.log("hii");
+    console.log("hii");
+    console.log("hii");
+    console.log("hii");
+    console.log("hii");
+
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
-    // console.log(merchantTransactionId);
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    console.log(merchantTransactionId);
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     const { amount, cartId } = req.body;
     const data = {
       //Required data structure for the pay API call
@@ -312,7 +323,8 @@ exports.refundFunction = async (req, res) => {
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
        const transactionDetails = await transactionModel.findOne({orderId:orderId})
 console.log(transactionDetails)
-    const refundAmount = (refundEntry.amount + refundEntry.shipment_charge)/100;
+    const refundAmount = (refundEntry.amount + refundEntry.shipment_charge);
+    console.log(merchantTransactionId)
     const data = {
       merchantId: process.env.MERCHANT_ID,
       merchantUserId: process.env.MERCHANT_USER_ID,
