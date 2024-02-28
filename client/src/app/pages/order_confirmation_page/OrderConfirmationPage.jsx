@@ -22,6 +22,11 @@ const OrderConformationPage = () => {
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
 
+
+
+
+
+
   useEffect(() => {
     // Access the query string
     const queryString = window.location.search;
@@ -61,6 +66,11 @@ const OrderConformationPage = () => {
 
     // You can also set the success status in your component's state or use it as needed
  }); 
+
+
+
+
+
 
   useEffect(() => {
     // Function to fetch order data from the backend
@@ -175,20 +185,19 @@ useEffect(async()=>{
                     <strong>Thank you, your order has been placed</strong>
                   </h2>
                 </div>
-                {success==  true ?  <div className="sub-title">
+                {/* <div className="title">
+                  <h2>
+                    <strong>Sorry, your order has been Failed</strong>
+                  </h2>
+                </div> */}
+
+                <div className="sub-title">
                   <p>
                     <strong>
                       The order confirmation has been sent to your email address
                     </strong>
                   </p>
-                </div> : <div className="title">
-              <h2>
-                <strong>Sorry, your order has been Failed</strong>
-              </h2>
-                </div> }
-                
-
-               
+                </div>
               </div>
               
                 <button type="button" onClick={cancelOrderHandler}>
@@ -285,18 +294,17 @@ useEffect(async()=>{
               </div>
             </div>
             <div className="status col-3">
-              {success==true?  <div>
+              <div>
                 <img src={tick_icon} />
-              </div>:<div
+              </div>
+              {/* <div
                 style={{
                   fontSize: "11rem",
                   color: "red",
                 }}
               >
                 <i class="bi bi-x-circle-fill"></i>
-              </div>}
-             
-              
+              </div> */}
             </div>
           </div>
           <div className="order-link">

@@ -32,6 +32,10 @@
   height: 40px;
   width: auto;
 }
+.header .logo-section{
+  justify-content: center;
+display: flex;
+}
 
 .header .logo-section img {
   width: 150px;
@@ -86,10 +90,27 @@
   }
 }
 
-@media (min-width: 1024px) {
+
+
+@media (max-width: 1200px){
+  .header .link-section a span {
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .login-section .register, .login-section .signin {
+    font-size: 13px;}
+}
+@media (max-width: 1024px) {
   .heading {padding-bottom: 2.5rem;
     margin-top: 2rem;}
 }
+@media (max-width: 1400px){ 
+  .heading {
+    padding-bottom: 2.5rem;
+    margin-top: 2rem;}
+  
+}
+
 @media (max-width: 992px) {
   .heading {
     padding-bottom: 4rem;
@@ -118,4 +139,7 @@
     font-weight: 600;
     font-size: 13px;
   }
+  .heading {
+    margin-top: 0;
+}
 }
