@@ -17,7 +17,7 @@
   padding-bottom: 2%;
   justify-content: space-between;
   --bs-gutter-x: 0;
-  height: 40rem;
+  height: 45rem;
   z-index: 1;
   margin-bottom: -2rem;
   position: relative;
@@ -52,13 +52,13 @@
   max-width: 100%;
   max-height: 100% !important;
   margin-top: 0;
-  /* margin-top: -2rem; */
+  margin-top: -2rem;
   /* margin-right: -1.5rem; */
 }
 
 .topDiv .headingDiv {
   margin-left: 9%;
-  padding-top: 3.7%;
+  padding-top: 5%;
   width: fit-content;
   text-align: center;
 }
@@ -599,142 +599,7 @@
   font-size: 18px;
 }
 
-@media (max-width: 768px) {
-  .topDiv {
-    height: 22rem;
-  }
-  .topDiv .headingDiv h1 {
-    font-size: 3.2rem;
-  }
-  .topDiv .headingDiv .shopBTN button {
-    font-size: 1rem;
-    padding: 0.4rem 2rem;
-    /* margin-top: 0; */
-  }
-  .topDiv .headingimage {
-    display: none;
-  }
-  .div3 h1 {
-    font-size: 4.8rem;
-    margin: 0;
-  }
-  .div3SubHead h4 {
-    font-size: 17.5px;
-    display: flex;
-    align-items: center;
-  }
-  .home-page .product-category {
-    background-size: 199% 92%;
-    padding-top: 0;
-    /* padding-bottom: 0; */
-  }
-  .home-page .div3 {
-    background-size: 160% 100%;
-    margin-top: -7rem;
-    background-position: center center;
-  }
-  .div3 .servicesDiv {
-    padding-top: 1rem;
-  }
-  .div3 .servicesDiv .singleServiceDiv h5 {
-    font-size: 16px;
-  }
-  .home-page .service100 {
-    min-height: 160px;
-  }
-  .div3 .servicesDiv .serviceCircle {
-    width: 6.5rem;
-    height: 6.5rem;
-  }
-  .div3 .servicesDiv .singleServiceDiv h5 {
-    font-size: 13px;
-  }
-  .home-page
-    .product-category
-    .product-category-text
-    .category-text
-    .tafi-product-text1,
-  .home-page
-    .product-category
-    .product-category-text
-    .category-text
-    .tafi-product-text2,
-  .home-page
-    .featured-product
-    .product-category-text
-    .category-text
-    .tafi-product-text1,
-  .home-page
-    .featured-product
-    .product-category-text
-    .category-text
-    .tafi-product-text2 {
-    font-size: 1.3rem;
-  }
-  .home-page .featured-product .product-category-text .category-text {
-    margin-top: 0 !important;
-  }
-  .home-page .featured-product {
-    padding: 0%;
-  }
-  .div3 .div3Heading {
-    padding-top: 8.5rem;
-  }
-  .home-page
-    .featured-product
-    .category-region
-    .category-carousel
-    .feature-carousal {
-    height: 15rem;
-  }
-}
-@media (max-width: 992px) {
-  .topDiv {
-    height: 30rem;
-    z-index: 0;
-  }
-  .topDiv .headingDiv h1 {
-    font-size: 3rem;
-  }
-  .topDiv .headingDiv .shopBTN button {
-    font-size: 1rem;
-    padding: 0.4rem 2rem;
-  }
-  .topDiv .headingDiv {
-    margin-left: 5%;
-  }
-  .home-page .feature-text-fields {
-    padding: 0;
-  }
-  .featured-product .carouselItem .cart-btn {
-    padding: 4px 15px;
-  }
-  .home-page
-    .product-category
-    .product-category-text
-    .category-text
-    .tafi-product-text1,
-  .home-page
-    .product-category
-    .product-category-text
-    .category-text
-    .tafi-product-text2,
-  .home-page
-    .featured-product
-    .product-category-text
-    .category-text
-    .tafi-product-text1,
-  .home-page
-    .featured-product
-    .product-category-text
-    .category-text
-    .tafi-product-text2 {
-    font-size: 23px;
-  }
-  .featured-product .carouselItem .col-gapping {
-    height: 12rem;
-  }
-}
+
 @media (max-width: 1024px) {
   .topDiv {
     height: 30rem;
@@ -843,5 +708,163 @@
   }
   .div4 .soilDiv .franchiseInfo .franchHeading {
     margin: 0;
+  }
+}
+
+@media (max-width: 1450px) {
+  .topDiv {
+    height: 40rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .topDiv {
+    height: 36rem;
+  }
+  .topDiv .headingimage img {
+    margin-bottom: 5rem;
+  }
+  .headingDiv h1 {
+    font-size: 4.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .topDiv {
+    height: 20rem;
+  }
+  .topDiv .headingDiv h1 {
+    font-size: 3.2rem;
+  }
+  .topDiv .headingDiv .shopBTN button {
+    font-size: 1rem;
+    padding: 0.4rem 2rem;
+    /* margin-top: 0; */
+  }
+  .topDiv .headingimage {
+    display: none;
+  }
+  .div3 h1 {
+    font-size: 4.8rem;
+    margin: 0;
+  }
+  .div3SubHead h4 {
+    font-size: 17.5px;
+    display: flex;
+    align-items: center;
+  }
+  .home-page .product-category {
+    background-size: 199% 92%;
+    padding-top: 0;
+    /* padding-bottom: 0; */
+  }
+  .home-page .div3 {
+    background-size: 160% 100%;
+    margin-top: -7rem;
+    background-position: center center;
+  }
+  .div3 .servicesDiv {
+    padding-top: 1rem;
+  }
+  .div3 .servicesDiv .singleServiceDiv h5 {
+    font-size: 16px;
+  }
+  .home-page .service100 {
+    min-height: 160px;
+  }
+  .div3 .servicesDiv .serviceCircle {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+  .div3 .servicesDiv .singleServiceDiv h5 {
+    font-size: 13px;
+  }
+  .home-page
+    .product-category
+    .product-category-text
+    .category-text
+    .tafi-product-text1,
+  .home-page
+    .product-category
+    .product-category-text
+    .category-text
+    .tafi-product-text2,
+  .home-page
+    .featured-product
+    .product-category-text
+    .category-text
+    .tafi-product-text1,
+  .home-page
+    .featured-product
+    .product-category-text
+    .category-text
+    .tafi-product-text2 {
+    font-size: 1.3rem;
+  }
+  .home-page .featured-product .product-category-text .category-text {
+    margin-top: 0 !important;
+  }
+  .home-page .featured-product {
+    padding: 0%;
+  }
+  .div3 .div3Heading {
+    padding-top: 8.5rem;
+  }
+  .home-page
+    .featured-product
+    .category-region
+    .category-carousel
+    .feature-carousal {
+    height: 15rem;
+  }
+}
+@media (max-width: 992px) {
+  .topDiv {
+    height: 30rem;
+    z-index: 0;
+  }
+  .topDiv .headingimage img {
+    margin-bottom: 6rem;
+}
+  .topDiv .headingDiv h1 {
+    font-size: 3rem;
+  }
+  .topDiv .headingDiv .shopBTN button {
+    font-size: 1rem;
+    padding: 0.4rem 2rem;
+  }
+  .topDiv .headingDiv {
+    margin-left: 5%;
+  }
+  .home-page .feature-text-fields {
+    padding: 0;
+  }
+  .featured-product .carouselItem .cart-btn {
+    padding: 4px 15px;
+  }
+  .home-page
+    .product-category
+    .product-category-text
+    .category-text
+    .tafi-product-text1,
+  .home-page
+    .product-category
+    .product-category-text
+    .category-text
+    .tafi-product-text2,
+  .home-page
+    .featured-product
+    .product-category-text
+    .category-text
+    .tafi-product-text1,
+  .home-page
+    .featured-product
+    .product-category-text
+    .category-text
+    .tafi-product-text2 {
+    font-size: 23px;
+  }
+  .featured-product .carouselItem .col-gapping {
+    height: 12rem;
   }
 }
