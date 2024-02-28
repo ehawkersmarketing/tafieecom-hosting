@@ -162,7 +162,7 @@ exports.cancelApprovalRequest = async (req, res) => {
         , { new: true }
       ); 
       if (data) {
-        // console.log("csjvidnidu data" , data)
+        console.log("csjvidnidu data" , data)
         const order = await orderModel.findOneAndUpdate(
           { _id: data.orderId },
           {
@@ -170,7 +170,7 @@ exports.cancelApprovalRequest = async (req, res) => {
           }
         );
         if (order) {
-          // console.log("========================================")
+          console.log("========================================")
           const { data: payRefund } = await axios.post(
             "https://backend.twicks.in/api/pay/refund",
             {
@@ -179,6 +179,7 @@ exports.cancelApprovalRequest = async (req, res) => {
             }
           );
           if (payRefund) {
+            console.log("pay refund")
             res.json({
               success: true,
               message: "Refunded",

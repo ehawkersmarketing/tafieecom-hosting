@@ -264,7 +264,6 @@ const UpdateProduct = () => {
                   </option>
                 ))}
               </select>
-              ;
             </div>
             <button className="btn" onClick={onSubmitHandler}>
               Update Product

@@ -14,7 +14,7 @@ const transactionSchema = new mongoose.Schema({
     type:String
   },
   shipment_charge:{
-    type:String
+    type:Number
   },
   merchantUserId:{
     type:String
