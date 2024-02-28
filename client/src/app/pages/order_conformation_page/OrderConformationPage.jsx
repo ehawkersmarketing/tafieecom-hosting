@@ -21,7 +21,8 @@ const OrderConformationPage = () => {
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
-
+const orderStatus = localStorage.getItem("orderStatus")
+console.log(orderStatus)
   useEffect(() => {
     // Function to fetch order data from the backend
     const fetchOrder = async () => {

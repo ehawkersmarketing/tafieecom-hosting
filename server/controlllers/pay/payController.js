@@ -5,6 +5,7 @@ const { setTimeout } = require("timers");
 const transactionModel = require("../../models/transactionModel/transactionModel");
 const orderModel = require("../../models/orderModel/orderModel");
 const { Console } = require("console");
+const { json } = require("express");
 
 const giveUniqueId = (length) => {
   return "TAFI" + uniqid(length);
@@ -177,6 +178,7 @@ exports.checkStatusFunction = async (req, res) => {
         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
       );
     } else {
+      localStorage.setItem("orderStatus",res.success)
         res.success = false;
       return res.redirect(
         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
@@ -308,19 +310,18 @@ exports.refundFunction = async (req, res) => {
     const refundEntry = await orderModel.findOne({
       _id: orderId,
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
-  
-
-    const refundAmount = refundEntry.amount + refundEntry.shipment_charge;
+       const transactionDetails = await transactionModel.findOne({orderId:orderId})
+console.log(transactionDetails)
+    const refundAmount = (refundEntry.amount + refundEntry.shipment_charge)/100;
     const data = {
       merchantId: process.env.MERCHANT_ID,
       merchantUserId: process.env.MERCHANT_USER_ID,
-      originalTransactionId: transactionId,
+      originalTransactionId:  merchantTransactionId,
       merchantTransactionId: refundTransId,
       amount: refundAmount, //change this to the value from the payments model
-      callbackUrl: "https://localhost:8080/api/pay/getOrderLog",
+      callbackUrl: "http://localhost:8080/api/pay/getOrderLog",
     };
-    console.log("data" + data);
-
+    console.log("data: " + JSON.stringify(data) , data.merchantTransactionId,data.originalTransactionId);
     const payload = JSON.stringify(data);
 
     const payloadMain = Buffer.from(payload).toString("base64");
