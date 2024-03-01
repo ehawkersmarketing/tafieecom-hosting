@@ -303,7 +303,7 @@ value={user?.phone}
                         );
                       })}
                     <tr>
-                      <td>Subtotal</td>
+                      <td>Product Subtotal</td>
                       <td style={{fontWeight:700}}>
                         {(cart?.totalPrice  ?? 0)?.toLocaleString(
                           "en-IN"
