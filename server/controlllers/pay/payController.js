@@ -282,6 +282,7 @@ async function statusCall(n, options, cartId , transactionId) {
               return { success: false };
             }
           }
+
         } catch (error) {
           console.log(error);
           console.log("failure in saving new transaction");
@@ -376,7 +377,7 @@ console.log(transactionDetails.merchantTransactionId)
           console.log("data", data);
           if (data.success) {
             console.log("payment refunded")
-            res.status(500).send({
+          return  res.status(200).send({
               success: true,
               message: "PAYMENT Refunded",
             });

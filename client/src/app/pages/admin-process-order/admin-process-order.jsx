@@ -130,7 +130,7 @@ const AdminProcessOrder = () => {
       });
     }
   }
-  
+
   const [topping, setTopping] = useState("By Self")
 
   const onOptionChange = e => {
@@ -149,13 +149,13 @@ const AdminProcessOrder = () => {
         .catch((err) => {
           console.log(err);
         });
-       
-        // console.log("order",order) 
-       }else if(topping === "By ShipRocket"){
-          
-        axios.patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
-          status :"By ShipRocket",
-        })
+
+      // console.log("order",order) 
+    } else if (topping === "By ShipRocket") {
+
+      axios.patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
+        status: "By ShipRocket",
+      })
         .then((res) => {
           dashboardHandler();
           // console.log(res.data);
@@ -164,8 +164,8 @@ const AdminProcessOrder = () => {
         .catch((err) => {
           console.log(err);
         });
-       
-       }
+
+    }
   }
 
 
@@ -269,70 +269,83 @@ const AdminProcessOrder = () => {
           </div>
         </div>
       </div>
-      {value == 0 && (
-        <div className="accept-reject-button">
-          <button
-            type="button"
-            class="btn btn-primary accept-button m-2"
-            onClick={acceptHandler}
-          >
-            Accept
-          </button>
-          <button type="button" class="btn btn-secondary reject-button m-2" onClick={cancelShipment}>
-            Reject
-          </button>
+      {order?.orderStatus === "REJECTED" ?
+        <div className="accept-reject-button-rejection">
+          <span>The order was Rejected , and Refund was Initiated </span>
         </div>
-      )}
-
-<Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-
-  <Box sx={style}>
-  <div>
-      <h3>Select Delivery Option</h3>
-      <hr />
-   <div>
-      <input
-        type="radio"
-        name="topping"
-        value="By Self"
-        id="regular"
-        checked={topping === "By Self"}
-        onChange={onOptionChange}
-      />
-      <label htmlFor="regular">By Self</label>
-      </div>
-      <div>
-      <input
-        type="radio"
-        name="topping"
-        value="By ShipRocket"
-        id="medium"
-        checked={topping === "By ShipRocket"}
-        onChange={onOptionChange}
-      />
-      <label htmlFor="medium">By ShipRocket</label>
-      </div>
-      <hr />
-      <p>
-        Selected option <strong>{topping}</strong>
-      </p>
-      <div className="popup-button">
+        :
         <div>
-          <button className="save-button-a" onClick={ShippingDeliveryHandler}>save</button>
+          {value == 0 && (
+            <div className="accept-reject-button">
+              <button
+                type="button"
+                class="btn btn-primary accept-button m-2"
+                onClick={acceptHandler}
+              >
+                Accept
+              </button>
+              <button type="button" class="btn btn-secondary reject-button m-2" onClick={cancelShipment}>
+                Reject
+              </button>
+            </div>
+          )}
         </div>
-        <div>
-          <button className="save-button-a" onClick={handleClose}>close</button>
-        </div>
-      </div>
-        
-    </div>
-  </Box>
-</Modal>
+      }
+
+
+
+
+
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+
+        <Box sx={style}>
+          <div>
+            <h3>Select Delivery Option</h3>
+            <hr />
+            <div>
+              <input
+                type="radio"
+                name="topping"
+                value="By Self"
+                id="regular"
+                checked={topping === "By Self"}
+                onChange={onOptionChange}
+              />
+              <label htmlFor="regular">By Self</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="topping"
+                value="By ShipRocket"
+                id="medium"
+                checked={topping === "By ShipRocket"}
+                onChange={onOptionChange}
+              />
+              <label htmlFor="medium">By ShipRocket</label>
+            </div>
+            <hr />
+            <p>
+              Selected option <strong>{topping}</strong>
+            </p>
+            <div className="popup-button">
+              <div>
+                <button className="save-button-a" onClick={ShippingDeliveryHandler}>save</button>
+              </div>
+              <div>
+                <button className="save-button-a" onClick={handleClose}>close</button>
+              </div>
+            </div>
+
+          </div>
+        </Box>
+      </Modal>
 
       {value == 1 && (
         <div className="table-for-input">
