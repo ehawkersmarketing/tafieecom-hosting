@@ -173,8 +173,8 @@ const OrderConformationPage = () => {
                 </div>
 
               </div>
-              <div className="order-confirm-button-wrapper col-4">
-              <button type="button" className="cancel-order-button col-6" onClick={cancelOrderHandler}>
+              <div className="order-confirm-button-wrapper col-4 justify-content-end">
+              <button type="button" className="cancel-order-button  col-6" onClick={cancelOrderHandler}>
                 <strong>Cancel</strong>
                 
               </button>
@@ -272,19 +272,21 @@ const OrderConformationPage = () => {
               </div>
             </div>
             <div className="status col-3">
-              <div style={{marginTop:"2rem"}}>
+              <div style={{marginTop:"2rem" , textAlign:"right"}}>
                 <img src={tick_icon} />
               </div>
 
 
             </div>
           </div>
+          <div className="order-button">
           <div className="order-link">
             <a href="">
               <button type="link" onClick={orderHandler}>
                 <strong>My Orders</strong>
               </button>
             </a>
+          </div>
           </div>
         </div>
 
