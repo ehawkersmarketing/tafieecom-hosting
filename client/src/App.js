@@ -13,6 +13,7 @@ import TermsAndCondition from "./app/pages/terms_and_condition/TermsAndCondition
 import ReturnAndRefund from "./app/pages/return_refund_policy/ReturnAndRefund.jsx";
 import PrivacyPolicy from "./app/pages/privacy_policy/PrivacyPolicy.jsx";
 import OrderConfirmationPage from "./app/pages/order_confirmation_page/OrderConfirmationPage.jsx";
+import OrderConformationFailedPage from "./app/pages/order_Confirmation_failed_page/failed_order_confirmation.jsx";
 import "./App.css";
 import BlogPage from "./app/pages/blog_grid_page/blog_grid_page.jsx";
 import ShopPage from "./app/pages/shop_page/shop_page.jsx";
@@ -83,6 +84,11 @@ function App() {
             path="/OrderConfirmationPage/:id"
             exact
             element={<OrderConfirmationPage />}
+          />
+           <Route
+            path="/OrderConfirmation/:id"
+            exact
+            element={<OrderConformationFailedPage />}
           />
           <Route path="/invoice/:id" exact element={<Invoice />} />
           <Route path="/about" exact element={<About />} />

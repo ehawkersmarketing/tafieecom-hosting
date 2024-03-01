@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import { useLocation } from 'react-router-dom';
 import "./OrderConfirmationPage.css"
 import tick_icon from "../../assets/tick_icon.png";
 import { useFetch } from "../../hooks/api_hook";
@@ -22,43 +21,8 @@ const OrderConformationPage = () => {
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Access the query string
-    const queryString = window.location.search;
-
-    // Parse the query string
-    const searchParams = new URLSearchParams(queryString);
-
-    // Extract the success status
-    const success = searchParams.get('success');
-
-    // Log the success status
-    console.log("Success Status:", success);
-
-    // You can now use the success status as needed in your component
- }, []); // E
-
- const location = useLocation();
-
- // Extract the success status from the query parameters
- const searchParams = new URLSearchParams(location.search);
- const success = searchParams.get('success');
-
- // You can now use the success status as needed in your component
- // For example, logging it to the console
- console.log("Success Status:", success);
-
- useEffect(() => {
-    // Extract the success status from the query parameters
-    const searchParams = new URLSearchParams(location.search);
-    const success = searchParams.get('success');
-
-    // Log the success status
-    console.log("Order Confirmation Success Status:", success);
-
-    // You can also set the success status in your component's state or use it as needed
- }); 
-
+  
+  
   useEffect(() => {
     // Function to fetch order data from the backend
     const fetchOrder = async () => {
@@ -126,10 +90,20 @@ const OrderConformationPage = () => {
     }
   }, [user]);
 
-useEffect(async()=>{
-     const data = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`)
-     console.log(data)
-},[id])
+ 
+  useEffect(() => {
+    // Immediately invoked async function expression
+    (async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`);
+            console.log(response);
+            // Handle the response here
+        } catch (error) {
+            console.error("Error fetching order details:", error);
+            // Handle the error here
+        }
+    })(); // Immediately invoke the async function
+}, [id])
 
 
   const cancelOrderHandler = async () => {
@@ -151,8 +125,8 @@ useEffect(async()=>{
           theme: "dark",
         });
       }
-      else{
-        console.log(data.data.success )
+      else {
+        console.log(data.data.success)
         toast.error(`Order Cancellation failed`, {
           position: "bottom-right",
           autoClose: 8000,
@@ -162,7 +136,7 @@ useEffect(async()=>{
         });
       }
     } catch (error) {
-      console.log("caught error",error)
+      console.log("caught error", error)
       toast.error(`${error.message}`, {
         position: "bottom-right",
         autoClose: 8000,
@@ -182,17 +156,11 @@ useEffect(async()=>{
           <div className="order-header col-12">
             <div className="element row justify-content-between">
               <div className="col-sm-9">
-{success==true? <div className="title">
+                <div className="title">
                   <h2>
                     <strong>Thank you, your order has been placed</strong>
                   </h2>
-                </div>: <div className="title">
-                  <h2>
-                    <strong>Sorry, your order has been Failed</strong>
-                  </h2>
-                </div>}
-                
-               
+                </div>
 
                 <div className="sub-title">
                   <p>
@@ -202,11 +170,11 @@ useEffect(async()=>{
                   </p>
                 </div>
               </div>
-              
-                <button type="button" onClick={cancelOrderHandler}>
-                  Cancel
-                </button>
-            
+
+              <button type="button" onClick={cancelOrderHandler}>
+                Cancel
+              </button>
+
               <div className="invoice-download col-sm-3">
                 <button type="link" onClick={handleDownload}>
                   {" "}
@@ -297,18 +265,11 @@ useEffect(async()=>{
               </div>
             </div>
             <div className="status col-3">
-              {success==true?<div>
+              <div>
                 <img src={tick_icon} />
-              </div> : <div
-                style={{
-                  fontSize: "11rem",
-                  color: "red",
-                }}
-              >
-                <i class="bi bi-x-circle-fill"></i>
-              </div>}
-              
-             
+              </div>
+
+
             </div>
           </div>
           <div className="order-link">
@@ -330,7 +291,7 @@ useEffect(async()=>{
       </div>
       <ToastContainer />
       <Footer />
-      
+
     </>
   );
 };
