@@ -73,11 +73,11 @@ const OrderConformationPage = () => {
             navigate(`/myaccount/${user?._id}`);
           }
           if (data.success === false) {
-            console.log("navigate")
-            navigate(`/myaccount/${user?._id}`);
+            console.log("on confirmation page")
+            navigate(`/orderConfirmationPage/${id}`);
           } else if (data.success === true) {
             if (data.data.user._id === user?._id) {
-              console.log("vkdvd")
+              console.log("on confirmation page dvd")
               navigate(`/orderConfirmationPage/${id}`);
             } else if (data.data === null) {
               console.log("data is null")
@@ -120,12 +120,11 @@ const OrderConformationPage = () => {
     //     console.log(" kd d dk")
     //   }
     // }
-
     if (!user) {
       console.log("user not found");
       navigate(`/myaccount/${user?._id}`);
     }
-  }, [data, user]);
+  }, [user]);
 
 useEffect(async()=>{
      const data = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`)

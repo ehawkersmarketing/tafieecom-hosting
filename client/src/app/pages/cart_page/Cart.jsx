@@ -141,7 +141,7 @@ const Cart = () => {
               <td>Total Gross</td>
               <td></td>
               <td></td>
-              <td>{total}</td>
+              <td style={{fontWeight:700}}>{total}</td>
             </tr>
           </tfoot>
         </table>
@@ -150,11 +150,14 @@ const Cart = () => {
 
 
         <div className="checkout-subtotal">
-          <div className="subtotal">
+          {/* <div className="subtotal">
             <p>Subtotal: {total?.toLocaleString("en-IN")}</p>
-          </div>
+          </div> */}
           <div className="checkout checkout-btn" onClick={() => navigate('/checkout')}>
             <button>Proceed To Checkout</button>
+          </div>
+          <div className="checkout checkout-btn" onClick={() => navigate('/shopPage')}>
+            <button>Continue Shopping</button>
           </div>
         </div>
       </div>
