@@ -5,6 +5,7 @@ const { setTimeout } = require("timers");
 const requestModel = require("../../models/shipmentModel/shipmentModel");
 const orderModel = require("../../models/orderModel/orderModel");
 const userAddress = require("../../models/userModel/userAddress");
+const { errorMonitor } = require("events");
 
 //Request approval handling
 exports.requestApproval = async (req, res) => {
@@ -209,6 +210,7 @@ exports.cancelApprovalRequest = async (req, res) => {
       });
     }
   } catch (err) {
+    console.log(err)
     res.json({
       success: false,
       message: "Error in cancel request approval",
