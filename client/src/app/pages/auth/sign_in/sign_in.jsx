@@ -180,6 +180,7 @@ let signedUser
             if (formField.checkbox == 0) {
               forgotOnClose();
             }
+            window.location.reload();
             navigate("/auth/login");
           } else {
             toast.error(data.message, {
