@@ -304,8 +304,8 @@ value={user?.phone}
                       })}
                     <tr>
                       <td>Subtotal</td>
-                      <td>
-                        {(cart?.totalPrice + shipCharge ?? 0)?.toLocaleString(
+                      <td style={{fontWeight:700}}>
+                        {(cart?.totalPrice  ?? 0)?.toLocaleString(
                           "en-IN"
                         )}
                       </td>

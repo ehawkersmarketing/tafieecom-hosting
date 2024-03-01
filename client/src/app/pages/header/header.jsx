@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/Tafi_logo_white.png";
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import "./header.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -12,10 +13,38 @@ const Header = () => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
+  // const onLogout = () => {
+  //   localStorage.clear();
+  //   navigate("/auth/login");
+  // };
+
+
   const onLogout = () => {
-    localStorage.clear();
-    navigate("/auth/login");
-  };
+    confirmAlert({
+       title: 'Logout',
+       message: `Leaving so soon? Would hate to see you go!`,
+       buttons: [
+         {
+           label: 'OK',
+           onClick: () => {
+             // Clear local storage and navigate to the login page only after the user confirms
+             localStorage.clear();
+             window.location.reload(); // Force refresh
+             navigate("/auth/login");
+           }
+         },
+         {
+           label: 'Cancel',
+           onClick: () => {
+            navigate("/");
+             // Do nothing if the user clicks 'Cancel'
+           }
+         }
+       ]
+    });
+   };
+   
+
   const location = useLocation();
 
   return (
@@ -144,5 +173,6 @@ const Header = () => {
     </nav>
   );
 };
+
 
 export default Header;

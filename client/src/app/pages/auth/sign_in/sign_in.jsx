@@ -60,6 +60,7 @@ let signedUser
     try {
        event.preventDefault();
        if (formField.phone.length == 10) {
+        console.log(users)
          const userExists = users?.some(item => item?.phone === formField.phone);
          console.log(userExists)
          if(!userExists){
@@ -119,6 +120,7 @@ let signedUser
                phone: formField.phone,
              }
            );
+           console.log(data)
            token = data.token;
            if (data.success) {
              toast.success("OTP Sent successfully", {
@@ -174,6 +176,7 @@ let signedUser
           if (data.success) {
             localStorage.setItem("auth_token", token);
             localStorage.setItem("user_id", data.data._id);
+            navigate("/auth/login")
             if (formField.checkbox == 0) {
               forgotOnClose();
             }

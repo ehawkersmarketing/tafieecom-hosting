@@ -159,7 +159,7 @@ const Myaccount = () => {
                         <td>Date of Birth :</td>
                         <td>
                           <span>
-                            {dayjs(userData?.dob).format("MMM D, YYYY")}
+                            { !userData?.dob ? <p>---</p> : dayjs(userData?.dob).format("MMM D, YYYY")}
                           </span>
                         </td>
                       </tr>
