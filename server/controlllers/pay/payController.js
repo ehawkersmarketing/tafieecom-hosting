@@ -193,13 +193,13 @@ exports.checkStatusFunction = async (req, res) => {
       console.log("setitem", status.success);
       // Append the success status as a query parameter to the redirect URL
       return res.redirect(
-         `http://twicks.in/OrderConfirmationPage/${status.orderId}?success=${status.success}`
+         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
       );
      } else {
       console.log("setitem", res.success);
       res.success = false;
       return res.redirect(
-         `http://twicks.in/OrderConfirmationPage/${status.orderId}?success=${status.success}`
+         `http://twicks.in/OrderConfirmation/${status.orderId}`
       );
       
      }
