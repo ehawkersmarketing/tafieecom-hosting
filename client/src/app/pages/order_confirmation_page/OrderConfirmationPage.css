@@ -134,6 +134,8 @@
     margin-top: 3%;
     background: var(--Dark-Green-Gradient, linear-gradient(34deg, #29645E 1.8%, #188479 105.45%));
     box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.00), 0px 3px 7px 0px rgba(21, 60, 56, 0.30);
+    padding: 1rem 4rem;
+    font-size: 18px;
 }
 
 
@@ -169,6 +171,26 @@
 .invoice-download {
     display: flex;
     flex-direction: row;
+}
+.order-confirm-button-wrapper{
+    display: flex;
+    align-items: center;
+    /* gap:1rem; */
+}
+.cancel-order-button{
+    color: #fff;
+    text-align: left;
+    /* padding: 5px 20px; */
+    background: var(--Dark-Green-Gradient, linear-gradient(34deg, #29645E 1.8%, #188479 105.45%));
+    box-shadow: 0px 7px 20px 0px rgba(21, 60, 56, 0.00), 0px 3px 7px 0px rgba(21, 60, 56, 0.30);
+    border-radius: 6px;
+    width: fit-content;
+    border: none;
+    padding:1rem 3rem;
+    /* font-weight: 500;
+    font-size: 20px; */
+    
+    
 }
 
 .invoice-download button {
