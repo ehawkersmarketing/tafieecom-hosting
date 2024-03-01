@@ -117,7 +117,7 @@ exports.checkStatusFunction = async (req, res) => {
   console.log("data", transactionId, cartId, isRefund);
   if (isRefund) {
     const string =
-      `/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}` +
+      `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
       process.env.PHONEPE_API_SALT_KEY;
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX;
@@ -375,17 +375,20 @@ console.log(transactionDetails.merchantTransactionId)
           );
           console.log("data", data);
           if (data.success) {
+            console.log("payment refunded")
             res.status(500).send({
               success: true,
               message: "PAYMENT Refunded",
             });
           } else {
+            console.log("failed payment")
             res.status(500).send({
               success: false,
               message: "Failed to refund your payment.",
             });
           }
         } catch (err) {
+          console.log("caught error")
           console.log(err);
           res.status(500).send({
             success: false,
