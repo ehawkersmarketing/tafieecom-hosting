@@ -151,24 +151,7 @@ const OrderConformationFailedPage = () => {
                                         </strong>
                                     </p>
                                 </div>
-                            </div>
-
-                            <button type="button" onClick={cancelOrderHandler}>
-                                Cancel
-                            </button>
-
-                            <div className="invoice-download col-sm-3">
-                                <button type="link" onClick={handleDownload}>
-                                    {" "}
-                                    <div>
-                                        <strong>
-                                            Download <br />
-                                            Invoice
-                                        </strong>
-                                    </div>
-                                    <i class="bi bi-download"></i>
-                                </button>
-                            </div>
+                            </div>         
                         </div>
                     </div>
                     <div className="all-data row">
