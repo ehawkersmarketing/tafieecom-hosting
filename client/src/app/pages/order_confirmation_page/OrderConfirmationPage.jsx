@@ -22,11 +22,6 @@ const OrderConformationPage = () => {
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
 
-
-
-
-
-
   useEffect(() => {
     // Access the query string
     const queryString = window.location.search;
@@ -43,10 +38,7 @@ const OrderConformationPage = () => {
     // You can now use the success status as needed in your component
  }, []); // E
 
-
-
  const location = useLocation();
-
 
  // Extract the success status from the query parameters
  const searchParams = new URLSearchParams(location.search);
@@ -66,11 +58,6 @@ const OrderConformationPage = () => {
 
     // You can also set the success status in your component's state or use it as needed
  }); 
-
-
-
-
-
 
   useEffect(() => {
     // Function to fetch order data from the backend
@@ -125,14 +112,14 @@ const OrderConformationPage = () => {
     //   console.log("go to account")
     //   navigate(`/myaccount/${user?._id}`);
     //  }
-    if (data?.user && user) {
-      console.log(data?.user, user)
-      if (data.user._id !== user?._id) {
-        console.log("navigatee")
-      } else {
-        console.log(" kd d dk")
-      }
-    }
+    // if (data?.user && user) {
+    //   console.log(data?.user, user)
+    //   if (data.user._id !== user?._id) {
+    //     console.log("navigatee")
+    //   } else {
+    //     console.log(" kd d dk")
+    //   }
+    // }
 
     if (!user) {
       console.log("user not found");
@@ -156,10 +143,27 @@ useEffect(async()=>{
         orderId: id,
       });
       console.log("api called", data)
-      if (data.success) {
-        navigate("/adminPage");
+      if (data.data.success) {
+        toast.success("Order Cancelled successfully", {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
+      else{
+        console.log(data.data.success )
+        toast.error(`Order Cancellation failed`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
       }
     } catch (error) {
+      console.log("caught error",error)
       toast.error(`${error.message}`, {
         position: "bottom-right",
         autoClose: 8000,
@@ -325,7 +329,9 @@ useEffect(async()=>{
           {products && <Carousal items={products} cart={cart} />}
         </div>
       </div>
+      <ToastContainer />
       <Footer />
+      
     </>
   );
 };
