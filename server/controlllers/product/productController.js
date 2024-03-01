@@ -27,29 +27,37 @@ exports.getAllProducts = async (req, res) => {
 };
 
 exports.getProductsById = async (req, res) => {
-  try {
-    const products = await productModel.findOne({ _id: req.params.id }).populate('category');
-    // console.log(products);
-    if (!products) {
-      return res.status(500).send({
-        success: false,
-        message: "No products found",
-      });
-    }
-    return res.status(200).send({
-      success: true,
-      message: "All blogs list",
-      data: products,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({
-      success: false,
-      message: "Error in getting all blogs",
-      error,
-    });
+  // Check if the product ID is provided
+  if (!req.params.id) {
+     return res.status(400).send({
+       success: false,
+       message: "Product ID is missing",
+     });
   }
-};
+ 
+  try {
+     const products = await productModel.findOne({ _id: req.params.id }).populate('category');
+     if (!products) {
+       return res.status(404).send({
+         success: false,
+         message: "No products found",
+       });
+     }
+     return res.status(200).send({
+       success: true,
+       message: "Product details",
+       data: products,
+     });
+  } catch (error) {
+     console.log(error);
+     return res.status(500).send({
+       success: false,
+       message: "Error in getting product details",
+       error,
+     });
+  }
+ };
+ 
 
 exports.createProduct = async (req, res) => {
   try {

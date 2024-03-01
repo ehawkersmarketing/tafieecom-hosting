@@ -108,6 +108,16 @@
    padding-left: 0.5in;
    justify-content: start;
 }
+.accept-reject-button-rejection{
+    padding-bottom: 10%;
+    display: flex;
+    width: 8.6in;
+    margin: auto;
+    padding-right: 0.5in;
+    padding-left: 0.5in;
+    justify-content: start;
+    font-weight: 800;
+}
 .input-table{
     margin-bottom: 13%;
     padding: 4%;
