@@ -125,7 +125,7 @@ exports.checkStatusFunction = async (req, res) => {
     // console.log(checksum)
     const options = {
       method: "get",
-      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${merchantTransactionId}`,
+      url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}`,
       headers: {
         "Content-Type": "application/json",
         "X-VERIFY": checksum,
@@ -371,7 +371,7 @@ console.log(transactionDetails.merchantTransactionId)
         console.log("data found",response?.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(
-            `http://localhost:8080/api/pay/checkStatus?transactionId=${response.data.transactionId}&cartId=${orderId}&isRefund=1`
+            `http://localhost:8080/api/pay/checkStatus?transactionId=${response?.data.data.transactionId}&cartId=${orderId}&isRefund=1`
           );
           console.log("data", data);
           if (data.success) {
