@@ -125,6 +125,16 @@
     margin-top: 1.8rem;
     margin-bottom: -1rem;
 }
+.download-icon{
+    font-size:24px
+}
+
+.tick-icon-confirm{
+    margin-top:2rem ; text-align:right;
+}
+.orderDetails-order{
+    margin-top:2rem
+}
 .order-link{
     margin-top: 1rem;
     width: fit-content;
