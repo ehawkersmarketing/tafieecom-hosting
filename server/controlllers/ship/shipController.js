@@ -71,7 +71,7 @@ exports.approveRequest = async (req, res) => {
         }
 
         // console.log("request accept atapprovalrequest",request);
-        // console.log();
+        console.log("order fetched successfully");
         let time = order.timestamps.toISOString();
         axios.post("http://localhost:8080/api/ship/createOrder",
           {
@@ -111,8 +111,9 @@ exports.approveRequest = async (req, res) => {
             weight: weight
           }
         ).then(async(shipment) => {
-                //  console.log("shippment whenodercreated",shipment)
+                 console.log("shippment whenodercreated",shipment)
           if (shipment) {
+            console.log("order completed")
             await orderModel.findOneAndUpdate({
               _id: request.orderId,
             }, {      
