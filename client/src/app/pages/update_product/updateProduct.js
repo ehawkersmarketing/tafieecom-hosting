@@ -58,7 +58,6 @@ const UpdateProduct = () => {
     axios
       .get("https://backend.twicks.in/api/getProduct/" + id)
       .then((res) => {
-        console.log(res.data.data.weight);
         setInputHandler({
           ...inputHandler,
           title: res.data.data.title,
@@ -75,7 +74,6 @@ const UpdateProduct = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -117,11 +115,9 @@ const UpdateProduct = () => {
           image: imageUrl.data.url,
         })
         .then((res) => {
-          console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };

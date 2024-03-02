@@ -40,7 +40,6 @@ const BlogPage = () => {
         );
         setOpen(!open);
         setActiveFilter(index);
-        console.log(visibleBlogs);
       } else {
         setVisibleBlogs(
           blogs.sort(function (a, b) {
@@ -49,7 +48,6 @@ const BlogPage = () => {
         );
         setOpen(!open);
         setActiveFilter(index);
-        console.log(visibleBlogs);
       }
     }
   };

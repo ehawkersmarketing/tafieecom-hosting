@@ -25,9 +25,7 @@ const SingleBlog = () => {
           
           if (response) {
             const data = await response.json();
-          //  console.log(data)
            if(data.success === false){
-            // console.log("navigate")
             navigate(`/blog`)
 
           }else if(data.success === true){

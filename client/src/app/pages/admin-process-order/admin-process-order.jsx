@@ -68,7 +68,6 @@ const AdminProcessOrder = () => {
       const { data } = await axios.post("https://backend.twicks.in/api/ship/cancelRequest", {
         orderId: id,
       });
-      console.log(data)
       if (data.success) {
         toast.success("Amount Refunded successfully", {
           position: "bottom-right",
@@ -143,14 +142,11 @@ const AdminProcessOrder = () => {
           status :"By Self",
         })
         .then((res) => {
-          // console.log(res.data);
           navigate("/adminPage")
         })
         .catch((err) => {
-          console.log(err);
         });
 
-      // console.log("order",order) 
     } else if (topping === "By ShipRocket") {
 
       axios.patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
@@ -158,11 +154,9 @@ const AdminProcessOrder = () => {
       })
         .then((res) => {
           dashboardHandler();
-          // console.log(res.data);
           navigate("/adminPage")
         })
         .catch((err) => {
-          console.log(err);
         });
 
     }

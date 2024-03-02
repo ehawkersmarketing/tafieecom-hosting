@@ -56,7 +56,6 @@ const CreateService = () => {
         "https://backend.twicks.in/api/uploadServiceImage",
         formData
       );
-      console.log(imageUrl);
       if (imageUrl) {
         if (imageUrl?.data.success) {
           const { data } = await axios.post(

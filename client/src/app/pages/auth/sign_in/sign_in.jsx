@@ -21,7 +21,6 @@ const SignIn = () => {
   const { id } = useParams();
   const [path, setPath] = useState(id);
   const { data: users } = useFetch("/auth/users");
-  // console.log(users)
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
@@ -42,7 +41,6 @@ const SignIn = () => {
   });
 
   const handleChangeFormField = (e) => {
-    // console.log(token);
 
      let { name, value } = e.target;
     if (name === "phone" || name === "otp") {
@@ -60,9 +58,7 @@ let signedUser
     try {
        event.preventDefault();
        if (formField.phone.length == 10) {
-        console.log(users)
          const userExists = users?.some(item => item?.phone === formField.phone);
-         console.log(userExists)
          if(!userExists){
           toast.error(`User is not Registered`, {
             position: "bottom-right",
@@ -120,7 +116,6 @@ let signedUser
                phone: formField.phone,
              }
            );
-           console.log(data)
            token = data.token;
            if (data.success) {
              toast.success("OTP Sent successfully", {

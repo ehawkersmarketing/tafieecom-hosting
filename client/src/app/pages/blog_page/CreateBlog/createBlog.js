@@ -72,7 +72,6 @@ const CreateBlog = () => {
         "https://backend.twicks.in/api/uploadBlogImage",
         formData
       );
-      // console.log(imageUrl);
       if (imageUrl) {
         if (imageUrl?.data.success) {
           const { data } = await axios.post(

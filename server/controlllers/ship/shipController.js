@@ -181,7 +181,7 @@ exports.cancelApprovalRequest = async (req, res) => {
           );
           if (payRefund) {
             console.log("pay refund")
-            res.json({
+           return  res.json({
               success: true,
               message: "Refunded",
             });

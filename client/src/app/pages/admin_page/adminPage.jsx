@@ -69,38 +69,30 @@ const AdminPage = () => {
     graphData?.map((dataSet, index) => {
       currentOrder = new Date();
       let previousOrder = new Date(dataSet.timestamps);
-      // console.log(dataSet?.timestamps)
+    
       var diff = currentOrder.getMonth() - previousOrder.getMonth();
-      // console.log(diff_months(currentOrder, previousOrder));
-
-      // console.log(diff_months)
+      
       if (diff_months(currentOrder, previousOrder) !== 0) {
         if (dataSet?.orderStatus === "PROCESSING") {
           previousProcessingCount = previousProcessingCount + 1;
-          // console.log(previousProcessingCount )
         }
         if (dataSet?.orderStatus === "REJECTED") {
           previousRejectedCount = previousRejectedCount + 1;
-          // console.log(previousRejectedCount);
         }
         if (dataSet?.orderStatus === "APPROVED") {
           previousApprovedCount = previousApprovedCount + 1;
-          // console.log(countApproved )
         }
       }
 
       if (diff_months(currentOrder, previousOrder) === 0) {
         if (dataSet?.orderStatus === "PROCESSING") {
           countProcessing = countProcessing + 1;
-          // console.log(countProcessing)
         }
         if (dataSet?.orderStatus === "REJECTED") {
           countRejected = countRejected + 1;
-          // console.log(countRejected)
         }
         if (dataSet?.orderStatus === "APPROVED") {
           countApproved = countApproved + 1;
-          // console.log(countApproved )
         }
       }
     });
@@ -158,7 +150,6 @@ const AdminPage = () => {
       } else if (user.role.role === "Editor") {
         setValue(3);
       } else if (user.role.role === "User") {
-        // console.log(user._id)
         navigate(`/myaccount/${user?._id}`);
       } else {
         navigate("/auth/login");
@@ -206,7 +197,6 @@ const AdminPage = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "service deleted!!") {
-          // console.log("deleted");
           fetchDeletedService();
         }
       });
@@ -362,22 +352,18 @@ const AdminPage = () => {
       [id]: newOrderStatus,
     }));
     localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
-    // console.log(newOrderStatus);
     orderStatusHandler(id, newOrderStatus);
   };
 
   const orderStatusHandler = (id, orderStatus) => {
-    // console.log(orderStatus);
     axios
       .patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
         length: 1,
         orderStatus: orderStatus,
       })
       .then((res) => {
-        // console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
       });
   };
 
@@ -1347,7 +1333,6 @@ const AdminPage = () => {
                           blogs &&
                           blogs?.map((blog, index) => {
                             if (blog._id === deletedBlogId) {
-                              // console.log(blog.title);
                               return null;
                             } else
                               return (
@@ -1486,7 +1471,6 @@ const AdminPage = () => {
                         ) : (
                           services &&
                           services.map((service, index) => {
-                            // console.log(service._id);
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>

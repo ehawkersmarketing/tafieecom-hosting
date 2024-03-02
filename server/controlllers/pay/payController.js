@@ -15,19 +15,8 @@ const giveUniqueId = (length) => {
 //redirecting to PhonePe for payment facilitation
 exports.payFunction = async (req, res) => {
   try {
-    console.log("hii");
-    console.log("hii");
-    console.log("hii");
-    console.log("hii");
-    console.log("hii");
-    console.log("hii");
-    console.log("hii");
-    console.log("hii");
 
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    console.log(merchantTransactionId);
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     const { amount, cartId } = req.body;
     const data = {
       //Required data structure for the pay API call
@@ -44,27 +33,13 @@ exports.payFunction = async (req, res) => {
       },
     };
 
-    // console.log(merchantTransactionId);
-    // console.log(cartId);
-    // const responseData = await transactionModel({     
-    //   merchantTransactionId:merchantTransactionId,
-    // });
-    // console.log("============order placed api=================");
-    // console.log(responseData);
-    // console.log("=======================");
-
     const payload = JSON.stringify(data);
     const payloadMain = Buffer.from(payload).toString("base64");
     const string =
       payloadMain + "/pg/v1/pay" + process.env.PHONEPE_API_SALT_KEY;
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX; // required value for sendin in the X_VERIFY field in header
-
-    console.log("               ");
-    console.log("payload", payload);
-    console.log("                           ");
     console.log(checksum);
-    console.log("                                ");
     console.log(payloadMain);
 
 
@@ -81,14 +56,9 @@ exports.payFunction = async (req, res) => {
         request: payloadMain,
       },
     };
-
-    console.log(checksum);
-
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data.instrumentResponse.redirectInfo.url);
-        // return res.redirect(response.data.data.instrumentResponse.redirectInfo.url)
         res.json({
           success: true,
           data: response.data.data.instrumentResponse.redirectInfo.url,
@@ -114,15 +84,12 @@ exports.payFunction = async (req, res) => {
 
 exports.checkStatusFunction = async (req, res) => {
   const { transactionId, cartId, isRefund } = req.query;
-  console.log("data", transactionId, cartId, isRefund);
   if (isRefund) {
     const string =
       `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
       process.env.PHONEPE_API_SALT_KEY;
     const SHA256 = crypto.createHash("SHA256").update(string).digest("hex");
     const checksum = SHA256 + "###" + process.env.KEY_INDEX;
-    // console.log("                                        ")
-    // console.log(checksum)
     const options = {
       method: "get",
       url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}`,
@@ -134,9 +101,7 @@ exports.checkStatusFunction = async (req, res) => {
     };
     let n = 1;
     let status = await statusCall(n, options, cartId , transactionId);
-    console.log(status);
     if (status) {
-      //Here the cartId is holding the value of orderId during the call
       const order = await orderModel.findOneAndUpdate(
         {
           _id: cartId,
@@ -153,7 +118,7 @@ exports.checkStatusFunction = async (req, res) => {
       } else {
         res.json({
           success: false,
-          message: "Transaction Refunded Failed",
+          message: "Transaction Refunded due to order not found Failed",
         });
       }
     } else {
@@ -187,16 +152,12 @@ exports.checkStatusFunction = async (req, res) => {
     };
     let n = 1;
     let status = await statusCall(n, options, cartId , transactionId);
-    console.log(status);
-    console.log(`This is the status ${status.success}`);
     if (status.success) {
-      console.log("setitem", status.success);
       // Append the success status as a query parameter to the redirect URL
       return res.redirect(
          `http://twicks.in/OrderConfirmationPage/${status.orderId}`
       );
      } else {
-      console.log("setitem", res.success);
       res.success = false;
       return res.redirect(
          `http://twicks.in/OrderConfirmation/${status.orderId}`
@@ -209,12 +170,9 @@ exports.checkStatusFunction = async (req, res) => {
 
 async function statusCall(n, options, cartId , transactionId) {
   try {
-    // console.log("1" + cartId);
     if (cartId == null) {
       let response = await axios.request(options);
-      console.log("2" + response);
       if (response.data.success === true) {
-        console.log("3" + "true status");
         return true;
       } else {
         if (n === 0) {
@@ -229,12 +187,8 @@ async function statusCall(n, options, cartId , transactionId) {
         }
       }
     } else {
-      console.log("BHVHFY")
       let response = await axios.request(options);
-      console.log("JDVCGHDV")
-      console.log(response)
       if (response.data.success === true) {
-        console.log("****************************************************",response );
         try {
           const { data } = await axios.post(
             "https://backend.twicks.in/api/placeOrder",
@@ -245,11 +199,6 @@ async function statusCall(n, options, cartId , transactionId) {
               transactionStatus: response.data.data.state,
             }
           );
-          console.log("#########################");
-          console.log(data);
-         
-          console.log("#########################");
-              
           const responseData = await transactionModel({ 
             orderId:data.data._id,  
             transactionId:data.data.transactionId,
@@ -260,11 +209,7 @@ async function statusCall(n, options, cartId , transactionId) {
             status: "payment Successfull",
             cartId: cartId
           });
-          console.log("============order placed api=================");
-          console.log(responseData);
           responseData.save();
-          console.log("=======================");
-          console.log(cartId)
 
           if (data.success) {
             const { data: request } = await axios.post(
@@ -309,7 +254,7 @@ async function statusCall(n, options, cartId , transactionId) {
 
 exports.getOrderLogFunction = async (req, res) => {
   try {
-    console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
+    // console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
   } catch (err) {
     console.log(err);
     return res.status(500).send({
@@ -328,9 +273,7 @@ exports.refundFunction = async (req, res) => {
       _id: orderId,
     }); //amount that has to be refunded from the paymentModel referring to successfull transactions
        const transactionDetails = await transactionModel.findOne({orderId:orderId})
-console.log(transactionDetails.merchantTransactionId)
     const refundAmount = (refundEntry.amount + refundEntry.shipment_charge);
-    // console.log(merchantTransactionId)
     const data = {
       merchantId: process.env.MERCHANT_ID,
       merchantUserId: process.env.MERCHANT_USER_ID,
@@ -339,7 +282,6 @@ console.log(transactionDetails.merchantTransactionId)
       amount: refundAmount, //change this to the value from the payments model
       callbackUrl: "https://backend.twicks.in/api/pay/getOrderLog",
     };
-    console.log("data: " + JSON.stringify(data) , data.merchantTransactionId,data.originalTransactionId);
     const payload = JSON.stringify(data);
 
     const payloadMain = Buffer.from(payload).toString("base64");
@@ -364,17 +306,13 @@ console.log(transactionDetails.merchantTransactionId)
         request: payloadMain,
       },
     };
-    console.log("data found through the api ");
     await axios
       .request(options)
       .then(async function (response) {
-        console.log("data found here??");
-        console.log("data found",response?.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(
             `https://backend.twicks.in/api/pay/checkStatus?transactionId=${response?.data.data.transactionId}&cartId=${orderId}&isRefund=1`
           );
-          console.log("data", data);
           if (data.success) {
             console.log("payment refunded")
           return  res.status(200).send({
@@ -400,7 +338,7 @@ console.log(transactionDetails.merchantTransactionId)
       .catch(function (error) {
         console.log(error);
         if (error.response.status === 500) {
-          // console.log(error.response.status);
+          console.log(error)
           res.status(500).send({
             success: false,
             message: "ERROR IN REFUNDING THE PAYMENT status 500",

@@ -40,7 +40,6 @@ const UpdateBlog = () => {
         readingTime: data.data.readingTime,
       });
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -52,7 +51,6 @@ const UpdateBlog = () => {
     axios
       .put("https://backend.twicks.in/api/updateBlog/" + id)
       .then((res) => {
-        // console.log(res.data);
         setInputHandler({
           ...inputHandler,
           title: res.data.updatedBlog.title,
@@ -63,7 +61,6 @@ const UpdateBlog = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -87,7 +84,6 @@ const UpdateBlog = () => {
       "https://backend.twicks.in/api/uploadBlogImage",
       formData
     );
-    // console.log(imageUrl);
     if (imageUrl.data.success) {
       axios
         .put("https://backend.twicks.in/api/updateBlog/" + id, {
@@ -97,11 +93,9 @@ const UpdateBlog = () => {
           image: imageUrl.data.url,
         })
         .then((res) => {
-          // console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };

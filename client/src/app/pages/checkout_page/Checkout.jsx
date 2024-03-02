@@ -11,7 +11,6 @@ import { toast, ToastContainer } from "react-toastify";
 const Checkout = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user.userName)
     useEffect(() => {
         if (user) {
                navigate('/checkout')
@@ -20,9 +19,7 @@ const Checkout = () => {
         }
       }, []);
     let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
-    console.log(cart)
     const products = cart?.products;
-    console.log("hyyyy",products)
     const [shipCharge, setShipCharge] = useState(undefined);
 
   const [formData, setFormData] = useState({
@@ -78,7 +75,6 @@ const Checkout = () => {
                     }
                 );
                 setShipCharge(response.data.shipPrice);
-                console.log(shipCharge);
             }
         catch (error) {
             console.error("Failed to fetch ship details", error);
@@ -190,7 +186,7 @@ value={user?.phone}
               <div className="checkout-page-input">
                 <label htmlFor="email">Email Address</label>
                 <input
-                  type="text"
+                  type="email"
                   id="Email"
                   name="Email"
                   placeholder="Email Address"

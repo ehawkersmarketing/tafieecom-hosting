@@ -35,15 +35,11 @@ const Myaccount = () => {
 
         if (response) {
           const data = await response.json();
-          console.log(data);
           if (data.success === false) {
-            console.log("navigate");
             navigate(`/`);
           } else if (data.success === true) {
             if (data.data.user._id === user?._id) {
-              console.log("vkdvd");
             } else {
-              console.log("go navigate");
               navigate(`/`);
             }
           }

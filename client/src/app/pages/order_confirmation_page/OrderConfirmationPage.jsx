@@ -28,29 +28,9 @@ const OrderConformationPage = () => {
     const fetchOrder = async () => {
       try {
         const response = await fetch("https://backend.twicks.in/api/getOrderById/" + id);
-        console.log("id", id)
         if (response) {
           const data = await response.json();
-          console.log(data.data)
-          if (data.data === null) {
-            console.log("empy")
-            navigate(`/myaccount/${user?._id}`);
-          }
-          if (data.success === false) {
-            console.log("on confirmation page")
-            navigate(`/orderConfirmationPage/${id}`);
-          } else if (data.success === true) {
-            if (data.data.user._id === user?._id) {
-              console.log("on confirmation page dvd")
-              navigate(`/orderConfirmationPage/${id}`);
-            } else if (data.data === null) {
-              console.log("data is null")
-              navigate(`/myaccount/${user?._id}`);
-            } else {
-              console.log("go navigate")
-              navigate(`/myaccount/${user?._id}`);
-            }
-          }
+          navigate(`/orderConfirmationPage/${id}`);
         } else {
           throw new Error('Order not found');
         }
@@ -72,20 +52,7 @@ const OrderConformationPage = () => {
     navigate(`/myaccount/${user?._id}`);
   };
   useEffect(() => {
-    //  if(!data?.user){
-    //   console.log("go to account")
-    //   navigate(`/myaccount/${user?._id}`);
-    //  }
-    // if (data?.user && user) {
-    //   console.log(data?.user, user)
-    //   if (data.user._id !== user?._id) {
-    //     console.log("navigatee")
-    //   } else {
-    //     console.log(" kd d dk")
-    //   }
-    // }
     if (!user) {
-      console.log("user not found");
       navigate(`/myaccount/${user?._id}`);
     }
   }, [user]);
@@ -96,7 +63,6 @@ const OrderConformationPage = () => {
     (async () => {
         try {
             const response = await axios.get(`https://backend.twicks.in/api/ship/orderDets/${id}`);
-            console.log(response);
             // Handle the response here
         } catch (error) {
             console.error("Error fetching order details:", error);
@@ -108,16 +74,11 @@ const OrderConformationPage = () => {
 
   const cancelOrderHandler = async () => {
     try {
-      console.log("order cancelled", id)
-      console.log(axios.post("https://backend.twicks.in/api/ship/cancelRequest", {
-        orderId: id,
-      }))
       const data = await axios.post("https://backend.twicks.in/api/ship/cancelRequest", {
         orderId: id,
       });
-      console.log("api called", data)
       if (data.data.success) {
-        toast.success("Order Cancelled successfully", {
+        toast.success("order Cancelled successfully", {
           position: "bottom-right",
           autoClose: 8000,
           pauseOnHover: true,
@@ -126,8 +87,7 @@ const OrderConformationPage = () => {
         });
       }
       else {
-        console.log(data.data.success)
-        toast.error(`Order Cancellation failed`, {
+        toast.success("order Cancelled successfully", {
           position: "bottom-right",
           autoClose: 8000,
           pauseOnHover: true,
@@ -136,7 +96,6 @@ const OrderConformationPage = () => {
         });
       }
     } catch (error) {
-      console.log("caught error", error)
       toast.error(`${error.message}`, {
         position: "bottom-right",
         autoClose: 8000,
@@ -155,7 +114,8 @@ const OrderConformationPage = () => {
         <div className="main-1 row align-items-center">
           <div className="order-header col-12">
             <div className="element row justify-content-between">
-              <div className="col-sm-9">
+
+              <div className="col-sm-8">
                 <div className="title">
                   <h2>
                     <strong>Thank you, your order has been placed</strong>
@@ -169,13 +129,16 @@ const OrderConformationPage = () => {
                     </strong>
                   </p>
                 </div>
+
+              </div>
+              <div className="order-confirm-button-wrapper col-sm-4 justify-content-end">
+                <div>
+              <button type="button" className="cancel-order-button  col-sm-6" onClick={cancelOrderHandler}>
+                <strong>Cancel</strong>     
+              </button>
               </div>
 
-              <button type="button" onClick={cancelOrderHandler}>
-                Cancel
-              </button>
-
-              <div className="invoice-download col-sm-3">
+              <div className="invoice-download col-sm-6">
                 <button type="link" onClick={handleDownload}>
                   {" "}
                   <div>
@@ -184,14 +147,17 @@ const OrderConformationPage = () => {
                       Invoice
                     </strong>
                   </div>
-                  <i class="bi bi-download"></i>
+                  <span className="download-icon"> <i class="bi bi-download"></i></span>
+                 
                 </button>
               </div>
+              </div>
+
             </div>
           </div>
           <div className="all-data row">
             <div className="col-md-9">
-              <div className="details justify-content-between row">
+              <div className="details justify-content-between row orderDetails-order" >
                 <div className="OrderDetails col-sm-4">
                   <div className="OrderDetails-text">
                     <h4>
@@ -265,19 +231,21 @@ const OrderConformationPage = () => {
               </div>
             </div>
             <div className="status col-3">
-              <div>
+              <div className="tick-icon-confirm">
                 <img src={tick_icon} />
               </div>
 
 
             </div>
           </div>
+          <div className="order-button">
           <div className="order-link">
             <a href="">
               <button type="link" onClick={orderHandler}>
-                <strong>My Order</strong>
+                <strong>My Orders</strong>
               </button>
             </a>
+          </div>
           </div>
         </div>
 
