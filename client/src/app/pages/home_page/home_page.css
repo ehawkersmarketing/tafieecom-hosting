@@ -709,6 +709,11 @@
   .div4 .soilDiv .franchiseInfo .franchHeading {
     margin: 0;
   }
+  .div3 h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+  }
 }
 
 @media (max-width: 1450px) {
