@@ -109,6 +109,7 @@ const AdminProcessOrder = () => {
         if (data.success) {
           navigate("/adminPage");
         } else {
+          console.log("fetched error")
           toast.error(`${data.message}`, {
             position: "bottom-right",
             autoClose: 8000,
@@ -119,6 +120,7 @@ const AdminProcessOrder = () => {
         }
       }
     } catch (error) {
+      console.log("error isse")
       toast.error(`${error.message}`, {
         position: "bottom-right",
         autoClose: 8000,
