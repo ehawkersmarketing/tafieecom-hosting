@@ -368,7 +368,8 @@ console.log(transactionDetails.merchantTransactionId)
     await axios
       .request(options)
       .then(async function (response) {
-        console.log("data found here??",response);
+        console.log("data",response?.data)
+        console.log("data found here??");
         console.log("data found",response?.data); //RESPONSE FROM THE REFUND PROCESS API
         try {
           const { data } = await axios.get(

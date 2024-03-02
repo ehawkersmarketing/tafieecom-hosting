@@ -118,7 +118,7 @@ const OrderConformationPage = () => {
       });
       console.log("api called", data)
       if (data.data.success) {
-        toast.success("Order Cancelled successfully", {
+        toast.success("order Cancelled successfully", {
           position: "bottom-right",
           autoClose: 8000,
           pauseOnHover: true,
