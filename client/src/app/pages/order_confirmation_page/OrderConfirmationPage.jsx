@@ -28,30 +28,9 @@ const OrderConformationPage = () => {
     const fetchOrder = async () => {
       try {
         const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
-        console.log("id", id)
         if (response) {
           const data = await response.json();
-          console.log(data.data)
           navigate(`/orderConfirmationPage/${id}`);
-          // if (data.data === null) {
-          //   console.log("empy")
-          //   navigate(`/myaccount/${user?._id}`);
-          // }
-          // if (data.success === false) {
-          //   console.log("on confirmation page")
-          //   navigate(`/orderConfirmationPage/${id}`);
-          // } else if (data.success === true) {
-          //   if (data.data.user._id === user?._id) {
-          //     console.log("on confirmation page dvd")
-          //     navigate(`/orderConfirmationPage/${id}`);
-          //   } else if (data.data === null) {
-          //     console.log("data is null")
-          //     navigate(`/myaccount/${user?._id}`);
-          //   } else {
-          //     console.log("go navigate")
-          //     navigate(`/myaccount/${user?._id}`);
-          //   }
-          // }
         } else {
           throw new Error('Order not found');
         }
@@ -73,20 +52,7 @@ const OrderConformationPage = () => {
     navigate(`/myaccount/${user?._id}`);
   };
   useEffect(() => {
-    //  if(!data?.user){
-    //   console.log("go to account")
-    //   navigate(`/myaccount/${user?._id}`);
-    //  }
-    // if (data?.user && user) {
-    //   console.log(data?.user, user)
-    //   if (data.user._id !== user?._id) {
-    //     console.log("navigatee")
-    //   } else {
-    //     console.log(" kd d dk")
-    //   }
-    // }
     if (!user) {
-      console.log("user not found");
       navigate(`/myaccount/${user?._id}`);
     }
   }, [user]);
@@ -97,7 +63,6 @@ const OrderConformationPage = () => {
     (async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`);
-            console.log(response);
             // Handle the response here
         } catch (error) {
             console.error("Error fetching order details:", error);
@@ -109,14 +74,9 @@ const OrderConformationPage = () => {
 
   const cancelOrderHandler = async () => {
     try {
-      console.log("order cancelled", id)
-      console.log(axios.post("http://localhost:8080/api/ship/cancelRequest", {
-        orderId: id,
-      }))
       const data = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
         orderId: id,
       });
-      console.log("api called", data)
       if (data.data.success) {
         toast.success("order Cancelled successfully", {
           position: "bottom-right",
@@ -136,7 +96,6 @@ const OrderConformationPage = () => {
         });
       }
     } catch (error) {
-      console.log("caught error", error)
       toast.error(`${error.message}`, {
         position: "bottom-right",
         autoClose: 8000,

@@ -15,10 +15,8 @@ import $ from "jquery";
 
 const Product = () => {
   const { id } = useParams();
-// console.log("id",id)
   const userUniqueId = localStorage.getItem("user_id");
   const user = JSON.parse(localStorage.getItem("user"));
-  // console.log(userUniqueId);
   const { data: product } = useFetch(`/api/getProduct/${id}`);
   const { data: allProducts } = useFetch("/api/allProducts");
   const { data: reviews, setData: setReviews } = useFetch(
@@ -28,7 +26,6 @@ const Product = () => {
   const scrollToTop = () => {
     document.getElementById("head").scrollIntoView({ behavior: "smooth" });
   };
-  // console.log(reviews?.reviews)
   const [error, setError] = useState(null);
   useEffect(() => {
     // Function to fetch order data from the backend
@@ -39,15 +36,11 @@ const Product = () => {
           
           if (response) {
             const data = await response.json();
-           console.log(data)
            if(data.success === false){
-            console.log("navigate")
             navigate(`/shopPage`)
           }else if(data.success === true){
             if(data.data.user._id === user?._id){
-              console.log("vkdvd")
             }else {
-              console.log("go navigate")
               navigate(`/shopPage`);
             }
           } 
@@ -135,9 +128,7 @@ const Product = () => {
 
   const fetchReviews = async () => {
     try {
-      // console.log("Fetching reviews...");
       const response = await axios.get(`http://localhost:8080/api/getReviewById/${id}`);
-      console.log("Reviews fetched:", response.data.data);
       if ( response.data.data.reviews) {
         setReviews(response.data.data.reviews);
       } else {

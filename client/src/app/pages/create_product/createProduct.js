@@ -76,7 +76,6 @@ const CreateProduct = () => {
       inputHandler;
     const { category } = dropdown;
     const categoryList = data.filter((item) => item.category === category);
-    console.log(categoryList);
     if (title === "") {
       alert("Add Title");
     } else if (description === "") {
@@ -100,9 +99,6 @@ const CreateProduct = () => {
         "http://localhost:8080/api/uploadImage",
         formData
       );
-
-      console.log(categoryList[0]._id);
-      console.log(imageUrl);
       if (imageUrl?.data.success) {
         const { data } = await axios.post(
           "http://localhost:8080/api/createProduct",
@@ -121,7 +117,6 @@ const CreateProduct = () => {
             image: imageUrl.data.url,
           }
         );
-        console.log(data);
         if (data.success) {
           setInputHandler({
             ...inputHandler,

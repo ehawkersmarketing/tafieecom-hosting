@@ -113,14 +113,9 @@ const ShopPage = () => {
     setOpen(false);
   };
 
-
-  const categoriesHandler = (item)=>{
-    console.log("hello")
-  }
   const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleCallback = (item) => {
-    console.log(item);
     setSelectedCategory(item)
     // Now you can use childData to filter your data
  }

@@ -68,7 +68,6 @@ const AdminProcessOrder = () => {
       const { data } = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
         orderId: id,
       });
-      console.log(data)
       if (data.success) {
         toast.success("Amount Refunded successfully", {
           position: "bottom-right",
@@ -100,7 +99,6 @@ const AdminProcessOrder = () => {
           theme: "dark",
         });
       } else {
-        // console.log(formData.length + formData.breadth + formData.height + formData.weight);
         const { data } = await axios.post("http://localhost:8080/api/ship/approveRequest", {
           orderId: id,
           length: formData.length,
@@ -143,14 +141,11 @@ const AdminProcessOrder = () => {
         status: "By Self",
       })
         .then((res) => {
-          // console.log(res.data);
           navigate("/adminPage")
         })
         .catch((err) => {
-          console.log(err);
         });
 
-      // console.log("order",order) 
     } else if (topping === "By ShipRocket") {
 
       axios.patch(`http://localhost:8080/api/updateOrder/${id}`, {
@@ -158,11 +153,9 @@ const AdminProcessOrder = () => {
       })
         .then((res) => {
           dashboardHandler();
-          // console.log(res.data);
           navigate("/adminPage")
         })
         .catch((err) => {
-          console.log(err);
         });
 
     }

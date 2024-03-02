@@ -25,14 +25,12 @@ module.exports.getAllReviews = async (req, res) => {
 
 module.exports.getReviewsById = async (req, res) => {
     try {
-        console.log(req.params.id);
         const reviews = await reviewModel.findOne({ productId: req.params.id }).populate("reviews.userId")
         if (reviews) {
             res.status(200).json({
                 success: true,
                 data: reviews
             });
-            console.log(reviews)
         } else {
             res.status(404).json({
                 success: false,
@@ -66,13 +64,11 @@ module.exports.addReview = async (req, res) => {
                 { new: true }
             );
             if (updatedReview) {
-                // console.log(updatedReview);
                 let sum = 0;
                 for (let i = 0; i < updatedReview.reviews.length; i++) {
                     sum += updatedReview.reviews[i].rating;
                 }
                 sum = sum / updatedReview.reviews.length;
-                console.log(updatedReview.reviews.length);
                 await productModel.findOneAndUpdate({ _id: productId }, {
                     rating: sum,
                     reviews: updatedReview.reviews.length,
@@ -99,7 +95,6 @@ module.exports.addReview = async (req, res) => {
                 ],
             });
             await newReview.save();
-            console.log(newReview);
             res.status(200).json({
                 success: true,
                 data: newReview

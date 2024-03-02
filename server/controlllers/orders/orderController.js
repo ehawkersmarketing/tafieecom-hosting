@@ -25,7 +25,6 @@ module.exports.getOrderById = async (req, res, next) => {
             data: orders
         });
     } catch (error) {
-        console.log("wrong ");
         return res.json({
                 status:401,
                 success:false,
@@ -63,7 +62,6 @@ module.exports.getAllOrderByUser = async (req, res, next) => {
 module.exports.placeOrder = async (req, res, next) => {
     try {
         const { cartId, transactionId, amount, transactionStatus } = req.body;
-        console.log(`${cartId} - ${transactionId} - ${amount} - ${transactionStatus}`);
         const cart = await cartModel.findOne({ _id: cartId }).populate('products.productId');
         if (cart) {
             let totalAmount = 0;

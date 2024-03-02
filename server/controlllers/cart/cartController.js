@@ -128,41 +128,6 @@ exports.deleteProductInCart = async (req, res) => {
   }
 };
 
-// exports.getCartByUser = async (req, res, next) => {
-//   try {
-//     const { userId } = req.params;
-
-//     // Check if userId is provided and is a valid ObjectId
-//     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Invalid userId",
-//       });
-//     }
-
-//     const cart = await cartModel.findOne({ userId: userId }).populate('products.productId');
-//     if (cart) {
-//       res.status(200).json({
-//         success: true,
-//         data: cart,
-//       });
-//     } else {
-//       res.status(404).json({
-//         success: false,
-//         message: "Cart not found",
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Error in getting cart",
-//       error,
-//     });
-//   }
-// };
-
-
 exports.getCartByUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -187,57 +152,15 @@ exports.getCartByUser = async (req, res, next) => {
     });
   }
 };
-
-// exports.getAllProductsInCart = async (req, res) => {
-//   try {
-//     const { userId } = req.params;
-//     const cart = await cartModel.findOne({ userId: userId }).populate('products.productId');
-//     console.log("cart",cart)
-//     let totalWeight = 0;
-//     let totalPrice = 0;
-//     if (cart) {
-//       //  console.log("heelo" , cart , cart.products.length)
-//       for (let i = 0; i < cart.products.length; i++) {
-//         totalWeight = totalWeight + cart.products[i].productId.weight * cart.products[i].units;
-//         console.log(totalWeight)
-//         totalPrice = totalPrice + cart.products[i].productId.price * cart.products[i].units;
-//       }
-//       res.status(200).json({
-//         success: true,
-//         data: {
-//           products: cart.products,
-//           totalWeight: totalWeight,
-//           totalPrice: totalPrice,
-//           cartId: cart._id
-//         },
-//       });
-//     } else {
-//       res.json({
-//         success: false,
-//         message: "Cart not found",
-//       });
-//     }
-//   } catch (error) {
-//     res.json({
-//       success: false,
-//       message: "Error in getting all products in cart",
-//     });
-//   }
-// };
-//////////////////////////////////////////////////////////////////////////
-
-
 exports.getAllProductsInCart = async (req, res) => {
   try {
     const { userId } = req.params;
     const cart = await cartModel.findOne({ userId: userId }).populate('products.productId');
-    console.log(cart)
     let totalWeight = 0;
     let totalPrice = 0;
     if (cart) {
       for (let i = 0; i < cart.products.length; i++) {
         totalWeight = totalWeight + cart.products[i].productId.weight * cart.products[i].units;
-        console.log(totalWeight)
         totalPrice = totalPrice + cart.products[i].productId.price * cart.products[i].units;
       }
       res.status(200).json({

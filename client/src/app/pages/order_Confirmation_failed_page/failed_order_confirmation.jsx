@@ -26,10 +26,8 @@ const OrderConformationFailedPage = () => {
         const fetchOrder = async () => {
             try {
                 const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
-                console.log("id", id)
                 if (response) {
                     const data = await response.json();
-                    console.log(data.data)
                     navigate(`/orderConfirmation/${id}`);
                 } else {
                     throw new Error('Order not found');
@@ -52,20 +50,7 @@ const OrderConformationFailedPage = () => {
         navigate(`/myaccount/${user?._id}`);
     };
     useEffect(() => {
-        //  if(!data?.user){
-        //   console.log("go to account")
-        //   navigate(`/myaccount/${user?._id}`);
-        //  }
-        // if (data?.user && user) {
-        //   console.log(data?.user, user)
-        //   if (data.user._id !== user?._id) {
-        //     console.log("navigatee")
-        //   } else {
-        //     console.log(" kd d dk")
-        //   }
-        // }
         if (!user) {
-            console.log("user not found");
             navigate(`/myaccount/${user?._id}`);
         }
     }, [user]);
@@ -75,7 +60,6 @@ const OrderConformationFailedPage = () => {
         (async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`);
-                console.log(response);
                 // Handle the response here
             } catch (error) {
                 console.error("Error fetching order details:", error);
@@ -84,49 +68,6 @@ const OrderConformationFailedPage = () => {
         })(); // Immediately invoke the async function
     }, [id]); // Dependency array
     
-
-
-    const cancelOrderHandler = async () => {
-        try {
-            console.log("order cancelled", id)
-            console.log(axios.post("http://localhost:8080/api/ship/cancelRequest", {
-                orderId: id,
-            }))
-            const data = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
-                orderId: id,
-            });
-            console.log("api called", data)
-            if (data.data.success) {
-                toast.success("Order Cancelled successfully", {
-                    position: "bottom-right",
-                    autoClose: 8000,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: "dark",
-                });
-            }
-            else {
-                console.log(data.data.success)
-                toast.error(`Order Cancellation failed`, {
-                    position: "bottom-right",
-                    autoClose: 8000,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: "dark",
-                });
-            }
-        } catch (error) {
-            console.log("caught error", error)
-            toast.error(`${error.message}`, {
-                position: "bottom-right",
-                autoClose: 8000,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
-        }
-    };
-
     return (
         <>
             <Header />
@@ -141,9 +82,6 @@ const OrderConformationFailedPage = () => {
                                         <strong>Sorry, your order has been Failed</strong>
                                     </h2>
                                 </div>
-
-
-
                                 <div className="sub-title">
                                     <p>
                                         <strong>
