@@ -20,7 +20,7 @@ const FeaturedProductCard = ({ item }) => {
 
     return (
         <div key={item._id} className="carouselItem" interval="500" >
-            <div >
+            <div className="col-gapping">
                 <div className="feature-textBlock row justify-content-start" onClick={() => knowmoreHandler(item._id)}>
                     <div className='feature-text-fields col-7'>
                         <div className="names">
