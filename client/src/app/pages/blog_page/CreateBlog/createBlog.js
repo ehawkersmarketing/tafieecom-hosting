@@ -72,7 +72,6 @@ const CreateBlog = () => {
         "http://localhost:8080/api/uploadBlogImage",
         formData
       );
-      // console.log(imageUrl);
       if (imageUrl) {
         if (imageUrl?.data.success) {
           const { data } = await axios.post(

@@ -64,7 +64,6 @@ exports.getAllServices = async (req, res) => {
 exports.getServicesById = async (req, res) => {
   try {
     const services = await serviceModel.find({ _id: req.params.id });
-    // console.log(services);
     if (!services) {
       return res.status(500).send({
         success: false,
@@ -154,7 +153,6 @@ exports.updateService = async (req, res) => {
 exports.deleteService = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id)
     const service = await serviceModel.findByIdAndDelete(id);
     if (service) {
       return res.status(200).send({

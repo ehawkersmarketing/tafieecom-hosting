@@ -58,7 +58,6 @@ const UpdateProduct = () => {
     axios
       .get("http://localhost:8080/api/getProduct/" + id)
       .then((res) => {
-        console.log(res.data.data.weight);
         setInputHandler({
           ...inputHandler,
           title: res.data.data.title,
@@ -117,7 +116,7 @@ const UpdateProduct = () => {
           image: imageUrl.data.url,
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {

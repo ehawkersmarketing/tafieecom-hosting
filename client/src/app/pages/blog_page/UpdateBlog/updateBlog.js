@@ -33,7 +33,6 @@ const UpdateBlog = () => {
   const getOneBlog = async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/api/blog/" + id);
-      // console.log(data);
       setInputHandler({
         title: data.data.title,
         content: data.data.content,

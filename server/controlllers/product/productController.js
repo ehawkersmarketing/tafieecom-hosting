@@ -4,7 +4,6 @@ const categoryModel = require("../../models/categoryModel/categoryModel.js");
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await productModel.find({}).populate('category');
-    // console.log(products)
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -29,7 +28,6 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductsById = async (req, res) => {
   try {
     const products = await productModel.findOne({ _id: req.params.id }).populate('category');
-    // console.log(products);
     if (!products) {
       return res.status(500).send({
         success: false,
@@ -136,8 +134,6 @@ exports.updateProduct = async (req, res) => {
         
       }
     );
-
-    // console.log(updatedProduct)
 
     res.status(200).json({
       success: true,
@@ -268,7 +264,6 @@ exports.CreateCategory = async (req, res) => {
 exports.getAllCategory = async (req, res) => {
   try {
     const category = await categoryModel.find({});
-    // console.log(category);
     if (!category) {
       return res.status(500).send({
         success: false,

@@ -56,7 +56,6 @@ const CreateService = () => {
         "http://localhost:8080/api/uploadServiceImage",
         formData
       );
-      console.log(imageUrl);
       if (imageUrl) {
         if (imageUrl?.data.success) {
           const { data } = await axios.post(

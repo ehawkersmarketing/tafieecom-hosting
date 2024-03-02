@@ -68,7 +68,6 @@ const AdminProcessOrder = () => {
       const { data } = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
         orderId: id,
       });
-      console.log(data)
       if (data.success) {
         toast.success("Amount Refunded successfully", {
           position: "bottom-right",

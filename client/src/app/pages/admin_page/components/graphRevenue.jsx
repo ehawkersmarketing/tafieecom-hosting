@@ -63,10 +63,8 @@ const GraphRevenue = () => {
       let dec = 0;
       for (let i = 0; i < orders?.length; i++) {
         total = orders[i]?.amount;
-        // console.log(new Date(orders[i].timestamps).getMonth(), total);
         switch (new Date(orders[i].timestamps).getMonth()) {
           case 0:
-            // console.log("setting data", `${jan + total}`);
             jan += total;
             break;
           case 1:
@@ -119,7 +117,6 @@ const GraphRevenue = () => {
           Nov: nov,
           Dec: dec
         });
-        // console.log(revenueMap);
       }
       setData([
         ["x", "orders"],

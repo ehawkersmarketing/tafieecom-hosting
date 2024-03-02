@@ -22,7 +22,6 @@ const UpdateUser = () => {
     zipCode: "",
   });
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  console.log(user)
   const [maxDate, setMaxDate] = useState('');
   useEffect(() => {
     if (user) {

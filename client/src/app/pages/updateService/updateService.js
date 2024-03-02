@@ -32,7 +32,6 @@ const UpdateService = () => {
       const { data } = await axios.get(
         "http://localhost:8080/api/getService/" + id
       );
-      console.log(data.data[0].image);
       setInputHandler({
         title: data.data[0].title,
         description: data.data[0].description,
@@ -51,7 +50,6 @@ const UpdateService = () => {
     axios
       .put("http://localhost:8080/api/updateService/" + id)
       .then((res) => {
-        console.log(res.data.data.image);
 
         if (typeof res.data.data.image === "string") {
           try {
@@ -59,7 +57,6 @@ const UpdateService = () => {
             let pathSegments = parsedUrl.pathname.split("/");
             let fileName = pathSegments[pathSegments.length - 1];
             decodedFileName = decodeURIComponent(fileName);
-            console.log(decodedFileName);
           } catch (error) {
             console.error("Invalid URL:", inputHandler.image);
           }
@@ -72,7 +69,6 @@ const UpdateService = () => {
           description: res.data.data.description,
           image: decodedFileName,
         });
-        console.log(decodedFileName);
       })
       .catch((err) => {
         console.log(err);
@@ -109,7 +105,7 @@ const UpdateService = () => {
           updatedImageUrl: imageUrl.data,
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {
