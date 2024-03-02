@@ -81,7 +81,6 @@ export const postRequestWithAuth = async (url, body) => {
             return null;
         }
     } catch (error) {
-        console.log(error.toString());
     }
 }
 
@@ -102,6 +101,5 @@ export const postRequest = async (url, body) => {
             return null;
         }
     } catch (error) {
-        console.log(error.toString());
     }
 }

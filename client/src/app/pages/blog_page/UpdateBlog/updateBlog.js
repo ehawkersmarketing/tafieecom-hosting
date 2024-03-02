@@ -39,7 +39,6 @@ const UpdateBlog = () => {
         readingTime: data.data.readingTime,
       });
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -51,7 +50,6 @@ const UpdateBlog = () => {
     axios
       .put("http://localhost:8080/api/updateBlog/" + id)
       .then((res) => {
-        // console.log(res.data);
         setInputHandler({
           ...inputHandler,
           title: res.data.updatedBlog.title,
@@ -62,7 +60,6 @@ const UpdateBlog = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -86,7 +83,6 @@ const UpdateBlog = () => {
       "http://localhost:8080/api/uploadBlogImage",
       formData
     );
-    // console.log(imageUrl);
     if (imageUrl.data.success) {
       axios
         .put("http://localhost:8080/api/updateBlog/" + id, {
@@ -96,11 +92,9 @@ const UpdateBlog = () => {
           image: imageUrl.data.url,
         })
         .then((res) => {
-          // console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };

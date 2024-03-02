@@ -51,7 +51,6 @@ const OrderConformationFailedPage = () => {
     };
     useEffect(() => {
         if (!user) {
-            console.log("user not found");
             navigate(`/myaccount/${user?._id}`);
         }
     }, [user]);
@@ -61,7 +60,6 @@ const OrderConformationFailedPage = () => {
         (async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`);
-                console.log(response);
                 // Handle the response here
             } catch (error) {
                 console.error("Error fetching order details:", error);

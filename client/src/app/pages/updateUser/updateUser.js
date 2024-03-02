@@ -67,7 +67,6 @@ const UpdateUser = () => {
         ["dob"]: `${year}-${month}-${day}`,
       });
     } catch (err) {
-      console.log(err);
     }
   };
 

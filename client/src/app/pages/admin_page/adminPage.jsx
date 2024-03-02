@@ -359,10 +359,8 @@ const AdminPage = () => {
         orderStatus: orderStatus,
       })
       .then((res) => {
-        // console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
       });
   };
 

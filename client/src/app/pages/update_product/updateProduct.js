@@ -74,7 +74,6 @@ const UpdateProduct = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -116,11 +115,9 @@ const UpdateProduct = () => {
           image: imageUrl.data.url,
         })
         .then((res) => {
-          // console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };

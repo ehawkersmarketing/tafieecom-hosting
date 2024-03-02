@@ -53,7 +53,6 @@ const OrderConformationPage = () => {
   };
   useEffect(() => {
     if (!user) {
-      console.log("user not found");
       navigate(`/myaccount/${user?._id}`);
     }
   }, [user]);
@@ -64,7 +63,6 @@ const OrderConformationPage = () => {
     (async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`);
-            console.log(response);
             // Handle the response here
         } catch (error) {
             console.error("Error fetching order details:", error);
@@ -98,7 +96,6 @@ const OrderConformationPage = () => {
         });
       }
     } catch (error) {
-      console.log("caught error", error)
       toast.error(`${error.message}`, {
         position: "bottom-right",
         autoClose: 8000,

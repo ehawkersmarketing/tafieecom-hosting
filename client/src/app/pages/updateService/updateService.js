@@ -38,7 +38,6 @@ const UpdateService = () => {
       });
       setImage(data.data[0].image);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -71,7 +70,6 @@ const UpdateService = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -105,11 +103,9 @@ const UpdateService = () => {
           updatedImageUrl: imageUrl.data,
         })
         .then((res) => {
-          // console.log(res.data);
           history("/adminPage");
         })
         .catch((err) => {
-          console.log(err);
         });
     }
   };
