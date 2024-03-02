@@ -127,8 +127,7 @@ const OrderConformationPage = () => {
         });
       }
       else {
-        console.log(data.data.success)
-        toast.error(`Order Cancellation failed`, {
+        toast.success("order Cancelled successfully", {
           position: "bottom-right",
           autoClose: 8000,
           pauseOnHover: true,
