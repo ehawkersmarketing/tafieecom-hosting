@@ -137,6 +137,7 @@ exports.checkStatusFunction = async (req, res) => {
     console.log(status);
     if (status) {
       //Here the cartId is holding the value of orderId during the call
+      console.log("order status called")
       const order = await orderModel.findOneAndUpdate(
         {
           _id: cartId,
@@ -146,6 +147,7 @@ exports.checkStatusFunction = async (req, res) => {
         }
       );
       if (order) {
+        console.log(order , "found for transaction")
         res.json({
           success: true,
           message: "Transaction Refunded Successfully",
@@ -153,7 +155,7 @@ exports.checkStatusFunction = async (req, res) => {
       } else {
         res.json({
           success: false,
-          message: "Transaction Refunded Failed",
+          message: "Transaction Refunded due to order not found Failed",
         });
       }
     } else {
