@@ -11,8 +11,6 @@ const { errorMonitor } = require("events");
 exports.requestApproval = async (req, res) => {
   try {
     const { orderId } = req.body;
-    console.log(getToken);
-
     const request = new requestModel({
       orderId: orderId,
     });
@@ -40,9 +38,7 @@ exports.requestApproval = async (req, res) => {
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
-    // console.log('called')
-    console.log(getToken);
-
+    console.log('called')
     const { orderId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
@@ -154,7 +150,12 @@ exports.approveRequest = async (req, res) => {
 //POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
+
     console.log("yes sir")
+    
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved");
+  console.log(getToken);
     const { orderId } = req.body;
     console.log("heelo",orderId)
     const request = await requestModel.findOne({ orderId: orderId });
@@ -573,15 +574,6 @@ console.log(id)
     // Handle the error here, e.g., send a response back to the client
   }
 }
-
-
-
-
-
-
-
-
-
 
 
 
