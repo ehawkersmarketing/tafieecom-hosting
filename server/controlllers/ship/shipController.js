@@ -39,7 +39,7 @@ exports.requestApproval = async (req, res) => {
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
-    console.log('called')
+    console.log("called");
     const { orderId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
@@ -49,16 +49,23 @@ exports.approveRequest = async (req, res) => {
           approvalStatus: "APPROVED",
         }
       );
-      await orderModel.findOneAndUpdate({
-        _id: request.orderId,
-      }, {
-        length: length,
-        breadth: breadth,
-        height: height,
-        weight: weight,
-      });
+      await orderModel.findOneAndUpdate(
+        {
+          _id: request.orderId,
+        },
+        {
+          length: length,
+          breadth: breadth,
+          height: height,
+          weight: weight,
+        }
+      );
       if (data) {
-        const order = await orderModel.findOne({ _id: request.orderId }).populate("products.productId").populate("user").populate("userAddress");
+        const order = await orderModel
+          .findOne({ _id: request.orderId })
+          .populate("products.productId")
+          .populate("user")
+          .populate("userAddress");
         let orderItems = [];
         for (let i = 0; i < order.products.length; i++) {
           orderItems.push({
@@ -67,15 +74,15 @@ exports.approveRequest = async (req, res) => {
             units: order.products[i].units,
             selling_price: order.products[i].productId.price,
             discount: 0,
-            tax: 0
-          })
+            tax: 0,
+          });
         }
 
         // console.log("request accept atapprovalrequest",request);
         console.log("order fetched successfully");
         let time = order.timestamps.toISOString();
-        axios.post("http://localhost:8080/api/ship/createOrder",
-          {
+        axios
+          .post("http://localhost:8080/api/ship/createOrder", {
             order_id: `${order._id}`,
             // order_id: `dfdrgses`,
             order_date: `${time.substring(0, 10)}`,
@@ -109,30 +116,34 @@ exports.approveRequest = async (req, res) => {
             length: length,
             breadth: breadth,
             height: height,
-            weight: weight
-          }
-        ).then(async(shipment) => {
-                 console.log("shippment whenodercreated",shipment)
-          if (shipment) {
-            console.log("order completed")
-            await orderModel.findOneAndUpdate({
-              _id: request.orderId,
-            }, {      
-              orderStatus: "COMPLETED"
-            });
-            res.json({
-              success: true,
-              message: "Request Approved",
-            });
-          } else {
-            res.json({
-              success: false,
-              message: "Failed to Approve Request",
-            });
-          }
-        }).catch((error) => {
-          console.log(error);
-        });
+            weight: weight,
+          })
+          .then(async (shipment) => {
+            console.log("shippment whenodercreated", shipment);
+            if (shipment) {
+              console.log("order completed");
+              await orderModel.findOneAndUpdate(
+                {
+                  _id: request.orderId,
+                },
+                {
+                  orderStatus: "COMPLETED",
+                }
+              );
+              res.json({
+                success: true,
+                message: "Request Approved",
+              });
+            } else {
+              res.json({
+                success: false,
+                message: "Failed to Approve Request",
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         res.json({
           success: false,
@@ -151,26 +162,20 @@ exports.approveRequest = async (req, res) => {
 //POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
-
-    console.log("yes sir")
-    
-  let getToken = await srlogin();
-  console.log("below is the api key token recieved");
-  console.log(getToken);
+    let getToken = await srlogin();
+    console.log("below is the api key token recieved");
+    console.log(getToken);
     const { orderId } = req.body;
-    console.log("heelo",orderId)
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
-      console.log("requestConsole",request)
       const data = await requestModel.findOneAndUpdate(
-        { orderId:orderId}, 
+        { orderId: orderId },
         {
           approvalStatus: "REJECTED",
-        }
-        , { new: true }
-      ); 
+        },
+        { new: true }
+      );
       if (data) {
-        console.log("csjvidnidu data" , data)
         const order = await orderModel.findOneAndUpdate(
           { _id: data.orderId },
           {
@@ -178,7 +183,7 @@ exports.cancelApprovalRequest = async (req, res) => {
           }
         );
         if (order) {
-          console.log("========================================")
+          console.log("========================================");
           const { data: payRefund } = await axios.post(
             "http://localhost:8080/api/pay/refund",
             {
@@ -187,8 +192,8 @@ exports.cancelApprovalRequest = async (req, res) => {
             }
           );
           if (payRefund) {
-            console.log("pay refund")
-           return  res.json({
+            console.log("pay refund");
+            return res.json({
               success: true,
               message: "Refunded",
             });
@@ -204,7 +209,7 @@ exports.cancelApprovalRequest = async (req, res) => {
             message: "Order Rejection Failed",
           });
         }
-      } else { 
+      } else {
         res.json({
           success: false,
           message: "Request Rejection Failed",
@@ -217,7 +222,7 @@ exports.cancelApprovalRequest = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.json({
       success: false,
       message: "Error in cancel request approval",
@@ -238,7 +243,6 @@ exports.calcShipment = async (req, res) => {
 
   // console.log(rs_data);
   // console.log("==============**********************")
-
 
   function srShippingRateCalculation(
     shipping_postcode,
@@ -339,7 +343,6 @@ exports.calcShipment = async (req, res) => {
 let order_id;
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
-  // console.log("dsjhbuygesufheys");
   const {
     pickup_location,
     order_id,
@@ -382,9 +385,8 @@ exports.createOrder = async (req, res) => {
 
   async function newShipFunction() {
     let getToken = await srlogin();
-    console.log("below is the api key token recieved");
-    console.log(getToken);
-    console.log(getToken.status)
+    console.log("token =======",getToken);
+    console.log(getToken.status);
 
     if (getToken.status) {
       await axios
@@ -434,28 +436,15 @@ exports.createOrder = async (req, res) => {
           }
         )
         .then(async function (response) {
-          
-
-          console.log("))))))))))))))))))))")
-          console.log(response);
-          console.log("))))))))))))))))))))")
-          const orderDets = await axios.get(`http://localhost:8080/api/ship/orderDets/${response.data.order_id}`,{
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${getToken.mainToken}`,
-            }
-          })
-            console.log(orderDets)
+          console.log("))))))))))))))))))))");
           order_id = response.data.order_id;
-          console.log("order_id",response.data.order_id);
-          console.log(response.data.shipment_id);
+          console.log("order_id", response.data.order_id);
           const { data: awb } = await axios.post(
             "http://localhost:8080/api/ship/generateAWB",
             {
               shipment_id: response.data.shipment_id,
             }
           );
-          // console.log("awb",);
           if (awb.success) {
             const { data: pickUp } = await axios.post(
               "http://localhost:8080/api/ship/pickup",
@@ -464,7 +453,6 @@ exports.createOrder = async (req, res) => {
                 // pickup_date: ,
               }
             );
-            // console.log(pickUp,"pickup")
             if (pickUp.success) {
               const { data: manifest } = await axios.post(
                 "http://localhost:8080/api/ship/manifest",
@@ -558,33 +546,33 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-
-exports.getOrderDetsFunction=async(req,res)=> {
-console.log("order_id =>")
+exports.getOrderDetsFunction = async (req, res) => {
+  console.log("order_id =>", order_id);
   let getToken = await srlogin();
-  console.log("===================");
   console.log(getToken);
-  console.log("##########################################")
+  console.log("##########################################");
 
   const options = {
     method: "get",
     headers: {
       "Content-Type": "application/json", // Consider testing with and without this header
-      Authorization: `Bearer ${getToken}`,
+      Authorization: `Bearer ${getToken.mainToken}`,
     },
-    url: `https://apiv2.shiprocket.in/v1/external/orders/show/${order_id}`,
+    url: `https://apiv2.shiprocket.in/v1/external/orders/show/499292994`,
   };
 
   try {
-    console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
     const response = await axios(options);
-    console.log("shiprocket order detail shipmment",response.data);
+    console.log("shiprocket order detail shipmment", response);
     // Handle the response data here
   } catch (error) {
-    console.error("Error fetching order details:", error.response ? error.response.data : error.message);
+    console.error(
+      "Error fetching order details:",
+      error.response ? error.response.data : error.message
+    );
     // Handle the error here, e.g., send a response back to the client
   }
-}
+};
 
 //GET || getting details of an order using order_id
 
@@ -628,14 +616,10 @@ console.log("order_id =>")
 //   }
 // };
 
-
-
 exports.generateAWBFunction = async (req, res) => {
   let { shipment_id } = req.body;
-  // console.log("generating AWB");
 
   let getToken = await srlogin();
-  console.log("below is the api key token recieved");
   console.log(getToken);
 
   let paramers = "shipment_id=" + shipment_id;
@@ -652,21 +636,20 @@ exports.generateAWBFunction = async (req, res) => {
         "https://apiv2.shiprocket.in/v1/external/courier/assign/awb?" +
         paramers,
     };
-    await axios.request(options)
+    await axios
+      .request(options)
       .then(function (response) {
-        // console.log("awwwwb",response)
-        if(response.data.awb_assign_status !== 0){
+        if (response.data.awb_assign_status !== 0) {
           return res.json({
             success: true,
             message: "AWB generated successfully",
           });
-        }else {
+        } else {
           return res.json({
             success: false,
             message: response.data.message,
           });
         }
-       
       })
       .catch(function (error) {
         console.log(error);
@@ -775,7 +758,6 @@ exports.setPickupFunction = async (req, res) => {
   // let paramers = "shipment_id=" + shipment_id + "&pickup_date=" + pickup_date;
 
   let getToken = await srlogin();
-  console.log("below is the api key token recieved: ");
   console.log(getToken);
 
   if (getToken) {
@@ -807,7 +789,7 @@ exports.setPickupFunction = async (req, res) => {
       )
       .then(function (response) {
         let data = response.data.response;
-        console.log("response")
+        console.log("response");
         console.log(response);
         if (response.data.pickup_status == 1) {
           return res.status(200).send({
@@ -824,7 +806,7 @@ exports.setPickupFunction = async (req, res) => {
         }
       })
       .catch(function (error) {
-        console.log("heelo error")
+        console.log("heelo error");
         console.log(error);
         res.status(error.response.data.status).send({
           success: false,
@@ -910,7 +892,7 @@ exports.shipmentDetsFunction = async (req, res) => {
           });
         }
         let shipDets = response.data.data;
-        console.log(shipDets)
+        console.log(shipDets);
         return res.status(200).send({
           success: true,
           message: "Shipment details",
@@ -1212,4 +1194,3 @@ function srlogin() {
     }
   });
 }
-
