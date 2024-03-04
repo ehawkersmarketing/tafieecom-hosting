@@ -553,7 +553,7 @@ exports.createOrder = async (req, res) => {
 exports.getOrderDetsFunction=async(req,res)=> {
   let id = req.params.id;
 console.log(id)
-console.log("order_id =>" , response.data.order_id)
+console.log("order_id =>" , response.data)
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
