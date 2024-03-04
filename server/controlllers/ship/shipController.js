@@ -928,8 +928,6 @@ exports.generateManifestFunction = async (req, res) => {
 
 
 
-
-
 //GET || getting shipment details by shipment id
 exports.shipmentDetsFunction = async (req, res) => {
   console.log("getting shipment details");
