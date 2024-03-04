@@ -549,76 +549,75 @@ exports.createOrder = async (req, res) => {
 };
 
 
-exports.getOrderDetsFunction=async(req,res)=> {
-  let id = req.params.id;
-console.log(id)
-  let getToken = await srlogin();
-  console.log("below is the api key token recieved");
-  console.log(getToken);
-
-  const options = {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json", // Consider testing with and without this header
-      Authorization: `Bearer ${getToken}`,
-    },
-    url: `https://apiv2.shiprocket.in/v1/external/orders/show/65dd887dd885d8807773db4a`,
-  };
-
-  try {
-    console.log("cksujd")
-    const response = await axios(options);
-    console.log(response.data);
-    // Handle the response data here
-  } catch (error) {
-    console.error("Error fetching order details:", error.response ? error.response.data : error.message);
-    // Handle the error here, e.g., send a response back to the client
-  }
-}
-
-//GET || getting details of an order using order_id
-// exports.getOrderDetsFunction = async (req, res) => {
+// exports.getOrderDetsFunction=async(req,res)=> {
 //   let id = req.params.id;
 // console.log(id)
 //   let getToken = await srlogin();
 //   console.log("below is the api key token recieved");
-//   // console.log(getToken);
+//   console.log(getToken);
 
-//   if (getToken) {
-//     console.log("JDJD JID")
-//     let options = {
-//       method: "get",
-//       headers: {
-//         "Content-Type": "application/json", // Consider removing if not required by the API
-//         Authorization: `Bearer ${getToken.mainToken}`,
-//       },
-//       url: `https://apiv2.shiprocket.in/v1/external/orders/show/65dd8910d6db66b39dd233bc`,
-//     };
+//   const options = {
+//     method: "get",
+//     headers: {
+//       "Content-Type": "application/json", // Consider testing with and without this header
+//       Authorization: `Bearer ${getToken}`,
+//     },
+//     url: `https://apiv2.shiprocket.in/v1/external/orders/show/${response.data.order_id}`,
+//   };
 
-//     await axios(options)
-//       .then(function (response) {
-//         console.log("data")
-//         if (response == {}) {
-//           res.send({
-//             success: failure,
-//             message: "No order found",
-//           });
-//         }
-//         let orderDets = response.data.data;
-//         console.log(orderDets);
-//         res.status(200).send({
-//           success: true,
-//           message: "Order details are as follows: ",
-//           data: orderDets,
-//         });
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
+//   try {
+//     console.log("cksujd")
+//     const response = await axios(options);
+//     console.log("shiprocket order detail shipmment",response.data);
+//     // Handle the response data here
+//   } catch (error) {
+//     console.error("Error fetching order details:", error.response ? error.response.data : error.message);
+//     // Handle the error here, e.g., send a response back to the client
 //   }
-// };
+// }
 
-//POST || generating AWB for order mandatory for shipment pickup
+//GET || getting details of an order using order_id
+
+exports.getOrderDetsFunction = async (req, res) => {
+  let { order_id } = req.body;
+
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved");
+  console.log(getToken);
+
+  if (getToken) {
+    let options = {
+      method: "get",
+      maxBodyLength: Infinity,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken.mainToken}`,
+      },
+      url: "https://apiv2.shiprocket.in/v1/external/orders/show/" + order_id,
+    };
+
+    await axios(options)
+      .then(function (response) {
+        if (response == {}) {
+          res.send({
+            success: failure,
+            message: "No order found",
+          });
+        }
+        let orderDets = response.data.data;
+        console.log("order Details showing here can be fetched at frontend",orderDets);
+        res.status(200).send({
+          success: true,
+          message: "Order details are as follows: ",
+          data: orderDets,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+};
+
 
 
 exports.generateAWBFunction = async (req, res) => {
