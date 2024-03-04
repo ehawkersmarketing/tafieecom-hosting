@@ -187,6 +187,7 @@ const AdminPage = () => {
 
   const fetchDeleted = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/blogs`);
+ 
     setBlogs(data.data);
   };
 
@@ -349,18 +350,22 @@ const AdminPage = () => {
       [id]: newOrderStatus,
     }));
     localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
+    // console.log(newOrderStatus);
     orderStatusHandler(id, newOrderStatus);
   };
 
   const orderStatusHandler = (id, orderStatus) => {
+    // console.log(orderStatus);
     axios
       .patch(`http://localhost:8080/api/updateOrder/${id}`, {
         length: 1,
         orderStatus: orderStatus,
       })
       .then((res) => {
+        // console.log(res.data);
       })
       .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -742,34 +747,10 @@ const AdminPage = () => {
                                   {order.amount}
                                 </td>
 
-                                {order.status === "By Self" ? (
-                                  <td>
-                                    <select
-                                      className="orderSelect"
-                                      name="input"
-                                      id="orderStatus"
-                                      placeholder="Order Status"
-                                      value={orderStatuses[order._id] || ""} // Use the status for this specific order
-                                      onChange={(e) =>
-                                        handlechangeOrderStatus(e, order._id)
-                                      }
-                                    >
-                                      <option value="">Select </option>
-                                      <option value="APPROVED">APPROVED</option>
-                                      <option value="REJECTED">REJECTED</option>
-                                      <option value="PROCESSING">
-                                        PROCESSING
-                                      </option>
-                                      <option value="COMPLETED">
-                                        COMPLETED
-                                      </option>
-                                    </select>
-                                  </td>
-                                ) : (
                                   <td className="td table-center">
                                     {order.orderStatus}
                                   </td>
-                                )}
+                              
 
                                 <td className="td table-center">
                                   {order.status}
@@ -1330,6 +1311,7 @@ const AdminPage = () => {
                           blogs &&
                           blogs?.map((blog, index) => {
                             if (blog._id === deletedBlogId) {
+                              // console.log(blog.title);
                               return null;
                             } else
                               return (
@@ -1468,6 +1450,7 @@ const AdminPage = () => {
                         ) : (
                           services &&
                           services.map((service, index) => {
+                            // console.log(service._id);
                             return (
                               <tr>
                                 <th scope="row table-center">{index + 1}</th>

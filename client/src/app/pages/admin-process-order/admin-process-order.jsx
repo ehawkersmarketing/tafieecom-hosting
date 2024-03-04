@@ -44,11 +44,12 @@ const AdminProcessOrder = () => {
     height: 0,
     weight: 0
   });
-
+  const [orderStatuses, setOrderStatuses] = useState({});
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const { data: orders } = useFetch("/api/getAllOrders");
+  console.log("orders single", order)
 
   useEffect(() => {
     if (!user || user.role.role === 'User' || user.role.role === 'Editor') {
@@ -56,12 +57,57 @@ const AdminProcessOrder = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // Assuming `orders` is an array of order IDs that you have
+    if (orders) {
+      orders.forEach((order) => {
+        const savedStatus = getInitialStatus(order._id);
+        if (savedStatus) {
+          setOrderStatuses((prevStatuses) => ({
+            ...prevStatuses,
+            [order._id]: savedStatus,
+          }));
+        }
+      });
+    }
+  }, [orders]); 
+
   const handleInputChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
+
+  const handlechangeOrderStatus = (e, id) => {
+    const newOrderStatus = e.target.value;
+    setOrderStatuses((prevStatuses) => ({
+      ...prevStatuses,
+      [id]: newOrderStatus,
+    }));
+    localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
+    orderStatusHandler(id, newOrderStatus);
+  };
+  // const orderStatus = order?.status;
+
+
+  const getInitialStatus = (id) => {
+    const savedStatus = localStorage.getItem(`selectedOrderStatus-${id}`);
+    return savedStatus ? savedStatus : "";
+  };
+
+  const orderStatusHandler = (id, orderStatus) => {
+    axios
+      .patch(`http://localhost:8080/api/updateOrder/${id}`, {
+        length: 1,
+        orderStatus: orderStatus,
+      })
+      .then((res) => {
+      })
+      .catch((err) => {
+      });
+  };
+
 
   const cancelShipment = async () => {
     try {
@@ -264,7 +310,36 @@ const AdminProcessOrder = () => {
           </div>
         </div>
       </div>
-      {order?.orderStatus === "REJECTED" ?
+    
+      {order?.status === "By Self" ? (
+      
+        <div className="accept-reject-button">
+          <div> <p className="delivery-option-style">Delivery Option : BY SELF     </p></div>
+          <select
+            className="orderSelect"
+            name="input"
+            id="orderStatus"
+            placeholder="Order Status"
+            value={orderStatuses[order._id] || ""} // Use the status for this specific order
+            onChange={(e) =>
+              handlechangeOrderStatus(e, order._id)
+            }
+          >
+
+            <option value="">PROCESSING DELIVERY </option>
+            <option value="Ready to Pack">Ready to Pack </option>
+            <option value="Packed">Packed</option>
+            <option value="Added to Picklist">
+            Added to Picklist
+            </option>
+            <option value="Picked up">
+            Picked up
+            </option>
+          </select>
+        </div>
+      ) : (
+        <div>
+  {order?.orderStatus === "REJECTED" ?
         <div className="accept-reject-button-rejection">
           <span>The order was Rejected , and Refund was Initiated </span>
         </div>
@@ -286,6 +361,9 @@ const AdminProcessOrder = () => {
           )}
         </div>
       }
+
+        </div>
+      )}
 
 
 
@@ -312,7 +390,7 @@ const AdminProcessOrder = () => {
                 checked={topping === "By Self"}
                 onChange={onOptionChange}
               />
-              <label htmlFor="regular">By Self</label>
+              <label htmlFor="regular" className="selected-option-admin">By Self</label>
             </div>
             <div>
               <input
@@ -323,7 +401,7 @@ const AdminProcessOrder = () => {
                 checked={topping === "By ShipRocket"}
                 onChange={onOptionChange}
               />
-              <label htmlFor="medium">By ShipRocket</label>
+              <label htmlFor="medium" className="selected-option-admin" >By ShipRocket</label>
             </div>
             <hr />
             <p>
@@ -351,19 +429,19 @@ const AdminProcessOrder = () => {
           <div className="input-table">
             <div className="height row mb-3">
               <lable className="col-2">Height ( in cm. ):</lable>
-              <input type="number" name="height" onChange={handleInputChange} className="col-8"></input>
+              <input type="tel" name="height" onChange={handleInputChange} className="col-8"></input>
             </div>
             <div className="length row mb-3">
               <lable className="col-2">Length ( in cm. ):</lable>
-              <input type="number" name="length" onChange={handleInputChange} className="col-8"></input>
+              <input type="tel" name="length" onChange={handleInputChange} className="col-8"></input>
             </div>
             <div className="breadth row mb-3">
               <lable className="col-2">Breadth ( in cm. ):</lable>
-              <input type="number" name="breadth" onChange={handleInputChange} className="col-8"></input>
+              <input type="tel" name="breadth" onChange={handleInputChange} className="col-8"></input>
             </div>
             <div className="weight row mb-3">
               <lable className="col-2">Weight ( in Kg. ):</lable>
-              <input type="number" name="weight" onChange={handleInputChange} className="col-8"></input>
+              <input type="tel" name="weight" onChange={handleInputChange} className="col-8"></input>
             </div>
 
             <div className="shipment-buttons">
