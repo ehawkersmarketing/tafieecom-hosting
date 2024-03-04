@@ -11,6 +11,8 @@ const { errorMonitor } = require("events");
 exports.requestApproval = async (req, res) => {
   try {
     const { orderId } = req.body;
+    console.log(getToken);
+
     const request = new requestModel({
       orderId: orderId,
     });
@@ -39,6 +41,8 @@ exports.requestApproval = async (req, res) => {
 exports.approveRequest = async (req, res) => {
   try {
     // console.log('called')
+    console.log(getToken);
+
     const { orderId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
@@ -71,7 +75,7 @@ exports.approveRequest = async (req, res) => {
         }
 
         // console.log("request accept atapprovalrequest",request);
-        // console.log();
+        console.log("order fetched successfully");
         let time = order.timestamps.toISOString();
         axios.post("https://backend.twicks.in/api/ship/createOrder",
           {
@@ -111,8 +115,9 @@ exports.approveRequest = async (req, res) => {
             weight: weight
           }
         ).then(async(shipment) => {
-                //  console.log("shippment whenodercreated",shipment)
+                 console.log("shippment whenodercreated",shipment)
           if (shipment) {
+            console.log("order completed")
             await orderModel.findOneAndUpdate({
               _id: request.orderId,
             }, {      
@@ -547,7 +552,7 @@ exports.getOrderDetsFunction=async(req,res)=> {
 console.log(id)
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
-  // console.log(getToken);
+  console.log(getToken);
 
   const options = {
     method: "get",

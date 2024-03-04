@@ -109,7 +109,7 @@ const Dashboard = () => {
         <div className="div3">
           <div className="div3Heading">
             <div>
-              <h1>EMPOWER</h1>
+              <h1 className="empower-heading">EMPOWER</h1>
             </div>
             <div className="div3SubHead">
               <h4>

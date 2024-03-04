@@ -175,7 +175,7 @@
   text-align: center;
   font-weight: 500;
   font-size: 6.5rem;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif !important;
   background-image: -webkit-linear-gradient(
     20deg,
     #e8cd82 10.01%,
@@ -707,6 +707,11 @@
     width: 100%;
   }
   .div4 .soilDiv .franchiseInfo .franchHeading {
+    margin: 0;
+  }
+  .div3 h1 {
+    font-size: 3rem;
+    font-weight: 800;
     margin: 0;
   }
 }
