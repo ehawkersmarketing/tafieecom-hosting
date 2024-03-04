@@ -383,6 +383,7 @@ exports.createOrder = async (req, res) => {
     let getToken = await srlogin();
     console.log("below is the api key token recieved");
     console.log(getToken);
+    console.log(getToken.status)
 
     if (getToken.status) {
       await axios
@@ -436,7 +437,7 @@ exports.createOrder = async (req, res) => {
           console.log(response);
           console.log("))))))))))))))))))))")
 
-          console.log(response.data.order_id);
+          console.log("order_id",response.data.order_id);
           console.log(response.data.shipment_id);
           const { data: awb } = await axios.post(
             "http://localhost:8080/api/ship/generateAWB",
@@ -575,10 +576,6 @@ console.log(id)
   }
 }
 
-
-
-
-
 //GET || getting details of an order using order_id
 // exports.getOrderDetsFunction = async (req, res) => {
 //   let id = req.params.id;
@@ -622,6 +619,8 @@ console.log(id)
 // };
 
 //POST || generating AWB for order mandatory for shipment pickup
+
+
 exports.generateAWBFunction = async (req, res) => {
   let { shipment_id } = req.body;
   // console.log("generating AWB");
