@@ -340,7 +340,7 @@ exports.calcShipment = async (req, res) => {
     });
   }
 };
-let order_id;
+
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
   const {
@@ -437,7 +437,6 @@ exports.createOrder = async (req, res) => {
         )
         .then(async function (response) {
           console.log("))))))))))))))))))))");
-          order_id = response.data.order_id;
           console.log("order_id", response.data.order_id);
           const { data: awb } = await axios.post(
             "http://localhost:8080/api/ship/generateAWB",
@@ -547,7 +546,7 @@ exports.createOrder = async (req, res) => {
 };
 
 exports.getOrderDetsFunction = async (req, res) => {
-  console.log("order_id =>", order_id);
+  console.log("order_id");
   let getToken = await srlogin();
   console.log(getToken);
   console.log("##########################################");
