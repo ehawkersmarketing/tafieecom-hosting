@@ -460,6 +460,7 @@ exports.createOrder = async (req, res) => {
                 }
               );
               if (manifest.success) {
+                console.log("manifest worked successfully")
                 await orderModel.findOneAndUpdate(
                   { _id: order_id },
                   { manifest: manifest.data }
@@ -486,6 +487,7 @@ exports.createOrder = async (req, res) => {
                     }
                   );
                   if (invoice.success) {
+                    console.log("invoice")
                     await orderModel.findOneAndUpdate(
                       { _id: order_id },
                       {
@@ -863,6 +865,71 @@ exports.generateManifestFunction = async (req, res) => {
   }
 };
 
+// //GET || getting shipment details by shipment id
+// exports.shipmentDetsFunction = async (req, res) => {
+//   console.log("getting shipment details");
+//   let { shipment_id } = req.body;
+//   let getToken = await srlogin();
+//   console.log("below is the api key token recieved");
+//   console.log(getToken);
+
+//   if (getToken) {
+//     let options = {
+//       method: "get",
+//       maxBodyLength: Infinity,
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${getToken.mainToken}`,
+//       },
+//       url: "https://apiv2.shiprocket.in/v1/external/shipments/" + shipment_id,
+//     };
+
+//     await axios(options)
+//       .then(function (response) {
+//         if (response == {}) {
+//           return res.send({
+//             success: failure,
+//             message: "No shipment found",
+//           });
+//         }
+//         let shipDets = response.data.data;
+//         console.log(shipDets);
+
+// const orderInstance = new orderModel({
+//  shipment_id: shipDets.id,
+//  shippingOrderId: shipDets.order_id,
+// })
+
+// try {
+//  await orderInstance.save();
+//  console.log('Order saved successfully');
+// } catch (error) {
+//  console.error('Error saving order:', error);
+//  return res.status(500).send({
+//     success: false,
+//     message: 'Error saving order details',
+//  });
+// }
+//         return res.status(200).send({
+//           success: true,
+//           message: "Shipment details",
+//           data: shipDets,
+//         });
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//         return res.status(error.response.data.status).send({
+//           success: false,
+//           message: error.response.data.message,
+//         });
+//       });
+//   }
+// };
+
+
+
+
+
 //GET || getting shipment details by shipment id
 exports.shipmentDetsFunction = async (req, res) => {
   console.log("getting shipment details");
@@ -870,43 +937,63 @@ exports.shipmentDetsFunction = async (req, res) => {
   let getToken = await srlogin();
   console.log("below is the api key token recieved");
   console.log(getToken);
-
+ 
   if (getToken) {
-    let options = {
-      method: "get",
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken.mainToken}`,
-      },
-      url: "https://apiv2.shiprocket.in/v1/external/shipments/" + shipment_id,
-    };
-
-    await axios(options)
-      .then(function (response) {
-        if (response == {}) {
-          return res.send({
-            success: failure,
-            message: "No shipment found",
-          });
-        }
-        let shipDets = response.data.data;
-        console.log(shipDets);
-        return res.status(200).send({
-          success: true,
-          message: "Shipment details",
-          data: shipDets,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-        return res.status(error.response.data.status).send({
-          success: false,
-          message: error.response.data.message,
-        });
-      });
+     let options = {
+       method: "get",
+       maxBodyLength: Infinity,
+       headers: {
+         "Content-Type": "application/json",
+         Authorization: `Bearer ${getToken.mainToken}`,
+       },
+       url: "https://apiv2.shiprocket.in/v1/external/shipments/" + shipment_id,
+     };
+ 
+     try {
+       const response = await axios(options);
+       if (!response.data.data) {
+         return res.send({
+           success: false, // Assuming 'failure' is a typo, corrected to false
+           message: "No shipment found",
+         });
+       }
+       let shipDets = response.data.data;
+       console.log(shipDets);
+ 
+       const orderInstance = new orderModel({
+         shipment_id: shipDets.id,
+         shippingOrderId: shipDets.order_id,
+       });
+ 
+       try {
+         await orderInstance.save();
+         console.log('Order saved successfully');
+       } catch (error) {
+         console.error('Error saving order:', error);
+         return res.status(500).send({
+           success: false,
+           message: 'Error saving order details',
+         });
+       }
+ 
+       return res.status(200).send({
+         success: true,
+         message: "Shipment details",
+         data: shipDets,
+       });
+     } catch (error) {
+       console.log(error);
+       return res.status(error.response.data.status).send({
+         success: false,
+         message: error.response.data.message,
+       });
+     }
   }
-};
+ };
+ 
+
+
+
 
 //POST || cancelling shipment by shipment id
 exports.cancelShipmentFunction = async (req, res) => {
