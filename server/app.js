@@ -16,6 +16,7 @@ const serviceRoute = require('./routes/serviceRoute/serviceRoute')
 const shipRoute = require("./routes/shipRoute/shipRoute");
 const reviewRoute = require('./routes/review/reviewRoute');
 const orderRoute = require("./routes/orderRoute/orderRoute");
+const enquiryRoute = require("./routes/enquiryRoute/enquiryRoute");
 const googleAuthRoute = require("./routes/googleAuthRoute/googleAuthRoute");
 const path = require("path");
 const graphRoute = require('./routes/graphRoute/graphRoute')
@@ -34,6 +35,7 @@ app.use(cors())
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Api-Key", "Content-Type")
   next();
 });
 // const _dirname = path.dirname("")
@@ -75,7 +77,8 @@ app.use("/api", orderRoute);
 app.use("/api/ship", shipRoute);
 app.use("/api", serviceRoute);
 app.use("/api", reviewRoute);
-app.use("/api" , graphRoute)
+app.use("/api" , graphRoute);
+app.use("/api" , enquiryRoute)
 
 app.use(express.static("public"));
 app.get("/:file", (req, res) => {
