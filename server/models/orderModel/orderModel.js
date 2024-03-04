@@ -69,6 +69,9 @@ const orderSchema = new mongoose.Schema(
         },
         status:{
             type:String,
+        },
+        shippingOrderId:{
+            type:Number
         }
     },
     { timestamps: true }
