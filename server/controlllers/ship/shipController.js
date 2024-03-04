@@ -336,7 +336,7 @@ exports.calcShipment = async (req, res) => {
     });
   }
 };
-
+let order_id;
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
   // console.log("dsjhbuygesufheys");
@@ -434,10 +434,19 @@ exports.createOrder = async (req, res) => {
           }
         )
         .then(async function (response) {
+          
+
           console.log("))))))))))))))))))))")
           console.log(response);
           console.log("))))))))))))))))))))")
-
+          const orderDets = await axios.get(`http://localhost:8080/api/ship/orderDets/${response.data.order_id}`,{
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getToken.mainToken}`,
+            }
+          })
+            console.log(orderDets)
+          order_id = response.data.order_id;
           console.log("order_id",response.data.order_id);
           console.log(response.data.shipment_id);
           const { data: awb } = await axios.post(
@@ -551,11 +560,9 @@ exports.createOrder = async (req, res) => {
 
 
 exports.getOrderDetsFunction=async(req,res)=> {
-  let id = req.params.id;
-console.log(id)
-console.log("order_id =>" , response.data)
+console.log("order_id =>")
   let getToken = await srlogin();
-  console.log("below is the api key token recieved");
+  console.log("===================");
   console.log(getToken);
   console.log("##########################################")
 
@@ -565,7 +572,7 @@ console.log("order_id =>" , response.data)
       "Content-Type": "application/json", // Consider testing with and without this header
       Authorization: `Bearer ${getToken}`,
     },
-    url: `https://apiv2.shiprocket.in/v1/external/orders/show/${response?.data.order_id}`,
+    url: `https://apiv2.shiprocket.in/v1/external/orders/show/${order_id}`,
   };
 
   try {
