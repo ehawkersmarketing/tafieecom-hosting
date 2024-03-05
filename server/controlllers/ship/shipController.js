@@ -498,6 +498,7 @@ exports.createOrder = async (req, res) => {
             }
           );
           if (awb.success) {
+            console.log("pickup")
             const { data: pickUp } = await axios.post(
               "https://backend.twicks.in/api/ship/pickup",
               {
@@ -692,6 +693,7 @@ exports.generateAWBFunction = async (req, res) => {
   let { shipment_id } = req.body;
 
   let getToken = await srlogin();
+  console.log("api called here",getToken.mainToken)
   console.log(getToken);
 
   let paramers = "shipment_id=" + shipment_id;
@@ -716,7 +718,7 @@ exports.generateAWBFunction = async (req, res) => {
             success: true,
             message: "AWB generated successfully",
           });
-        } else {
+        } else {console.log("error in awb" , error )
           return res.json({
             success: false,
             message: response.data.message,
