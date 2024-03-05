@@ -527,15 +527,13 @@ exports.createOrder = async (req, res) => {
                 );
               
                 if (shipmentDetails.success) {
-                  console.log("shipment details",response.data)
-                  console.log("gbjkgjf",response.data.data)
-                  console.log("awb no",shipmentDetails.data.data )
+                  console.log("awb no",shipmentDetails.data.data.awb )
                   await orderModel.findOneAndUpdate(
                     { _id: order_id},
                     {
                       shipment_id: response.data.shipment_id,
-                      awb: shipmentDetails.data.awb,
-                      orderId: shipmentDetails.data.order_id,
+                      awb: shipmentDetails.data.data.awb,
+                      orderId: shipmentDetails.data.data.order_id,
                     }
                   );
                   const { data: invoice } = await axios.post(
