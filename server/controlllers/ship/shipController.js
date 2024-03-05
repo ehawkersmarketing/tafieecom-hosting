@@ -539,7 +539,7 @@ exports.createOrder = async (req, res) => {
                   const { data: invoice } = await axios.post(
                     "https://backend.twicks.in/api/ship/generateInvoice",
                     {
-                      order_ids: shipmentDetails.data.order_id,
+                      order_ids: shipmentDetails.data.data.order_id,
                     }
                   );
                   if (invoice.success) {
