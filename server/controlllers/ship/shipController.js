@@ -440,13 +440,42 @@ exports.createOrder = async (req, res) => {
           console.log("))))))))))))))))))))");
           console.log("order" , response.data)
           console.log("order_id", response.data.order_id);
-          const orderIdShipping = await orderModel.findOneAndUpdate({
-            shipment_id:response.data.shipment_id,
-            shippingOrderId:response.data.order_id
-          }) 
+
+
+
+
+
+
+
+          const orderIdShipping = await orderModel.findOneAndUpdate(
+            { shipment_id: response.data.shipment_id, shippingOrderId: response.data.order_id },
+            {
+              
+               shipment_id: response.data.shipment_id,
+               shippingOrderId: response.data.order_id,
+            },
+            { new: true } 
+           );
+           
+           console.log("Updated orderShipping:", orderIdShipping);
+
+
+
+
+
+
+
+
+
+
+
+          // const orderIdShipping = await orderModel.findOneAndUpdate({
+          //   shipment_id:response.data.shipment_id,
+          //   shippingOrderId:response.data.order_id
+          // }) 
           
-          console.log("orderShipping" ,orderIdShipping)
-          await orderIdShipping.save();
+          // console.log("orderShipping" ,orderIdShipping)
+          // await orderIdShipping.save();
           
 
 
