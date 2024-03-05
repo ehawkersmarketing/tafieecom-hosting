@@ -66,6 +66,7 @@ exports.approveRequest = async (req, res) => {
           .populate("products.productId")
           .populate("user")
           .populate("userAddress");
+          console.log("data found here" , data)
         let orderItems = [];
         for (let i = 0; i < order.products.length; i++) {
           orderItems.push({
@@ -551,7 +552,7 @@ exports.getOrderDetsFunction = async (req, res) => {
   console.log("order_id");
   let getToken = await srlogin();
   console.log(getToken);
-  console.log("##########################################");
+  console.log("#####################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#####################");
 
   const options = {
     method: "get",
@@ -865,81 +866,16 @@ exports.generateManifestFunction = async (req, res) => {
   }
 };
 
-// //GET || getting shipment details by shipment id
-// exports.shipmentDetsFunction = async (req, res) => {
-//   console.log("getting shipment details");
-//   let { shipment_id } = req.body;
-//   let getToken = await srlogin();
-//   console.log("below is the api key token recieved");
-//   console.log(getToken);
-
-//   if (getToken) {
-//     let options = {
-//       method: "get",
-//       maxBodyLength: Infinity,
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${getToken.mainToken}`,
-//       },
-//       url: "https://apiv2.shiprocket.in/v1/external/shipments/" + shipment_id,
-//     };
-
-//     await axios(options)
-//       .then(function (response) {
-//         if (response == {}) {
-//           return res.send({
-//             success: failure,
-//             message: "No shipment found",
-//           });
-//         }
-//         let shipDets = response.data.data;
-//         console.log(shipDets);
-
-// const orderInstance = new orderModel({
-//  shipment_id: shipDets.id,
-//  shippingOrderId: shipDets.order_id,
-// })
-
-// try {
-//  await orderInstance.save();
-//  console.log('Order saved successfully');
-// } catch (error) {
-//  console.error('Error saving order:', error);
-//  return res.status(500).send({
-//     success: false,
-//     message: 'Error saving order details',
-//  });
-// }
-//         return res.status(200).send({
-//           success: true,
-//           message: "Shipment details",
-//           data: shipDets,
-//         });
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//         return res.status(error.response.data.status).send({
-//           success: false,
-//           message: error.response.data.message,
-//         });
-//       });
-//   }
-// };
 
 
-//
-// Your existing function with modifications for updating the order model
-
-
-
+//GET || getting shipment details by shipment id
 exports.shipmentDetsFunction = async (req, res) => {
- console.log("getting shipment details");
- let { shipment_id } = req.body;
- let getToken = await srlogin();
- console.log("below is the api key token recieved");
- console.log(getToken);
+  let { shipment_id } = req.body;
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved");
+  console.log(getToken);
 
- if (getToken) {
+  if (getToken) {
     let options = {
       method: "get",
       maxBodyLength: Infinity,
@@ -950,58 +886,34 @@ exports.shipmentDetsFunction = async (req, res) => {
       url: "https://apiv2.shiprocket.in/v1/external/shipments/" + shipment_id,
     };
 
-    try {
-      const response = await axios(options);
-      if (!response.data.data) {
-        return res.send({
-          success: false,
-          message: "No shipment found",
-        });
-      }
-      let shipDets = response.data.data;
-      console.log(shipDets);
-
-      // Update the order model with the new order_id
-      try {
-        const updatedOrder = await orderModel.findOneAndUpdate(
-          { shipment_id: shipDets.id }, // Find the order by shipment_id
-          { shippingOrderId: shipDets.order_id }, // Update the shippingOrderId field
-          { new: true } // Return the updated document
-        );
-
-        if (!updatedOrder) {
-          console.error('Order not found or not updated');
-          return res.status(404).send({
-            success: false,
-            message: 'Order not found or not updated',
+    await axios(options)
+      .then(function (response) {
+        if (response == {}) {
+          return res.send({
+            success: failure,
+            message: "No shipment found",
           });
         }
+        let shipDets = response.data.shipDets.data;
+        console.log("########################")
+        console.log(shipDets)
+        console.log("########################")
 
-        console.log('Order updated successfully');
-      } catch (error) {
-        console.error('Error updating order:', error);
-        return res.status(500).send({
-          success: false,
-          message: 'Error updating order details',
+        return res.status(200).send({
+          success: true,
+          message: "Shipment details",
+          data: shipDets,
         });
-      }
-
-      return res.status(200).send({
-        success: true,
-        message: "Shipment details",
-        data: shipDets,
+      })
+      .catch(function (error) {
+        console.log(error);
+        return res.status(error.response.data.status).send({
+          success: false,
+          message: error.response.data.message,
+        });
       });
-    } catch (error) {
-      console.log(error);
-      return res.status(error.response.data.status).send({
-        success: false,
-        message: error.response.data.message,
-      });
-    }
- }
+  }
 };
-
- 
 
 //POST || cancelling shipment by shipment id
 exports.cancelShipmentFunction = async (req, res) => {
