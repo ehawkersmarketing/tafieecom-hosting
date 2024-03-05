@@ -521,8 +521,6 @@ exports.createOrder = async (req, res) => {
                 // pickup_date: ,
               }
             );
-            console.log("shipmnt pickup",shipment_id)
-            console.log(response.data.shipment_id)
             if (pickUp.success) {
               const { data: manifest } = await axios.post(
                 "https://backend.twicks.in/api/ship/manifest",
@@ -530,7 +528,6 @@ exports.createOrder = async (req, res) => {
                   shipment_id: response.data.shipment_id,
                 }
               );
-              console.log("shipmnt",shipment_id)
               if (manifest.success) {
                 console.log("manifest worked successfully")
                 await orderModel.findOneAndUpdate(
@@ -543,8 +540,8 @@ exports.createOrder = async (req, res) => {
                     shipment_id: response.data.shipment_id,
                   }
                 );
-                console.log("shipment" ,shipment_id)
-                if (shipmentDetails.success) {
+                if (shipmentDetails.success) {  
+                    console.log("s",shipment_id ,)
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
