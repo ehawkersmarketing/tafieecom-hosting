@@ -104,8 +104,6 @@ const UpdateUser = () => {
       alert("Enter Email")
     }else if(inputHandler.userName===""){
       alert("Enter the UserName")
-    }else if(inputHandler.phone===""){
-      alert("Enter the phone number")
     }else if(inputHandler.street===""){
       alert("Enter the Street")
     }else if(inputHandler.zipCode===""){
@@ -162,18 +160,6 @@ const UpdateUser = () => {
                 name="userName"
                 value={inputHandler.userName}
                 placeholder="userName"
-              />
-            </div>
-            <div className="form_input">
-              <label htmlFor="phone">Phone</label>
-              <input
-                type="text"
-                onChange={onChangeInputHandler}
-                id="phone"
-                name="phone"
-                value={inputHandler.phone}
-                placeholder="phone"
-                maxLength={10}
               />
             </div>
             <div className="form_input">
