@@ -527,8 +527,9 @@ exports.createOrder = async (req, res) => {
                 );
               
                 if (shipmentDetails.success) {
-                  console.log("shipment details",response.data)
+                  // console.log("shipment details",response.data)
                   console.log("shipmentDetails complete",shipmentDetails)
+                  console.log("shipment data", shipmentDetails.data)
                   console.log("awb no",shipmentDetails.data.data.awb )
                   await orderModel.findOneAndUpdate(
                     { _id: order_id},
@@ -979,7 +980,7 @@ exports.shipmentDetsFunction = async (req, res) => {
             message: "No shipment found",
           });
         }
-        let shipDets = response.data;
+        let shipDets = response.data.data;
         console.log("########################")
         console.log(shipDets)
         console.log("########################")
