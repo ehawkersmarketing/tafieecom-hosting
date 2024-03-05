@@ -66,7 +66,7 @@ exports.approveRequest = async (req, res) => {
           .populate("products.productId")
           .populate("user")
           .populate("userAddress");
-          console.log("data found here" , data)
+          // console.log("data found here" , data)
         let orderItems = [];
         for (let i = 0; i < order.products.length; i++) {
           orderItems.push({
@@ -80,7 +80,7 @@ exports.approveRequest = async (req, res) => {
         }
 
         // console.log("request accept atapprovalrequest",request);
-        console.log("order fetched successfully");
+        // console.log("order fetched successfully");
         let time = order.timestamps.toISOString();
         axios
           .post("http://localhost:8080/api/ship/createOrder", {
@@ -386,8 +386,8 @@ exports.createOrder = async (req, res) => {
 
   async function newShipFunction() {
     let getToken = await srlogin();
-    console.log("token =======",getToken);
-    console.log(getToken.status);
+    // console.log("token =======",getToken);
+    // console.log(getToken.status);
 
     if (getToken.status) {
       await axios
@@ -438,7 +438,12 @@ exports.createOrder = async (req, res) => {
         )
         .then(async function (response) {
           console.log("))))))))))))))))))))");
+          console.log("order" , response.data)
           console.log("order_id", response.data.order_id);
+          // const {data:orderShippingId} = await orderModel.findOneAndUpdate({
+          //   shipment_id:response.data.shipment_id,
+          //   orderShippingId:
+          // })
           const { data: awb } = await axios.post(
             "http://localhost:8080/api/ship/generateAWB",
             {
