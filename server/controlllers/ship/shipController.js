@@ -444,8 +444,11 @@ exports.createOrder = async (req, res) => {
             shipment_id:response.data.shipment_id,
             shippingOrderId:response.data.order_id
           }) 
-          orderIdShipping.save();
+          
           console.log("orderShipping" ,orderIdShipping)
+          await orderIdShipping.save();
+          
+
 
           const { data: awb } = await axios.post(
             "https://backend.twicks.in/api/ship/generateAWB",
