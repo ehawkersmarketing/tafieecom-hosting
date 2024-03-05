@@ -48,9 +48,6 @@ exports.requestApproval = async (req, res) => {
 
 
 
-
-
-
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
@@ -437,15 +434,10 @@ exports.createOrder = async (req, res) => {
 
 
 
-
-
-
-
-
   async function newShipFunction() {
     let getToken = await srlogin();
-    // console.log("token =======",getToken);
-    // console.log(getToken.status);
+    console.log("token =======",getToken);
+    console.log(getToken.status);
 
     if (getToken.status) {
       await axios
@@ -608,6 +600,20 @@ exports.createOrder = async (req, res) => {
     }
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.getOrderDetsFunction = async (req, res) => {
   let { order_id } = req.body;
@@ -988,6 +994,49 @@ exports.shipmentDetsFunction = async (req, res) => {
       });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //POST || cancelling shipment by shipment id
 exports.cancelShipmentFunction = async (req, res) => {
