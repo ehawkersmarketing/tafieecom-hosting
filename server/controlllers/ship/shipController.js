@@ -521,6 +521,8 @@ exports.createOrder = async (req, res) => {
                 // pickup_date: ,
               }
             );
+            console.log("shipmnt pickup",shipment_id)
+            console.log(response.data.shipment_id)
             if (pickUp.success) {
               const { data: manifest } = await axios.post(
                 "http://localhost:8080/api/ship/manifest",
@@ -528,7 +530,7 @@ exports.createOrder = async (req, res) => {
                   shipment_id: response.data.shipment_id,
                 }
               );
-              console.log("vv",shipment_id)
+              console.log("shipmnt",shipment_id)
               if (manifest.success) {
                 console.log("manifest worked successfully")
                 await orderModel.findOneAndUpdate(
