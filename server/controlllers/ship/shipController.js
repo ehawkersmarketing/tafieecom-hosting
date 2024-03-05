@@ -441,44 +441,6 @@ exports.createOrder = async (req, res) => {
           console.log("order" , response.data)
           console.log("order_id", response.data.order_id);
 
-
-
-
-
-
-
-          const orderIdShipping = await orderModel.findOneAndUpdate(
-            { shipment_id: response.data.shipment_id, shippingOrderId: response.data.order_id },
-            {
-              
-               shipment_id: response.data.shipment_id,
-               shippingOrderId: response.data.order_id,
-            },
-            { new: true } 
-           );
-           
-           console.log("Updated orderShipping:", orderIdShipping);
-
-
-
-
-
-
-
-
-
-
-
-          // const orderIdShipping = await orderModel.findOneAndUpdate({
-          //   shipment_id:response.data.shipment_id,
-          //   shippingOrderId:response.data.order_id
-          // }) 
-          
-          // console.log("orderShipping" ,orderIdShipping)
-          // await orderIdShipping.save();
-          
-
-
           const { data: awb } = await axios.post(
             "https://backend.twicks.in/api/ship/generateAWB",
             {
@@ -512,6 +474,7 @@ exports.createOrder = async (req, res) => {
                     shipment_id: response.data.shipment_id,
                   }
                 );
+                console.log("shipment" ,shipment_id)
                 if (shipmentDetails.success) {
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
@@ -934,7 +897,7 @@ exports.shipmentDetsFunction = async (req, res) => {
             message: "No shipment found",
           });
         }
-        let shipDets = response.data.shipDets.data;
+        let shipDets = response.data.shipDets;
         console.log("########################")
         console.log(shipDets)
         console.log("########################")
