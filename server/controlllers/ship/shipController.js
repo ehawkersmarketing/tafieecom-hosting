@@ -440,10 +440,13 @@ exports.createOrder = async (req, res) => {
           console.log("))))))))))))))))))))");
           console.log("order" , response.data)
           console.log("order_id", response.data.order_id);
-          // const {data:orderShippingId} = await orderModel.findOneAndUpdate({
-          //   shipment_id:response.data.shipment_id,
-          //   orderShippingId:
-          // })
+          const orderIdShipping = await orderModel.findOneAndUpdate({
+            shipment_id:response.data.shipment_id,
+            shippingOrderId:response.data.order_id
+          }) 
+          orderIdShipping.save();
+          console.log("orderShipping" ,orderIdShipping)
+
           const { data: awb } = await axios.post(
             "http://localhost:8080/api/ship/generateAWB",
             {
@@ -796,8 +799,8 @@ exports.setPickupFunction = async (req, res) => {
       )
       .then(function (response) {
         let data = response.data.response;
-        console.log("response");
-        console.log(response);
+        // console.log("response");
+        // console.log(response);
         if (response.data.pickup_status == 1) {
           return res.status(200).send({
             success: true,
@@ -828,8 +831,8 @@ exports.generateManifestFunction = async (req, res) => {
   console.log("generate manifest");
   let { shipment_id } = req.body;
   let getToken = await srlogin();
-  console.log("below is the api key token recieved");
-  console.log(getToken);
+  // console.log("below is the api key token recieved");
+  // console.log(getToken);
 
   if (getToken) {
     await axios
@@ -847,7 +850,7 @@ exports.generateManifestFunction = async (req, res) => {
       )
       .then(function (response) {
         let manifest_url = response.data.manifest_url;
-        console.log(response);
+        // console.log(response);
         if (manifest_url === "") {
           return res.send({
             success: false,
@@ -877,8 +880,8 @@ exports.generateManifestFunction = async (req, res) => {
 exports.shipmentDetsFunction = async (req, res) => {
   let { shipment_id } = req.body;
   let getToken = await srlogin();
-  console.log("below is the api key token recieved");
-  console.log(getToken);
+  // console.log("below is the api key token recieved");
+  // console.log(getToken);
 
   if (getToken) {
     let options = {
@@ -912,9 +915,9 @@ exports.shipmentDetsFunction = async (req, res) => {
       })
       .catch(function (error) {
         console.log(error);
-        return res.status(error.response.data.status).send({
+        return res.status(error.response).send({
           success: false,
-          message: error.response.data.message,
+          message: "catch error in shipment",
         });
       });
   }
@@ -930,8 +933,8 @@ exports.cancelShipmentFunction = async (req, res) => {
     });
   }
   let getToken = await srlogin();
-  console.log("below is the api key token recieved");
-  console.log(getToken);
+  // console.log("below is the api key token recieved");
+  // console.log(getToken);
 
   if (getToken) {
     await axios
