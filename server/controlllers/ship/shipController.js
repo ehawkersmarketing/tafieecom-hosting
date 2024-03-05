@@ -528,7 +528,8 @@ exports.createOrder = async (req, res) => {
               
                 if (shipmentDetails.success) {
                   console.log("shipment details",response.data)
-                  console.log("awb no",shipmentDetails.data.awb )
+                  console.log("shipmentDetails complete",shipmentDetails)
+                  console.log("awb no",shipmentDetails.data.data.awb )
                   await orderModel.findOneAndUpdate(
                     { _id: order_id},
                     {
