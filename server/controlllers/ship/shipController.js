@@ -549,7 +549,8 @@ exports.createOrder = async (req, res) => {
 };
 
 exports.getOrderDetsFunction = async (req, res) => {
-  console.log("order_id");
+  let { order_id } = req.body;
+    console.log("order_id");
   let getToken = await srlogin();
   console.log(getToken);
   console.log("#####################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#####################");
@@ -560,19 +561,18 @@ exports.getOrderDetsFunction = async (req, res) => {
       "Content-Type": "application/json", // Consider testing with and without this header
       Authorization: `Bearer ${getToken.mainToken}`,
     },
-    url: `https://apiv2.shiprocket.in/v1/external/orders/show/499292994`,
+    url: `https://apiv2.shiprocket.in/v1/external/orders/show/${order_id}`,
   };
 
   try {
     const response = await axios(options);
-    console.log("shiprocket order detail shipmment", response);
+    console.log("shiprocket order detail shipmment", response.data);
     // Handle the response data here
   } catch (error) {
     console.error(
       "Error fetching order details:",
       error.response ? error.response.data : error.message
     );
-    // Handle the error here, e.g., send a response back to the client
   }
 };
 
