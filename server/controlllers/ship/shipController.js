@@ -497,15 +497,7 @@ exports.createOrder = async (req, res) => {
         .then(async function (response) {
           console.log("))))))))))))))))))))");
           console.log("order" , response.data)
-          console.log("order_id", response.data.channel_order_id);
-           
-        // const order_Id = await orderModel.findOneAndUpdate({order_id:order_id},{
-        //   shippingOrderId:response.data.order_id,
-        //   shipment_id:response.data.shipment_id
-        // })
-        // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$")
-        // console.log(order_Id)
-        // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$")
+          console.log("order_id", response.data.order_id);
 
           const { data: awb } = await axios.post(
             "https://backend.twicks.in/api/ship/generateAWB",
@@ -540,8 +532,8 @@ exports.createOrder = async (req, res) => {
                     shipment_id: response.data.shipment_id,
                   }
                 );
-                if (shipmentDetails.success) {  
-                    console.log("s",shipment_id ,)
+                console.log("shipment" ,shipment_id)
+                if (shipmentDetails.success) {
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
