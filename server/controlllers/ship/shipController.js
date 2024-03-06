@@ -479,7 +479,7 @@ exports.createOrder = async (req, res) => {
                 if (shipmentDetails.success) {
                   console.log("shipment details", shipmentDetails.data.data);
                   console.log("ettrewqwre",shipmentDetails.data.data.order_id)
-                  console.log("gof",shipmentDetails.data.data.awb)
+                  // console.log("gofkvd",shipmentDetails.data.data.awb)
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
@@ -618,8 +618,7 @@ exports.generateAWBFunction = async (req, res) => {
         "https://apiv2.shiprocket.in/v1/external/courier/assign/awb?" +
         paramers,
     };
-    await axios
-      .request(options)
+    await axios.request(options)
       .then(function (response) {
         if (response.data.awb_assign_status !== 0) {
           return res.json({
