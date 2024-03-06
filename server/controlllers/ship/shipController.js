@@ -132,7 +132,7 @@ exports.approveRequest = async (req, res) => {
             weight: weight,
           })
           .then(async (shipment) => {
-            // console.log("shippment whenodercreated", shipment);
+            console.log("shippment whenodercreated", shipment);
             if (shipment) {
               console.log("order completed");
               await orderModel.findOneAndUpdate(
@@ -165,7 +165,6 @@ exports.approveRequest = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log('error caught',err)
     res.json({
       success: false,
       message: err,
@@ -526,23 +525,25 @@ exports.createOrder = async (req, res) => {
                     shipment_id: response.data.shipment_id,
                   }
                 );
-              
+             
                 if (shipmentDetails.success) {
+                  console.log("shipment details",response.data)
                   await orderModel.findOneAndUpdate(
-                    { _id: order_id},
+                    { _id: order_id },
                     {
                       shipment_id: response.data.shipment_id,
-                      awb: shipmentDetails.data.data.awb,
-                      orderId: shipmentDetails.data.data.order_id,
+                      awb: shipmentDetails.data.awb,
+                      orderId: shipmentDetails.data.order_id,
                     }
                   );
                   const { data: invoice } = await axios.post(
                     "http://localhost:8080/api/ship/generateInvoice",
                     {
-                      order_ids: shipmentDetails.data.data.order_id,
+                      order_ids: shipmentDetails.data.order_id,
                     }
                   );
                   if (invoice.success) {
+                    console.log("invoice")
                     await orderModel.findOneAndUpdate(
                       { _id: order_id },
                       {
@@ -616,33 +617,33 @@ exports.createOrder = async (req, res) => {
 
 
 
-exports.getOrderDetsFunction = async (req, res) => {
-  let { order_id } = req.body;
-    console.log("order_id");
-  let getToken = await srlogin();
-  console.log(getToken);
-  console.log("#####################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#####################");
+// exports.getOrderDetsFunction = async (req, res) => {
+//   let { order_id } = req.body;
+//     console.log("order_id");
+//   let getToken = await srlogin();
+//   console.log(getToken);
+//   console.log("#####################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#####################");
 
-  const options = {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json", // Consider testing with and without this header
-      Authorization: `Bearer ${getToken.mainToken}`,
-    },
-    url: `https://apiv2.shiprocket.in/v1/external/orders/show/${order_id}`,
-  };
+//   const options = {
+//     method: "get",
+//     headers: {
+//       "Content-Type": "application/json", // Consider testing with and without this header
+//       Authorization: `Bearer ${getToken.mainToken}`,
+//     },
+//     url: `https://apiv2.shiprocket.in/v1/external/orders/show/${order_id}`,
+//   };
 
-  try {
-    const response = await axios(options);
-    console.log("shiprocket order detail shipmment", response.data);
-    // Handle the response data here
-  } catch (error) {
-    console.error(
-      "Error fetching order details:",
-      error.response ? error.response.data : error.message
-    );
-  }
-};
+//   try {
+//     const response = await axios(options);
+//     console.log("shiprocket order detail shipmment", response.data);
+//     // Handle the response data here
+//   } catch (error) {
+//     console.error(
+//       "Error fetching order details:",
+//       error.response ? error.response.data : error.message
+//     );
+//   }
+// };
 
 
 
@@ -713,13 +714,12 @@ exports.generateAWBFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
-        console.log(response)
         if (response.data.awb_assign_status !== 0) {
           return res.json({
             success: true,
             message: "AWB generated successfully",
           });
-        } else {
+        } else {console.log("error in awb" , error )
           return res.json({
             success: false,
             message: response.data.message,
@@ -780,7 +780,7 @@ exports.generateInvoiceFunction = async (req, res) => {
   // https://apiv2.shiprocket.in/v1/external/orders/print/invoice
 
   let { order_ids } = req.body;
-console.log(order_ids)
+
   let getToken = await srlogin();
   console.log("below is the api key token recieved: ");
   console.log(getToken);
