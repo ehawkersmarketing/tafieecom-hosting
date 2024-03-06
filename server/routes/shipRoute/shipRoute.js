@@ -44,6 +44,6 @@ router.post("/generateRetAWB", generateRetAWBFunction);
 
 router.post("/generateInvoice", generateInvoiceFunction);
 
-router.get("/orderDets/:id", getOrderDetsFunction);
+router.get("/orderDets", getOrderDetsFunction);
 
 module.exports = router;

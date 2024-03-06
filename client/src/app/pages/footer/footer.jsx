@@ -64,7 +64,7 @@ const Footer = () => {
       }
     )
     if (data.data.data.status) {
-      toast.success("dhanyawaad", {
+      toast.success("Data Send Successfully", {
         position: "top-right",
         autoClose: 8000,
         pauseOnHover: true,
@@ -73,7 +73,7 @@ const Footer = () => {
       });
     } else {
       console.log("failed submit");
-      toast.success("ni ho raha success lekin data chala gaya tha yrr", {
+      toast.success("Failed during Sending message", {
         position: "top-right",
         autoClose: 8000,
         pauseOnHover: true,
