@@ -542,14 +542,13 @@ console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
                 );
              
                 if (shipmentDetails.success) {
-                  console.log("shipment details",shipmentDetails);
-                  console.log(response.data);
+                  console.log("shipment details",shipmentDetails.data.data);
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
                       shipment_id: response.data.shipment_id,
-                      awb: shipmentDetails.data.awb,
-                      orderId: shipmentDetails.data.order_id,
+                      awb: shipmentDetails.data.data.awb,
+                      orderId: shipmentDetails.data.data.order_id,
                     }
                   );
                   const { data: invoice } = await axios.post(
