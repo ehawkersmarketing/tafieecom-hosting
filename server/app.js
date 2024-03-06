@@ -4,6 +4,7 @@ const express = require("express");
 require("./mongodb/mongodb");
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
+const puppeteer = require('puppeteer');
 const app = express();
 const authRoute = require("./routes/authRoute/authRoute");
 const cookieSession = require("cookie-session");
@@ -23,6 +24,30 @@ const graphRoute = require('./routes/graphRoute/graphRoute')
 // require('./middleware/passport')(passport);
 
 app.use(express.json());
+
+
+
+//below function if of mobile app
+app.post('/generate-pdf', async (req, res) => {
+  const { html } = req.body;
+ 
+  try {
+     const browser = await puppeteer.launch();
+     const page = await browser.newPage();
+     await page.setContent(html);
+     const pdf = await page.pdf({ format: 'A4' });
+ 
+     await browser.close();
+ 
+     res.set({ 'Content-Type': 'application/pdf', 'Content-Length': pdf.length });
+     res.send(pdf);
+  } catch (error) {
+     console.error(error);
+     res.status(500).send('Error generating PDF');
+  }
+ });
+
+ 
 app.use(cors())
 // app.use(
 //   cors({
