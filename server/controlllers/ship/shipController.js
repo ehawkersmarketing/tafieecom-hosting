@@ -528,7 +528,6 @@ exports.createOrder = async (req, res) => {
                 );
               
                 if (shipmentDetails.success) {
-                  console.log("awb no",shipmentDetails.data.data.awb )
                   await orderModel.findOneAndUpdate(
                     { _id: order_id},
                     {
@@ -544,7 +543,6 @@ exports.createOrder = async (req, res) => {
                     }
                   );
                   if (invoice.success) {
-                    console.log("invoice")
                     await orderModel.findOneAndUpdate(
                       { _id: order_id },
                       {
@@ -715,12 +713,13 @@ exports.generateAWBFunction = async (req, res) => {
     await axios
       .request(options)
       .then(function (response) {
+        console.log(response)
         if (response.data.awb_assign_status !== 0) {
           return res.json({
             success: true,
             message: "AWB generated successfully",
           });
-        } else {console.log("error in awb" , error )
+        } else {
           return res.json({
             success: false,
             message: response.data.message,
