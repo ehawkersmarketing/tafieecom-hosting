@@ -500,9 +500,10 @@ exports.createOrder = async (req, res) => {
             },
             { new: true } 
           );
-
+console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
           console.log(updateOrderDetails)
-        
+          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
 
 
           const { data: awb } = await axios.post(
