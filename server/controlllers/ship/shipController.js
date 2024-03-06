@@ -491,6 +491,20 @@ exports.createOrder = async (req, res) => {
           console.log("order" , response.data)
           console.log("order_id", response.data.order_id);
 
+          const updateOrderDetails = await orderModel.findOneAndUpdate(
+            { _id: response.data.channel_order_id }, 
+            {
+              shippingOrderId: response.data.order_id,
+              shipment_id: response.data.shipment_id,
+      
+            },
+            { new: true } 
+          );
+
+          console.log(updateOrderDetails)
+        
+
+
           const { data: awb } = await axios.post(
             "http://localhost:8080/api/ship/generateAWB",
             {
