@@ -478,6 +478,7 @@ exports.createOrder = async (req, res) => {
 
                 if (shipmentDetails.success) {
                   console.log("shipment details", response.data);
+                  console.log("ettrewqwre",shipmentDetails)
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
