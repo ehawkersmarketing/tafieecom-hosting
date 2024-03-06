@@ -542,7 +542,8 @@ console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
                 );
              
                 if (shipmentDetails.success) {
-                  console.log("shipment details",response.data)
+                  console.log("shipment details",shipmentDetails);
+                  console.log(response.data);
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
