@@ -477,8 +477,9 @@ exports.createOrder = async (req, res) => {
                 );
 
                 if (shipmentDetails.success) {
-                  console.log("shipment details", response.data);
-                  console.log("ettrewqwre",shipmentDetails)
+                  console.log("shipment details", shipmentDetails.data.data);
+                  console.log("ettrewqwre",shipmentDetails.data.data.order_id)
+                  console.log("gof",shipmentDetails.data.data.awb)
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
@@ -684,7 +685,7 @@ exports.generateInvoiceFunction = async (req, res) => {
   // https://apiv2.shiprocket.in/v1/external/orders/print/invoice
 
   let { order_ids } = req.body;
-
+    console.log(order_ids)
   let getToken = await srlogin();
   console.log("below is the api key token recieved: ");
   console.log(getToken);
@@ -716,7 +717,9 @@ exports.generateInvoiceFunction = async (req, res) => {
         }
       )
       .then(function (response) {
+        console.log(response)
         let invoice_url = response.data.invoice_url;
+        console.log(invoice_url)
         res.status(200).send({
           success: true,
           message: "Order invoice generated check here: ",
