@@ -663,47 +663,55 @@ console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
 
 
-//GET || getting details of an order using order_id
+// GET || getting details of an order using order_id
 
-// exports.getOrderDetsFunction = async (req, res) => {
-//   let { order_id } = req.body;
+exports.getOrderDetsFunction = async (req, res) => {
+  let { order_id } = req.query;
 
-//   let getToken = await srlogin();
-//   console.log("below is the api key token recieved");
-//   console.log(getToken);
+  let getToken = await srlogin();
+  console.log("below is the api key token recieved");
+  console.log(getToken);
 
-//   if (getToken) {
-//     let options = {
-//       method: "get",
-//       maxBodyLength: Infinity,
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${getToken.mainToken}`,
-//       },
-//       url: "https://apiv2.shiprocket.in/v1/external/orders/show/" + order_id,
-//     };
+  if (getToken) {
+    let options = {
+      method: "get",
+      maxBodyLength: Infinity,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken.mainToken}`,
+      },
+      url: "https://apiv2.shiprocket.in/v1/external/orders/show/" + order_id,
+    };
 
-//     await axios(options)
-//       .then(function (response) {
-//         if (response == {}) {
-//           res.send({
-//             success: failure,
-//             message: "No order found",
-//           });
-//         }
-//         let orderDets = response.data.data;
-//         console.log("order Details showing",orderDets);
-//         res.status(200).send({
-//           success: true,
-//           message: "Order details are as follows: ",
-//           data: orderDets,
-//         });
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-//   }
-// };
+    await axios(options)
+      .then(function (response) {
+        if (response == {}) {
+          res.send({
+            success: failure,
+            message: "No order found",
+          });
+        }
+        let orderDets = response.data.data;
+        console.log("order Details showing",orderDets);
+        res.status(200).send({
+          success: true,
+          message: "Order details are as follows: ",
+          data: orderDets,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+};
+
+
+
+
+
+
+ 
+
 
 exports.generateAWBFunction = async (req, res) => {
   let { shipment_id } = req.body;

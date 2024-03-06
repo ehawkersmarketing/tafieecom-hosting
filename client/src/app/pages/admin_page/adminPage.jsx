@@ -69,9 +69,9 @@ const AdminPage = () => {
     graphData?.map((dataSet, index) => {
       currentOrder = new Date();
       let previousOrder = new Date(dataSet.timestamps);
-    
+
       var diff = currentOrder.getMonth() - previousOrder.getMonth();
-      
+
       if (diff_months(currentOrder, previousOrder) !== 0) {
         if (dataSet?.orderStatus === "PROCESSING") {
           previousProcessingCount = previousProcessingCount + 1;
@@ -187,7 +187,7 @@ const AdminPage = () => {
 
   const fetchDeleted = async () => {
     const { data } = await axios.get(`http://localhost:8080/api/blogs`);
- 
+
     setBlogs(data.data);
   };
 
@@ -368,6 +368,30 @@ const AdminPage = () => {
         console.log(err);
       });
   };
+
+  const [shippingOrders, setShippingOrders] = useState([]);
+  const fetchOrderDetails = async (order_id) => {
+    try {
+      // Include order_id as a query parameter in the URL
+      const response = await axios.get(
+        `http://localhost:8080/api/ship/orderDets?order_id=${order_id}`
+      );
+      console.log(response);
+      if (response.data.success) {
+        console.log(response.data);
+        setShippingOrders(response.data.data.status);
+        console.log(response.data.data.status);
+      } else {
+        console.error("No order found");
+      }
+    } catch (error) {
+      console.error("Error fetching order details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderDetails("500462489");
+  }, []);
 
   return (
     <div className="admin-wrapper">
@@ -747,10 +771,14 @@ const AdminPage = () => {
                                   {order.amount}
                                 </td>
 
-                                  <td className="td table-center">
-                                    {order.orderStatus}
-                                  </td>
-                              
+                                <td className="td table-center">
+                                  {order.orderStatus === "COMPLETED" ? (
+                                    <div>{shippingOrders}</div> 
+                                  ) : (
+                                    <div>{order.orderStatus}</div> 
+                                  )}
+                                 
+                                </td>
 
                                 <td className="td table-center">
                                   {order.status}
