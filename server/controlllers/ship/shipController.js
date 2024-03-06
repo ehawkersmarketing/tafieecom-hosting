@@ -132,7 +132,7 @@ exports.approveRequest = async (req, res) => {
             weight: weight,
           })
           .then(async (shipment) => {
-            console.log("shippment whenodercreated", shipment);
+            // console.log("shippment whenodercreated", shipment);
             if (shipment) {
               console.log("order completed");
               await orderModel.findOneAndUpdate(
@@ -165,6 +165,7 @@ exports.approveRequest = async (req, res) => {
       }
     }
   } catch (err) {
+    console.log('error caught',err)
     res.json({
       success: false,
       message: err,
