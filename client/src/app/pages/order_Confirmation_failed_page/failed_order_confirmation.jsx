@@ -25,7 +25,7 @@ const OrderConformationFailedPage = () => {
         // Function to fetch order data from the backend
         const fetchOrder = async () => {
             try {
-                const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
+                const response = await fetch("https://backend.twicks.in/api/getOrderById/" + id);
                 if (response) {
                     const data = await response.json();
                     navigate(`/orderConfirmation/${id}`);
@@ -59,7 +59,7 @@ const OrderConformationFailedPage = () => {
         // Immediately invoked async function expression
         (async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`);
+                const response = await axios.get(`https://backend.twicks.in/api/ship/orderDets/${id}`);
                 // Handle the response here
             } catch (error) {
                 console.error("Error fetching order details:", error);

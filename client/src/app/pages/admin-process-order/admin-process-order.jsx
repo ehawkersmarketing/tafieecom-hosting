@@ -98,7 +98,7 @@ const AdminProcessOrder = () => {
 
   const orderStatusHandler = (id, orderStatus) => {
     axios
-      .patch(`http://localhost:8080/api/updateOrder/${id}`, {
+      .patch(`https://backend.twicks.in/api/updateOrder/${id}`, {
         length: 1,
         orderStatus: orderStatus,
       })

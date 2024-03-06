@@ -28,7 +28,7 @@ const Footer = () => {
 
   const submitEnquiry = async (event) => {
     const { data } = await axios.post(
-      "http://localhost:8080/api/generateEnquiry",
+      "https://backend.twicks.in/api/generateEnquiry",
       {
         name: formData.name,
         mobile: formData.mobile,
@@ -55,7 +55,7 @@ const Footer = () => {
 
   const sendToWhatsapp = async (event) => {
     const { data } = await axios.post(
-      "http://localhost:8080/api/sendToWhatsapp",
+      "https://backend.twicks.in/api/sendToWhatsapp",
       {
         name: formData.name,
         mobile: formData.mobile,
