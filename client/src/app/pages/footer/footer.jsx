@@ -88,16 +88,16 @@ const Footer = () => {
   };
 
   return (
-    <>
-      <div className="footer" id="bottom">
+    < div id="bottom">
+      <div className="footer" >
         <div className="main-footer">
           <div className="extracontainer"></div>
-          <div className="upper-container"></div>
+          <div className="upper-container" ></div>
           <div className="bottom-container">
             <div className="middle-container">
-              <div className="full-form">
-                <div className="in-image row">
-                  <div className="form-img col-sm-6 col-12">
+              <div className="full-form"  >
+                <div className="in-image row" >
+                  <div className="form-img col-sm-6 col-12" >
                     <div className="headingMainText aao-baat-kre">
                       <h1>आओ,</h1>
                       <h1>
@@ -283,7 +283,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
