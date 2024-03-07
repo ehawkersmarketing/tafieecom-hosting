@@ -5,43 +5,44 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import PosterCardBackground from "../../../../assets/poster_card_background.svg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {toast} from 'react-toastify';
+import { toast } from "react-toastify";
 const ShopPageCarouselCard = ({ cart, items }) => {
   const navigate = useNavigate();
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const onCartTap = async (id, inCart) => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
-    try{if (inCart) {
-      navigate(`/Cart`);
-    } else if(localStorage.getItem('user_id')){
-      await axios.put('http://localhost:8080/api/addToCart', {
-        productId: id,
-        userId: localStorage.getItem('user_id'),
-        units: 1
-      })
-      navigate(`/Cart`);
-    }else{
-      toast.error("Please login to add this item to your cart", {
-        position: "bottom-right",
-        autoClose: 8000,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-    });
-    }
-  }catch(error){
+    try {
+      if (inCart) {
+        navigate(`/Cart`);
+      } else if (localStorage.getItem("user_id")) {
+        await axios.put("http://localhost:8080/api/addToCart", {
+          productId: id,
+          userId: localStorage.getItem("user_id"),
+          units: 1,
+        });
+        navigate(`/Cart`);
+      } else {
+        toast.error("Please login to add this item to your cart", {
+          position: "bottom-right",
+          autoClose: 8000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
       toast.error(`${error.response.data.message}`, {
         position: "bottom-right",
         autoClose: 8000,
         pauseOnHover: true,
         draggable: true,
         theme: "dark",
-    });
+      });
     }
-    };
+  };
 
   return (
     <div>
@@ -62,7 +63,6 @@ const ShopPageCarouselCard = ({ cart, items }) => {
           {items?.map((item, index) => {
             const inCart = cart?.products.find((product) => {
               return product?.productId?._id === item._id;
-
             });
             return (
               <div className="shop-page-card">
@@ -72,7 +72,10 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                 <div className="shop-page-card-content row">
                   <div className="view-more col-md-6">
                     <div className="poster-text">
-                      <span className="fertilizer-text" onClick={() => navigate(`/product/${item._id}`)}>
+                      <span
+                        className="fertilizer-text"
+                        onClick={() => navigate(`/product/${item._id}`)}
+                      >
                         {item.category.category}
                       </span>
                       <span className="description-text">
@@ -111,12 +114,27 @@ const ShopPageCarouselCard = ({ cart, items }) => {
                           <span className="review">{item.reviews} Reviews</span>
                         </div>
                         <div className="price">Rs.{item.price}/-</div>
-                        <button
-                          className="cart-btn"
-                          onClick={(e) => onCartTap(item._id, inCart)}
-                        >
-                          {inCart ? "View Cart" : "Add to Cart"}
-                        </button>
+                        {user?.role.role === "Admin" ? (
+                          <button
+                            className="cart-btn"
+                            onClick={(e) =>  toast.error(`Please login with Non-Admin or Editor Account`, {
+                              position: "bottom-right",
+                              autoClose: 8000,
+                              pauseOnHover: true,
+                              draggable: true,
+                              theme: "dark",
+                            })}
+                          >
+                            Add to Cart
+                          </button>
+                        ) : (
+                          <button
+                            className="cart-btn"
+                            onClick={(e) => onCartTap(item._id, inCart)}
+                          >
+                            {inCart ? "View Cart" : "Add to Cart"}
+                          </button>
+                        )}
                       </div>
                       <div className="poster-card col-12">
                         <img src={item.image} alt="" />

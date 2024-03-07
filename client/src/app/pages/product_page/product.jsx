@@ -294,7 +294,22 @@ const Product = () => {
                     </div>
                     <div className="price">Rs.{product?.price} /-</div>
                     <div className="wishlistAndAddCart">
-                      {inCart ? (
+                    {user?.role.role === "Admin" ? (
+                          <button
+                            className="cart-btn"
+                            onClick={(e) =>  toast.error(`Please login with Non-Admin or Editor Account`, {
+                              position: "bottom-right",
+                              autoClose: 8000,
+                              pauseOnHover: true,
+                              draggable: true,
+                              theme: "dark",
+                            })}
+                          >
+                            Add to Cart
+                          </button>
+                        ) : (
+                         <div>
+  {inCart ? (
                         <div>
                           <button
                             class="minus"
@@ -318,6 +333,18 @@ const Product = () => {
                           Add To Cart
                         </button>
                       )}
+                         </div>
+                        )}
+
+
+
+
+
+
+
+                    
+
+
                     </div>
                   </div>
                 </card>
@@ -341,7 +368,7 @@ const Product = () => {
                 <h2 className="recommended">Recommended</h2>
                 <h2 className="foryou">For You</h2>
               </div>
-              <div className="product-page-carousal" onClick={scrollToTop}>
+              <div className="product-page-carousal" >
                 {allProducts && cart && (
                   <Carousal items={allProducts} cart={cart} />
                 )}
