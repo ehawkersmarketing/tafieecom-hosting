@@ -5,6 +5,7 @@
 }
 .user-account{
   height: 88.5vh;
+  
 }
 .user-account .account {
   height: 100%;
@@ -39,6 +40,7 @@
   margin-bottom: 1rem;
   margin-top: 1rem;
   padding: 0.5rem;
+  cursor: pointer;
 }
 .user-account .title {
   font-size: 12px;
@@ -131,6 +133,7 @@
 }
 .user-account .profile-detail{
     padding-top: 3%;
+    cursor: pointer;
 }
 .user-account .account-detail{
     padding-top: 4%;

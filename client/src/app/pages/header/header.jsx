@@ -29,9 +29,9 @@ const Header = () => {
            onClick: () => {
              // Clear local storage and navigate to the login page only after the user confirms
              localStorage.clear();
-             window.location.reload(); // Force refresh
-             navigate("/auth/login");
-           }
+            //  window.location.reload(); // Force refresh
+             window.location.href = "/auth/login"; // Directly navigate to the login page
+            }
          },
          {
            label: 'Cancel',
