@@ -172,7 +172,7 @@ const OrderConformationPage = () => {
                       <p className="col">
                         {data &&
                           `INR ${(
-                            data.amount + data.shipment_charge
+                            (data.amount + data.shipment_charge)/100
                           ).toLocaleString("en-IN")}`}
                       </p>
                     </div>

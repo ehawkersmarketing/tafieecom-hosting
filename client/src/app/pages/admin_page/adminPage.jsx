@@ -24,6 +24,8 @@ const AdminPage = () => {
     useFetch("/api/getAllService");
   const { data: users } = useFetch("/auth/users");
 
+  // console.log(orders)
+
   const [searchField, setSearchField] = useState({
     product: "",
     order: "",
@@ -371,28 +373,40 @@ const AdminPage = () => {
   };
 
   const [shippingOrders, setShippingOrders] = useState([]);
-  const fetchOrderDetails = async (order_id) => {
-    try {
-      // Include order_id as a query parameter in the URL
-      const response = await axios.get(
-        `http://localhost:8080/api/ship/orderDets?order_id=${order_id}`
-      );
-      console.log(response);
-      if (response.data.success) {
-        console.log(response.data);
-        setShippingOrders(response.data.data.status);
-        console.log(response.data.data.status);
-      } else {
-        console.error("No order found");
+ 
+    const fetchOrderDetails = async (order_id) => {
+      try {
+        // Include order_id as a query parameter in the URL
+        const response = await axios.get(
+          `http://localhost:8080/api/ship/orderDets?order_id=${order_id}`
+        );
+        console.log(response);
+        if (response.data.success) {
+          console.log(response.data);
+          setShippingOrders(response.data.data.status);
+          console.log(response.data.data.status);
+        } else {
+          console.error("No order found");
+        }
+      } catch (error) {
+        console.error("Error fetching order details:", error);
       }
-    } catch (error) {
-      console.error("Error fetching order details:", error);
-    }
-  };
+    };
 
-  useEffect(() => {
-    fetchOrderDetails("500462489");
-  }, []);
+    useEffect(() => {
+      fetchOrderDetails("500722112")
+      // orders?.map((item) => {
+      //   console.log(item?.orderId)
+      //   if (item?.orderId === undefined || item?.orderId === null) {
+      //     console.log("hello");
+      //   } else {
+      //     // Call fetchOrderDetails with the orderId
+      //     console.log("else called")
+      //    console.log(item?.orderId)
+      //     fetchOrderDetails(item.orderId);
+      //   }
+      // });
+   }, [orders]); // D
 
   return (
     <div className="admin-wrapper">
@@ -805,6 +819,8 @@ const AdminPage = () => {
                               </tr>
                             );
                           })}
+
+                        
                       </tbody>
                     </table>
                   </div>

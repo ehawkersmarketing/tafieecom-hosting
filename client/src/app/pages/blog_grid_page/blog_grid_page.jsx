@@ -163,7 +163,7 @@ const BlogPage = () => {
         {searchField !== "" && (
           <div className="blog-latest-post">
             <div>
-              <h4>Search Posts</h4>
+              <h4>Search Results</h4>
             </div>
             <div className="below-line">
               <div className="below-post"></div>
