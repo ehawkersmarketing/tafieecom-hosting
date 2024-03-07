@@ -18,7 +18,7 @@ const Map = () => {
               <h3>
                 <span>INDIA</span>
               </h3>
-              <div className="franchSubHead">
+              <div className="franchSubHead" id="bottom">
                 <h6>
                   Ready to take your farming <br />
                   journey to the <span> Next Level?</span>
@@ -27,8 +27,8 @@ const Map = () => {
             </div>
           </div>
         </div>
-        <div className="franDiv col-md-5 col-sm-6">
-          <div className="map-image w-100">
+        <div className="franDiv col-md-5 col-sm-6" >
+          <div className="map-image w-100" >
             <img src={map} alt="" />
           </div>
         </div>
