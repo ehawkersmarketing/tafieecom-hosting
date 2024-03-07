@@ -218,25 +218,25 @@ const AdminProcessOrder = () => {
           <div class="section col-6">
             <div class="section-title">Buyer Information</div>
             <div class="details row">
-              <p>Name: {user?.userName}</p>
-              <p>Email: {user?.email}</p>
-              <p>Phone: {user?.phone}</p>
+              <p>Name: {order?.user.userName}</p>
+              <p>Email: {order?.user.email}</p>
+              <p>Phone: {order?.user.phone}</p>
             </div>
           </div>
           <div class="section col-6">
             <div class="section-title">Billing To</div>
             <div class="details row">
-              <p>{userAddress?.street}</p>
-              <p>Pin: {userAddress?.zipCode}</p>
-              <p>City: {userAddress?.city}</p>
+              <p>{order?.userAddress.street}</p>
+              <p>Pin: {order?.userAddress.zipCode}</p>
+              <p>City: {order?.userAddress.city}</p>
             </div>
           </div>
           <div class="section col-6">
             <div class="section-title">Shipping To</div>
             <div class="details row">
-              <p>Address: {userAddress?.street}</p>
-              <p>Pin: {userAddress?.zipCode}</p>
-              <p>City: {userAddress?.city}</p>
+              <p>Address: {order?.userAddress.street}</p>
+              <p>Pin: {order?.userAddress.zipCode}</p>
+              <p>City: {order?.userAddress.city}</p>
             </div>
           </div>
           <div className="table-details">
@@ -280,7 +280,7 @@ const AdminProcessOrder = () => {
                   <td></td>
 
                   <td>{
-                    order?.shipment_charge
+                    (order?.shipment_charge)/100
                   }</td>
                 </tr>
                 <tr>
@@ -291,7 +291,7 @@ const AdminProcessOrder = () => {
                   <td></td>
 
                   <td>{
-                    order?.amount + order?.shipment_charge
+                  order?.amount + (order?.shipment_charge)/100
                   }</td>
                 </tr>
               </tfoot>

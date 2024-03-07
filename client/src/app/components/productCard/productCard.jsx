@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const ProductCard = ({ cart, item }) => {
   const navigate = useNavigate();
-
+const user = JSON.parse(localStorage.getItem("user"));
   const onCartTap = async (id, inCart) => {
     window.scrollTo({
       top: 0,
@@ -92,12 +92,27 @@ const ProductCard = ({ cart, item }) => {
                 <div className="review">{item.reviews} Reviews</div>
               </div>
               <div className="price">{`Rs ${item.price}/-`}</div>
-              <button
-                className="cart-btn"
-                onClick={(e) => onCartTap(item._id, inCart)}
-              >
-                {inCart ? "View Cart" : "Add To Cart"}
-              </button>
+              {user?.role.role === "Admin" ? (
+                          <button
+                            className="cart-btn"
+                            onClick={(e) =>  toast.error(`Please login with Non-Admin or Editor Account`, {
+                              position: "bottom-right",
+                              autoClose: 8000,
+                              pauseOnHover: true,
+                              draggable: true,
+                              theme: "dark",
+                            })}
+                          >
+                            Add to Cart
+                          </button>
+                        ) : (
+                          <button
+                            className="cart-btn"
+                            onClick={(e) => onCartTap(item._id, inCart)}
+                          >
+                            {inCart ? "View Cart" : "Add to Cart"}
+                          </button>
+                        )}
             </div>
           </div>
         </div>
