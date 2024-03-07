@@ -176,12 +176,12 @@ const ExclusiveStore = () => {
                     </div>
                   </div>
 
-                  <div className="know-more-btn" >
+                  <div className="know-more-btn">
                     <button className="btn-knowing-more-fran">Know more</button>
                   </div>
                 </div>
                 <div className="col-sm-5">
-                  <div className="section2-part2-img">
+                  <div className="section2-part2-img" >
                     <img src={sideImg} alt="" className="sideimg-fran" />
                   </div>
                 </div>
@@ -190,9 +190,10 @@ const ExclusiveStore = () => {
           </div>
 
           
-            <Map/>
+            <Map />
           
         </div>
+    
         <Footer />
       </div>
     </div>

@@ -52,19 +52,19 @@ const Checkout = () => {
     const shipChargeFunction = async (event) => {
         event.preventDefault();
         try {
-            //  if (formData.Email === "") {
-            //     alert("Enter your email");
-            // }  else if (formData.Address === "") {
-            //     alert("Enter your address");
-            // } else if (formData.City === "") {
-            //     alert("Enter your City");
-            // } else if (formData.State === "") {
-            //     alert("Enter your State");
-            // } else if (formData.PinCode === "") {
-            //     alert("Enter your Pin Code");
-            // } else if (formData.Country === "") {
-            //     alert("Enter your Country");
-            // } else {
+             if (formData.Email === "") {
+                alert("Enter your email");
+            }  else if (formData.Address === "") {
+                alert("Enter your address");
+            } else if (formData.City === "") {
+                alert("Enter your City");
+            } else if (formData.State === "") {
+                alert("Enter your State");
+            } else if (formData.PinCode === "") {
+                alert("Enter your Pin Code");
+            } else if (formData.Country === "") {
+                alert("Enter your Country");
+            } else {
                 const response = await axios.post(
                     "https://backend.twicks.in/api/ship/calcShipment",
                     {
@@ -76,6 +76,7 @@ const Checkout = () => {
                 );
                 setShipCharge(response.data.shipPrice);
             }
+          }
         catch (error) {
             console.error("Failed to fetch ship details", error);
         }
