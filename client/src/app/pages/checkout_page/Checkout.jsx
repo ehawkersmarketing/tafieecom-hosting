@@ -11,6 +11,8 @@ import { toast, ToastContainer } from "react-toastify";
 const Checkout = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const { data: userData } = useFetch(`/auth/user/${user?._id}`);
+
   useEffect(() => {
     if (user) {
       navigate("/checkout");
@@ -137,10 +139,10 @@ const Checkout = () => {
           "https://backend.twicks.in/api/putUserAddress",
           {
             userId: user._id,
+            userName:formData.userName,
             street: formData.Address,
             landmark: formData.Address2,
             email: formData.Email,
-            userName: formData.userName,
             city: formData.City,
             country: formData.Country,
             state: formData.State,
@@ -193,7 +195,7 @@ const Checkout = () => {
                       type="text"
                       id="name"
                       name="userName"
-                      value={user?.userName}
+                      value={userData?.userName}
                       placeholder="Name"
                       required
                       onChange={handleInputChange}

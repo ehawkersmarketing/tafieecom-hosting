@@ -3,11 +3,11 @@ const userModel = require("../../models/userModel/userModel");
 
 module.exports.putUserAddress = async (req, res, next) => {
     try {
-        const { userId,userName, street, landmark, city, country, phone, dob, state, zipCode, email } = req.body;
+        const { userId, street, landmark, city, country, phone, dob, state, zipCode, email } = req.body;
         const user = await userModel.findOne({ _id: userId });
         if (user) {
             if (email) {
-                await userModel.findOneAndUpdate({ _id: userId }, { userName:userName,email: email, phone: phone, dob: dob });
+                await userModel.findOneAndUpdate({ _id: userId }, { email: email, phone: phone, dob: dob });
             }
             const address = await userAddress.findOne({ userId: user._id });
             if (address) {
