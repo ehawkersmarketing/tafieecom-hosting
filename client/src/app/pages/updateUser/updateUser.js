@@ -100,23 +100,23 @@ const UpdateUser = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    if(inputHandler.email === ""){
-      alert("Enter Email")
-    }else if(inputHandler.userName===""){
-      alert("Enter the UserName")
-    }else if(inputHandler.street===""){
-      alert("Enter the Street")
-    }else if(inputHandler.zipCode===""){
-      alert("Enter the zipcode")
-    }else if(inputHandler.landMark===""){
-      alert("Enter the landmark")
-    }else if(inputHandler.city===""){
-      alert("Enter city")
-    }else if(inputHandler.country===""){
-      alert("Enter country")
-    }else if(inputHandler.state===""){
-      alert("Enter State")
-    }else{
+    // if(inputHandler.email === ""){
+    //   alert("Enter Email")
+    // }else if(inputHandler.userName===""){
+    //   alert("Enter the UserName")
+    // }else if(inputHandler.street===""){
+    //   alert("Enter the Street")
+    // }else if(inputHandler.zipCode===""){
+    //   alert("Enter the zipcode")
+    // }else if(inputHandler.landMark===""){
+    //   alert("Enter the landmark")
+    // }else if(inputHandler.city===""){
+    //   alert("Enter city")
+    // }else if(inputHandler.country===""){
+    //   alert("Enter country")
+    // }else if(inputHandler.state===""){
+    //   alert("Enter State")
+    // }else{
    const {data} =  await axios.post(`http://localhost:8080/api/putUserAddress`, {
         userId: id,
         email: inputHandler.email,
@@ -136,7 +136,7 @@ const UpdateUser = () => {
       backToDashboard();
     }
     
-  };
+  // };
 
   return (
     <>
