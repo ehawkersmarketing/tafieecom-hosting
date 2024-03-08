@@ -39,7 +39,7 @@ exports.requestApproval = async (req, res) => {
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
-    console.log("called");
+
     const { orderId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
@@ -388,6 +388,12 @@ exports.createOrder = async (req, res) => {
     let getToken = await srlogin();
     console.log("token =======", getToken);
     console.log(getToken.status);
+    console.log("called");
+    console.log("asdfghj")
+    console.log("asdfghj")
+    console.log("asdfghj")
+    console.log("asdfghj")
+    console.log("asdfghj")
 
     if (getToken.status) {
       await axios
@@ -584,7 +590,7 @@ exports.getOrderDetsFunction = async (req, res) => {
           });
         }
         let orderDets = response.data.data;
-        console.log("order Details showing", orderDets);
+        // console.log("order Details showing", orderDets);
         res.status(200).send({
           success: true,
           message: "Order details are as follows: ",
