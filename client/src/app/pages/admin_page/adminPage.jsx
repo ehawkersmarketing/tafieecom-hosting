@@ -321,91 +321,36 @@ const AdminPage = () => {
     }
   };
 
-  const getInitialStatus = (id) => {
-    const savedStatus = localStorage.getItem(`selectedOrderStatus-${id}`);
-    return savedStatus ? savedStatus : "";
-  };
-
-  // Initialize the state as an object to store statuses for each order
   const [orderStatuses, setOrderStatuses] = useState({});
 
-  // When the component mounts, check local storage for each order's status
-  useEffect(() => {
-    // Assuming `orders` is an array of order IDs that you have
-    if (orders) {
-      orders.forEach((order) => {
-        const savedStatus = getInitialStatus(order._id);
-        if (savedStatus) {
-          setOrderStatuses((prevStatuses) => ({
-            ...prevStatuses,
-            [order._id]: savedStatus,
-          }));
-        }
-      });
-    }
-  }, [orders]); // Depend on `orders` to re-run the effect when it changes
-
-  const handlechangeOrderStatus = (e, id) => {
-    const newOrderStatus = e.target.value;
-    setOrderStatuses((prevStatuses) => ({
-      ...prevStatuses,
-      [id]: newOrderStatus,
-    }));
-    localStorage.setItem(`selectedOrderStatus-${id}`, newOrderStatus);
-    // console.log(newOrderStatus);
-    orderStatusHandler(id, newOrderStatus);
-  };
-
-  const orderStatusHandler = (id, orderStatus) => {
-    // console.log(orderStatus);
-    axios
-      .patch(`http://localhost:8080/api/updateOrder/${id}`, {
-        length: 1,
-        orderStatus: orderStatus,
-      })
-      .then((res) => {
-        // console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const [shippingOrders, setShippingOrders] = useState([]);
- 
-    const fetchOrderDetails = async (order_id) => {
-      try {
-        // Include order_id as a query parameter in the URL
-        const response = await axios.get(
-          `http://localhost:8080/api/ship/orderDets?order_id=${order_id}`
-        );
-        console.log(response);
-        if (response.data.success) {
-          console.log(response.data);
-          setShippingOrders(response.data.data.status);
-          console.log(response.data.data.status);
-        } else {
-          console.error("No order found");
-        }
-      } catch (error) {
-        console.error("Error fetching order details:", error);
+  const fetchOrderDetails = async (order_id) => {
+    try {
+      console.log("fetch", order_id);
+      const response = await axios.get(
+        `http://localhost:8080/api/ship/orderDets?order_id=${order_id}`
+      );
+      if (response.data.success) {
+        // Update the state for the specific order's status
+        setOrderStatuses((prevStatuses) => ({
+          ...prevStatuses,
+          [order_id]: response.data.data.status, // Assuming 'status' is the property you want to update
+        }));
+      } else {
+        console.error("No order found");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching order details:", error);
+    }
+  };
 
-    useEffect(() => {
-      fetchOrderDetails("500722112")
-      // orders?.map((item) => {
-      //   console.log(item?.orderId)
-      //   if (item?.orderId === undefined || item?.orderId === null) {
-      //     console.log("hello");
-      //   } else {
-      //     // Call fetchOrderDetails with the orderId
-      //     console.log("else called")
-      //    console.log(item?.orderId)
-      //     fetchOrderDetails(item.orderId);
-      //   }
-      // });
-   }, [orders]); // D
+  useEffect(() => {
+    orders?.forEach((item) => {
+      console.log(item);
+      if (item?.orderId !== undefined && item?.orderId !== null) {
+        fetchOrderDetails(item.orderId);
+      }
+    });
+  }, [orders]);
 
   return (
     <div className="admin-wrapper">
@@ -758,11 +703,15 @@ const AdminPage = () => {
                             Delivery Option
                           </th>
                           <th scope="col" className="th">
+                            Shippment Order Status
+                          </th>
+                          <th scope="col" className="th">
                             No of Orders
                           </th>
                           <th scope="col" className="th">
                             Order On
                           </th>
+
                           <th scope="col" className="th">
                             Process Order
                           </th>
@@ -780,23 +729,43 @@ const AdminPage = () => {
                             return (
                               <tr key={order._id}>
                                 <th scope="row table-center">{index + 1}</th>
-                                <td className="td table-center">{order._id}</td>
+                                <td
+                                  className="td order-link"
+                                  onClick={() =>
+                                    navigate(
+                                      `/OrderConfirmationPage/${order._id}`
+                                    )
+                                  }
+                                >
+                                  {/* <Link */}
+                                  {/* > */}
+                                  ...{order._id.slice(-4)}
+                                  {/* </Link> */}
+                                </td>
+
+                                {/* <td className="td table-center" onClick={(e)=>{navigate(``)}}>...{order._id.slice(-4)}</td> */}
                                 <td className="td table-center">
                                   {order.amount}
                                 </td>
 
                                 <td className="td table-center">
-                                  {order.orderStatus === "COMPLETED" ? (
-                                    <div>{shippingOrders}</div> 
-                                  ) : (
-                                    <div>{order.orderStatus}</div> 
-                                  )}
-                                 
+                                  <div>{order.orderStatus}</div>
                                 </td>
 
                                 <td className="td table-center">
                                   {order.status}
                                 </td>
+
+                                {order.orderId === undefined ||
+                                order.orderId === null ? (
+                                  <p className="td table-center">---</p>
+                                ) : (
+                                  <div className="td table-center">
+                                    {orderStatuses[order.orderId] ||
+                                      "Loading..."}
+                                  </div>
+                                )}
+
                                 <td className="td table-center">10</td>
                                 <td className="td table-center">
                                   {`${dayjs(order.createdAt).format(
@@ -818,8 +787,6 @@ const AdminPage = () => {
                               </tr>
                             );
                           })}
-
-                        
                       </tbody>
                     </table>
                   </div>
