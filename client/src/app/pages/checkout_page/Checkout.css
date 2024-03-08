@@ -19,6 +19,11 @@ csection {
     margin:auto;
     color: rgb(25, 68, 63)
 }
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+   }
 
 .checkout-page form {
     margin-top: 45px;

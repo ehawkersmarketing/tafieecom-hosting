@@ -34,6 +34,15 @@ const Checkout = () => {
     Country: "",
   });
 
+  const [errors, setErrors] = useState({
+    Email: false,
+    Address: false,
+    City: false,
+    State: false,
+    PinCode: false,
+    Country: false,
+  });
+
   const [contact, setContact] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -45,22 +54,61 @@ const Checkout = () => {
     setContact(event.target.value);
   };
 
+  //   const shipChargeFunction = async (event) => {
+  //     event.preventDefault();
+  //     try {
+  //       if (formData.Email === "") {
+  //         alert("Enter your address");
+  // } else if (formData.Address === "") {
+  //         alert("Enter your address");
+  //       } else if (formData.City === "") {
+  //         alert("Enter your City");
+  //       } else if (formData.State === "") {
+  //         alert("Enter your State");
+  //       } else if (formData.PinCode === "") {
+  //         alert("Enter your Pin Code");
+  //       } else if (formData.Country === "") {
+  //         alert("Enter your Country");
+  //       } else {
+  //         const response = await axios.post(
+  //           "http://localhost:8080/api/ship/calcShipment",
+  //           {
+  //             shipping_postcode: formData.PinCode,
+  //             weight: cart.totalWeight,
+  //             declared_value: cart.totalPrice,
+  //             is_return: 0,
+  //           }
+  //         );
+  //         setShipCharge(response.data.shipPrice);
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to fetch ship details", error);
+  //     }
+  //   };
+
+  // const secondHandler=(event)=>{
+  //   if (event.target.value.length < 10) {
+
+  //   } else {
+  //     setErrorMessage("");
+  //   }
+  // }
+
   const shipChargeFunction = async (event) => {
     event.preventDefault();
-    try {
-      if (formData.Email === "") {
-        alert("Enter your email");
-      } else if (formData.Address === "") {
-        alert("Enter your address");
-      } else if (formData.City === "") {
-        alert("Enter your City");
-      } else if (formData.State === "") {
-        alert("Enter your State");
-      } else if (formData.PinCode === "") {
-        alert("Enter your Pin Code");
-      } else if (formData.Country === "") {
-        alert("Enter your Country");
-      } else {
+    const newErrors = {
+      Email: formData.Email === "",
+      Address: formData.Address === "",
+      City: formData.City === "",
+      State: formData.State === "",
+      PinCode: formData.PinCode === "",
+      Country: formData.Country === "",
+    };
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).every((error) => !error)) {
+      // Proceed with the axios post request if there are no errors
+      try {
         const response = await axios.post(
           "http://localhost:8080/api/ship/calcShipment",
           {
@@ -71,19 +119,11 @@ const Checkout = () => {
           }
         );
         setShipCharge(response.data.shipPrice);
+      } catch (error) {
+        console.error("Failed to fetch ship details", error);
       }
-    } catch (error) {
-      console.error("Failed to fetch ship details", error);
     }
   };
-
-  // const secondHandler=(event)=>{
-  //   if (event.target.value.length < 10) {
-
-  //   } else {
-  //     setErrorMessage("");
-  //   }
-  // }
 
   const handleOrderFunction = async (event) => {
     event.preventDefault();
@@ -172,9 +212,6 @@ const Checkout = () => {
                       required
                       onChange={handleInputChange}
                     />
-                    {errorMessage && (
-                      <p className="error-message">{errorMessage}</p>
-                    )}
                   </div>
                 </div>
               </div>
@@ -187,6 +224,9 @@ const Checkout = () => {
                   placeholder="Email Address"
                   onChange={handleInputChange}
                 />
+                {errors.Email && (
+                  <p className="error-message">Please enter your email</p>
+                )}
               </div>
               <div className="row col-12 firstinput">
                 <div className="col-6">
@@ -200,6 +240,9 @@ const Checkout = () => {
                       required
                       onChange={handleInputChange}
                     />
+                    {errors.Address && (
+                      <p className="error-message">Please enter your Address</p>
+                    )}
                   </div>
                 </div>
                 <div className="col-6">
@@ -225,6 +268,9 @@ const Checkout = () => {
                   required
                   onChange={handleInputChange}
                 />
+                {errors.City && (
+                  <p className="error-message">Please enter your city</p>
+                )}
               </div>
               <div className="checkout-page-input ">
                 <label htmlFor="State">State</label>
@@ -236,6 +282,9 @@ const Checkout = () => {
                   required
                   onChange={handleInputChange}
                 />
+                {errors.State && (
+                  <p className="error-message">Please enter your state</p>
+                )}
               </div>
               <div className="checkout-page-input ">
                 <label htmlFor="Pincode">Pincode</label>
@@ -247,6 +296,9 @@ const Checkout = () => {
                   required
                   onChange={handleInputChange}
                 />
+                {errors.PinCode && (
+                  <p className="error-message">Please enter your pincode</p>
+                )}
               </div>
               <div className="checkout-page-input">
                 <label htmlFor="Country">Country / Region</label>
@@ -258,6 +310,9 @@ const Checkout = () => {
                   required
                   onChange={handleInputChange}
                 />
+                {errors.Country && (
+                  <p className="error-message">Please enter your country</p>
+                )}
               </div>
               <button className="checkout-btn" onClick={shipChargeFunction}>
                 Calculate shipping price
