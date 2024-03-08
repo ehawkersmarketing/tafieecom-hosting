@@ -128,6 +128,10 @@
 .download-icon{
     font-size:24px
 }
+.cencelled-order-wrapper{
+    text-align: left;
+    padding-top: 3rem;
+}
 
 .tick-icon-confirm{
     margin-top:2rem ; text-align:right;
@@ -136,7 +140,7 @@
     margin-top:2rem
 }
 .order-link{
-    margin-top: 1rem;
+    margin-top: -2rem;
     width: fit-content;
     margin: auto;
 }
