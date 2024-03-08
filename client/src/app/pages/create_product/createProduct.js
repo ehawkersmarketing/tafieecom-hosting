@@ -232,7 +232,7 @@ const CreateProduct = () => {
                 />
               </div>
               <div className="form_input">
-                <label htmlFor="quantity">Quantity</label>
+                <label htmlFor="quantity">Quantity ( in stock)</label>
                 <input
                   type="text"
                   onChange={onChangeInputHandler}

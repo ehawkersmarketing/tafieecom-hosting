@@ -9,18 +9,18 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
-    const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user'));
-    useEffect(() => {
-        if (user) {
-               navigate('/checkout')
-        } else {
-          navigate("/auth/login");
-        }
-      }, []);
-    let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`)
-    const products = cart?.products;
-    const [shipCharge, setShipCharge] = useState(undefined);
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    if (user) {
+      navigate("/checkout");
+    } else {
+      navigate("/auth/login");
+    }
+  }, []);
+  let { data: cart } = useFetch(`/api/getProductsInCart/${user?._id}`);
+  const products = cart?.products;
+  const [shipCharge, setShipCharge] = useState(undefined);
 
   const [formData, setFormData] = useState({
     userName: "",
@@ -34,6 +34,14 @@ const Checkout = () => {
     Country: "",
   });
 
+  const [errors, setErrors] = useState({
+    Email: false,
+    Address: false,
+    City: false,
+    State: false,
+    PinCode: false,
+    Country: false,
+  });
 
   const [contact, setContact] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,43 +52,39 @@ const Checkout = () => {
       [event.target.name]: event.target.value,
     });
     setContact(event.target.value);
-
-    
   };
 
-
-    const shipChargeFunction = async (event) => {
-        event.preventDefault();
-        try {
-             if (formData.Email === "") {
-                alert("Enter your email");
-            }  else if (formData.Address === "") {
-                alert("Enter your address");
-            } else if (formData.City === "") {
-                alert("Enter your City");
-            } else if (formData.State === "") {
-                alert("Enter your State");
-            } else if (formData.PinCode === "") {
-                alert("Enter your Pin Code");
-            } else if (formData.Country === "") {
-                alert("Enter your Country");
-            } else {
-                const response = await axios.post(
-                    "https://backend.twicks.in/api/ship/calcShipment",
-                    {
-                        shipping_postcode: formData.PinCode,
-                        weight: cart.totalWeight,
-                        declared_value: cart.totalPrice,
-                        is_return: 0,
-                    }
-                );
-                setShipCharge(response.data.shipPrice);
-            }
-          }
-        catch (error) {
-            console.error("Failed to fetch ship details", error);
-        }
-    };
+  //   const shipChargeFunction = async (event) => {
+  //     event.preventDefault();
+  //     try {
+  //       if (formData.Email === "") {
+  //         alert("Enter your address");
+  // } else if (formData.Address === "") {
+  //         alert("Enter your address");
+  //       } else if (formData.City === "") {
+  //         alert("Enter your City");
+  //       } else if (formData.State === "") {
+  //         alert("Enter your State");
+  //       } else if (formData.PinCode === "") {
+  //         alert("Enter your Pin Code");
+  //       } else if (formData.Country === "") {
+  //         alert("Enter your Country");
+  //       } else {
+  //         const response = await axios.post(
+  //           "http://localhost:8080/api/ship/calcShipment",
+  //           {
+  //             shipping_postcode: formData.PinCode,
+  //             weight: cart.totalWeight,
+  //             declared_value: cart.totalPrice,
+  //             is_return: 0,
+  //           }
+  //         );
+  //         setShipCharge(response.data.shipPrice);
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to fetch ship details", error);
+  //     }
+  //   };
 
   // const secondHandler=(event)=>{
   //   if (event.target.value.length < 10) {
@@ -90,7 +94,37 @@ const Checkout = () => {
   //   }
   // }
 
-  
+  const shipChargeFunction = async (event) => {
+    event.preventDefault();
+    const newErrors = {
+      Email: formData.Email === "",
+      Address: formData.Address === "",
+      City: formData.City === "",
+      State: formData.State === "",
+      PinCode: formData.PinCode === "",
+      Country: formData.Country === "",
+    };
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).every((error) => !error)) {
+      // Proceed with the axios post request if there are no errors
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/api/ship/calcShipment",
+          {
+            shipping_postcode: formData.PinCode,
+            weight: cart.totalWeight,
+            declared_value: cart.totalPrice,
+            is_return: 0,
+          }
+        );
+        setShipCharge(response.data.shipPrice);
+      } catch (error) {
+        console.error("Failed to fetch ship details", error);
+      }
+    }
+  };
+
   const handleOrderFunction = async (event) => {
     event.preventDefault();
     try {
@@ -118,7 +152,7 @@ const Checkout = () => {
           const { data } = await axios.post(
             "https://backend.twicks.in/api/pay/phonePePayment",
             {
-              amount: Math.round(totalPayAmount),
+              amount: totalPayAmount,
               cartId: cart.cartId,
             }
           );
@@ -174,14 +208,11 @@ const Checkout = () => {
                       id="Contact"
                       name="Contact"
                       placeholder="Contact Number"
-value={user?.phone}
+                      value={user?.phone}
                       required
-                     onChange={handleInputChange}
+                      onChange={handleInputChange}
                     />
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                   </div>
-
-
                 </div>
               </div>
               <div className="checkout-page-input">
@@ -193,7 +224,9 @@ value={user?.phone}
                   placeholder="Email Address"
                   onChange={handleInputChange}
                 />
-                
+                {errors.Email && (
+                  <p className="error-message">Please enter your email</p>
+                )}
               </div>
               <div className="row col-12 firstinput">
                 <div className="col-6">
@@ -207,6 +240,9 @@ value={user?.phone}
                       required
                       onChange={handleInputChange}
                     />
+                    {errors.Address && (
+                      <p className="error-message">Please enter your Address</p>
+                    )}
                   </div>
                 </div>
                 <div className="col-6">
@@ -232,6 +268,9 @@ value={user?.phone}
                   required
                   onChange={handleInputChange}
                 />
+                {errors.City && (
+                  <p className="error-message">Please enter your city</p>
+                )}
               </div>
               <div className="checkout-page-input ">
                 <label htmlFor="State">State</label>
@@ -243,6 +282,9 @@ value={user?.phone}
                   required
                   onChange={handleInputChange}
                 />
+                {errors.State && (
+                  <p className="error-message">Please enter your state</p>
+                )}
               </div>
               <div className="checkout-page-input ">
                 <label htmlFor="Pincode">Pincode</label>
@@ -254,6 +296,9 @@ value={user?.phone}
                   required
                   onChange={handleInputChange}
                 />
+                {errors.PinCode && (
+                  <p className="error-message">Please enter your pincode</p>
+                )}
               </div>
               <div className="checkout-page-input">
                 <label htmlFor="Country">Country / Region</label>
@@ -265,6 +310,9 @@ value={user?.phone}
                   required
                   onChange={handleInputChange}
                 />
+                {errors.Country && (
+                  <p className="error-message">Please enter your country</p>
+                )}
               </div>
               <button className="checkout-btn" onClick={shipChargeFunction}>
                 Calculate shipping price
@@ -301,10 +349,8 @@ value={user?.phone}
                       })}
                     <tr>
                       <td>Product Subtotal</td>
-                      <td style={{fontWeight:700}}>
-                        {(cart?.totalPrice  ?? 0)?.toLocaleString(
-                          "en-IN"
-                        )}
+                      <td style={{ fontWeight: 700 }}>
+                        {(cart?.totalPrice ?? 0)?.toLocaleString("en-IN")}
                       </td>
                     </tr>
                     {shipCharge && (
