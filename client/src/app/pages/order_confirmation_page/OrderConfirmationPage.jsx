@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import "./OrderConfirmationPage.css"
+import "./OrderConfirmationPage.css";
 import tick_icon from "../../assets/tick_icon.png";
 import { useFetch } from "../../hooks/api_hook";
 import dayjs from "dayjs";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 // import { useFetch } from 'path-to-your-useFetch-hook';
 import Carousal from "../../components/carousal/carousal";
 
@@ -15,33 +15,55 @@ import axios from "axios";
 const OrderConformationPage = () => {
   const { id } = useParams();
   const { data } = useFetch(`/api/getOrderById/${id}`);
+  console.log("order dtils", data);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const { data: products } = useFetch("/api/allProducts");
   const { data: cart } = useFetch(`/api/getCartByUser/${user?._id}`);
   const [error, setError] = useState(null);
 
-  
-  
+  const [shippingOrder, setShippingOrder] = useState({});
+
+  const fetchOrderDetails = async (order_id) => {
+    try {
+      console.log("fetch", order_id);
+      const response = await axios.get(
+        `http://localhost:8080/api/ship/orderDets?order_id=${order_id}`
+      );
+      if (response.data.success) {
+        // Update the state for the specific order's status
+        setShippingOrder(response.data.data.status);
+      } else {
+        console.error("No order found");
+      }
+    } catch (error) {
+      console.error("Error fetching order details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderDetails(data?.orderId);
+  }, [data]);
+
   useEffect(() => {
     // Function to fetch order data from the backend
     const fetchOrder = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/getOrderById/" + id);
+        const response = await fetch(
+          "http://localhost:8080/api/getOrderById/" + id
+        );
         if (response) {
           const data = await response.json();
           navigate(`/orderConfirmationPage/${id}`);
         } else {
-          throw new Error('Order not found');
+          throw new Error("Order not found");
         }
-
       } catch (error) {
         setError(error.message);
       }
-    }
+    };
 
     fetchOrder();
-
   }, [id]);
 
   const handleDownload = () => {
@@ -57,26 +79,29 @@ const OrderConformationPage = () => {
     }
   }, [user]);
 
- 
   useEffect(() => {
     // Immediately invoked async function expression
     (async () => {
-        try {
-            const response = await axios.get(`http://localhost:8080/api/ship/orderDets/${id}`);
-            // Handle the response here
-        } catch (error) {
-            console.error("Error fetching order details:", error);
-            // Handle the error here
-        }
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/ship/orderDets/${id}`
+        );
+        // Handle the response here
+      } catch (error) {
+        console.error("Error fetching order details:", error);
+        // Handle the error here
+      }
     })(); // Immediately invoke the async function
-}, [id])
-
+  }, [id]);
 
   const cancelOrderHandler = async () => {
     try {
-      const data = await axios.post("http://localhost:8080/api/ship/cancelRequest", {
-        orderId: id,
-      });
+      const data = await axios.post(
+        "http://localhost:8080/api/ship/cancelRequest",
+        {
+          orderId: id,
+        }
+      );
       if (data.data.success) {
         toast.success("order Cancelled successfully", {
           position: "bottom-right",
@@ -85,8 +110,7 @@ const OrderConformationPage = () => {
           draggable: true,
           theme: "dark",
         });
-      }
-      else {
+      } else {
         toast.success("order Cancelled successfully", {
           position: "bottom-right",
           autoClose: 8000,
@@ -114,7 +138,6 @@ const OrderConformationPage = () => {
         <div className="main-1 row align-items-center">
           <div className="order-header col-12">
             <div className="element row justify-content-between">
-
               <div className="col-sm-8">
                 <div className="title">
                   <h2>
@@ -129,35 +152,43 @@ const OrderConformationPage = () => {
                     </strong>
                   </p>
                 </div>
-
               </div>
               <div className="order-confirm-button-wrapper col-sm-4 justify-content-end">
-                <div>
-              <button type="button" className="cancel-order-button  col-sm-6" onClick={cancelOrderHandler}>
-                <strong>Cancel</strong>     
-              </button>
-              </div>
-
-              <div className="invoice-download col-sm-6">
-                <button type="link" onClick={handleDownload}>
-                  {" "}
+                {shippingOrder === "PICKED UP" ? (
+                  <div></div>
+                ) : (
                   <div>
-                    <strong>
-                      Download <br />
-                      Invoice
-                    </strong>
+                    <button
+                      type="button"
+                      className="cancel-order-button  col-sm-6"
+                      onClick={cancelOrderHandler}
+                    >
+                      <strong>Cancel</strong>
+                    </button>
                   </div>
-                  <span className="download-icon"> <i class="bi bi-download"></i></span>
-                 
-                </button>
-              </div>
-              </div>
+                )}
 
+                <div className="invoice-download col-sm-6">
+                  <button type="link" onClick={handleDownload}>
+                    {" "}
+                    <div>
+                      <strong>
+                        Download <br />
+                        Invoice
+                      </strong>
+                    </div>
+                    <span className="download-icon">
+                      {" "}
+                      <i class="bi bi-download"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <div className="all-data row">
             <div className="col-md-9">
-              <div className="details justify-content-between row orderDetails-order" >
+              <div className="details justify-content-between row orderDetails-order">
                 <div className="OrderDetails col-sm-4">
                   <div className="OrderDetails-text">
                     <h4>
@@ -172,7 +203,8 @@ const OrderConformationPage = () => {
                       <p className="col">
                         {data &&
                           `INR ${(
-                            (data.amount + data.shipment_charge)/100
+                            (data.amount + data.shipment_charge) /
+                            100
                           ).toLocaleString("en-IN")}`}
                       </p>
                     </div>
@@ -234,18 +266,25 @@ const OrderConformationPage = () => {
               <div className="tick-icon-confirm">
                 <img src={tick_icon} />
               </div>
-
-
             </div>
           </div>
-          <div className="order-button">
-          <div className="order-link">
-            <a href="">
-              <button type="link" onClick={orderHandler}>
-                <strong>My Orders</strong>
-              </button>
-            </a>
+          <div>
+            {shippingOrder === "PICKED UP" ? (
+              <p className="cencelled-order-wrapper">
+                <p> Your current order status is : {shippingOrder}</p>{" "}
+              </p>
+            ) : (
+              <div></div>
+            )}{" "}
           </div>
+          <div className="order-button">
+            <div className="order-link">
+              <a href="">
+                <button type="link" onClick={orderHandler}>
+                  <strong>My Orders</strong>
+                </button>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -259,7 +298,6 @@ const OrderConformationPage = () => {
       </div>
       <ToastContainer />
       <Footer />
-
     </>
   );
 };

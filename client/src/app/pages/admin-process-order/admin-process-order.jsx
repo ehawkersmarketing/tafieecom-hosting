@@ -347,7 +347,9 @@ const AdminProcessOrder = () => {
         <div>
           {value == 0 && (
             <div className="accept-reject-button">
-              <button
+             {order?.orderStatus === "COMPLETED"?          <div className="accept-reject-button-rejection">
+          <span>The order is completed , and Pickup is scheduled  </span>
+        </div>:<div> <button
                 type="button"
                 class="btn btn-primary accept-button m-2"
                 onClick={acceptHandler}
@@ -356,7 +358,7 @@ const AdminProcessOrder = () => {
               </button>
               <button type="button" class="btn btn-secondary reject-button m-2" onClick={cancelShipment}>
                 Reject
-              </button>
+              </button></div>}
             </div>
           )}
         </div>
