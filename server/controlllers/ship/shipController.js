@@ -36,22 +36,10 @@ exports.requestApproval = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 //POST || approval of request of an order from admin
 exports.approveRequest = async (req, res) => {
   try {
-    console.log("called");
+
     const { orderId, length, breadth, height, weight } = req.body;
     const request = await requestModel.findOne({ orderId: orderId });
     if (request) {
@@ -78,7 +66,7 @@ exports.approveRequest = async (req, res) => {
           .populate("products.productId")
           .populate("user")
           .populate("userAddress");
-          // console.log("data found here" , data)
+        // console.log("data found here" , data)
         let orderItems = [];
         for (let i = 0; i < order.products.length; i++) {
           orderItems.push({
@@ -172,20 +160,6 @@ exports.approveRequest = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //POST|| when admin rejects an order approval request
 exports.cancelApprovalRequest = async (req, res) => {
   try {
@@ -256,17 +230,6 @@ exports.cancelApprovalRequest = async (req, res) => {
     });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
 
 //GET || getting cost alternatives for different courier services
 exports.calcShipment = async (req, res) => {
@@ -379,17 +342,6 @@ exports.calcShipment = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
 //POST || creating a new order to be shipped ||SET PICKUP LOCATION IN ACCOUNT IT IS MANDATORY
 exports.createOrder = async (req, res) => {
   const {
@@ -432,12 +384,16 @@ exports.createOrder = async (req, res) => {
   } = req.body;
   await newShipFunction();
 
-
-
   async function newShipFunction() {
     let getToken = await srlogin();
-    console.log("token =======",getToken);
+    console.log("token =======", getToken);
     console.log(getToken.status);
+    console.log("called");
+    console.log("asdfghj")
+    console.log("asdfghj")
+    console.log("asdfghj")
+    console.log("asdfghj")
+    console.log("asdfghj")
 
     if (getToken.status) {
       await axios
@@ -488,23 +444,8 @@ exports.createOrder = async (req, res) => {
         )
         .then(async function (response) {
           console.log("))))))))))))))))))))");
-          console.log("order" , response.data)
+          console.log("order", response.data);
           console.log("order_id", response.data.order_id);
-
-          const updateOrderDetails = await orderModel.findOneAndUpdate(
-            { _id: response.data.channel_order_id }, 
-            {
-              shippingOrderId: response.data.order_id,
-              shipment_id: response.data.shipment_id,
-      
-            },
-            { new: true } 
-          );
-console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-          console.log(updateOrderDetails)
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-
-
 
           const { data: awb } = await axios.post(
             "http://localhost:8080/api/ship/generateAWB",
@@ -513,7 +454,7 @@ console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
             }
           );
           if (awb.success) {
-            console.log("pickup")
+            console.log("pickup");
             const { data: pickUp } = await axios.post(
               "http://localhost:8080/api/ship/pickup",
               {
@@ -529,7 +470,7 @@ console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
                 }
               );
               if (manifest.success) {
-                console.log("manifest worked successfully")
+                console.log("manifest worked successfully");
                 await orderModel.findOneAndUpdate(
                   { _id: order_id },
                   { manifest: manifest.data }
@@ -540,26 +481,27 @@ console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
                     shipment_id: response.data.shipment_id,
                   }
                 );
-             
+
                 if (shipmentDetails.success) {
-                  console.log("shipment details",shipmentDetails);
-                  console.log(response.data);
+                  console.log("shipment details", shipmentDetails.data.data);
+                  console.log("ettrewqwre",shipmentDetails.data.data.order_id)
+                  // console.log("gofkvd",shipmentDetails.data.data.awb)
                   await orderModel.findOneAndUpdate(
                     { _id: order_id },
                     {
                       shipment_id: response.data.shipment_id,
-                      awb: shipmentDetails.data.awb,
-                      orderId: shipmentDetails.data.order_id,
+                      awb: shipmentDetails.data.data.awb,
+                      orderId: shipmentDetails.data.data.order_id,
                     }
                   );
                   const { data: invoice } = await axios.post(
                     "http://localhost:8080/api/ship/generateInvoice",
                     {
-                      order_ids: shipmentDetails.data.order_id,
+                      order_ids: shipmentDetails.data.data.order_id,
                     }
                   );
                   if (invoice.success) {
-                    console.log("invoice")
+                    console.log("invoice");
                     await orderModel.findOneAndUpdate(
                       { _id: order_id },
                       {
@@ -619,51 +561,6 @@ console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// exports.getOrderDetsFunction = async (req, res) => {
-//   let { order_id } = req.body;
-//     console.log("order_id");
-//   let getToken = await srlogin();
-//   console.log(getToken);
-//   console.log("#####################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#####################");
-
-//   const options = {
-//     method: "get",
-//     headers: {
-//       "Content-Type": "application/json", // Consider testing with and without this header
-//       Authorization: `Bearer ${getToken.mainToken}`,
-//     },
-//     url: `https://apiv2.shiprocket.in/v1/external/orders/show/${order_id}`,
-//   };
-
-//   try {
-//     const response = await axios(options);
-//     console.log("shiprocket order detail shipmment", response.data);
-//     // Handle the response data here
-//   } catch (error) {
-//     console.error(
-//       "Error fetching order details:",
-//       error.response ? error.response.data : error.message
-//     );
-//   }
-// };
-
-
-
-
 // GET || getting details of an order using order_id
 
 exports.getOrderDetsFunction = async (req, res) => {
@@ -693,7 +590,7 @@ exports.getOrderDetsFunction = async (req, res) => {
           });
         }
         let orderDets = response.data.data;
-        console.log("order Details showing",orderDets);
+        // console.log("order Details showing", orderDets);
         res.status(200).send({
           success: true,
           message: "Order details are as follows: ",
@@ -706,19 +603,11 @@ exports.getOrderDetsFunction = async (req, res) => {
   }
 };
 
-
-
-
-
-
- 
-
-
 exports.generateAWBFunction = async (req, res) => {
   let { shipment_id } = req.body;
 
   let getToken = await srlogin();
-  console.log("api called here",getToken.mainToken)
+  console.log("api called here", getToken.mainToken);
   console.log(getToken);
 
   let paramers = "shipment_id=" + shipment_id;
@@ -735,15 +624,15 @@ exports.generateAWBFunction = async (req, res) => {
         "https://apiv2.shiprocket.in/v1/external/courier/assign/awb?" +
         paramers,
     };
-    await axios
-      .request(options)
+    await axios.request(options)
       .then(function (response) {
         if (response.data.awb_assign_status !== 0) {
           return res.json({
             success: true,
             message: "AWB generated successfully",
           });
-        } else {console.log("error in awb" , error )
+        } else {
+          console.log("error in awb", error);
           return res.json({
             success: false,
             message: response.data.message,
@@ -796,15 +685,12 @@ exports.generateAWBFunction = async (req, res) => {
   }
 };
 
-
-
-
 //POST || response is download url for invoice orders passed as array of ORDER_ids
 exports.generateInvoiceFunction = async (req, res) => {
   // https://apiv2.shiprocket.in/v1/external/orders/print/invoice
 
   let { order_ids } = req.body;
-
+    console.log(order_ids)
   let getToken = await srlogin();
   console.log("below is the api key token recieved: ");
   console.log(getToken);
@@ -836,7 +722,9 @@ exports.generateInvoiceFunction = async (req, res) => {
         }
       )
       .then(function (response) {
+        console.log(response)
         let invoice_url = response.data.invoice_url;
+        console.log(invoice_url)
         res.status(200).send({
           success: true,
           message: "Order invoice generated check here: ",
@@ -852,9 +740,6 @@ exports.generateInvoiceFunction = async (req, res) => {
       });
   }
 };
-
-
-
 
 //POST || requesting pickup of a shipment
 exports.setPickupFunction = async (req, res) => {
@@ -921,10 +806,6 @@ exports.setPickupFunction = async (req, res) => {
   }
 };
 
-
-
-
-
 //POST || generating manifest for shipment
 exports.generateManifestFunction = async (req, res) => {
   console.log("generate manifest");
@@ -973,8 +854,6 @@ exports.generateManifestFunction = async (req, res) => {
   }
 };
 
-
-
 //GET || getting shipment details by shipment id
 exports.shipmentDetsFunction = async (req, res) => {
   let { shipment_id } = req.body;
@@ -1002,9 +881,9 @@ exports.shipmentDetsFunction = async (req, res) => {
           });
         }
         let shipDets = response.data;
-        console.log("########################")
-        console.log(shipDets)
-        console.log("########################")
+        console.log("########################");
+        console.log(shipDets);
+        console.log("########################");
 
         return res.status(200).send({
           success: true,
@@ -1021,49 +900,6 @@ exports.shipmentDetsFunction = async (req, res) => {
       });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //POST || cancelling shipment by shipment id
 exports.cancelShipmentFunction = async (req, res) => {
@@ -1300,9 +1136,6 @@ exports.generateRetAWBFunction = async (req, res) => {
     console.log("token recieval failed from the srlogin function");
   }
 };
-
-
-
 
 //getToken Function ||Authentication via login and token recieval REQUIRED FOR ALL API CALLS
 function srlogin() {

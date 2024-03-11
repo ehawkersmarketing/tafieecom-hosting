@@ -236,7 +236,7 @@ const ShopPage = () => {
         {(activeFilter.filter !== "" || searchField !== "") && (
           <div className="blog-latest-post">
             <div className="w-100">
-              <h4>Search Posts</h4>
+              <h4>Search Results</h4>
             </div>
             <div className="below-line w-100">
               <div className="below-post"></div>

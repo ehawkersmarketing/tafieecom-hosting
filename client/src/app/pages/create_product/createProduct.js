@@ -195,7 +195,7 @@ const CreateProduct = () => {
                 />
               </div>
               <div className="form_input">
-                <label htmlFor="weight">Weight</label>
+                <label htmlFor="weight">Weight (in kg)</label>
                 <input
                   type="text"
                   onChange={onChangeInputHandler}
@@ -207,7 +207,7 @@ const CreateProduct = () => {
               </div>
 
               <div className="form_input">
-                <label htmlFor="minQuantity">Minimum Quantity</label>
+                <label htmlFor="minQuantity">Minimum Quantity (per order)</label>
                 <input
                   type="text"
                   onChange={onChangeInputHandler}
@@ -221,7 +221,7 @@ const CreateProduct = () => {
                 {value == 1 && <span>(Default)</span>}
               </div>
               <div className="form_input">
-                <label htmlFor="maxQuantity">Maximum Quantity</label>
+                <label htmlFor="maxQuantity">Maximum Quantity (per order)</label>
                 <input
                   type="text"
                   onChange={onChangeInputHandler}
@@ -232,7 +232,7 @@ const CreateProduct = () => {
                 />
               </div>
               <div className="form_input">
-                <label htmlFor="quantity">Quantity</label>
+                <label htmlFor="quantity">Quantity ( in stock)</label>
                 <input
                   type="text"
                   onChange={onChangeInputHandler}

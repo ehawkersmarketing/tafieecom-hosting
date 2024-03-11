@@ -29,9 +29,9 @@ const Header = () => {
            onClick: () => {
              // Clear local storage and navigate to the login page only after the user confirms
              localStorage.clear();
-             window.location.reload(); // Force refresh
-             navigate("/auth/login");
-           }
+            //  window.location.reload(); // Force refresh
+             window.location.href = "/auth/login"; // Directly navigate to the login page
+            }
          },
          {
            label: 'Cancel',
@@ -46,7 +46,12 @@ const Header = () => {
    
 
   const location = useLocation();
-
+const scrollToTop = ()=>{
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
   return (
     <nav
       className="heading navbar bg-body-tertiary navbar-expand-lg fixed-top"
@@ -88,6 +93,7 @@ const Header = () => {
               <Link
                 to="/"
                 className={location.pathname === "/" ? "active-link" : ""}
+                onClick={scrollToTop}
               >
                 <span>Home </span>
               </Link>
@@ -96,6 +102,7 @@ const Header = () => {
                 className={
                   location.pathname === "/shopPage" ? "active-link" : ""
                 }
+                onClick={scrollToTop}
               >
                 <span>Shop</span>
               </Link>
@@ -104,12 +111,14 @@ const Header = () => {
                 className={
                   location.pathname === "/services" ? "active-link" : ""
                 }
+                onClick={scrollToTop}
               >
                 <span>Service </span>
               </Link>
               <Link
                 to="/about"
                 className={location.pathname === "/about" ? "active-link" : ""}
+                onClick={scrollToTop}
               >
                 <span>About Us</span>
               </Link>
@@ -118,12 +127,14 @@ const Header = () => {
                 className={
                   location.pathname === "/exclusivestore" ? "active-link" : ""
                 }
+                onClick={scrollToTop}
               >
                 <span>Exclusive Store</span>
               </Link>
               <Link
                 to="/blog"
                 className={location.pathname === "/blog" ? "active-link" : ""}
+                onClick={scrollToTop}
               >
                 <span>Resource center</span>
               </Link>
@@ -133,6 +144,7 @@ const Header = () => {
                 <Link
                   className="signin"
                   to={`/Cart`}
+                  onClick={scrollToTop}
                 >
                   <i class="bi bi-cart3"></i>
                 </Link>

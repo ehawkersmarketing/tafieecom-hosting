@@ -6,6 +6,9 @@
   background-color: #19443f;
   height: 10rem;
 }
+.order-link{
+  cursor: pointer;
+}
 
 .admin-wrapper .image {
   display: flex;
@@ -310,6 +313,7 @@
 
 .admin-wrapper .admin-table-div {
   margin-top: 2rem;
+  cursor: pointer;
 }
 
 .admin-wrapper select[type="text"] {
@@ -524,6 +528,7 @@
     width: 13rem;
     font-size: 13px;
   }
+
   .admin-wrapper .admin-input-dropdown input {
     padding: 0.5rem;
   }
