@@ -142,14 +142,14 @@ const Cart = () => {
                         <td>{item?.productId?.price}</td>
                         <td>
                           <button
-                            class="minus"
+                            className="minus"
                             onClick={(e) => decreaseValueHandler(index)}
                           >
                             -
                           </button>
                           <span id="number">{item?.units}</span>
                           <button
-                            class="plus"
+                            className="plus"
                             onClick={(e) => increaseValueHandler(index)}
                           >
                             +
@@ -174,7 +174,7 @@ const Cart = () => {
               </tfoot>
             </table>
 
-            <div class="emptyDiv"></div>
+            <div className="emptyDiv"></div>
 
             <div className="checkout-subtotal">
               {/* <div className="subtotal">
