@@ -44,8 +44,8 @@ const Cart = () => {
         });
       } else {
         const { data } = await axios.put(`http://localhost:8080/api/addToCart`, {
-          "userId": user._id,
-          "productId": cart.products[index].productId._id,
+          "userId": user?._id,
+          "productId": cart.products[index].productId?._id,
           "units": 1
         });
         if (data.success) {
@@ -122,11 +122,11 @@ const Cart = () => {
                     <td>{item?.productId?.title}</td>
                     <td>{item?.productId?.price}</td>
                     <td>
-                      <button class="minus" onClick={(e) => decreaseValueHandler(index)}>
+                      <button className="minus" onClick={(e) => decreaseValueHandler(index)}>
                         -
                       </button>
                       <span id="number">{item?.units}</span>
-                      <button class="plus" onClick={(e) => increaseValueHandler(index)}>
+                      <button className="plus" onClick={(e) => increaseValueHandler(index)}>
                         +
                       </button>
                     </td>
@@ -146,7 +146,7 @@ const Cart = () => {
           </tfoot>
         </table>
         
-        <div class="emptyDiv"></div>
+        <div className="emptyDiv"></div>
 
 
         <div className="checkout-subtotal">
