@@ -203,7 +203,6 @@ exports.getUserById = async(req,res) =>{
     }
   };
 
-
 exports.updateUserById = async(req,res) => {
   try {
     const { id } = req.params;
@@ -230,3 +229,42 @@ exports.updateUserById = async(req,res) => {
   }
 
 }
+
+module.exports.updateUser = async (req, res, next) => {
+  try {
+     const { userId, email, userName } = req.body;
+     const user = await userModel.findOne({ _id: userId });
+     if (user) {
+       // Check if email or userName is provided and update accordingly
+       const updateFields = {};
+       if (email) updateFields.email = email;
+       if (userName) updateFields.userName = userName;
+ 
+       // Update user information if any updateFields are provided
+       if (Object.keys(updateFields).length > 0) {
+         await userModel.findOneAndUpdate({ _id: userId }, updateFields);
+         res.status(200).json({
+           success: true,
+           message: "User updated successfully",
+         });
+       } else {
+         res.status(200).json({
+           success: true,
+           message: "No updates made. User information is already up to date.",
+         });
+       }
+     } else {
+       res.status(404).json({
+         success: false,
+         message: "User not found",
+       });
+     }
+  } catch (error) {
+     res.status(500).json({
+       success: false,
+       message: "Failed to update user information",
+     });
+     next(error);
+  }
+ };
+ 

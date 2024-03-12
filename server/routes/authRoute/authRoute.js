@@ -13,6 +13,7 @@ const {
   searchUser,
   getUserById,
   updateUserById,
+  updateUser
 } = require("../../controlllers/auth/authController");
 
 router.post("/addrole", addRole);
@@ -26,6 +27,7 @@ router.get("/user/:id" , getUserById)
 router.put("/updateUser/:id",updateUserById)
 
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+router.put("/updateUserInfo/:id", updateUser)
 
 router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/'
