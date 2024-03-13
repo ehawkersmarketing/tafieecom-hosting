@@ -6,9 +6,9 @@ module.exports.putUserAddress = async (req, res, next) => {
         const { userId, street, landmark, city, country, phone, dob, state, zipCode, email } = req.body;
         const user = await userModel.findOne({ _id: userId });
         if (user) {
-            if (email) {
-                await userModel.findOneAndUpdate({ _id: userId }, { email: email, phone: phone, dob: dob });
-            }
+            // if (email) {
+            //     await userModel.findOneAndUpdate({ _id: userId }, { email: email, phone: phone, dob: dob });
+            // }
             const address = await userAddress.findOne({ userId: user._id });
             if (address) {
                 const newUserAddress = await userAddress.findOneAndUpdate({ userId: user._id }, {

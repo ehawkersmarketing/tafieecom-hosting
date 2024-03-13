@@ -14,11 +14,11 @@ const Invoice = () => {
     const products = order?.products;
     const user = JSON.parse(localStorage.getItem('user'))
 
-    useEffect(() => {
-        if (!user) {
-            navigate('auth/login')
-        }
-    }, [order]);
+    // useEffect(() => {
+    //     if (!user) {
+    //         navigate('auth/login')
+    //     }
+    // }, [order]);
 
     const pdfRef = useRef();
     const downloadPDF = () => {
