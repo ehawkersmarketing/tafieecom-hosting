@@ -158,12 +158,13 @@ exports.checkStatusFunction = async (req, res) => {
       // and include a source parameter to indicate the transaction source
       console.log("satus before confirmation",status)
       return res.redirect(
-         `http://twicks.in/OrderConfirmationPage/${status.orderId}?source=app`
+        //  `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+         `twicks://OrderConfirmation?${status.orderId}`
       );
      } else {
       res.success = false;
       return res.redirect(
-         `http://twicks.in/OrderConfirmation/${status.orderId}?source=app`
+                 `twicks://OrderConfirmation?${status.orderId}`
       );
      }}
     }
