@@ -157,14 +157,17 @@ exports.checkStatusFunction = async (req, res) => {
       // Append the success status as a query parameter to the redirect URL
       // and include a source parameter to indicate the transaction source
       console.log("satus before confirmation",status)
-      return res.redirect(
-        //  `http://twicks.in/OrderConfirmationPage/${status.orderId}`
-         `twicks://OrderConfirmation?${status.orderId}`
-      );
+      // return res.redirect(
+      //   //  `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+      //    `twicks://OrderConfirmation?${status.orderId}`
+      // );
+      const deepLinkUrl = `twicks://OrderConfirmation?orderId=${status.orderId}`;
+ // Redirect to the app
+    return res.redirect(deepLinkUrl)
      } else {
       res.success = false;
       return res.redirect(
-                 `twicks://OrderConfirmation?${status.orderId}`
+        `twicks://OrderConfirmation?${status.orderId}`
       );
      }}
     }
