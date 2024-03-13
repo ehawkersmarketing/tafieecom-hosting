@@ -59,7 +59,7 @@ exports.payFunction = async (req, res) => {
     axios
       .request(options)
       .then(function (response) {
-        console.log("get the pay response ",response.data.data.instrumentResponse.redirect.url);
+        console.log("get the pay response ",response.data.data);
         res.json({
           success: true,
           data: response.data.data.instrumentResponse.redirectInfo.url,
