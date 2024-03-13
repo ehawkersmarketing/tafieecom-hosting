@@ -154,19 +154,17 @@ exports.checkStatusFunction = async (req, res) => {
     let status = await statusCall(n, options, cartId , transactionId);
     if (status.success) {
       // Append the success status as a query parameter to the redirect URL
+      // and include a source parameter to indicate the transaction source
       return res.redirect(
-         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+         `http://twicks.in/OrderConfirmationPage/${status.orderId}?source=app`
       );
      } else {
       res.success = false;
       return res.redirect(
-         `http://twicks.in/OrderConfirmation/${status.orderId}`
+         `http://twicks.in/OrderConfirmation/${status.orderId}?source=app`
       );
-      
-     }
-     
-  }
-};
+     }}
+    }
 
 async function statusCall(n, options, cartId , transactionId) {
   try {
