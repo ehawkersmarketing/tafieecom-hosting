@@ -59,6 +59,7 @@ exports.payFunction = async (req, res) => {
     axios
       .request(options)
       .then(function (response) {
+        console.log("get the pay response ",response.data.data.instrumentResponse.redirect.url);
         res.json({
           success: true,
           data: response.data.data.instrumentResponse.redirectInfo.url,
@@ -155,6 +156,7 @@ exports.checkStatusFunction = async (req, res) => {
     if (status.success) {
       // Append the success status as a query parameter to the redirect URL
       // and include a source parameter to indicate the transaction source
+      console.log("satus before confirmation",status)
       return res.redirect(
          `http://twicks.in/OrderConfirmationPage/${status.orderId}?source=app`
       );
@@ -217,6 +219,7 @@ async function statusCall(n, options, cartId , transactionId) {
               }
             );
             if (request.success) {
+              console.log("fetch request approve",data.data._id)
               return {
                 success: true,
                 orderId: data.data._id,
@@ -252,7 +255,7 @@ async function statusCall(n, options, cartId , transactionId) {
 
 exports.getOrderLogFunction = async (req, res) => {
   try {
-    // console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
+    console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
   } catch (err) {
     console.log(err);
     return res.status(500).send({
