@@ -24,7 +24,7 @@ exports.payFunction = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount * 100,
-      redirectUrl: `http://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
+      redirectUrl: `twicks://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
@@ -154,28 +154,17 @@ exports.checkStatusFunction = async (req, res) => {
     let n = 1;
     let status = await statusCall(n, options, cartId , transactionId);
     if (status.success) {
-      // Append the success status as a query parameter to the redirect URL
-      // and include a source parameter to indicate the transaction source
-      // console.log("satus before confirmation",status)
-      // // return res.redirect(
-      // //   //  `http://twicks.in/OrderConfirmationPage/${status.orderId}`
-      // //    `twicks://OrderConfirmation?${status.orderId}`
-      // // );
-      // const deepLinkUrl = `twicks://OrderConfirmation?orderId=${status.orderId}`;
-
-
-      
- // Redirect to the app
-    // return res.redirect(deepLinkUrl)
-    console.log("status reached",status)
-    res.json({ success: true, redirectTo: 'OrderConfirmation' });
-
+      res.success = true
+     return res.redirect(
+      `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+     )
 
      } else {
-      res.success = false;
+      res.success = false
       return res.redirect(
-        `twicks://OrderConfirmation?${status.orderId}`
-      );
+        `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+       )
+  
      }}
     }
 
