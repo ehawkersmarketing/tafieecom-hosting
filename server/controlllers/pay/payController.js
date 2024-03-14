@@ -24,7 +24,7 @@ exports.payFunction = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount * 100,
-      redirectUrl: `https://backend.twicks.in/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
+      redirectUrl: `twicks://backend.twicks.in/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
       callbackUrl: "https://backend.twicks.in/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
@@ -59,6 +59,7 @@ exports.payFunction = async (req, res) => {
     axios
       .request(options)
       .then(function (response) {
+        console.log("get the pay response ",response.data.data);
         res.json({
           success: true,
           data: response.data.data.instrumentResponse.redirectInfo.url,
@@ -153,20 +154,19 @@ exports.checkStatusFunction = async (req, res) => {
     let n = 1;
     let status = await statusCall(n, options, cartId , transactionId);
     if (status.success) {
-      // Append the success status as a query parameter to the redirect URL
-      return res.redirect(
-         `http://twicks.in/OrderConfirmationPage/${status.orderId}`
-      );
+      res.success = true
+     return res.redirect(
+      `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+     )
+
      } else {
-      res.success = false;
+      res.success = false
       return res.redirect(
-         `http://twicks.in/OrderConfirmation/${status.orderId}`
-      );
-      
-     }
-     
-  }
-};
+        `http://twicks.in/OrderConfirmationPage/${status.orderId}`
+       )
+  
+     }}
+    }
 
 async function statusCall(n, options, cartId , transactionId) {
   try {
@@ -219,6 +219,7 @@ async function statusCall(n, options, cartId , transactionId) {
               }
             );
             if (request.success) {
+              console.log("fetch request approve",data.data._id)
               return {
                 success: true,
                 orderId: data.data._id,
@@ -254,7 +255,7 @@ async function statusCall(n, options, cartId , transactionId) {
 
 exports.getOrderLogFunction = async (req, res) => {
   try {
-    // console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
+    console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
   } catch (err) {
     console.log(err);
     return res.status(500).send({
