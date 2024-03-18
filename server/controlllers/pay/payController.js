@@ -199,8 +199,9 @@ async function statusCall(n, options, cartId , transactionId) {
               transactionStatus: response.data.data.state,
             }
           );
-          console.log("data for place order",data)
+          console.log("data for place order",data.data, "=======================================",data.data.user)
           const responseData = await transactionModel({ 
+            userId:data.data.user,
             orderId:data.data._id, 
             transactionId:data.data.transactionId,
             merchantTransactionId:transactionId,
