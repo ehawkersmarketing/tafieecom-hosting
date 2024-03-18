@@ -43,7 +43,7 @@ exports.getLatestTransactionByUserId = async (req, res) => {
 
         // Fetch the latest transaction for the specified user ID by sorting by the 'date' field in descending order
         // Use 'userId' instead of 'merchantUserId' to match the schema
-        const latestTransaction = await transactionModel.findOne({ orderId: userId }).sort({ date: -1 });
+        const latestTransaction = await transactionModel.findOne({ userId: userId }).sort({ date: -1 }).populate("orderId")
         console.log("Query result:", latestTransaction);
         
         if (!latestTransaction) {
