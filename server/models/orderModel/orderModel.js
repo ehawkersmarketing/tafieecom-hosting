@@ -60,8 +60,11 @@ const orderSchema = new mongoose.Schema(
             type: Number,
         },
         userAddress: {
-            type: mongoose.Types.ObjectId,
-            ref: "UserAddress",
+            street:String,
+            country:String,
+            zipCode:Number,
+            landmark:String,
+            city:String
         },
         timestamps: {
             type: Date,
