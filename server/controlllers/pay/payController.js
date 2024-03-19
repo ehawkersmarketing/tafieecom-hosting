@@ -16,7 +16,7 @@ const giveUniqueId = (length) => {
 exports.payFunction = async (req, res) => {
   try {
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
-    const { amount, cartId, street, city, country, landmark, zipCode } =
+    const { amount, cartId, street, city, country, state, zipCode , landmark } =
       req.body;
     const data = {
       //Required data structure for the pay API call
@@ -24,7 +24,7 @@ exports.payFunction = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount * 100,
-      redirectUrl: `https://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}&street=${street}&city=${city}&country=${country}&landmark=${landmark}&zipCode=${zipCode}`, //url to be redirected post complete transaction
+      redirectUrl: `https://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}&street=${street}&city=${city}&country=${country}&state=${state}&zipCode=${zipCode}&landmark=${landmark}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
@@ -83,7 +83,7 @@ exports.payFunction = async (req, res) => {
 };
 
 exports.checkStatusFunction = async (req, res) => {
-  const { transactionId, cartId, isRefund , street , country , zipCode , city , landmark  } = req.query;
+  const { transactionId, cartId, isRefund , street , country , zipCode , city , state , landmark  } = req.query;
   if (isRefund) {
     const string =
       `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
@@ -100,7 +100,7 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
-    let status = await statusCall(n, options, cartId, transactionId , street , city , landmark , country , zipCode);
+    let status = await statusCall(n, options, cartId, transactionId , street , city , state , country , zipCode,landmark);
     if (status) {
       const order = await orderModel.findOneAndUpdate(
         {
@@ -151,7 +151,7 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
-    let status = await statusCall(n, options, cartId, transactionId , street, city, country, landmark, zipCode );
+    let status = await statusCall(n, options, cartId, transactionId , street, city, country, state, zipCode , landmark );
     if (status.success) {
       res.success = true;
       return res.redirect(
@@ -166,7 +166,7 @@ exports.checkStatusFunction = async (req, res) => {
   }
 };
 
-async function statusCall(n, options, cartId, transactionId ,street, city, country, landmark, zipCode ) {
+async function statusCall(n, options, cartId, transactionId ,street, city, country, state, zipCode , landmark ) {
   try {
     if (cartId == null) {
       let response = await axios.request(options);
@@ -197,8 +197,9 @@ async function statusCall(n, options, cartId, transactionId ,street, city, count
               transactionStatus: response.data.data.state,
               street: street,
               city: city,
+              landmark:landmark,
               country: country,
-              landmark: landmark,
+              state: state,
               zipCode: zipCode,
             }
           );
