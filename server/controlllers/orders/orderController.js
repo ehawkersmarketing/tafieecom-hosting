@@ -73,7 +73,7 @@ module.exports.placeOrder = async (req, res, next) => {
                 products: cart.products,
                 user: cart.userId,
                 amount: totalAmount,
-                shipment_charge:amount - totalAmount,
+                shipment_charge: amount - totalAmount,
                 transactionId: transactionId,
                 transactionStatus: transactionStatus,
                 userAddress: {
@@ -87,8 +87,6 @@ module.exports.placeOrder = async (req, res, next) => {
                 status:''
             });
             await newOrder.save();
-
-            console.log("================================",newOrder)
 
             for (var i = 0; i < cart.products.length; i++) {
 
