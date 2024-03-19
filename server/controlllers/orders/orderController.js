@@ -61,7 +61,7 @@ module.exports.getAllOrderByUser = async (req, res, next) => {
 
 module.exports.placeOrder = async (req, res, next) => {
     try {
-        const { cartId, transactionId, amount, transactionStatus , street , landmark ,country , city , zipCode } = req.body;
+        const { cartId, transactionId, amount, transactionStatus , street ,landmark, state ,country , city , zipCode } = req.body;
         const cart = await cartModel.findOne({ _id: cartId }).populate('products.productId');
         if (cart) {
             let totalAmount = 0;
@@ -78,8 +78,9 @@ module.exports.placeOrder = async (req, res, next) => {
                 transactionStatus: transactionStatus,
                 userAddress: {
                     street:street,
-                    landmark:landmark,
+                    state:state,
                     country:country,
+                    landmark:landmark,
                     city:city,
                     zipCode:zipCode
                 },
