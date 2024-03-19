@@ -18,6 +18,7 @@ exports.payFunction = async (req, res) => {
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
     const { amount, cartId, street, city, country, state, zipCode , landmark } =
       req.body;
+      console.log("xnjasnsjcus")
     const data = {
       //Required data structure for the pay API call
       merchantId: process.env.MERCHANT_ID,
@@ -152,7 +153,6 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
-    console.log("(((((((((((((((((((((",  cartId, transactionId , street, city, country, state, zipCode , landmark )
     let status = await statusCall(n, options, cartId, transactionId , street, city, country, state, zipCode , landmark );
     if (status.success) {
       res.success = true;
@@ -189,8 +189,8 @@ async function statusCall(n, options, cartId, transactionId ,street, city, count
     } else {
       let response = await axios.request(options);
       if (response.data.success === true) {
-        console.log('@@@@@@@@@@@@@' , response.data)
         try {
+          console.log("&&&&&&&&&&&&&&&", response.data)
           const { data } = await axios.post(
             "http://localhost:8080/api/placeOrder",
             {
@@ -206,15 +206,14 @@ async function statusCall(n, options, cartId, transactionId ,street, city, count
               zipCode: zipCode,
             }
           );
-
-          console.log("data for place order",data.data, "=======================================",data.data.user)
-          const responseData = await transactionModel({ 
-            userId:data.data.user,
-            orderId:data.data._id, 
-            transactionId:data.data.transactionId,
-            merchantTransactionId:transactionId,
-            shipment_charge:data.data.shipment_charge,
-            merchantUserId:process.env.MERCHANT_ID,
+          console.log("======================",data,"++++++++++++++++++++++++++")
+          
+          const responseData = await transactionModel({
+            orderId: data.data._id,
+            transactionId: data.data.transactionId,
+            merchantTransactionId: transactionId,
+            shipment_charge: data.data.shipment_charge,
+            merchantUserId: process.env.MERCHANT_ID,
             amount: data.data.amount,
             status: "payment Successfull",
             cartId: cartId,
@@ -266,7 +265,7 @@ exports.getOrderLogFunction = async (req, res) => {
   try {
     console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(500).send({
       message:
         "ERROR IN GETTING POST REQUEST FROM THE PHONEPE API CONFIRMING PAYMENT INITIATION",
