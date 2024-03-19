@@ -22,6 +22,7 @@ const serviceEnquiryForm = require("./routes/serviceEnquiryRoute/serviceEnquiryR
 const googleAuthRoute = require("./routes/googleAuthRoute/googleAuthRoute");
 const path = require("path");
 const graphRoute = require('./routes/graphRoute/graphRoute')
+const transactionRoute = require('./routes/transactionRoute/transactionRoute')
 // require('./middleware/passport')(passport);
 
 app.use(express.json());
@@ -106,6 +107,8 @@ app.use("/api", reviewRoute);
 app.use("/api" , graphRoute);
 app.use("/api" , enquiryRoute)
 app.use('/enquiry',serviceEnquiryForm)
+app.use("/api" , transactionRoute)
+
 
 app.use(express.static("public"));
 app.get("/:file", (req, res) => {

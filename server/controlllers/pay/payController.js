@@ -204,14 +204,15 @@ async function statusCall(n, options, cartId, transactionId ,street, city, count
               zipCode: zipCode,
             }
           );
-          console.log("======================",data,"++++++++++++++++++++++++++")
-          
-          const responseData = await transactionModel({
-            orderId: data.data._id,
-            transactionId: data.data.transactionId,
-            merchantTransactionId: transactionId,
-            shipment_charge: data.data.shipment_charge,
-            merchantUserId: process.env.MERCHANT_ID,
+
+          console.log("data for place order",data.data, "=======================================",data.data.user)
+          const responseData = await transactionModel({ 
+            userId:data.data.user,
+            orderId:data.data._id, 
+            transactionId:data.data.transactionId,
+            merchantTransactionId:transactionId,
+            shipment_charge:data.data.shipment_charge,
+            merchantUserId:process.env.MERCHANT_ID,
             amount: data.data.amount,
             status: "payment Successfull",
             cartId: cartId,
