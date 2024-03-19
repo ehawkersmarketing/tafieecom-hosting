@@ -28,51 +28,6 @@ exports.createTransaction = async (req, res) => {
   }
 };
 
-exports.getLatestTransactionByUserId = async (req, res) => {
-  try {
-    // Extract the user ID from the request parameters
-    const userId = req.params.userId;
-    console.log(userId);
-
-    if (!userId) {
-      return res.status(400).send({
-        success: false,
-        message: "User ID is required",
-      });
-    }
-    const latestTransaction = await transactionModel
-      .findOne({ userId: userId })
-      .sort({ date: -1 })
-      .populate({
-        path: 'orderId',
-        populate: {
-            path: 'userAddress',
-            model: 'UserAddress' // Assuming 'Address' is the name of your Address model
-        }
-    });
-    console.log("Query result:", latestTransaction);
-
-    if (!latestTransaction) {
-      return res.status(404).send({
-        success: false,
-        message: "No transactions found for the specified user ID",
-      });
-    }
-
-    res.status(200).send({
-      success: true,
-      message:
-        "Latest transaction for the specified user ID fetched successfully",
-      data: latestTransaction,
-    });
-  } catch (error) {
-    console.error("Error fetching latest transaction by user ID:", error);
-    return res.status(500).send({
-      success: false,
-      message: "Server error",
-    });
-  }
-};
 
 exports.getTransactionByMerchantTransactionId = async (req, res) => {
   try {
