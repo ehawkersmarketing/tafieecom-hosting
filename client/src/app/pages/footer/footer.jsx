@@ -21,6 +21,7 @@ const Footer = () => {
       [event.target.name]: event.target.value,
     });
   };
+  
   const submitData = () => {
     submitEnquiry();
     sendToWhatsapp();
