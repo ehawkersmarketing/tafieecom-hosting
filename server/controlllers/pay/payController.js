@@ -24,7 +24,7 @@ exports.payFunction = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: process.env.MERCHANT_USER_ID,
       amount: amount * 100,
-      redirectUrl: `https://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}`, //url to be redirected post complete transaction
+      redirectUrl: `https://localhost:8080/api/pay/checkStatus?transactionId=${merchantTransactionId}&cartId=${cartId}&street=${street}&city=${city}&country=${country}&landmark=${landmark}&zipCode=${zipCode}`, //url to be redirected post complete transaction
       redirectMode: "REDIRECT",
       callbackUrl: "https://localhost:8080/api/pay/getOrderLog", //url to post complete transaction response by API
       mobileNumber: process.env.MOBILE_NUMBER,
@@ -83,7 +83,7 @@ exports.payFunction = async (req, res) => {
 };
 
 exports.checkStatusFunction = async (req, res) => {
-  const { transactionId, cartId, isRefund } = req.query;
+  const { transactionId, cartId, isRefund , street , country , zipCode , city , landmark  } = req.query;
   if (isRefund) {
     const string =
       `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
@@ -100,7 +100,7 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
-    let status = await statusCall(n, options, cartId, transactionId);
+    let status = await statusCall(n, options, cartId, transactionId , street , city , landmark , country , zipCode);
     if (status) {
       const order = await orderModel.findOneAndUpdate(
         {
@@ -151,7 +151,7 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
-    let status = await statusCall(n, options, cartId, transactionId);
+    let status = await statusCall(n, options, cartId, transactionId , street, city, country, landmark, zipCode );
     if (status.success) {
       res.success = true;
       return res.redirect(
@@ -166,7 +166,7 @@ exports.checkStatusFunction = async (req, res) => {
   }
 };
 
-async function statusCall(n, options, cartId, transactionId) {
+async function statusCall(n, options, cartId, transactionId ,street, city, country, landmark, zipCode ) {
   try {
     if (cartId == null) {
       let response = await axios.request(options);
