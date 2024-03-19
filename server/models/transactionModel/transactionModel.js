@@ -1,31 +1,34 @@
 const mongoose = require("mongoose");
 
 const transactionSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+  },
   transactionId: {
     type: String,
     trim: true,
   },
-  orderId:{
+  orderId: {
     type: mongoose.Types.ObjectId,
     ref: "Order",
     // default: new mongoose.Types.ObjectId("65a1077e2d86e257edce492c"),
   },
-  merchantTransactionId:{
-    type:String
+  merchantTransactionId: {
+    type: String,
   },
-  shipment_charge:{
-    type:Number
+  shipment_charge: {
+    type: Number,
   },
-  merchantUserId:{
-    type:String
+  merchantUserId: {
+    type: String,
   },
   refundTransactionId: {
     type: String,
     trim: true,
     default: "",
   },
-  refundMerchantTransactionId:{
-      type:String
+  refundMerchantTransactionId: {
+    type: String,
   },
   amount: {
     type: Number,
@@ -37,7 +40,7 @@ const transactionSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default:Date.now()
+    default: Date.now(),
   },
   cartId: {
     type: mongoose.Types.ObjectId,
