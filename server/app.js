@@ -18,7 +18,6 @@ const shipRoute = require("./routes/shipRoute/shipRoute");
 const reviewRoute = require('./routes/review/reviewRoute');
 const orderRoute = require("./routes/orderRoute/orderRoute");
 const enquiryRoute = require("./routes/enquiryRoute/enquiryRoute");
-const serviceEnquiryForm = require("./routes/serviceEnquiryRoute/serviceEnquiryRoute")
 const googleAuthRoute = require("./routes/googleAuthRoute/googleAuthRoute");
 const path = require("path");
 const graphRoute = require('./routes/graphRoute/graphRoute')
@@ -106,10 +105,7 @@ app.use("/api", serviceRoute);
 app.use("/api", reviewRoute);
 app.use("/api" , graphRoute);
 app.use("/api" , enquiryRoute)
-app.use('/enquiry',serviceEnquiryForm)
 app.use("/api" , transactionRoute)
-
-
 app.use(express.static("public"));
 app.get("/:file", (req, res) => {
   res.sendFile(__dirname + `/public/images/${req.params.file}`);
