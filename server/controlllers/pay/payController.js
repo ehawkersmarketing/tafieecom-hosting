@@ -20,6 +20,7 @@ exports.payFunction = async (req, res) => {
     const { amount, cartId, street, city, country, state, zipCode , landmark } =
       req.body;
       console.log(amount, cartId, street, city, country, state, zipCode , landmark)
+      console.log("xnjasnsjcus")
     const data = {
       //Required data structure for the pay API call
       merchantId: process.env.MERCHANT_ID,
@@ -194,7 +195,11 @@ async function statusCall(n, options, cartId, transactionId ,street, city, count
       console.log(response , "++++++++++++++++++++++")
       if (response.data.success === true) {
         try {
+
           console.log(response.data.success,"++")
+
+          console.log("&&&&&&&&&&&&&&&", response.data)
+
           const { data } = await axios.post(
             "http://localhost:8080/api/placeOrder",
             {
@@ -269,7 +274,7 @@ exports.getOrderLogFunction = async (req, res) => {
   try {
     console.log(req); //logging the post req. recieved at the callBack url upon transaction completion
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(500).send({
       message:
         "ERROR IN GETTING POST REQUEST FROM THE PHONEPE API CONFIRMING PAYMENT INITIATION",
