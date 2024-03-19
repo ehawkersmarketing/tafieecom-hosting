@@ -73,7 +73,7 @@ module.exports.placeOrder = async (req, res, next) => {
                 products: cart.products,
                 user: cart.userId,
                 amount: totalAmount,
-                shipment_charge: amount - totalAmount,
+                shipment_charge: (amount - totalAmount)/100,
                 transactionId: transactionId,
                 transactionStatus: transactionStatus,
                 userAddress: {

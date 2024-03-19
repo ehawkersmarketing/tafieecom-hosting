@@ -120,14 +120,14 @@ const Invoice = () => {
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>{((order?.shipment_charge)?.toLocaleString("en-IN"))/100}</td>
+                                    <td>{(order?.shipment_charge)?.toLocaleString("en-IN")}</td>
                                 </tr>
                                 <tr>
                                     <td>Total Gross</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>{((order?.amount + order?.shipment_charge)?.toLocaleString("en-IN"))/100}</td>
+                                    <td>{(order?.amount + order?.shipment_charge)?.toLocaleString("en-IN")}</td>
                                 </tr>
                             </tfoot>
                         </table>
