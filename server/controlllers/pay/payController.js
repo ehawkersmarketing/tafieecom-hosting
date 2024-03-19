@@ -152,6 +152,7 @@ exports.checkStatusFunction = async (req, res) => {
       },
     };
     let n = 1;
+    console.log("(((((((((((((((((((((",  cartId, transactionId , street, city, country, state, zipCode , landmark )
     let status = await statusCall(n, options, cartId, transactionId , street, city, country, state, zipCode , landmark );
     if (status.success) {
       res.success = true;
@@ -188,6 +189,7 @@ async function statusCall(n, options, cartId, transactionId ,street, city, count
     } else {
       let response = await axios.request(options);
       if (response.data.success === true) {
+        console.log('@@@@@@@@@@@@@' , response.data)
         try {
           const { data } = await axios.post(
             "http://localhost:8080/api/placeOrder",
