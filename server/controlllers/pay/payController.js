@@ -15,9 +15,11 @@ const giveUniqueId = (length) => {
 //redirecting to PhonePe for payment facilitation
 exports.payFunction = async (req, res) => {
   try {
+    console.log("it is called")
     const merchantTransactionId = giveUniqueId(16); // use uniqid package for generating this
     const { amount, cartId, street, city, country, state, zipCode , landmark } =
       req.body;
+      console.log(amount, cartId, street, city, country, state, zipCode , landmark)
       console.log("xnjasnsjcus")
     const data = {
       //Required data structure for the pay API call
@@ -86,6 +88,7 @@ exports.payFunction = async (req, res) => {
 
 exports.checkStatusFunction = async (req, res) => {
   const { transactionId, cartId, isRefund , street , country , zipCode , city , state , landmark  } = req.query;
+  console.log("check status called",transactionId, cartId, isRefund , street , country , zipCode , city , state , landmark)
   if (isRefund) {
     const string =
       `/pg/v1/status/${process.env.MERCHANT_ID}/${transactionId}` +
@@ -171,6 +174,7 @@ exports.checkStatusFunction = async (req, res) => {
 async function statusCall(n, options, cartId, transactionId ,street, city, country, state, zipCode , landmark ) {
   try {
     if (cartId == null) {
+      console.log(cartId)
       let response = await axios.request(options);
       if (response.data.success === true) {
         return true;
@@ -188,9 +192,14 @@ async function statusCall(n, options, cartId, transactionId ,street, city, count
       }
     } else {
       let response = await axios.request(options);
+      console.log(response , "++++++++++++++++++++++")
       if (response.data.success === true) {
         try {
+
+          console.log(response.data.success,"++")
+
           console.log("&&&&&&&&&&&&&&&", response.data)
+
           const { data } = await axios.post(
             "http://localhost:8080/api/placeOrder",
             {
