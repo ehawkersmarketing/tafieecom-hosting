@@ -62,7 +62,7 @@ exports.payFunction = async (req, res) => {
         res.json({
           success: true,
           data: response.data.data.instrumentResponse.redirectInfo.url,
-          merchantTransactionId:merchantTransactionId
+          merchantTransactionId:response.data.data.merchantTransactionId
         });
       })
       .catch(function (error) {
