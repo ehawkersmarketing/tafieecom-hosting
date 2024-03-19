@@ -1,11 +1,10 @@
 .invoice-main {
     background-color: #fff;
     border-radius: 1px;
-    /* box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); */
     box-sizing: border-box;
-    margin: 2rem auto;
+    margin: 2rem 2rem;
     padding-bottom: 2rem;
-    width: 8.5in;
+    width: 90%;
 }
 
 .invoice-main .invoice-header h1 {
