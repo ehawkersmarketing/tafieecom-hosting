@@ -135,14 +135,29 @@ const Checkout = () => {
           "Submit adress details and calculate shipment before placing order"
         );
       } else {
+        // const { data } = await axios.post(
+        //   "http://localhost:8080/api/putUserAddress",
+        //   {
+        //     userId: user._id,
+        //     userName:formData.userName,
+        //     street: formData.Address,
+        //     landmark: formData.Address2,
+        //     email: formData.Email,
+        //     city: formData.City,
+        //     country: formData.Country,
+        //     state: formData.State,
+        //     zipCode: formData.PinCode,
+        //   }
+        // );
+        // if (data.success) {
+        const totalPayAmount = cart.totalPrice + shipCharge;
         const { data } = await axios.post(
-          "http://localhost:8080/api/putUserAddress",
+          "http://localhost:8080/api/pay/phonePePayment",
           {
-            userId: user._id,
-            userName:formData.userName,
+            amount: totalPayAmount,
+            cartId: cart.cartId,
             street: formData.Address,
             landmark: formData.Address2,
-            email: formData.Email,
             city: formData.City,
             country: formData.Country,
             state: formData.State,
@@ -150,26 +165,17 @@ const Checkout = () => {
           }
         );
         if (data.success) {
-          const totalPayAmount = cart.totalPrice + shipCharge;
-          const { data } = await axios.post(
-            "http://localhost:8080/api/pay/phonePePayment",
-            {
-              amount: totalPayAmount,
-              cartId: cart.cartId,
-            }
-          );
-          if (data.success) {
-            window.location.replace(data.data);
-          }
-        } else {
-          toast.error(`${data.message}`, {
-            position: "bottom-right",
-            autoClose: 8000,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "dark",
-          });
+          window.location.replace(data.data);
         }
+        // } else {
+        //   toast.error(`${data.message}`, {
+        //     position: "bottom-right",
+        //     autoClose: 8000,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     theme: "dark",
+        //   });
+        // }
       }
     } catch (error) {
       console.error("Failed to submit form", error);
