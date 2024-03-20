@@ -105,8 +105,7 @@ app.use("/api", serviceRoute);
 app.use("/api", reviewRoute);
 app.use("/api" , graphRoute);
 app.use("/api" , enquiryRoute)
-app.use("/api" , transactionRoute)
-
+// app.use("/api" , transactionRoute)
 app.use(express.static("public"));
 app.get("/:file", (req, res) => {
   res.sendFile(__dirname + `/public/images/${req.params.file}`);
